@@ -16,10 +16,7 @@ const links = [
     class="sticky top-0 z-50 backdrop-blur-md bg-amber-50/80 border-b border-amber-200/50 shadow-sm"
   >
     <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-      <router-link
-        to="/"
-        class="flex items-center gap-2 no-underline group"
-      >
+      <router-link to="/" class="flex items-center gap-2 no-underline group">
         <span class="text-2xl">🥑</span>
         <span
           class="font-bold text-lg tracking-tight text-emerald-900 group-hover:text-emerald-700 transition-colors"

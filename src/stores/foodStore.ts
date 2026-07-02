@@ -43,11 +43,7 @@ export const useFoodStore = defineStore('food', () => {
     )
   })
 
-  function addEntry(
-    food: FoodItem,
-    servings: number,
-    mealType: MealType,
-  ) {
+  function addEntry(food: FoodItem, servings: number, mealType: MealType) {
     const today = getToday()
     if (!dailyLogs.value[today]) {
       dailyLogs.value[today] = []
