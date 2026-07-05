@@ -45,7 +45,6 @@ OLD*
 PLANTILLA*
 /.agents
 /.opencode
-/.config*
 /.config
 .prettierrc
 AGENTS.md
