@@ -3,7 +3,7 @@ import AppHeader from './components/AppHeader.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-amber-50/30">
+  <div class="min-h-screen" style="background: var(--clr-bg)">
     <AppHeader />
 
     <main class="pb-16">
@@ -14,8 +14,11 @@ import AppHeader from './components/AppHeader.vue'
       </router-view>
     </main>
 
-    <footer class="border-t border-amber-200/50 py-6 text-center text-xs text-slate-400">
-      <p>Avocato 🥑 — Tu diario nutricional</p>
+    <footer
+      class="py-8 text-center text-xs"
+      style="color: var(--clr-text-faint); border-top: 1px solid var(--clr-border-subtle)"
+    >
+      <p class="font-display" style="font-style: italic">Avocato — Tu diario nutricional</p>
     </footer>
   </div>
 </template>

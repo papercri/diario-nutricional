@@ -19,9 +19,9 @@ const strokeDashoffset = computed(() => {
 })
 
 const ringColor = computed(() => {
-  if (percentage.value >= 90) return '#f59e0b'
-  if (percentage.value >= 70) return '#84cc16'
-  return '#10b981'
+  if (percentage.value >= 90) return '#d4a843'
+  if (percentage.value >= 70) return '#a8b89a'
+  return '#5b7a3d'
 })
 </script>
 
@@ -31,18 +31,25 @@ const ringColor = computed(() => {
       <svg class="w-full h-full -rotate-90" viewBox="0 0 200 200">
         <defs>
           <filter id="ring-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feGaussianBlur stdDeviation="4" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
-        <circle cx="100" cy="100" r="90" fill="none" stroke="#e5e7eb" stroke-width="14" />
+        <circle
+          cx="100"
+          cy="100"
+          r="90"
+          fill="none"
+          :stroke="'var(--clr-surface-alt)'"
+          stroke-width="12"
+        />
         <circle
           cx="100"
           cy="100"
           r="90"
           fill="none"
           :stroke="ringColor"
-          stroke-width="14"
+          stroke-width="12"
           stroke-linecap="round"
           :stroke-dasharray="circumference"
           :stroke-dashoffset="strokeDashoffset"
@@ -51,14 +58,28 @@ const ringColor = computed(() => {
         />
       </svg>
       <div class="absolute inset-0 flex flex-col items-center justify-center">
-        <span class="text-3xl font-bold text-emerald-900 font-display">
+        <span
+          class="font-display"
+          style="font-size: 2rem; font-weight: 700; color: var(--clr-text)"
+        >
           {{ Math.round(consumed) }}
         </span>
-        <span class="text-sm text-slate-500">/ {{ Math.round(target) }} kcal</span>
-        <span v-if="remaining > 0" class="text-xs text-slate-400 mt-1">
+        <span style="font-size: 0.875rem; color: var(--clr-text-muted)">
+          / {{ Math.round(target) }} kcal
+        </span>
+        <span
+          v-if="remaining > 0"
+          style="font-size: 0.75rem; color: var(--clr-text-faint); margin-top: 4px"
+        >
           {{ Math.round(remaining) }} restantes
         </span>
-        <span v-else class="text-xs text-amber-500 font-medium mt-1"> ¡Meta cumplida! </span>
+        <span
+          v-else
+          class="font-semibold"
+          style="font-size: 0.75rem; color: var(--clr-secondary); margin-top: 4px"
+        >
+          ¡Meta cumplida!
+        </span>
       </div>
     </div>
   </div>

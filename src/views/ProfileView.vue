@@ -27,20 +27,29 @@ const target = computed(() => userStore.goals.targetCalories)
 <template>
   <main class="max-w-2xl mx-auto px-4 py-8 space-y-8">
     <header class="text-center">
-      <h1 class="text-2xl font-bold text-emerald-900 font-display">Tu perfil</h1>
-      <p class="text-sm text-slate-500 mt-1">
+      <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">Tu perfil</h1>
+      <p style="font-size: 0.875rem; color: var(--clr-text-muted); margin-top: 4px">
         Tus datos se guardan localmente y nunca se comparten.
       </p>
     </header>
 
     <form class="space-y-6" @submit.prevent aria-label="Formulario de perfil">
-      <fieldset class="space-y-4 p-6 rounded-3xl border-0 m-0 card-elevated">
-        <legend class="text-sm font-semibold text-slate-500 uppercase tracking-wide">
+      <fieldset class="space-y-4 p-6 rounded-2xl border-0 m-0 card-elevated">
+        <legend
+          class="text-sm font-semibold uppercase tracking-wide"
+          style="color: var(--clr-text-muted)"
+        >
           Datos personales
         </legend>
 
         <div class="space-y-2">
-          <label for="profile-name" class="block text-sm font-medium text-slate-700">Nombre</label>
+          <label
+            for="profile-name"
+            class="block text-sm font-medium"
+            style="color: var(--clr-text-muted)"
+          >
+            Nombre
+          </label>
           <input
             id="profile-name"
             v-model="userStore.profile.name"
@@ -53,7 +62,13 @@ const target = computed(() => userStore.goals.targetCalories)
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="space-y-2">
-            <label for="profile-age" class="block text-sm font-medium text-slate-700">Edad</label>
+            <label
+              for="profile-age"
+              class="block text-sm font-medium"
+              style="color: var(--clr-text-muted)"
+            >
+              Edad
+            </label>
             <input
               id="profile-age"
               :value="userStore.profile.age"
@@ -68,18 +83,18 @@ const target = computed(() => userStore.goals.targetCalories)
           </div>
 
           <div class="space-y-2">
-            <span class="block text-sm font-medium text-slate-700" id="profile-sex-label"
-              >Sexo</span
+            <span
+              class="block text-sm font-medium"
+              style="color: var(--clr-text-muted)"
+              id="profile-sex-label"
             >
+              Sexo
+            </span>
             <div class="flex gap-2" role="radiogroup" aria-labelledby="profile-sex-label">
               <button
                 type="button"
                 class="btn flex-1"
-                :class="
-                  userStore.profile.sex === 'female'
-                    ? 'btn-primary'
-                    : 'btn-secondary border border-amber-200'
-                "
+                :class="userStore.profile.sex === 'female' ? 'btn-primary' : 'btn-secondary'"
                 role="radio"
                 :aria-checked="userStore.profile.sex === 'female'"
                 @click="userStore.updateProfile({ sex: 'female' as Sex })"
@@ -89,11 +104,7 @@ const target = computed(() => userStore.goals.targetCalories)
               <button
                 type="button"
                 class="btn flex-1"
-                :class="
-                  userStore.profile.sex === 'male'
-                    ? 'btn-primary'
-                    : 'btn-secondary border border-amber-200'
-                "
+                :class="userStore.profile.sex === 'male' ? 'btn-primary' : 'btn-secondary'"
                 role="radio"
                 :aria-checked="userStore.profile.sex === 'male'"
                 @click="userStore.updateProfile({ sex: 'male' as Sex })"
@@ -106,9 +117,13 @@ const target = computed(() => userStore.goals.targetCalories)
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="space-y-2">
-            <label for="profile-weight" class="block text-sm font-medium text-slate-700"
-              >Peso (kg)</label
+            <label
+              for="profile-weight"
+              class="block text-sm font-medium"
+              style="color: var(--clr-text-muted)"
             >
+              Peso (kg)
+            </label>
             <input
               id="profile-weight"
               :value="userStore.profile.weight"
@@ -126,9 +141,13 @@ const target = computed(() => userStore.goals.targetCalories)
           </div>
 
           <div class="space-y-2">
-            <label for="profile-height" class="block text-sm font-medium text-slate-700"
-              >Altura (cm)</label
+            <label
+              for="profile-height"
+              class="block text-sm font-medium"
+              style="color: var(--clr-text-muted)"
             >
+              Altura (cm)
+            </label>
             <input
               id="profile-height"
               :value="userStore.profile.height"
@@ -146,15 +165,22 @@ const target = computed(() => userStore.goals.targetCalories)
         </div>
       </fieldset>
 
-      <fieldset class="space-y-4 p-6 rounded-3xl border-0 m-0 card-elevated">
-        <legend class="text-sm font-semibold text-slate-500 uppercase tracking-wide">
+      <fieldset class="space-y-4 p-6 rounded-2xl border-0 m-0 card-elevated">
+        <legend
+          class="text-sm font-semibold uppercase tracking-wide"
+          style="color: var(--clr-text-muted)"
+        >
           Estilo de vida
         </legend>
 
         <div class="space-y-2">
-          <span class="block text-sm font-medium text-slate-700" id="activity-label"
-            >Actividad física</span
+          <span
+            class="block text-sm font-medium"
+            style="color: var(--clr-text-muted)"
+            id="activity-label"
           >
+            Actividad física
+          </span>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2"
             role="radiogroup"
@@ -166,9 +192,7 @@ const target = computed(() => userStore.goals.targetCalories)
               type="button"
               class="btn text-sm text-left"
               :class="
-                userStore.profile.activityLevel === opt.value
-                  ? 'btn-primary'
-                  : 'btn-secondary border border-amber-200'
+                userStore.profile.activityLevel === opt.value ? 'btn-primary' : 'btn-secondary'
               "
               role="radio"
               :aria-checked="userStore.profile.activityLevel === opt.value"
@@ -181,7 +205,13 @@ const target = computed(() => userStore.goals.targetCalories)
         </div>
 
         <div class="space-y-2">
-          <span class="block text-sm font-medium text-slate-700" id="goal-label">Objetivo</span>
+          <span
+            class="block text-sm font-medium"
+            style="color: var(--clr-text-muted)"
+            id="goal-label"
+          >
+            Objetivo
+          </span>
           <div
             class="grid grid-cols-1 sm:grid-cols-3 gap-2"
             role="radiogroup"
@@ -192,11 +222,7 @@ const target = computed(() => userStore.goals.targetCalories)
               :key="opt.value"
               type="button"
               class="btn text-sm flex-col"
-              :class="
-                userStore.profile.goal === opt.value
-                  ? 'btn-primary'
-                  : 'btn-secondary border border-amber-200'
-              "
+              :class="userStore.profile.goal === opt.value ? 'btn-primary' : 'btn-secondary'"
               role="radio"
               :aria-checked="userStore.profile.goal === opt.value"
               @click="userStore.updateProfile({ goal: opt.value as GoalType })"
@@ -211,24 +237,40 @@ const target = computed(() => userStore.goals.targetCalories)
 
       <section
         v-if="userStore.isProfileComplete"
-        class="p-6 rounded-3xl bg-gradient-to-br from-emerald-50 to-lime-50 border border-emerald-200 shadow-sm space-y-3"
+        class="p-6 rounded-2xl shadow-sm space-y-3"
+        style="background: var(--clr-primary-light); border: 1px solid var(--clr-border)"
         aria-label="Tus metas calculadas"
       >
-        <h2 class="text-sm font-semibold text-emerald-800 uppercase tracking-wide">
+        <h2 class="text-sm font-semibold uppercase tracking-wide" style="color: var(--clr-primary)">
           Tus metas calculadas
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
           <div>
-            <p class="text-2xl font-bold text-emerald-700">{{ bmr }}</p>
-            <p class="text-xs text-slate-500">TMB (kcal)</p>
+            <p
+              class="font-display"
+              style="font-size: 1.5rem; font-weight: 700; color: var(--clr-primary)"
+            >
+              {{ bmr }}
+            </p>
+            <p style="font-size: 0.75rem; color: var(--clr-text-muted)">TMB (kcal)</p>
           </div>
           <div>
-            <p class="text-2xl font-bold text-lime-600">{{ tdee }}</p>
-            <p class="text-xs text-slate-500">Gasto total (kcal)</p>
+            <p
+              class="font-display"
+              style="font-size: 1.5rem; font-weight: 700; color: var(--clr-accent)"
+            >
+              {{ tdee }}
+            </p>
+            <p style="font-size: 0.75rem; color: var(--clr-text-muted)">Gasto total (kcal)</p>
           </div>
           <div>
-            <p class="text-2xl font-bold text-amber-600">{{ target }}</p>
-            <p class="text-xs text-slate-500">Meta diaria (kcal)</p>
+            <p
+              class="font-display"
+              style="font-size: 1.5rem; font-weight: 700; color: var(--clr-secondary)"
+            >
+              {{ target }}
+            </p>
+            <p style="font-size: 0.75rem; color: var(--clr-text-muted)">Meta diaria (kcal)</p>
           </div>
         </div>
       </section>

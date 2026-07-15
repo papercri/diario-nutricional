@@ -14,16 +14,23 @@ const percentage = computed(() => {
   return Math.min((props.value / props.target) * 100, 100)
 })
 
-const bgColor = computed(() => {
-  if (props.color === 'lime') return 'bg-lime-50 border-lime-200'
-  if (props.color === 'amber') return 'bg-amber-50 border-amber-200'
-  return 'bg-emerald-50 border-emerald-200'
-})
-
-const barColor = computed(() => {
-  if (props.color === 'lime') return 'bg-lime-400'
-  if (props.color === 'amber') return 'bg-amber-400'
-  return 'bg-emerald-400'
+const colorStyles = computed(() => {
+  if (props.color === 'lime') {
+    return {
+      bg: 'background: #f4f8ec; border-color: #d1e0be',
+      bar: 'background: #a8b89a',
+    }
+  }
+  if (props.color === 'amber') {
+    return {
+      bg: 'background: #fdf4dc; border-color: #e8d9b0',
+      bar: 'background: #d4a843',
+    }
+  }
+  return {
+    bg: 'background: #e8f0e0; border-color: #c0d4a8',
+    bar: 'background: #5b7a3d',
+  }
 })
 
 const ariaLabel = computed(
@@ -33,22 +40,28 @@ const ariaLabel = computed(
 
 <template>
   <div
-    class="flex flex-col gap-2 p-4 rounded-2xl border shadow-sm transition-shadow hover:shadow-md"
-    :class="bgColor"
+    class="flex flex-col gap-2 p-4 rounded-xl border shadow-sm transition-shadow hover:shadow-md"
+    :style="colorStyles.bg"
     role="group"
     :aria-label="ariaLabel"
   >
-    <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">
+    <span class="text-xs font-medium uppercase tracking-wide" style="color: var(--clr-text-muted)">
       {{ label }}
     </span>
     <div class="flex items-baseline gap-1">
-      <span class="text-2xl font-bold text-slate-800">
+      <span
+        class="font-display"
+        style="font-size: 1.5rem; font-weight: 700; color: var(--clr-text)"
+      >
         {{ Math.round(value) }}
       </span>
-      <span class="text-sm text-slate-400">/ {{ Math.round(target) }} {{ unit }}</span>
+      <span style="font-size: 0.875rem; color: var(--clr-text-faint)">
+        / {{ Math.round(target) }} {{ unit }}
+      </span>
     </div>
     <div
-      class="w-full h-2 bg-white/70 rounded-full overflow-hidden"
+      class="w-full h-2 rounded-full overflow-hidden"
+      style="background: rgba(255, 255, 255, 0.6)"
       role="progressbar"
       :aria-valuenow="Math.round(value)"
       :aria-valuemin="0"
@@ -57,8 +70,7 @@ const ariaLabel = computed(
     >
       <div
         class="h-full rounded-full transition-all duration-500 ease-out"
-        :class="barColor"
-        :style="{ width: percentage + '%' }"
+        :style="colorStyles.bar + '; width: ' + percentage + '%'"
       />
     </div>
   </div>

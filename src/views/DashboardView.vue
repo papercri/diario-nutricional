@@ -47,23 +47,25 @@ const groupedEntries = computed(() => {
 <template>
   <main class="max-w-2xl mx-auto px-4 py-8 space-y-8">
     <header class="text-center">
-      <h1 class="text-2xl font-bold text-emerald-900 font-display">
+      <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">
         {{
           userStore.isProfileComplete
             ? `¡Bienvenido${userStore.profile.sex === 'female' ? 'a' : ''}, ${userStore.profile.name}!`
             : '¡Bienvenido a Avocato!'
         }}
       </h1>
-      <p class="text-sm text-slate-500 capitalize mt-1">{{ todayDate }}</p>
+      <p class="capitalize mt-1" style="font-size: 0.875rem; color: var(--clr-text-muted)">
+        {{ todayDate }}
+      </p>
     </header>
 
     <section
       v-if="!userStore.isProfileComplete"
-      class="p-6 rounded-3xl text-center space-y-3"
+      class="p-6 rounded-2xl text-center space-y-3"
       style="background: var(--clr-surface-alt); border: 1px solid var(--clr-border)"
       aria-label="Completa tu perfil"
     >
-      <p class="text-slate-700">
+      <p style="color: var(--clr-text-muted)">
         Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
       </p>
       <router-link to="/profile" class="btn btn-primary" role="button">
@@ -104,7 +106,9 @@ const groupedEntries = computed(() => {
 
     <section class="space-y-4" aria-label="Comidas registradas hoy">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-slate-800 font-display">Comidas de hoy</h2>
+        <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
+          Comidas de hoy
+        </h2>
         <button
           v-if="foodStore.todayEntries.length > 0"
           class="btn btn-danger text-xs"
@@ -117,12 +121,19 @@ const groupedEntries = computed(() => {
 
       <div
         v-if="foodStore.todayEntries.length === 0"
-        class="text-center py-12 p-8 rounded-3xl bg-gradient-to-br from-lime-50 to-amber-50 border border-lime-200/50"
+        class="text-center py-12 p-8 rounded-2xl"
+        style="background: var(--clr-primary-light); border: 1px solid var(--clr-border)"
         role="status"
       >
-        <i class="fa-solid fa-utensils text-5xl text-lime-400 block mb-3" aria-hidden="true" />
-        <p class="text-slate-600 font-medium">Tu día está vacío</p>
-        <p class="text-sm text-slate-400 mt-1">Registra tu primera comida para comenzar</p>
+        <i
+          class="fa-solid fa-utensils text-5xl block mb-3"
+          aria-hidden="true"
+          style="color: var(--clr-primary); opacity: 0.5"
+        />
+        <p class="font-medium" style="color: var(--clr-text-muted)">Tu día está vacío</p>
+        <p style="font-size: 0.875rem; color: var(--clr-text-faint); margin-top: 4px">
+          Registra tu primera comida para comenzar
+        </p>
         <router-link to="/search" class="btn btn-primary mt-5" role="button">
           Buscar alimentos
         </router-link>
@@ -135,10 +146,13 @@ const groupedEntries = computed(() => {
           class="space-y-2"
           :aria-label="mealTypeLabels[type]"
         >
-          <h3 class="flex items-center gap-2 text-sm font-medium text-slate-500 px-1">
+          <h3
+            class="flex items-center gap-2 text-sm font-medium px-1"
+            style="color: var(--clr-text-muted)"
+          >
             <i :class="mealTypeIcons[type]" aria-hidden="true" />
             <span>{{ mealTypeLabels[type] }}</span>
-            <span class="text-xs text-slate-300">
+            <span style="font-size: 0.75rem; color: var(--clr-text-faint)">
               ({{ entries.reduce((s, e) => s + e.servings, 0).toFixed(1) }} porc.)
             </span>
           </h3>
@@ -154,14 +168,14 @@ const groupedEntries = computed(() => {
                   v-if="entry.food.imageUrl"
                   :src="entry.food.imageUrl"
                   :alt="entry.food.name"
-                  class="w-10 h-10 rounded-xl object-cover shrink-0"
+                  class="w-10 h-10 rounded-lg object-cover shrink-0"
                   loading="lazy"
                 />
                 <div class="min-w-0">
-                  <p class="text-sm font-medium text-slate-800 truncate">
+                  <p class="text-sm font-medium truncate" style="color: var(--clr-text)">
                     {{ entry.food.name }}
                   </p>
-                  <p class="text-xs text-slate-400">
+                  <p style="font-size: 0.75rem; color: var(--clr-text-faint)">
                     {{ entry.food.calories.toFixed(0) }} kcal × {{ entry.servings.toFixed(1) }} =
                     {{ Math.round(entry.food.calories * entry.servings) }} kcal
                   </p>

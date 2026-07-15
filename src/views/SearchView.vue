@@ -71,15 +71,20 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
 <template>
   <main class="max-w-2xl mx-auto px-4 py-8 space-y-6">
     <header class="text-center">
-      <h1 class="text-2xl font-bold text-emerald-900 font-display">Buscar alimentos</h1>
-      <p class="text-sm text-slate-500 mt-1">Encuentra alimentos en Open Food Facts</p>
+      <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">
+        Buscar alimentos
+      </h1>
+      <p style="font-size: 0.875rem; color: var(--clr-text-muted); margin-top: 4px">
+        Encuentra alimentos en Open Food Facts
+      </p>
     </header>
 
     <div class="relative">
       <label for="food-search" class="sr-only">Buscar alimentos</label>
       <i
-        class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none"
+        class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-sm pointer-events-none"
         aria-hidden="true"
+        style="color: var(--clr-text-faint)"
       />
       <input
         id="food-search"
@@ -94,31 +99,42 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
     </div>
 
     <div v-if="isSearching" class="text-center py-12" role="status" aria-label="Buscando alimentos">
-      <i class="fa-solid fa-spinner fa-spin-pulse text-3xl text-emerald-400" aria-hidden="true" />
-      <p class="text-slate-400 mt-4">Buscando...</p>
+      <i
+        class="fa-solid fa-spinner fa-spin-pulse text-3xl block mb-2"
+        aria-hidden="true"
+        style="color: var(--clr-primary)"
+      />
+      <p style="color: var(--clr-text-faint)">Buscando...</p>
     </div>
 
     <div
       v-else-if="error"
-      class="p-6 rounded-3xl text-center"
+      class="p-6 rounded-2xl text-center"
       style="background: var(--clr-surface-alt); border: 1px solid var(--clr-border)"
       role="alert"
     >
-      <p class="text-slate-700">{{ error }}</p>
+      <p style="color: var(--clr-text-muted)">{{ error }}</p>
       <button class="btn btn-primary mt-3" @click="performSearch()">Reintentar</button>
     </div>
 
     <div v-else-if="hasSearched && results.length === 0" class="text-center py-12" role="status">
       <i
-        class="fa-solid fa-magnifying-glass text-5xl text-slate-300 block mb-3"
+        class="fa-solid fa-magnifying-glass text-5xl block mb-3"
         aria-hidden="true"
+        style="color: var(--clr-text-faint); opacity: 0.4"
       />
-      <p class="text-slate-600 font-medium">Sin resultados para "{{ query }}"</p>
-      <p class="text-sm text-slate-400 mt-1">Prueba con otro término</p>
+      <p class="font-medium" style="color: var(--clr-text-muted)">
+        Sin resultados para "{{ query }}"
+      </p>
+      <p style="font-size: 0.875rem; color: var(--clr-text-faint); margin-top: 4px">
+        Prueba con otro término
+      </p>
     </div>
 
     <div v-else class="space-y-3">
-      <p v-if="hasSearched" class="text-xs text-slate-400">{{ results.length }} resultados</p>
+      <p v-if="hasSearched" style="font-size: 0.75rem; color: var(--clr-text-faint)">
+        {{ results.length }} resultados
+      </p>
       <FoodCard
         v-for="food in results"
         :key="food.id"
@@ -139,25 +155,28 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
       @keydown.escape="showAddModal = false"
     >
       <div
-        class="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-6 shadow-xl space-y-5 animate-slide-up"
+        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
+        style="background: var(--clr-surface)"
       >
-        <h2 class="text-lg font-semibold text-slate-800">Añadir alimento</h2>
+        <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
+          Añadir alimento
+        </h2>
 
-        <p class="text-sm text-slate-700 font-medium">
+        <p class="font-medium" style="font-size: 0.875rem; color: var(--clr-text)">
           {{ selectedFood?.name }}
         </p>
 
         <fieldset class="space-y-2 border-0 p-0 m-0">
-          <legend class="block text-sm font-medium text-slate-600">Tipo de comida</legend>
+          <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
+            Tipo de comida
+          </legend>
           <div class="grid grid-cols-2 gap-2">
             <button
               v-for="opt in mealTypeOptions"
               :key="opt.value"
               type="button"
               class="btn text-sm"
-              :class="
-                mealType === opt.value ? 'btn-primary' : 'btn-secondary border border-amber-200'
-              "
+              :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
               :aria-pressed="mealType === opt.value"
               @click="mealType = opt.value"
             >
@@ -168,7 +187,11 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
         </fieldset>
 
         <div class="space-y-2">
-          <label for="servings-input" class="block text-sm font-medium text-slate-600">
+          <label
+            for="servings-input"
+            class="block text-sm font-medium"
+            style="color: var(--clr-text-muted)"
+          >
             Porciones (100g c/u)
           </label>
           <input
@@ -180,7 +203,7 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
             step="0.25"
             class="input-field"
           />
-          <p class="text-xs text-slate-400" aria-live="polite">
+          <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
             Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
           </p>
         </div>
