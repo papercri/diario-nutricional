@@ -28,7 +28,7 @@ const emit = defineEmits<{
       <i
         class="fa-solid fa-utensils text-2xl"
         aria-hidden="true"
-        style="color: var(--clr-primary)"
+        style="color: var(--clr-primary); opacity: 0.6"
       />
     </div>
 
@@ -39,7 +39,7 @@ const emit = defineEmits<{
       <p v-if="food.brand" class="text-xs truncate" style="color: var(--clr-text-faint)">
         {{ food.brand }}
       </p>
-      <div class="flex gap-3 mt-2 text-xs" style="color: var(--clr-text-muted)">
+      <div class="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-xs" style="color: var(--clr-text-muted)">
         <span class="font-semibold" style="color: var(--clr-primary)">
           {{ Math.round(food.calories) }} kcal
         </span>

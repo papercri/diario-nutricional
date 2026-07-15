@@ -16,18 +16,21 @@ const colorStyles = computed(() => {
   if (props.color === 'lime') {
     return {
       bg: 'background: #f4f8ec; border-color: #d1e0be',
-      bar: 'background: #a8b89a',
+      bar: 'background: var(--clr-accent)',
+      text: 'color: var(--clr-accent)',
     }
   }
   if (props.color === 'amber') {
     return {
-      bg: 'background: #fdf4dc; border-color: #e8d9b0',
-      bar: 'background: #d4a843',
+      bg: 'background: var(--clr-secondary-light); border-color: #e8d9b0',
+      bar: 'background: var(--clr-secondary)',
+      text: 'color: var(--clr-secondary)',
     }
   }
   return {
-    bg: 'background: #e8f0e0; border-color: #c0d4a8',
-    bar: 'background: #5b7a3d',
+    bg: 'background: var(--clr-primary-light); border-color: #c0d4a8',
+    bar: 'background: var(--clr-primary)',
+    text: 'color: var(--clr-primary)',
   }
 })
 
@@ -38,22 +41,19 @@ const ariaLabel = computed(
 
 <template>
   <div
-    class="flex flex-col gap-2 p-4 rounded-xl border shadow-sm transition-shadow hover:shadow-md"
+    class="flex flex-col gap-2 p-4 rounded-xl border shadow-xs transition-all duration-200 hover:shadow-md"
     :style="colorStyles.bg"
     role="group"
     :aria-label="ariaLabel"
   >
-    <span class="text-xs font-medium uppercase tracking-wide" style="color: var(--clr-text-muted)">
+    <span class="text-label-sm">
       {{ label }}
     </span>
     <div class="flex items-baseline gap-1">
-      <span
-        class="font-display"
-        style="font-size: 1.5rem; font-weight: 700; color: var(--clr-text)"
-      >
+      <span class="text-display-sm" :style="colorStyles.text">
         {{ Math.round(value) }}
       </span>
-      <span style="font-size: 0.875rem; color: var(--clr-text-faint)">
+      <span class="text-body">
         / {{ Math.round(target) }} {{ unit }}
       </span>
     </div>
