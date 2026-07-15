@@ -53,9 +53,7 @@ const ariaLabel = computed(
       <span class="text-display-sm" :style="colorStyles.text">
         {{ Math.round(value) }}
       </span>
-      <span class="text-body">
-        / {{ Math.round(target) }} {{ unit }}
-      </span>
+      <span class="text-body"> / {{ Math.round(target) }} {{ unit }} </span>
     </div>
     <div
       class="w-full h-2 rounded-full overflow-hidden"

@@ -43,9 +43,7 @@ watch(
         >
           <i class="fa-solid fa-leaf text-sm" aria-hidden="true" style="color: #fff" />
         </div>
-        <span class="font-display text-lg font-bold tracking-tight">
-          Avocato
-        </span>
+        <span class="font-display text-lg font-bold tracking-tight"> Avocato </span>
       </router-link>
 
       <!-- Desktop nav -->

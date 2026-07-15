@@ -35,9 +35,7 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
       class="card-surface p-8 text-center section-gap"
       aria-label="Completa tu perfil"
     >
-      <p class="text-body">
-        Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
-      </p>
+      <p class="text-body">Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.</p>
       <router-link to="/profile" class="btn btn-primary" role="button">
         Completar perfil
       </router-link>
@@ -118,9 +116,7 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
           <h3 class="text-label flex items-center gap-2 px-1">
             <i :class="MEAL_TYPE_ICONS[type]" aria-hidden="true" />
             <span>{{ MEAL_TYPE_LABELS[type] }}</span>
-            <span class="text-body-sm">
-              ({{ sumServings(entries).toFixed(1) }} porc.)
-            </span>
+            <span class="text-body-sm"> ({{ sumServings(entries).toFixed(1) }} porc.) </span>
           </h3>
 
           <ul class="space-y-2 list-none p-0 m-0">

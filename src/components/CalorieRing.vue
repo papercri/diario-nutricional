@@ -63,17 +63,10 @@ const ringColor = computed(() => {
           {{ Math.round(consumed) }}
         </span>
         <span class="text-body">/ {{ Math.round(target) }} kcal</span>
-        <span
-          v-if="remaining > 0"
-          class="text-body-sm mt-1"
-        >
+        <span v-if="remaining > 0" class="text-body-sm mt-1">
           {{ Math.round(remaining) }} restantes
         </span>
-        <span
-          v-else
-          class="text-body-sm mt-1 font-semibold"
-          style="color: var(--clr-secondary)"
-        >
+        <span v-else class="text-body-sm mt-1 font-semibold" style="color: var(--clr-secondary)">
           ¡Meta cumplida!
         </span>
       </div>
