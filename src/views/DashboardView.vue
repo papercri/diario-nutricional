@@ -26,10 +26,10 @@ const mealTypeLabels: Record<string, string> = {
 }
 
 const mealTypeIcons: Record<string, string> = {
-  breakfast: '🌅',
-  lunch: '☀️',
-  dinner: '🌙',
-  snack: '🍪',
+  breakfast: 'fa-solid fa-sun',
+  lunch: 'fa-solid fa-cloud-sun',
+  dinner: 'fa-solid fa-moon',
+  snack: 'fa-solid fa-cookie',
 }
 
 const groupedEntries = computed(() => {
@@ -45,7 +45,7 @@ const groupedEntries = computed(() => {
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto px-4 py-8 space-y-8">
+  <main class="max-w-2xl mx-auto px-4 py-8 space-y-8">
     <header class="text-center">
       <h1 class="text-2xl font-bold text-emerald-900 font-display">
         {{
@@ -59,20 +59,19 @@ const groupedEntries = computed(() => {
 
     <section
       v-if="!userStore.isProfileComplete"
-      class="p-6 rounded-3xl bg-amber-50 border border-amber-200 text-center space-y-3"
+      class="p-6 rounded-3xl text-center space-y-3"
+      style="background: var(--clr-surface-alt); border: 1px solid var(--clr-border)"
+      aria-label="Completa tu perfil"
     >
       <p class="text-slate-700">
         Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
       </p>
-      <router-link
-        to="/profile"
-        class="inline-block px-6 py-3 rounded-2xl bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors shadow-sm"
-      >
+      <router-link to="/profile" class="btn btn-primary" role="button">
         Completar perfil
       </router-link>
     </section>
 
-    <section v-else class="space-y-6">
+    <section v-else class="space-y-6" aria-label="Resumen nutricional del día">
       <CalorieRing
         :consumed="foodStore.todaySummary.calories"
         :target="userStore.goals.targetCalories"
@@ -103,12 +102,13 @@ const groupedEntries = computed(() => {
       </div>
     </section>
 
-    <section class="space-y-4">
+    <section class="space-y-4" aria-label="Comidas registradas hoy">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-slate-800 font-display">Comidas de hoy</h2>
         <button
           v-if="foodStore.todayEntries.length > 0"
-          class="text-xs text-slate-400 hover:text-red-500 transition-colors"
+          class="btn btn-danger text-xs"
+          aria-label="Eliminar todas las comidas de hoy"
           @click="foodStore.clearToday()"
         >
           Limpiar día
@@ -118,61 +118,66 @@ const groupedEntries = computed(() => {
       <div
         v-if="foodStore.todayEntries.length === 0"
         class="text-center py-12 p-8 rounded-3xl bg-gradient-to-br from-lime-50 to-amber-50 border border-lime-200/50"
+        role="status"
       >
-        <span class="text-5xl block mb-3">🍽️</span>
+        <i class="fa-solid fa-utensils text-5xl text-lime-400 block mb-3" aria-hidden="true" />
         <p class="text-slate-600 font-medium">Tu día está vacío</p>
         <p class="text-sm text-slate-400 mt-1">Registra tu primera comida para comenzar</p>
-        <router-link
-          to="/search"
-          class="inline-block mt-5 px-6 py-3 rounded-2xl bg-lime-500 text-white font-medium hover:bg-lime-600 active:bg-lime-700 transition-colors shadow-sm"
-        >
+        <router-link to="/search" class="btn btn-primary mt-5" role="button">
           Buscar alimentos
         </router-link>
       </div>
 
       <div v-else class="space-y-4">
-        <div v-for="(entries, type) in groupedEntries" :key="type" class="space-y-2">
+        <article
+          v-for="(entries, type) in groupedEntries"
+          :key="type"
+          class="space-y-2"
+          :aria-label="mealTypeLabels[type]"
+        >
           <h3 class="flex items-center gap-2 text-sm font-medium text-slate-500 px-1">
-            <span>{{ mealTypeIcons[type] }}</span>
+            <i :class="mealTypeIcons[type]" aria-hidden="true" />
             <span>{{ mealTypeLabels[type] }}</span>
             <span class="text-xs text-slate-300">
               ({{ entries.reduce((s, e) => s + e.servings, 0).toFixed(1) }} porc.)
             </span>
           </h3>
 
-          <div
-            v-for="entry in entries"
-            :key="entry.id"
-            class="flex items-center justify-between p-3 rounded-2xl bg-white border border-amber-100 shadow-sm"
-          >
-            <div class="flex items-center gap-3 min-w-0">
-              <img
-                v-if="entry.food.imageUrl"
-                :src="entry.food.imageUrl"
-                :alt="entry.food.name"
-                class="w-10 h-10 rounded-xl object-cover shrink-0"
-                loading="lazy"
-              />
-              <div class="min-w-0">
-                <p class="text-sm font-medium text-slate-800 truncate">
-                  {{ entry.food.name }}
-                </p>
-                <p class="text-xs text-slate-400">
-                  {{ entry.food.calories.toFixed(0) }} kcal × {{ entry.servings.toFixed(1) }} =
-                  {{ Math.round(entry.food.calories * entry.servings) }} kcal
-                </p>
-              </div>
-            </div>
-            <button
-              class="shrink-0 w-8 h-8 rounded-xl text-slate-300 hover:text-red-400 hover:bg-red-50 transition-colors flex items-center justify-center"
-              @click="foodStore.removeEntry(entry.id)"
-              title="Eliminar"
+          <ul class="space-y-2 list-none p-0 m-0">
+            <li
+              v-for="entry in entries"
+              :key="entry.id"
+              class="card flex items-center justify-between p-3"
             >
-              ✕
-            </button>
-          </div>
-        </div>
+              <div class="flex items-center gap-3 min-w-0">
+                <img
+                  v-if="entry.food.imageUrl"
+                  :src="entry.food.imageUrl"
+                  :alt="entry.food.name"
+                  class="w-10 h-10 rounded-xl object-cover shrink-0"
+                  loading="lazy"
+                />
+                <div class="min-w-0">
+                  <p class="text-sm font-medium text-slate-800 truncate">
+                    {{ entry.food.name }}
+                  </p>
+                  <p class="text-xs text-slate-400">
+                    {{ entry.food.calories.toFixed(0) }} kcal × {{ entry.servings.toFixed(1) }} =
+                    {{ Math.round(entry.food.calories * entry.servings) }} kcal
+                  </p>
+                </div>
+              </div>
+              <button
+                class="btn btn-danger w-8 h-8 p-0 shrink-0"
+                :aria-label="`Eliminar ${entry.food.name}`"
+                @click="foodStore.removeEntry(entry.id)"
+              >
+                <i class="fa-solid fa-xmark" aria-hidden="true" />
+              </button>
+            </li>
+          </ul>
+        </article>
       </div>
     </section>
-  </div>
+  </main>
 </template>

@@ -25,12 +25,18 @@ const barColor = computed(() => {
   if (props.color === 'amber') return 'bg-amber-400'
   return 'bg-emerald-400'
 })
+
+const ariaLabel = computed(
+  () => `${props.label}: ${Math.round(props.value)} de ${Math.round(props.target)} ${props.unit}`,
+)
 </script>
 
 <template>
   <div
     class="flex flex-col gap-2 p-4 rounded-2xl border shadow-sm transition-shadow hover:shadow-md"
     :class="bgColor"
+    role="group"
+    :aria-label="ariaLabel"
   >
     <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">
       {{ label }}
@@ -41,7 +47,14 @@ const barColor = computed(() => {
       </span>
       <span class="text-sm text-slate-400">/ {{ Math.round(target) }} {{ unit }}</span>
     </div>
-    <div class="w-full h-2 bg-white/70 rounded-full overflow-hidden">
+    <div
+      class="w-full h-2 bg-white/70 rounded-full overflow-hidden"
+      role="progressbar"
+      :aria-valuenow="Math.round(value)"
+      :aria-valuemin="0"
+      :aria-valuemax="Math.round(target)"
+      :aria-label="label"
+    >
       <div
         class="h-full rounded-full transition-all duration-500 ease-out"
         :class="barColor"

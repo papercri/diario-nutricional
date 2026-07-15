@@ -12,21 +12,21 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div
-    class="flex items-start gap-4 p-4 rounded-2xl border border-amber-100 bg-white shadow-sm hover:shadow-md hover:scale-[1.01] transition-all duration-200"
+  <article
+    class="card-elevated flex items-start gap-4 p-4 hover:scale-[1.01] transition-all duration-200"
   >
     <img
       v-if="food.imageUrl"
       :src="food.imageUrl"
       :alt="food.name"
-      class="w-16 h-16 rounded-xl object-cover bg-amber-50 shrink-0"
+      class="w-16 h-16 rounded-xl object-cover shrink-0"
       loading="lazy"
     />
     <div
       v-else
-      class="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-100 to-lime-100 flex items-center justify-center text-2xl shrink-0"
+      class="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-100 to-lime-100 flex items-center justify-center shrink-0"
     >
-      🥗
+      <i class="fa-solid fa-utensils text-2xl text-emerald-400" aria-hidden="true" />
     </div>
 
     <div class="flex-1 min-w-0">
@@ -46,10 +46,12 @@ const emit = defineEmits<{
 
     <button
       v-if="showAdd"
-      class="shrink-0 px-4 py-2 rounded-xl bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-600 active:bg-emerald-700 transition-colors shadow-sm"
+      class="btn btn-primary shrink-0 text-sm"
+      :aria-label="`Añadir ${food.name}`"
       @click="emit('add', food)"
     >
-      + Añadir
+      <i class="fa-solid fa-plus" aria-hidden="true" />
+      Añadir
     </button>
-  </div>
+  </article>
 </template>

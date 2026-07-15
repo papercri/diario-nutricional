@@ -61,50 +61,58 @@ function confirmAdd() {
 }
 
 const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
-  { value: 'breakfast', label: 'Desayuno', icon: '🌅' },
-  { value: 'lunch', label: 'Comida', icon: '☀️' },
-  { value: 'dinner', label: 'Cena', icon: '🌙' },
-  { value: 'snack', label: 'Snack', icon: '🍪' },
+  { value: 'breakfast', label: 'Desayuno', icon: 'fa-solid fa-sun' },
+  { value: 'lunch', label: 'Comida', icon: 'fa-solid fa-cloud-sun' },
+  { value: 'dinner', label: 'Cena', icon: 'fa-solid fa-moon' },
+  { value: 'snack', label: 'Snack', icon: 'fa-solid fa-cookie' },
 ]
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto px-4 py-8 space-y-6">
+  <main class="max-w-2xl mx-auto px-4 py-8 space-y-6">
     <header class="text-center">
       <h1 class="text-2xl font-bold text-emerald-900 font-display">Buscar alimentos</h1>
       <p class="text-sm text-slate-500 mt-1">Encuentra alimentos en Open Food Facts</p>
     </header>
 
     <div class="relative">
+      <label for="food-search" class="sr-only">Buscar alimentos</label>
+      <i
+        class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none"
+        aria-hidden="true"
+      />
       <input
+        id="food-search"
         :value="query"
-        type="text"
+        type="search"
         placeholder="Ej: pollo, arroz, manzana..."
-        class="w-full px-5 py-4 pl-12 rounded-3xl border border-amber-200 bg-white text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all shadow-sm"
+        class="input-field !pl-11"
+        aria-describedby="search-hint"
         @input="onSearchInput(($event.target as HTMLInputElement).value)"
       />
-      <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+      <span id="search-hint" class="sr-only">Escribe al menos 2 caracteres para buscar</span>
     </div>
 
-    <div v-if="isSearching" class="text-center py-12">
-      <div
-        class="inline-block w-8 h-8 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin"
-      />
+    <div v-if="isSearching" class="text-center py-12" role="status" aria-label="Buscando alimentos">
+      <i class="fa-solid fa-spinner fa-spin-pulse text-3xl text-emerald-400" aria-hidden="true" />
       <p class="text-slate-400 mt-4">Buscando...</p>
     </div>
 
-    <div v-else-if="error" class="p-6 rounded-3xl bg-amber-50 border border-amber-200 text-center">
+    <div
+      v-else-if="error"
+      class="p-6 rounded-3xl text-center"
+      style="background: var(--clr-surface-alt); border: 1px solid var(--clr-border)"
+      role="alert"
+    >
       <p class="text-slate-700">{{ error }}</p>
-      <button
-        class="mt-3 px-4 py-2 rounded-2xl bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-600 transition-colors"
-        @click="performSearch()"
-      >
-        Reintentar
-      </button>
+      <button class="btn btn-primary mt-3" @click="performSearch()">Reintentar</button>
     </div>
 
-    <div v-else-if="hasSearched && results.length === 0" class="text-center py-12">
-      <span class="text-5xl block mb-3">🔎</span>
+    <div v-else-if="hasSearched && results.length === 0" class="text-center py-12" role="status">
+      <i
+        class="fa-solid fa-magnifying-glass text-5xl text-slate-300 block mb-3"
+        aria-hidden="true"
+      />
       <p class="text-slate-600 font-medium">Sin resultados para "{{ query }}"</p>
       <p class="text-sm text-slate-400 mt-1">Prueba con otro término</p>
     </div>
@@ -120,10 +128,15 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
       />
     </div>
 
+    <!-- Add food modal -->
     <div
       v-if="showAddModal"
       class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="`Añadir ${selectedFood?.name}`"
       @click.self="showAddModal = false"
+      @keydown.escape="showAddModal = false"
     >
       <div
         class="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-6 shadow-xl space-y-5 animate-slide-up"
@@ -134,58 +147,51 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
           {{ selectedFood?.name }}
         </p>
 
-        <div class="space-y-2">
-          <label class="block text-sm font-medium text-slate-600">Tipo de comida</label>
+        <fieldset class="space-y-2 border-0 p-0 m-0">
+          <legend class="block text-sm font-medium text-slate-600">Tipo de comida</legend>
           <div class="grid grid-cols-2 gap-2">
             <button
               v-for="opt in mealTypeOptions"
               :key="opt.value"
               type="button"
-              class="py-2.5 px-3 rounded-2xl text-sm font-medium transition-all"
+              class="btn text-sm"
               :class="
-                mealType === opt.value
-                  ? 'bg-emerald-500 text-white shadow-sm'
-                  : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'
+                mealType === opt.value ? 'btn-primary' : 'btn-secondary border border-amber-200'
               "
+              :aria-pressed="mealType === opt.value"
               @click="mealType = opt.value"
             >
-              {{ opt.icon }} {{ opt.label }}
+              <i :class="opt.icon" aria-hidden="true" />
+              {{ opt.label }}
             </button>
           </div>
-        </div>
+        </fieldset>
 
         <div class="space-y-2">
-          <label class="block text-sm font-medium text-slate-600"> Porciones (100g c/u) </label>
+          <label for="servings-input" class="block text-sm font-medium text-slate-600">
+            Porciones (100g c/u)
+          </label>
           <input
+            id="servings-input"
             v-model.number="servings"
             type="number"
             min="0.25"
             max="20"
             step="0.25"
-            class="w-full px-4 py-3 rounded-2xl border border-amber-200 bg-amber-50/50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all"
+            class="input-field"
           />
-          <p class="text-xs text-slate-400">
+          <p class="text-xs text-slate-400" aria-live="polite">
             Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
           </p>
         </div>
 
         <div class="flex gap-3 pt-2">
-          <button
-            class="flex-1 py-3 rounded-2xl bg-amber-100 text-slate-600 font-medium hover:bg-amber-200 transition-colors"
-            @click="showAddModal = false"
-          >
-            Cancelar
-          </button>
-          <button
-            class="flex-1 py-3 rounded-2xl bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors shadow-sm"
-            @click="confirmAdd"
-          >
-            Añadir
-          </button>
+          <button class="btn btn-secondary flex-1" @click="showAddModal = false">Cancelar</button>
+          <button class="btn btn-primary flex-1" @click="confirmAdd">Añadir</button>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>
