@@ -17,27 +17,25 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
 </script>
 
 <template>
-  <main class="max-w-2xl mx-auto px-4 py-8 space-y-8">
-    <header class="text-center">
-      <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">
+  <main class="page-container section-gap">
+    <header class="page-header">
+      <h1 class="text-display-xl">
         {{
           userStore.isProfileComplete
             ? `¡Bienvenido${userStore.profile.sex === 'female' ? 'a' : ''}, ${userStore.profile.name}!`
             : '¡Bienvenido a Avocato!'
         }}
       </h1>
-      <p class="capitalize mt-1" style="font-size: 0.875rem; color: var(--clr-text-muted)">
-        {{ todayDate }}
-      </p>
+      <p class="text-body capitalize mt-1">{{ todayDate }}</p>
     </header>
 
+    <!-- Profile incomplete prompt -->
     <section
       v-if="!userStore.isProfileComplete"
-      class="p-6 rounded-2xl text-center space-y-3"
-      style="background: var(--clr-surface-alt); border: 1px solid var(--clr-border)"
+      class="card-surface p-8 text-center section-gap"
       aria-label="Completa tu perfil"
     >
-      <p style="color: var(--clr-text-muted)">
+      <p class="text-body">
         Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
       </p>
       <router-link to="/profile" class="btn btn-primary" role="button">
@@ -45,7 +43,8 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
       </router-link>
     </section>
 
-    <section v-else class="space-y-6" aria-label="Resumen nutricional del día">
+    <!-- Nutritional summary -->
+    <section v-else class="section-gap" aria-label="Resumen nutricional del día">
       <CalorieRing
         :consumed="foodStore.todaySummary.calories"
         :target="userStore.goals.targetCalories"
@@ -76,11 +75,10 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
       </div>
     </section>
 
-    <section class="space-y-4" aria-label="Comidas registradas hoy">
+    <!-- Today's meals -->
+    <section class="section-gap" aria-label="Comidas registradas hoy">
       <div class="flex items-center justify-between">
-        <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
-          Comidas de hoy
-        </h2>
+        <h2 class="text-display-lg">Comidas de hoy</h2>
         <button
           v-if="foodStore.todayEntries.length > 0"
           class="btn btn-danger text-xs"
@@ -91,40 +89,36 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
         </button>
       </div>
 
+      <!-- Empty state -->
       <div
         v-if="foodStore.todayEntries.length === 0"
-        class="text-center py-12 p-8 rounded-2xl"
-        style="background: var(--clr-primary-light); border: 1px solid var(--clr-border)"
+        class="card-warm text-center py-12 p-8"
         role="status"
       >
         <i
           class="fa-solid fa-utensils text-5xl block mb-3"
           aria-hidden="true"
-          style="color: var(--clr-primary); opacity: 0.5"
+          style="color: var(--clr-primary); opacity: 0.4"
         />
         <p class="font-medium" style="color: var(--clr-text-muted)">Tu día está vacío</p>
-        <p style="font-size: 0.875rem; color: var(--clr-text-faint); margin-top: 4px">
-          Registra tu primera comida para comenzar
-        </p>
+        <p class="text-body mt-1">Registra tu primera comida para comenzar</p>
         <router-link to="/search" class="btn btn-primary mt-5" role="button">
           Buscar alimentos
         </router-link>
       </div>
 
-      <div v-else class="space-y-4">
+      <!-- Meal entries -->
+      <div v-else class="section-gap">
         <article
           v-for="(entries, type) in groupedEntries"
           :key="type"
-          class="space-y-2"
+          class="section-gap"
           :aria-label="MEAL_TYPE_LABELS[type]"
         >
-          <h3
-            class="flex items-center gap-2 text-sm font-medium px-1"
-            style="color: var(--clr-text-muted)"
-          >
+          <h3 class="text-label flex items-center gap-2 px-1">
             <i :class="MEAL_TYPE_ICONS[type]" aria-hidden="true" />
             <span>{{ MEAL_TYPE_LABELS[type] }}</span>
-            <span style="font-size: 0.75rem; color: var(--clr-text-faint)">
+            <span class="text-body-sm">
               ({{ sumServings(entries).toFixed(1) }} porc.)
             </span>
           </h3>
@@ -147,7 +141,7 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
                   <p class="text-sm font-medium truncate" style="color: var(--clr-text)">
                     {{ entry.food.name }}
                   </p>
-                  <p style="font-size: 0.75rem; color: var(--clr-text-faint)">
+                  <p class="text-body-sm">
                     {{ formatCalorieEntry(entry.food.calories, entry.servings) }}
                   </p>
                 </div>
