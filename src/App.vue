@@ -18,7 +18,7 @@ import AppHeader from './components/AppHeader.vue'
       class="py-8 text-center text-xs"
       style="color: var(--clr-text-faint); border-top: 1px solid var(--clr-border-subtle)"
     >
-      <p       class="font-display">Avocato — Tu diario nutricional</p>
+      <p class="font-display">Avocato — Tu diario nutricional</p>
     </footer>
   </div>
 </template>

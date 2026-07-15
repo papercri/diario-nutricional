@@ -23,7 +23,7 @@ const target = computed(() => userStore.goals.targetCalories)
     <form class="space-y-6" @submit.prevent aria-label="Formulario de perfil">
       <fieldset class="space-y-4 p-6 rounded-2xl border-0 m-0 card-elevated">
         <legend
-          class="text-sm font-semibold uppercase tracking-wide"
+          class="text-sm font-bold uppercase tracking-wide pt-12"
           style="color: var(--clr-text-muted)"
         >
           Datos personales
@@ -154,7 +154,7 @@ const target = computed(() => userStore.goals.targetCalories)
 
       <fieldset class="space-y-4 p-6 rounded-2xl border-0 m-0 card-elevated">
         <legend
-          class="text-sm font-semibold uppercase tracking-wide"
+          class="text-sm font-bold uppercase tracking-wide pt-12"
           style="color: var(--clr-text-muted)"
         >
           Estilo de vida
@@ -224,11 +224,11 @@ const target = computed(() => userStore.goals.targetCalories)
 
       <section
         v-if="userStore.isProfileComplete"
-        class="p-6 rounded-2xl shadow-sm space-y-3"
+        class="p-6 rounded-2xl shadow-sm space-y-3 mt-8"
         style="background: var(--clr-primary-light); border: 1px solid var(--clr-border)"
         aria-label="Tus metas calculadas"
       >
-        <h2 class="text-sm font-semibold uppercase tracking-wide" style="color: var(--clr-primary)">
+        <h2 class="text-sm font-bold uppercase tracking-wide" style="color: var(--clr-primary)">
           Tus metas calculadas
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">

@@ -15,12 +15,7 @@ const { currentTip, isLoading, hasError, loadTip } = useTip()
       </p>
     </header>
 
-    <div
-      v-if="isLoading"
-      class="text-center py-16"
-      role="status"
-      aria-label="Cargando consejo"
-    >
+    <div v-if="isLoading" class="text-center py-16" role="status" aria-label="Cargando consejo">
       <i
         class="fa-solid fa-spinner fa-spin-pulse text-3xl block mb-2"
         aria-hidden="true"
