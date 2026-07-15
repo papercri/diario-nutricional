@@ -34,6 +34,8 @@ export default tseslint.config(
         console: 'readonly',
         fetch: 'readonly',
         localStorage: 'readonly',
+        MouseEvent: 'readonly',
+        Event: 'readonly',
       },
     },
     rules: {

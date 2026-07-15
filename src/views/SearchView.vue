@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { useFoodStore } from '../stores/foodStore'
 import { useFoodSearch } from '../composables/useFoodSearch'
 import { useAddFood } from '../composables/useAddFood'
 import FoodCard from '../components/FoodCard.vue'
 import { MEAL_TYPE_OPTIONS } from '../utils/constants'
 
-const foodStore = useFoodStore()
 const { query, results, isSearching, error, hasSearched, onSearchInput, performSearch } =
   useFoodSearch()
 const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } =
@@ -42,12 +40,7 @@ const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd
       <span id="search-hint" class="sr-only">Escribe al menos 2 caracteres para buscar</span>
     </div>
 
-    <div
-      v-if="isSearching"
-      class="text-center py-12"
-      role="status"
-      aria-label="Buscando alimentos"
-    >
+    <div v-if="isSearching" class="text-center py-12" role="status" aria-label="Buscando alimentos">
       <i
         class="fa-solid fa-spinner fa-spin-pulse text-3xl block mb-2"
         aria-hidden="true"
