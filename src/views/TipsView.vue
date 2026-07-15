@@ -1,25 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { fetchTip } from '../services/tipsService'
-import type { TipResult } from '../services/tipsService'
+import { useTip } from '../composables/useTip'
 
-const currentTip = ref<TipResult | null>(null)
-const isLoading = ref(false)
-const hasError = ref(false)
-
-async function loadTip() {
-  isLoading.value = true
-  hasError.value = false
-  try {
-    currentTip.value = await fetchTip()
-  } catch {
-    hasError.value = true
-  } finally {
-    isLoading.value = false
-  }
-}
-
-onMounted(loadTip)
+const { currentTip, isLoading, hasError, loadTip } = useTip()
 </script>
 
 <template>
@@ -33,7 +15,12 @@ onMounted(loadTip)
       </p>
     </header>
 
-    <div v-if="isLoading" class="text-center py-16" role="status" aria-label="Cargando consejo">
+    <div
+      v-if="isLoading"
+      class="text-center py-16"
+      role="status"
+      aria-label="Cargando consejo"
+    >
       <i
         class="fa-solid fa-spinner fa-spin-pulse text-3xl block mb-2"
         aria-hidden="true"

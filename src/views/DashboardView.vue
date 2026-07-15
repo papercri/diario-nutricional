@@ -4,44 +4,16 @@ import { useUserStore } from '../stores/userStore'
 import { useFoodStore } from '../stores/foodStore'
 import CalorieRing from '../components/CalorieRing.vue'
 import NutrientCard from '../components/NutrientCard.vue'
-import type { MealEntry } from '../types/food'
+import { groupEntriesByMealType, sumServings } from '../utils/nutrition'
+import { formatDateEs, formatCalorieEntry } from '../utils/formatting'
+import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '../utils/constants'
 
 const userStore = useUserStore()
 const foodStore = useFoodStore()
 
-const todayDate = computed(() => {
-  return new Date().toLocaleDateString('es-ES', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-})
+const todayDate = computed(() => formatDateEs(new Date()))
 
-const mealTypeLabels: Record<string, string> = {
-  breakfast: 'Desayuno',
-  lunch: 'Comida',
-  dinner: 'Cena',
-  snack: 'Snack',
-}
-
-const mealTypeIcons: Record<string, string> = {
-  breakfast: 'fa-solid fa-sun',
-  lunch: 'fa-solid fa-cloud-sun',
-  dinner: 'fa-solid fa-moon',
-  snack: 'fa-solid fa-cookie',
-}
-
-const groupedEntries = computed(() => {
-  const groups: Record<string, MealEntry[]> = {}
-  for (const entry of foodStore.todayEntries) {
-    if (!groups[entry.mealType]) {
-      groups[entry.mealType] = []
-    }
-    groups[entry.mealType].push(entry)
-  }
-  return groups
-})
+const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntries))
 </script>
 
 <template>
@@ -144,16 +116,16 @@ const groupedEntries = computed(() => {
           v-for="(entries, type) in groupedEntries"
           :key="type"
           class="space-y-2"
-          :aria-label="mealTypeLabels[type]"
+          :aria-label="MEAL_TYPE_LABELS[type]"
         >
           <h3
             class="flex items-center gap-2 text-sm font-medium px-1"
             style="color: var(--clr-text-muted)"
           >
-            <i :class="mealTypeIcons[type]" aria-hidden="true" />
-            <span>{{ mealTypeLabels[type] }}</span>
+            <i :class="MEAL_TYPE_ICONS[type]" aria-hidden="true" />
+            <span>{{ MEAL_TYPE_LABELS[type] }}</span>
             <span style="font-size: 0.75rem; color: var(--clr-text-faint)">
-              ({{ entries.reduce((s, e) => s + e.servings, 0).toFixed(1) }} porc.)
+              ({{ sumServings(entries).toFixed(1) }} porc.)
             </span>
           </h3>
 
@@ -176,8 +148,7 @@ const groupedEntries = computed(() => {
                     {{ entry.food.name }}
                   </p>
                   <p style="font-size: 0.75rem; color: var(--clr-text-faint)">
-                    {{ entry.food.calories.toFixed(0) }} kcal × {{ entry.servings.toFixed(1) }} =
-                    {{ Math.round(entry.food.calories * entry.servings) }} kcal
+                    {{ formatCalorieEntry(entry.food.calories, entry.servings) }}
                   </p>
                 </div>
               </div>

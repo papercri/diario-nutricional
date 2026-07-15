@@ -1,71 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useFoodStore } from '../stores/foodStore'
-import { searchFood } from '../services/openFoodFacts'
+import { useFoodSearch } from '../composables/useFoodSearch'
+import { useAddFood } from '../composables/useAddFood'
 import FoodCard from '../components/FoodCard.vue'
-import type { FoodItem, MealType } from '../types/food'
+import { MEAL_TYPE_OPTIONS } from '../utils/constants'
 
-const foodStore = useFoodStore()
-
-const query = ref('')
-const results = ref<FoodItem[]>([])
-const isSearching = ref(false)
-const error = ref<string | null>(null)
-const hasSearched = ref(false)
-
-let debounceTimer: ReturnType<typeof window.setTimeout> | null = null
-
-function onSearchInput(value: string) {
-  query.value = value
-  if (debounceTimer) window.clearTimeout(debounceTimer)
-  if (value.trim().length < 2) {
-    results.value = []
-    hasSearched.value = false
-    return
-  }
-  debounceTimer = window.setTimeout(() => performSearch(), 400)
-}
-
-async function performSearch() {
-  if (!query.value.trim()) return
-  isSearching.value = true
-  error.value = null
-  hasSearched.value = true
-  try {
-    results.value = await searchFood(query.value)
-  } catch (e) {
-    error.value = e instanceof Error ? e.message : 'Error al buscar'
-    results.value = []
-  } finally {
-    isSearching.value = false
-  }
-}
-
-const showAddModal = ref(false)
-const selectedFood = ref<FoodItem | null>(null)
-const servings = ref(1)
-const mealType = ref<MealType>('snack')
-
-function openAddModal(food: FoodItem) {
-  selectedFood.value = food
-  servings.value = 1
-  mealType.value = 'snack'
-  showAddModal.value = true
-}
-
-function confirmAdd() {
-  if (!selectedFood.value) return
-  foodStore.addEntry(selectedFood.value, servings.value, mealType.value)
-  showAddModal.value = false
-  selectedFood.value = null
-}
-
-const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
-  { value: 'breakfast', label: 'Desayuno', icon: 'fa-solid fa-sun' },
-  { value: 'lunch', label: 'Comida', icon: 'fa-solid fa-cloud-sun' },
-  { value: 'dinner', label: 'Cena', icon: 'fa-solid fa-moon' },
-  { value: 'snack', label: 'Snack', icon: 'fa-solid fa-cookie' },
-]
+const { query, results, isSearching, error, hasSearched, onSearchInput, performSearch } =
+  useFoodSearch()
+const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } =
+  useAddFood()
 </script>
 
 <template>
@@ -151,8 +93,8 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
       role="dialog"
       aria-modal="true"
       :aria-label="`Añadir ${selectedFood?.name}`"
-      @click.self="showAddModal = false"
-      @keydown.escape="showAddModal = false"
+      @click.self="closeModal"
+      @keydown.escape="closeModal"
     >
       <div
         class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
@@ -172,7 +114,7 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
           </legend>
           <div class="grid grid-cols-2 gap-2">
             <button
-              v-for="opt in mealTypeOptions"
+              v-for="opt in MEAL_TYPE_OPTIONS"
               :key="opt.value"
               type="button"
               class="btn text-sm"
@@ -209,7 +151,7 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
         </div>
 
         <div class="flex gap-3 pt-2">
-          <button class="btn btn-secondary flex-1" @click="showAddModal = false">Cancelar</button>
+          <button class="btn btn-secondary flex-1" @click="closeModal">Cancelar</button>
           <button class="btn btn-primary flex-1" @click="confirmAdd">Añadir</button>
         </div>
       </div>

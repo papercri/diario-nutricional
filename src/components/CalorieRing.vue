@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { calcPercentage, calcRemaining } from '../utils/nutrition'
 
 const props = defineProps<{
   consumed: number
   target: number
 }>()
 
-const percentage = computed(() => {
-  if (props.target <= 0) return 0
-  return Math.min((props.consumed / props.target) * 100, 100)
-})
-
-const remaining = computed(() => Math.max(props.target - props.consumed, 0))
+const percentage = computed(() => calcPercentage(props.consumed, props.target))
+const remaining = computed(() => calcRemaining(props.consumed, props.target))
 
 const circumference = 2 * Math.PI * 90
 const strokeDashoffset = computed(() => {
