@@ -25,14 +25,14 @@ onMounted(loadTip)
 <template>
   <div class="max-w-2xl mx-auto px-4 py-8 space-y-8">
     <header class="text-center">
-      <h1 class="text-2xl font-bold text-emerald-900">Consejos de bienestar</h1>
-      <p class="text-sm text-slate-500 mt-1">
-        Pequeños cambios, grandes resultados
-      </p>
+      <h1 class="text-2xl font-bold text-emerald-900 font-display">Consejos de bienestar</h1>
+      <p class="text-sm text-slate-500 mt-1">Pequeños cambios, grandes resultados</p>
     </header>
 
     <div v-if="isLoading" class="text-center py-16">
-      <div class="inline-block w-8 h-8 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin" />
+      <div
+        class="inline-block w-8 h-8 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin"
+      />
       <p class="text-slate-400 mt-4">Cargando consejo...</p>
     </div>
 
@@ -49,7 +49,10 @@ onMounted(loadTip)
       </p>
     </div>
 
-    <div v-else-if="hasError" class="p-8 rounded-3xl bg-amber-50 border border-amber-200 text-center">
+    <div
+      v-else-if="hasError"
+      class="p-8 rounded-3xl bg-amber-50 border border-amber-200 text-center"
+    >
       <p class="text-slate-600">No pudimos cargar un consejo</p>
     </div>
 
@@ -64,15 +67,23 @@ onMounted(loadTip)
     </div>
 
     <div class="p-6 rounded-3xl bg-amber-50 border border-amber-200 space-y-3">
-      <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide">
-        Categorías
-      </h2>
+      <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Categorías</h2>
       <div class="flex flex-wrap gap-2">
-        <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-700 text-xs font-medium">Nutrición</span>
-        <span class="px-3 py-1.5 rounded-xl bg-lime-100 text-lime-700 text-xs font-medium">Ejercicio</span>
-        <span class="px-3 py-1.5 rounded-xl bg-amber-100 text-amber-700 text-xs font-medium">Hidratación</span>
-        <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-700 text-xs font-medium">Sueño</span>
-        <span class="px-3 py-1.5 rounded-xl bg-lime-100 text-lime-700 text-xs font-medium">Mental</span>
+        <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-700 text-xs font-medium"
+          >Nutrición</span
+        >
+        <span class="px-3 py-1.5 rounded-xl bg-lime-100 text-lime-700 text-xs font-medium"
+          >Ejercicio</span
+        >
+        <span class="px-3 py-1.5 rounded-xl bg-amber-100 text-amber-700 text-xs font-medium"
+          >Hidratación</span
+        >
+        <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-700 text-xs font-medium"
+          >Sueño</span
+        >
+        <span class="px-3 py-1.5 rounded-xl bg-lime-100 text-lime-700 text-xs font-medium"
+          >Mental</span
+        >
       </div>
     </div>
   </div>

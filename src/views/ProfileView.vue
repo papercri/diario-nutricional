@@ -27,16 +27,13 @@ const target = computed(() => userStore.goals.targetCalories)
 <template>
   <div class="max-w-2xl mx-auto px-4 py-8 space-y-8">
     <header class="text-center">
-      <h1 class="text-2xl font-bold text-emerald-900">Tu perfil</h1>
+      <h1 class="text-2xl font-bold text-emerald-900 font-display">Tu perfil</h1>
       <p class="text-sm text-slate-500 mt-1">
         Tus datos se guardan localmente y nunca se comparten.
       </p>
     </header>
 
-    <form
-      class="space-y-6"
-      @submit.prevent
-    >
+    <form class="space-y-6" @submit.prevent>
       <section class="space-y-4 p-6 rounded-3xl bg-white border border-amber-100 shadow-sm">
         <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide">
           Datos personales
@@ -62,7 +59,9 @@ const target = computed(() => userStore.goals.targetCalories)
               min="10"
               max="120"
               class="w-full px-4 py-3 rounded-2xl border border-amber-200 bg-amber-50/50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-              @input="userStore.updateProfile({ age: Number(($event.target as HTMLInputElement).value) })"
+              @input="
+                userStore.updateProfile({ age: Number(($event.target as HTMLInputElement).value) })
+              "
             />
           </div>
 
@@ -72,9 +71,11 @@ const target = computed(() => userStore.goals.targetCalories)
               <button
                 type="button"
                 class="flex-1 py-3 rounded-2xl text-sm font-medium transition-all"
-                :class="userStore.profile.sex === 'female'
-                  ? 'bg-emerald-500 text-white shadow-sm'
-                  : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'"
+                :class="
+                  userStore.profile.sex === 'female'
+                    ? 'bg-emerald-500 text-white shadow-sm'
+                    : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'
+                "
                 @click="userStore.updateProfile({ sex: 'female' as Sex })"
               >
                 Mujer
@@ -82,9 +83,11 @@ const target = computed(() => userStore.goals.targetCalories)
               <button
                 type="button"
                 class="flex-1 py-3 rounded-2xl text-sm font-medium transition-all"
-                :class="userStore.profile.sex === 'male'
-                  ? 'bg-emerald-500 text-white shadow-sm'
-                  : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'"
+                :class="
+                  userStore.profile.sex === 'male'
+                    ? 'bg-emerald-500 text-white shadow-sm'
+                    : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'
+                "
                 @click="userStore.updateProfile({ sex: 'male' as Sex })"
               >
                 Hombre
@@ -103,7 +106,11 @@ const target = computed(() => userStore.goals.targetCalories)
               max="300"
               step="0.1"
               class="w-full px-4 py-3 rounded-2xl border border-amber-200 bg-amber-50/50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-              @input="userStore.updateProfile({ weight: Number(($event.target as HTMLInputElement).value) })"
+              @input="
+                userStore.updateProfile({
+                  weight: Number(($event.target as HTMLInputElement).value),
+                })
+              "
             />
           </div>
 
@@ -115,16 +122,18 @@ const target = computed(() => userStore.goals.targetCalories)
               min="50"
               max="250"
               class="w-full px-4 py-3 rounded-2xl border border-amber-200 bg-amber-50/50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-              @input="userStore.updateProfile({ height: Number(($event.target as HTMLInputElement).value) })"
+              @input="
+                userStore.updateProfile({
+                  height: Number(($event.target as HTMLInputElement).value),
+                })
+              "
             />
           </div>
         </div>
       </section>
 
       <section class="space-y-4 p-6 rounded-3xl bg-white border border-amber-100 shadow-sm">
-        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide">
-          Estilo de vida
-        </h2>
+        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Estilo de vida</h2>
 
         <div class="space-y-2">
           <label class="block text-sm font-medium text-slate-700">Actividad física</label>
@@ -134,9 +143,11 @@ const target = computed(() => userStore.goals.targetCalories)
               :key="opt.value"
               type="button"
               class="py-3 px-4 rounded-2xl text-sm font-medium transition-all text-left"
-              :class="userStore.profile.activityLevel === opt.value
-                ? 'bg-emerald-500 text-white shadow-sm'
-                : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'"
+              :class="
+                userStore.profile.activityLevel === opt.value
+                  ? 'bg-emerald-500 text-white shadow-sm'
+                  : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'
+              "
               @click="userStore.updateProfile({ activityLevel: opt.value as ActivityLevel })"
             >
               {{ opt.label }}
@@ -152,9 +163,11 @@ const target = computed(() => userStore.goals.targetCalories)
               :key="opt.value"
               type="button"
               class="py-3 px-4 rounded-2xl text-sm font-medium transition-all"
-              :class="userStore.profile.goal === opt.value
-                ? 'bg-emerald-500 text-white shadow-sm'
-                : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'"
+              :class="
+                userStore.profile.goal === opt.value
+                  ? 'bg-emerald-500 text-white shadow-sm'
+                  : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'
+              "
               @click="userStore.updateProfile({ goal: opt.value as GoalType })"
             >
               <span class="block">{{ opt.label }}</span>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FoodItem } from '../types/food'
 
-const props = defineProps<{
+defineProps<{
   food: FoodItem
   showAdd?: boolean
 }>()
@@ -13,7 +13,7 @@ const emit = defineEmits<{
 
 <template>
   <div
-    class="flex items-start gap-4 p-4 rounded-2xl border border-amber-100 bg-white shadow-sm hover:shadow-md transition-all duration-200"
+    class="flex items-start gap-4 p-4 rounded-2xl border border-amber-100 bg-white shadow-sm hover:shadow-md hover:scale-[1.01] transition-all duration-200"
   >
     <img
       v-if="food.imageUrl"

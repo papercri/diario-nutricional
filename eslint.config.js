@@ -7,19 +7,35 @@ import prettierConfig from 'eslint-config-prettier'
 export default tseslint.config(
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+  ...tseslint.configs.recommended.map(c => ({
+    ...c,
+    files: ['src/**/*.ts'],
+  })),
   {
     files: ['src/**/*.vue'],
     languageOptions: {
       parserOptions: {
         parser: tseslint.parser,
+        ecmaVersion: 'latest',
+        sourceType: 'module',
       },
     },
   },
-  ...tseslint.configs.recommended.map(c => ({
-    ...c,
-    files: ['src/**/*.ts', 'src/**/*.vue'],
-  })),
   {
+    languageOptions: {
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        navigator: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        console: 'readonly',
+        fetch: 'readonly',
+        localStorage: 'readonly',
+      },
+    },
     rules: {
       'no-console': 'warn',
       'no-debugger': 'warn',
@@ -32,6 +48,6 @@ export default tseslint.config(
   },
   prettierConfig,
   {
-    ignores: ['dist/', 'node_modules/', '*.config.*'],
+    ignores: ['dist/', 'node_modules/', '*.config.*', 'cris/'],
   },
 )

@@ -13,17 +13,17 @@ const isSearching = ref(false)
 const error = ref<string | null>(null)
 const hasSearched = ref(false)
 
-let debounceTimer: ReturnType<typeof setTimeout> | null = null
+let debounceTimer: ReturnType<typeof window.setTimeout> | null = null
 
 function onSearchInput(value: string) {
   query.value = value
-  if (debounceTimer) clearTimeout(debounceTimer)
+  if (debounceTimer) window.clearTimeout(debounceTimer)
   if (value.trim().length < 2) {
     results.value = []
     hasSearched.value = false
     return
   }
-  debounceTimer = setTimeout(() => performSearch(), 400)
+  debounceTimer = window.setTimeout(() => performSearch(), 400)
 }
 
 async function performSearch() {
@@ -71,10 +71,8 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
 <template>
   <div class="max-w-2xl mx-auto px-4 py-8 space-y-6">
     <header class="text-center">
-      <h1 class="text-2xl font-bold text-emerald-900">Buscar alimentos</h1>
-      <p class="text-sm text-slate-500 mt-1">
-        Encuentra alimentos en Open Food Facts
-      </p>
+      <h1 class="text-2xl font-bold text-emerald-900 font-display">Buscar alimentos</h1>
+      <p class="text-sm text-slate-500 mt-1">Encuentra alimentos en Open Food Facts</p>
     </header>
 
     <div class="relative">
@@ -89,7 +87,9 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
     </div>
 
     <div v-if="isSearching" class="text-center py-12">
-      <div class="inline-block w-8 h-8 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin" />
+      <div
+        class="inline-block w-8 h-8 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin"
+      />
       <p class="text-slate-400 mt-4">Buscando...</p>
     </div>
 
@@ -104,15 +104,13 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
     </div>
 
     <div v-else-if="hasSearched && results.length === 0" class="text-center py-12">
-      <span class="text-5xl">🔎</span>
-      <p class="text-slate-400 mt-4">No encontramos alimentos para "{{ query }}"</p>
-      <p class="text-xs text-slate-300 mt-1">Prueba con otro término</p>
+      <span class="text-5xl block mb-3">🔎</span>
+      <p class="text-slate-600 font-medium">Sin resultados para "{{ query }}"</p>
+      <p class="text-sm text-slate-400 mt-1">Prueba con otro término</p>
     </div>
 
     <div v-else class="space-y-3">
-      <p v-if="hasSearched" class="text-xs text-slate-400">
-        {{ results.length }} resultados
-      </p>
+      <p v-if="hasSearched" class="text-xs text-slate-400">{{ results.length }} resultados</p>
       <FoodCard
         v-for="food in results"
         :key="food.id"
@@ -130,9 +128,7 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
       <div
         class="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-6 shadow-xl space-y-5 animate-slide-up"
       >
-        <h2 class="text-lg font-semibold text-slate-800">
-          Añadir alimento
-        </h2>
+        <h2 class="text-lg font-semibold text-slate-800">Añadir alimento</h2>
 
         <p class="text-sm text-slate-700 font-medium">
           {{ selectedFood?.name }}
@@ -146,9 +142,11 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
               :key="opt.value"
               type="button"
               class="py-2.5 px-3 rounded-2xl text-sm font-medium transition-all"
-              :class="mealType === opt.value
-                ? 'bg-emerald-500 text-white shadow-sm'
-                : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'"
+              :class="
+                mealType === opt.value
+                  ? 'bg-emerald-500 text-white shadow-sm'
+                  : 'bg-amber-50 text-slate-600 hover:bg-amber-100 border border-amber-200'
+              "
               @click="mealType = opt.value"
             >
               {{ opt.icon }} {{ opt.label }}
@@ -157,9 +155,7 @@ const mealTypeOptions: { value: MealType; label: string; icon: string }[] = [
         </div>
 
         <div class="space-y-2">
-          <label class="block text-sm font-medium text-slate-600">
-            Porciones (100g c/u)
-          </label>
+          <label class="block text-sm font-medium text-slate-600"> Porciones (100g c/u) </label>
           <input
             v-model.number="servings"
             type="number"

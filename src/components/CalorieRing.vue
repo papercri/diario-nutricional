@@ -26,17 +26,16 @@ const ringColor = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-2">
+  <div class="flex flex-col items-center gap-2 animate-fade-in-up">
     <div class="relative w-48 h-48">
       <svg class="w-full h-full -rotate-90" viewBox="0 0 200 200">
-        <circle
-          cx="100"
-          cy="100"
-          r="90"
-          fill="none"
-          stroke="#e5e7eb"
-          stroke-width="14"
-        />
+        <defs>
+          <filter id="ring-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#e5e7eb" stroke-width="14" />
         <circle
           cx="100"
           cy="100"
@@ -47,28 +46,19 @@ const ringColor = computed(() => {
           stroke-linecap="round"
           :stroke-dasharray="circumference"
           :stroke-dashoffset="strokeDashoffset"
+          filter="url(#ring-glow)"
           class="transition-all duration-700 ease-out"
         />
       </svg>
-      <div
-        class="absolute inset-0 flex flex-col items-center justify-center"
-      >
-        <span class="text-3xl font-bold text-emerald-900">
+      <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <span class="text-3xl font-bold text-emerald-900 font-display">
           {{ Math.round(consumed) }}
         </span>
         <span class="text-sm text-slate-500">/ {{ Math.round(target) }} kcal</span>
-        <span
-          v-if="remaining > 0"
-          class="text-xs text-slate-400 mt-1"
-        >
+        <span v-if="remaining > 0" class="text-xs text-slate-400 mt-1">
           {{ Math.round(remaining) }} restantes
         </span>
-        <span
-          v-else
-          class="text-xs text-amber-500 font-medium mt-1"
-        >
-          ¡Meta cumplida!
-        </span>
+        <span v-else class="text-xs text-amber-500 font-medium mt-1"> ¡Meta cumplida! </span>
       </div>
     </div>
   </div>

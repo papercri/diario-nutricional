@@ -47,10 +47,12 @@ const groupedEntries = computed(() => {
 <template>
   <div class="max-w-2xl mx-auto px-4 py-8 space-y-8">
     <header class="text-center">
-      <h1 class="text-2xl font-bold text-emerald-900">
-        {{ userStore.isProfileComplete
-          ? `¡Bienvenido${userStore.profile.sex === 'female' ? 'a' : ''}, ${userStore.profile.name}!`
-          : '¡Bienvenido a Avocato!' }}
+      <h1 class="text-2xl font-bold text-emerald-900 font-display">
+        {{
+          userStore.isProfileComplete
+            ? `¡Bienvenido${userStore.profile.sex === 'female' ? 'a' : ''}, ${userStore.profile.name}!`
+            : '¡Bienvenido a Avocato!'
+        }}
       </h1>
       <p class="text-sm text-slate-500 capitalize mt-1">{{ todayDate }}</p>
     </header>
@@ -103,7 +105,7 @@ const groupedEntries = computed(() => {
 
     <section class="space-y-4">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-slate-800">Comidas de hoy</h2>
+        <h2 class="text-lg font-semibold text-slate-800 font-display">Comidas de hoy</h2>
         <button
           v-if="foodStore.todayEntries.length > 0"
           class="text-xs text-slate-400 hover:text-red-500 transition-colors"
@@ -113,23 +115,23 @@ const groupedEntries = computed(() => {
         </button>
       </div>
 
-      <div v-if="foodStore.todayEntries.length === 0" class="text-center py-12">
-        <span class="text-5xl">🍽️</span>
-        <p class="text-slate-400 mt-4">Aún no has registrado comidas</p>
+      <div
+        v-if="foodStore.todayEntries.length === 0"
+        class="text-center py-12 p-8 rounded-3xl bg-gradient-to-br from-lime-50 to-amber-50 border border-lime-200/50"
+      >
+        <span class="text-5xl block mb-3">🍽️</span>
+        <p class="text-slate-600 font-medium">Tu día está vacío</p>
+        <p class="text-sm text-slate-400 mt-1">Registra tu primera comida para comenzar</p>
         <router-link
           to="/search"
-          class="inline-block mt-4 px-6 py-3 rounded-2xl bg-lime-500 text-white font-medium hover:bg-lime-600 transition-colors shadow-sm"
+          class="inline-block mt-5 px-6 py-3 rounded-2xl bg-lime-500 text-white font-medium hover:bg-lime-600 active:bg-lime-700 transition-colors shadow-sm"
         >
           Buscar alimentos
         </router-link>
       </div>
 
       <div v-else class="space-y-4">
-        <div
-          v-for="(entries, type) in groupedEntries"
-          :key="type"
-          class="space-y-2"
-        >
+        <div v-for="(entries, type) in groupedEntries" :key="type" class="space-y-2">
           <h3 class="flex items-center gap-2 text-sm font-medium text-slate-500 px-1">
             <span>{{ mealTypeIcons[type] }}</span>
             <span>{{ mealTypeLabels[type] }}</span>
@@ -156,8 +158,8 @@ const groupedEntries = computed(() => {
                   {{ entry.food.name }}
                 </p>
                 <p class="text-xs text-slate-400">
-                  {{ entry.food.calories.toFixed(0) }} kcal × {{ entry.servings.toFixed(1) }}
-                  = {{ Math.round(entry.food.calories * entry.servings) }} kcal
+                  {{ entry.food.calories.toFixed(0) }} kcal × {{ entry.servings.toFixed(1) }} =
+                  {{ Math.round(entry.food.calories * entry.servings) }} kcal
                 </p>
               </div>
             </div>

@@ -19,7 +19,7 @@ const links = [
       <router-link to="/" class="flex items-center gap-2 no-underline group">
         <span class="text-2xl">🥑</span>
         <span
-          class="font-bold text-lg tracking-tight text-emerald-900 group-hover:text-emerald-700 transition-colors"
+          class="font-bold text-lg tracking-tight text-emerald-900 group-hover:text-emerald-700 transition-colors font-display"
         >
           Avocato
         </span>
