@@ -1,23 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useUserStore } from '../stores/userStore'
+import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '../utils/constants'
 import type { ActivityLevel, GoalType, Sex } from '../types/user'
 
 const userStore = useUserStore()
-
-const activityOptions: { value: ActivityLevel; label: string; icon: string }[] = [
-  { value: 'sedentary', label: 'Sedentario', icon: 'fa-solid fa-couch' },
-  { value: 'light', label: 'Ligero', icon: 'fa-solid fa-person-walking' },
-  { value: 'moderate', label: 'Moderado', icon: 'fa-solid fa-person-running' },
-  { value: 'active', label: 'Activo', icon: 'fa-solid fa-person-biking' },
-  { value: 'very_active', label: 'Muy activo', icon: 'fa-solid fa-fire' },
-]
-
-const goalOptions: { value: GoalType; label: string; desc: string; icon: string }[] = [
-  { value: 'lose', label: 'Perder peso', desc: 'Déficit calórico', icon: 'fa-solid fa-arrow-down' },
-  { value: 'maintain', label: 'Mantener', desc: 'Balance calórico', icon: 'fa-solid fa-equals' },
-  { value: 'gain', label: 'Ganar masa', desc: 'Superávit calórico', icon: 'fa-solid fa-arrow-up' },
-]
 
 const bmr = computed(() => userStore.goals.bmr)
 const tdee = computed(() => userStore.goals.tdee)
@@ -187,7 +174,7 @@ const target = computed(() => userStore.goals.targetCalories)
             aria-labelledby="activity-label"
           >
             <button
-              v-for="opt in activityOptions"
+              v-for="opt in ACTIVITY_OPTIONS"
               :key="opt.value"
               type="button"
               class="btn text-sm text-left"
@@ -218,7 +205,7 @@ const target = computed(() => userStore.goals.targetCalories)
             aria-labelledby="goal-label"
           >
             <button
-              v-for="opt in goalOptions"
+              v-for="opt in GOAL_OPTIONS"
               :key="opt.value"
               type="button"
               class="btn text-sm flex-col"
