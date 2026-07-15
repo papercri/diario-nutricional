@@ -29,16 +29,21 @@ watch(
 <template>
   <header
     class="sticky top-0 z-50 backdrop-blur-md"
-    style="border-bottom: 1px solid var(--clr-border-subtle); background: rgba(250, 245, 235, 0.88)"
+    style="border-bottom: 1px solid var(--clr-border-subtle); background: rgba(250, 245, 235, 0.92)"
   >
     <div class="max-w-4xl mx-auto px-4 h-14 sm:h-16 flex items-center justify-between">
       <router-link
         to="/"
-        class="flex items-center gap-2 no-underline group"
+        class="flex items-center gap-2.5 no-underline group"
         aria-label="Avocato — ir al inicio"
       >
-        <i class="fa-solid fa-leaf text-xl" aria-hidden="true" style="color: var(--clr-primary)" />
-        <span class="font-display text-lg tracking-tight group-hover:opacity-80 transition-opacity">
+        <div
+          class="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105"
+          style="background: var(--clr-primary)"
+        >
+          <i class="fa-solid fa-leaf text-sm" aria-hidden="true" style="color: #fff" />
+        </div>
+        <span class="font-display text-lg font-bold tracking-tight">
           Avocato
         </span>
       </router-link>
@@ -60,7 +65,7 @@ watch(
 
       <!-- Hamburger -->
       <button
-        class="sm:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg transition-colors hover:opacity-70"
+        class="sm:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg transition-colors hover:bg-black/5"
         :aria-expanded="isMenuOpen"
         aria-controls="mobile-menu"
         aria-label="Menú de navegación"
@@ -92,10 +97,10 @@ watch(
       <nav
         id="mobile-menu"
         v-if="isMenuOpen"
-        class="sm:hidden backdrop-blur-md"
+        class="sm:hidden"
         style="
           border-top: 1px solid var(--clr-border-subtle);
-          background: rgba(250, 245, 235, 0.96);
+          background: rgba(250, 245, 235, 0.98);
         "
         aria-label="Navegación principal"
       >
@@ -106,7 +111,7 @@ watch(
             :to="link.path"
             class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 no-underline"
             :aria-current="route.name === link.name ? 'page' : undefined"
-            :class="route.name === link.name ? 'text-white shadow-sm' : 'hover:opacity-80'"
+            :class="route.name === link.name ? 'text-white shadow-sm' : 'hover:bg-black/5'"
             :style="
               route.name === link.name
                 ? 'background: var(--clr-primary); color: #fff'
