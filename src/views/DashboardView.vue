@@ -22,7 +22,7 @@ const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntr
       <h1 class="text-display-xl">
         {{
           userStore.isProfileComplete
-            ? `¡Bienvenido${userStore.profile.sex === 'female' ? 'a' : ''}, ${userStore.profile.name}!`
+            ? `¡Bienvenid${userStore.profile.sex === 'female' ? 'a' : 'o'}, ${userStore.profile.name}!`
             : '¡Bienvenido a Avocato!'
         }}
       </h1>
