@@ -12,7 +12,7 @@ export function useFoodSearch() {
   const error = ref<string | null>(null)
   const hasSearched = ref(false)
 
-  let debounceTimer: ReturnType<typeof window.setTimeout> | null = null
+  let debounceTimer: number | null = null
 
   async function performSearch() {
     if (!query.value.trim()) return
