@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { calcPercentage } from '../utils/nutrition'
 
 const props = defineProps<{
   label: string
@@ -9,10 +10,7 @@ const props = defineProps<{
   color?: 'emerald' | 'lime' | 'amber'
 }>()
 
-const percentage = computed(() => {
-  if (props.target <= 0) return 0
-  return Math.min((props.value / props.target) * 100, 100)
-})
+const percentage = computed(() => calcPercentage(props.value, props.target))
 
 const colorStyles = computed(() => {
   if (props.color === 'lime') {
