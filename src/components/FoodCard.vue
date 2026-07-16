@@ -65,26 +65,23 @@ const emit = defineEmits<{
     </div>
 
     <div class="btn-col shrink-0">
-      <div class="btn-slide-wrap">
-        <span class="btn-slide__text">Ver más</span>
-        <button
-          class="btn-slide btn-eye"
-          :aria-label="`Ver detalles de ${food.name}`"
-          @click="emit('detail', food)"
-        >
-          <i class="fa-solid fa-eye" aria-hidden="true" />
-        </button>
-      </div>
-      <div v-if="showAdd" class="btn-slide-wrap">
-        <span class="btn-slide__text">Añadir</span>
-        <button
-          class="btn-slide btn-primary-slide"
-          :aria-label="`Añadir ${food.name}`"
-          @click="emit('add', food)"
-        >
-          <i class="fa-solid fa-plus" aria-hidden="true" />
-        </button>
-      </div>
+      <button
+        class="btn-slide btn-eye"
+        :aria-label="`Ver detalles de ${food.name}`"
+        @click="emit('detail', food)"
+      >
+        <span class="btn-slide__label">Ver más</span>
+        <i class="fa-solid fa-eye btn-slide__icon" aria-hidden="true" />
+      </button>
+      <button
+        v-if="showAdd"
+        class="btn-slide btn-primary-slide"
+        :aria-label="`Añadir ${food.name}`"
+        @click="emit('add', food)"
+      >
+        <span class="btn-slide__label">Añadir</span>
+        <i class="fa-solid fa-plus btn-slide__icon" aria-hidden="true" />
+      </button>
     </div>
   </article>
 </template>
@@ -97,17 +94,43 @@ const emit = defineEmits<{
   flex-shrink: 0;
 }
 
-.btn-slide-wrap {
+.btn-slide {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  overflow: visible;
+  z-index: 1;
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease;
+}
+.btn-slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  z-index: -1;
+  transition: left 0.25s ease;
 }
 
-.btn-slide__text {
+.btn-slide__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+
+.btn-slide__label {
   position: absolute;
-  right: 100%;
-  margin-right: 0.375rem;
+  right: 2rem;
   padding: 0.2rem 0.5rem;
   border-radius: var(--radius-sm);
   font-size: 0.7rem;
@@ -121,55 +144,33 @@ const emit = defineEmits<{
     transform 0.25s ease;
   pointer-events: none;
 }
-.btn-eye ~ .btn-slide__text,
-.btn-slide-wrap:has(.btn-eye) .btn-slide__text {
-  background: var(--clr-secondary);
-}
-.btn-primary-slide ~ .btn-slide__text,
-.btn-slide-wrap:has(.btn-primary-slide) .btn-slide__text {
-  background: var(--clr-primary);
-}
-.btn-slide-wrap:hover .btn-slide__text {
+.btn-slide:hover .btn-slide__label {
   opacity: 1;
   transform: translateX(0);
 }
 
-.btn-slide {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: var(--radius-md);
-  border: none;
-  cursor: pointer;
-  z-index: 1;
-  transition:
-    background 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.btn-eye {
+.btn-eye::before {
   background: var(--clr-secondary);
-  color: #fff;
-  box-shadow: var(--shadow-sm);
+}
+.btn-eye:hover::before {
+  left: -3.5rem;
 }
 .btn-eye:hover {
   background: var(--clr-secondary-hover);
 }
 
-.btn-primary-slide {
+.btn-primary-slide::before {
   background: var(--clr-primary);
-  color: #fff;
-  box-shadow: var(--shadow-sm);
+}
+.btn-primary-slide:hover::before {
+  left: -3.5rem;
 }
 .btn-primary-slide:hover {
   background: var(--clr-primary-hover);
 }
 
 @media (hover: none) {
-  .btn-slide__text {
+  .btn-slide__label {
     display: none;
   }
 }
