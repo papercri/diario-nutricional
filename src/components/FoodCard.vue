@@ -8,6 +8,7 @@ defineProps<{
 
 const emit = defineEmits<{
   add: [food: FoodItem]
+  detail: [food: FoodItem]
 }>()
 </script>
 
@@ -33,9 +34,20 @@ const emit = defineEmits<{
     </div>
 
     <div class="flex-1 min-w-0">
-      <h3 class="font-semibold truncate" style="color: var(--clr-text)">
-        {{ food.name }}
-      </h3>
+      <div class="flex items-center gap-2">
+        <h3 class="font-semibold truncate" style="color: var(--clr-text)">
+          {{ food.name }}
+        </h3>
+        <span
+          v-if="food.nutriScore"
+          class="nutri-score"
+          :class="`nutri-score--${food.nutriScore}`"
+          :aria-label="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
+        >
+          <span class="nutri-score__letter">{{ food.nutriScore }}</span>
+          Nutri-Score
+        </span>
+      </div>
       <p v-if="food.brand" class="text-xs truncate" style="color: var(--clr-text-faint)">
         {{ food.brand }}
       </p>
@@ -43,20 +55,28 @@ const emit = defineEmits<{
         <span class="font-semibold" style="color: var(--clr-primary)">
           {{ Math.round(food.calories) }} kcal
         </span>
-        <span>P: {{ food.protein.toFixed(1) }}g</span>
-        <span>C: {{ food.carbs.toFixed(1) }}g</span>
-        <span>G: {{ food.fat.toFixed(1) }}g</span>
+        <span>Proteínas: {{ food.protein.toFixed(1) }}g</span>
+        <span>Carbos: {{ food.carbs.toFixed(1) }}g</span>
+        <span>Grasas: {{ food.fat.toFixed(1) }}g</span>
       </div>
     </div>
 
-    <button
-      v-if="showAdd"
-      class="btn btn-primary shrink-0 text-sm"
-      :aria-label="`Añadir ${food.name}`"
-      @click="emit('add', food)"
-    >
-      <i class="fa-solid fa-plus" aria-hidden="true" />
-      Añadir
-    </button>
+    <div class="flex flex-col gap-2 shrink-0">
+      <button
+        class="btn btn-ghost w-8 h-8 p-0"
+        :aria-label="`Ver detalles de ${food.name}`"
+        @click="emit('detail', food)"
+      >
+        <i class="fa-solid fa-eye" aria-hidden="true" />
+      </button>
+      <button
+        v-if="showAdd"
+        class="btn btn-primary w-8 h-8 p-0 text-sm"
+        :aria-label="`Añadir ${food.name}`"
+        @click="emit('add', food)"
+      >
+        <i class="fa-solid fa-plus" aria-hidden="true" />
+      </button>
+    </div>
   </article>
 </template>

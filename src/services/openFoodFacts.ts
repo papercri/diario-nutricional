@@ -1,4 +1,9 @@
-import type { FoodItem, OpenFoodFactsSearchResult, OpenFoodFactsProduct } from '../types/food'
+import type {
+  FoodItem,
+  NutriScoreGrade,
+  OpenFoodFactsSearchResult,
+  OpenFoodFactsProduct,
+} from '../types/food'
 
 const BASE_URL = 'https://world.openfoodfacts.org'
 const DEFAULT_TIMEOUT_MS = 8000
@@ -14,15 +19,15 @@ const PRODUCT_FIELDS = [
   'nutriments',
   'image_url',
   'serving_size',
+  'nutriscore_grade',
 ].join(',')
 
 class OpenFoodFactsError extends Error {
-  constructor(
-    message: string,
-    public readonly cause?: unknown,
-  ) {
+  readonly cause?: unknown
+  constructor(message: string, cause?: unknown) {
     super(message)
     this.name = 'OpenFoodFactsError'
+    this.cause = cause
   }
 }
 
@@ -56,10 +61,15 @@ async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
   }
 }
 
+const VALID_NUTRI_SCORES = new Set<string>(['a', 'b', 'c', 'd', 'e'])
+
 function toFoodItem(
   code: string,
   p: OpenFoodFactsProduct['product'] | OpenFoodFactsSearchResult['products'][number],
 ): FoodItem {
+  const raw = p?.nutriscore_grade
+  const nutriScore = raw && VALID_NUTRI_SCORES.has(raw) ? (raw as NutriScoreGrade) : undefined
+
   return {
     id: code,
     name: p?.product_name ?? 'Sin nombre',
@@ -71,6 +81,7 @@ function toFoodItem(
     barcode: code,
     imageUrl: p?.image_url,
     servingSize: p?.serving_size,
+    nutriScore,
   }
 }
 
@@ -97,7 +108,10 @@ export async function searchFood(
 
   if (!Array.isArray(data.products)) return []
 
-  return data.products.filter(p => p.product_name).map(p => toFoodItem(p.code, p))
+  return data.products
+    .filter(p => p.product_name && p.nutriscore_grade)
+    .map(p => toFoodItem(p.code, p))
+    .filter(item => item.calories > 0)
 }
 
 export async function getProductByBarcode(

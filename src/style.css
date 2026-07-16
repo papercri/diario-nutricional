@@ -410,3 +410,55 @@ button {
     transform: none;
   }
 }
+
+/* ═══════════════════════════════════════
+   Nutri-Score badge
+   ═══════════════════════════════════════ */
+.nutri-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+  flex-shrink: 0;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.nutri-score__letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.25);
+  line-height: 1;
+}
+.nutri-score--a {
+  background: #038141;
+}
+.nutri-score--b {
+  background: #85bb2f;
+}
+.nutri-score--c {
+  background: #f0c800;
+  color: #3d3400;
+}
+.nutri-score--c .nutri-score__letter {
+  background: rgba(0, 0, 0, 0.12);
+}
+.nutri-score--d {
+  background: #ee8100;
+}
+.nutri-score--e {
+  background: #e63e11;
+}

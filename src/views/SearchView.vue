@@ -1,13 +1,31 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useFoodSearch } from '../composables/useFoodSearch'
 import { useAddFood } from '../composables/useAddFood'
 import FoodCard from '../components/FoodCard.vue'
+import FoodDetailModal from '../components/FoodDetailModal.vue'
 import { MEAL_TYPE_OPTIONS } from '../utils/constants'
+import type { FoodItem } from '../types/food'
 
 const { query, results, isSearching, error, hasSearched, onSearchInput, performSearch } =
   useFoodSearch()
 const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } =
   useAddFood()
+
+const detailFood = ref<FoodItem | null>(null)
+
+function openDetail(food: FoodItem) {
+  detailFood.value = food
+}
+
+function closeDetail() {
+  detailFood.value = null
+}
+
+function addFromDetail(food: FoodItem) {
+  detailFood.value = null
+  openAddModal(food)
+}
 </script>
 
 <template>
@@ -83,8 +101,17 @@ const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd
         :food="food"
         :show-add="true"
         @add="openAddModal"
+        @detail="openDetail"
       />
     </div>
+
+    <!-- Detail modal -->
+    <FoodDetailModal
+      v-if="detailFood"
+      :food="detailFood"
+      @close="closeDetail"
+      @add="addFromDetail"
+    />
 
     <!-- Add food modal -->
     <div
