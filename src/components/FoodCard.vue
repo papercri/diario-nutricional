@@ -42,7 +42,7 @@ const emit = defineEmits<{
           v-if="food.nutriScore"
           :src="`/nutri-${food.nutriScore}.png`"
           :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
-          class="h-5 shrink-0"
+          class="h-6 shrink-0"
         />
       </div>
       <p v-if="food.brand" class="text-xs truncate" style="color: var(--clr-text-faint)">
@@ -60,8 +60,7 @@ const emit = defineEmits<{
 
     <div class="flex flex-col gap-2 shrink-0">
       <button
-        class="btn w-8 h-8 p-0 shrink-0"
-        style="background: var(--clr-secondary-light); color: var(--clr-secondary)"
+        class="btn btn-eye w-8 h-8 p-0 shrink-0"
         :aria-label="`Ver detalles de ${food.name}`"
         @click="emit('detail', food)"
       >
@@ -78,3 +77,14 @@ const emit = defineEmits<{
     </div>
   </article>
 </template>
+
+<style scoped>
+.btn-eye {
+  background: var(--clr-secondary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.btn-eye:hover {
+  background: var(--clr-secondary-hover);
+}
+</style>

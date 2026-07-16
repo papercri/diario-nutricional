@@ -35,7 +35,7 @@ function getGradeLabel(grade: string): string {
 
 <template>
   <div
-    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+    class="fixed inset-0 z-50 flex justify-end bg-black/30 backdrop-blur-sm"
     role="dialog"
     aria-modal="true"
     :aria-label="`Detalles de ${food.name}`"
@@ -43,7 +43,7 @@ function getGradeLabel(grade: string): string {
     @keydown.escape="emit('close')"
   >
     <div
-      class="w-full sm:max-w-xl max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-xl animate-slide-up"
+      class="w-full sm:w-[28rem] max-h-full overflow-y-auto shadow-xl animate-slide-right"
       style="background: var(--clr-surface)"
     >
       <!-- Close button -->
@@ -72,7 +72,7 @@ function getGradeLabel(grade: string): string {
               v-if="food.nutriScore"
               :src="`/nutri-${food.nutriScore}.png`"
               :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
-              class="h-7 mt-2"
+              class="h-8 mt-2"
             />
           </div>
           <img
@@ -156,17 +156,15 @@ function getGradeLabel(grade: string): string {
 </template>
 
 <style scoped>
-@keyframes slide-up {
+@keyframes slide-right {
   from {
-    transform: translateY(100%);
-    opacity: 0;
+    transform: translateX(100%);
   }
   to {
-    transform: translateY(0);
-    opacity: 1;
+    transform: translateX(0);
   }
 }
-.animate-slide-up {
-  animation: slide-up 0.25s ease-out;
+.animate-slide-right {
+  animation: slide-right 0.25s ease-out;
 }
 </style>
