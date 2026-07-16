@@ -50,12 +50,21 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <img
-      v-if="food.nutriScore"
-      :src="`/nutri-${food.nutriScore}.png`"
-      :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
-      class="h-5 shrink-0 self-start mt-0.5"
-    />
+    <div class="flex items-center gap-1.5 shrink-0 self-start mt-0.5">
+      <img
+        v-if="food.nutriScore"
+        :src="`/nutri-${food.nutriScore}.png`"
+        :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
+        class="h-7"
+      />
+      <span
+        v-if="food.nutriScore"
+        class="text-body-sm font-semibold"
+        style="color: var(--clr-text-muted)"
+      >
+        Nutri-Score:
+      </span>
+    </div>
 
     <div class="btn-col shrink-0">
       <button
