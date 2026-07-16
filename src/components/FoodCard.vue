@@ -104,14 +104,9 @@ const emit = defineEmits<{
 .btn-slide::before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   border-radius: var(--radius-md);
-  transition:
-    right 0.25s ease,
-    opacity 0.15s ease;
+  transition: left 0.25s ease;
   z-index: -1;
 }
 .btn-slide__icon {
@@ -133,7 +128,6 @@ const emit = defineEmits<{
     max-width 0.25s ease,
     opacity 0.15s ease 0.1s,
     margin 0.25s ease;
-  margin-right: 0;
 }
 .btn-slide:hover .btn-slide__text {
   max-width: 4rem;
@@ -149,7 +143,7 @@ const emit = defineEmits<{
   background: var(--clr-secondary);
 }
 .btn-eye:hover::before {
-  right: -3.5rem;
+  left: -3.5rem;
 }
 .btn-eye:hover {
   background: var(--clr-secondary-hover);
@@ -163,7 +157,7 @@ const emit = defineEmits<{
   background: var(--clr-primary);
 }
 .btn-primary-slide:hover::before {
-  right: -3.5rem;
+  left: -3.5rem;
 }
 .btn-primary-slide:hover {
   background: var(--clr-primary-hover);
