@@ -50,20 +50,18 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <div class="flex items-center gap-1.5 shrink-0 self-start mt-0.5">
+    <div
+      v-if="food.nutriScore"
+      class="flex flex-col items-center gap-0.5 shrink-0 self-start mt-0.5"
+    >
+      <span class="text-body-sm font-semibold" style="color: var(--clr-text-muted)">
+        Nutri-Score:
+      </span>
       <img
-        v-if="food.nutriScore"
         :src="`/nutri-${food.nutriScore}.png`"
         :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
         class="h-7"
       />
-      <span
-        v-if="food.nutriScore"
-        class="text-body-sm font-semibold"
-        style="color: var(--clr-text-muted)"
-      >
-        Nutri-Score:
-      </span>
     </div>
 
     <div class="btn-col shrink-0">
@@ -117,10 +115,10 @@ const emit = defineEmits<{
   white-space: nowrap;
   color: #fff;
   opacity: 0;
-  transform: translateX(4px);
+  transform: translateX(6px);
   transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    opacity 0.25s ease,
+    transform 0.25s ease;
   pointer-events: none;
 }
 .btn-eye ~ .btn-slide__text,
