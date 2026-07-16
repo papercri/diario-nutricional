@@ -13,7 +13,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <article class="card-elevated flex items-start gap-4 p-4 transition-all duration-200">
+  <article class="card-elevated flex items-start gap-3 p-4 transition-all duration-200">
     <img
       v-if="food.imageUrl"
       :src="food.imageUrl"
@@ -50,20 +50,21 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <div class="flex flex-col items-end gap-2 shrink-0">
-      <img
-        v-if="food.nutriScore"
-        :src="`/nutri-${food.nutriScore}.png`"
-        :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
-        class="h-6"
-      />
+    <img
+      v-if="food.nutriScore"
+      :src="`/nutri-${food.nutriScore}.png`"
+      :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
+      class="h-5 shrink-0 self-center"
+    />
+
+    <div class="btn-col shrink-0">
       <button
         class="btn-slide btn-eye"
         :aria-label="`Ver detalles de ${food.name}`"
         @click="emit('detail', food)"
       >
-        <span class="btn-slide__icon"><i class="fa-solid fa-eye" aria-hidden="true" /></span>
         <span class="btn-slide__text">Ver más</span>
+        <span class="btn-slide__icon"><i class="fa-solid fa-eye" aria-hidden="true" /></span>
       </button>
       <button
         v-if="showAdd"
@@ -71,26 +72,35 @@ const emit = defineEmits<{
         :aria-label="`Añadir ${food.name}`"
         @click="emit('add', food)"
       >
-        <span class="btn-slide__icon"><i class="fa-solid fa-plus" aria-hidden="true" /></span>
         <span class="btn-slide__text">Añadir</span>
+        <span class="btn-slide__icon"><i class="fa-solid fa-plus" aria-hidden="true" /></span>
       </button>
     </div>
   </article>
 </template>
 
 <style scoped>
+.btn-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .btn-slide {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
   overflow: visible;
-  transition: background 0.15s ease;
+  transition:
+    width 0.25s ease,
+    background 0.15s ease;
 }
 .btn-slide__icon {
   display: flex;
@@ -99,29 +109,27 @@ const emit = defineEmits<{
   width: 2rem;
   height: 2rem;
   flex-shrink: 0;
-  transition: transform 0.25s ease;
-  position: relative;
-  z-index: 1;
 }
 .btn-slide__text {
-  position: absolute;
-  right: 0;
   font-size: 0.7rem;
   font-weight: 700;
   white-space: nowrap;
+  max-width: 0;
   opacity: 0;
-  transform: translateX(8px);
+  overflow: hidden;
   transition:
-    opacity 0.2s ease 0.1s,
-    transform 0.2s ease 0.1s;
-  pointer-events: none;
+    max-width 0.25s ease,
+    opacity 0.15s ease 0.1s,
+    margin 0.25s ease;
+  margin-right: 0;
 }
-.btn-slide:hover .btn-slide__icon {
-  transform: translateX(-0.25rem);
+.btn-slide:hover {
+  width: 5.5rem;
 }
 .btn-slide:hover .btn-slide__text {
+  max-width: 4rem;
   opacity: 1;
-  transform: translateX(0);
+  margin-right: 0.25rem;
 }
 .btn-eye {
   background: var(--clr-secondary);
