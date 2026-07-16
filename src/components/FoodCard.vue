@@ -34,17 +34,9 @@ const emit = defineEmits<{
     </div>
 
     <div class="flex-1 min-w-0">
-      <div class="flex items-center gap-2">
-        <h3 class="font-semibold truncate" style="color: var(--clr-text)">
-          {{ food.name }}
-        </h3>
-        <img
-          v-if="food.nutriScore"
-          :src="`/nutri-${food.nutriScore}.png`"
-          :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
-          class="h-6 shrink-0"
-        />
-      </div>
+      <h3 class="font-semibold truncate" style="color: var(--clr-text)">
+        {{ food.name }}
+      </h3>
       <p v-if="food.brand" class="text-xs truncate" style="color: var(--clr-text-faint)">
         {{ food.brand }}
       </p>
@@ -58,7 +50,13 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <div class="flex flex-col gap-2 shrink-0">
+    <div class="flex flex-col items-end gap-2 shrink-0">
+      <img
+        v-if="food.nutriScore"
+        :src="`/nutri-${food.nutriScore}.png`"
+        :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
+        class="h-6"
+      />
       <button
         class="btn-slide btn-eye"
         :aria-label="`Ver detalles de ${food.name}`"
@@ -82,6 +80,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .btn-slide {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,10 +89,8 @@ const emit = defineEmits<{
   border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
-  overflow: hidden;
-  transition:
-    width 0.25s ease,
-    background 0.15s ease;
+  overflow: visible;
+  transition: background 0.15s ease;
 }
 .btn-slide__icon {
   display: flex;
@@ -103,8 +100,12 @@ const emit = defineEmits<{
   height: 2rem;
   flex-shrink: 0;
   transition: transform 0.25s ease;
+  position: relative;
+  z-index: 1;
 }
 .btn-slide__text {
+  position: absolute;
+  right: 0;
   font-size: 0.7rem;
   font-weight: 700;
   white-space: nowrap;
@@ -113,9 +114,7 @@ const emit = defineEmits<{
   transition:
     opacity 0.2s ease 0.1s,
     transform 0.2s ease 0.1s;
-}
-.btn-slide:hover {
-  width: 5.5rem;
+  pointer-events: none;
 }
 .btn-slide:hover .btn-slide__icon {
   transform: translateX(-0.25rem);
@@ -139,5 +138,11 @@ const emit = defineEmits<{
 }
 .btn-primary-slide:hover {
   background: var(--clr-primary-hover);
+}
+
+@media (hover: none) {
+  .btn-slide__text {
+    display: none;
+  }
 }
 </style>
