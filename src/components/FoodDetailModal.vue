@@ -43,94 +43,87 @@ function getGradeLabel(grade: string): string {
     @keydown.escape="emit('close')"
   >
     <div
-      class="w-full sm:max-w-lg max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-xl animate-slide-up"
+      class="w-full sm:max-w-xl max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-xl animate-slide-up"
       style="background: var(--clr-surface)"
     >
-      <!-- Image -->
-      <div class="relative">
-        <img
-          v-if="food.imageUrl"
-          :src="food.imageUrl"
-          :alt="food.name"
-          class="w-full h-52 sm:h-64 object-cover"
-        />
-        <div
-          v-else
-          class="w-full h-52 sm:h-64 flex items-center justify-center"
-          style="background: var(--clr-primary-light)"
-        >
-          <i
-            class="fa-solid fa-utensils text-6xl"
-            aria-hidden="true"
-            style="color: var(--clr-primary); opacity: 0.3"
-          />
-        </div>
+      <!-- Close button -->
+      <div class="flex justify-end p-3 pb-0">
         <button
-          class="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-sm"
-          style="background: rgba(0, 0, 0, 0.4); color: #fff"
+          class="w-7 h-7 rounded-full flex items-center justify-center"
+          style="background: var(--clr-surface-alt); color: var(--clr-text-muted)"
           aria-label="Cerrar"
           @click="emit('close')"
         >
-          <i class="fa-solid fa-xmark" aria-hidden="true" />
+          <i class="fa-solid fa-xmark text-sm" aria-hidden="true" />
         </button>
       </div>
 
-      <div class="p-5 space-y-5">
-        <!-- Header -->
-        <div>
-          <div class="flex items-center gap-3">
-            <h2 class="text-display-lg flex-1">{{ food.name }}</h2>
-            <span
+      <div class="px-5 pb-5 space-y-4">
+        <!-- Header: image right + text left -->
+        <div class="flex gap-4">
+          <div class="flex-1 min-w-0">
+            <h2 class="text-display-lg">{{ food.name }}</h2>
+            <p v-if="food.brand" class="text-body mt-1">{{ food.brand }}</p>
+            <p v-if="food.servingSize" class="text-body-sm mt-1">
+              <i class="fa-solid fa-scale-balanced mr-1" aria-hidden="true" />
+              Porción: {{ food.servingSize }}
+            </p>
+            <img
               v-if="food.nutriScore"
-              class="nutri-score nutri-score--detail"
-              :class="`nutri-score--${food.nutriScore}`"
-              :aria-label="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
-            >
-              <span class="nutri-score__letter">{{ food.nutriScore }}</span>
-              Nutri-Score
-            </span>
+              :src="`/nutri-${food.nutriScore}.png`"
+              :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
+              class="h-7 mt-2"
+            />
           </div>
-          <p v-if="food.brand" class="text-body mt-1">{{ food.brand }}</p>
-          <p v-if="food.servingSize" class="text-body-sm mt-1">
-            <i class="fa-solid fa-scale-balanced mr-1" aria-hidden="true" />
-            Porción: {{ food.servingSize }}
-          </p>
-        </div>
-
-        <!-- Nutrition facts per 100g -->
-        <div class="card p-4 space-y-3">
-          <h3 class="text-label-sm">Valores nutricionales por 100g</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div class="text-center p-3 rounded-xl" style="background: var(--clr-primary-light)">
-              <p class="text-2xl font-bold" style="color: var(--clr-primary)">
-                {{ Math.round(food.calories) }}
-              </p>
-              <p class="text-body-sm">kcal</p>
-            </div>
-            <div class="text-center p-3 rounded-xl" style="background: var(--clr-primary-faint)">
-              <p class="text-2xl font-bold" style="color: var(--clr-text)">
-                {{ food.protein.toFixed(1) }}
-              </p>
-              <p class="text-body-sm">proteínas (g)</p>
-            </div>
-            <div class="text-center p-3 rounded-xl" style="background: var(--clr-secondary-light)">
-              <p class="text-2xl font-bold" style="color: var(--clr-secondary)">
-                {{ food.carbs.toFixed(1) }}
-              </p>
-              <p class="text-body-sm">carbos (g)</p>
-            </div>
-            <div class="text-center p-3 rounded-xl" style="background: var(--clr-accent-light)">
-              <p class="text-2xl font-bold" style="color: var(--clr-accent)">
-                {{ food.fat.toFixed(1) }}
-              </p>
-              <p class="text-body-sm">grasas (g)</p>
-            </div>
+          <img
+            v-if="food.imageUrl"
+            :src="food.imageUrl"
+            :alt="food.name"
+            class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0"
+          />
+          <div
+            v-else
+            class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl flex items-center justify-center shrink-0"
+            style="background: var(--clr-primary-light)"
+          >
+            <i
+              class="fa-solid fa-utensils text-3xl"
+              aria-hidden="true"
+              style="color: var(--clr-primary); opacity: 0.3"
+            />
           </div>
         </div>
 
-        <!-- Nutri-Score explanation -->
-        <div v-if="food.nutriScore" class="card p-4">
-          <h3 class="text-label-sm mb-2">Nutri-Score</h3>
+        <!-- Nutrition facts -->
+        <div class="grid grid-cols-4 gap-2">
+          <div class="text-center p-2 rounded-xl" style="background: var(--clr-primary-light)">
+            <p class="text-lg font-bold" style="color: var(--clr-primary)">
+              {{ Math.round(food.calories) }}
+            </p>
+            <p class="text-body-sm">kcal</p>
+          </div>
+          <div class="text-center p-2 rounded-xl" style="background: var(--clr-primary-faint)">
+            <p class="text-lg font-bold" style="color: var(--clr-text)">
+              {{ food.protein.toFixed(1) }}
+            </p>
+            <p class="text-body-sm">proteínas</p>
+          </div>
+          <div class="text-center p-2 rounded-xl" style="background: var(--clr-secondary-light)">
+            <p class="text-lg font-bold" style="color: var(--clr-secondary)">
+              {{ food.carbs.toFixed(1) }}
+            </p>
+            <p class="text-body-sm">carbos</p>
+          </div>
+          <div class="text-center p-2 rounded-xl" style="background: var(--clr-accent-light)">
+            <p class="text-lg font-bold" style="color: var(--clr-accent)">
+              {{ food.fat.toFixed(1) }}
+            </p>
+            <p class="text-body-sm">grasas</p>
+          </div>
+        </div>
+
+        <!-- Nutri-Score scale -->
+        <div v-if="food.nutriScore" class="card p-3">
           <div class="flex items-center gap-2">
             <div class="flex gap-0.5 flex-1">
               <span
@@ -143,18 +136,18 @@ function getGradeLabel(grade: string): string {
                 :style="{ background: getGradeColor(grade) }"
               />
             </div>
-            <span class="text-label-sm ml-2">
+            <span class="text-label-sm ml-1">
               {{ getGradeLabel(food.nutriScore) }}
             </span>
           </div>
         </div>
 
         <!-- Actions -->
-        <div class="flex gap-3 pt-1">
+        <div class="flex gap-3">
           <button class="btn btn-secondary flex-1" @click="emit('close')">Cerrar</button>
           <button class="btn btn-primary flex-1" @click="emit('add', food)">
             <i class="fa-solid fa-plus" aria-hidden="true" />
-            Añadir a mi día
+            Añadir
           </button>
         </div>
       </div>
@@ -175,14 +168,5 @@ function getGradeLabel(grade: string): string {
 }
 .animate-slide-up {
   animation: slide-up 0.25s ease-out;
-}
-.nutri-score--detail {
-  padding: 0.3rem 0.625rem;
-  font-size: 0.7rem;
-}
-.nutri-score--detail .nutri-score__letter {
-  width: 1.25rem;
-  height: 1.25rem;
-  font-size: 0.75rem;
 }
 </style>
