@@ -1,5 +1,7 @@
 # Avocato
 
+> **Live deploy:** [avocato-inky.vercel.app](https://avocato-inky.vercel.app)
+
 Web app para calcular calorías diarias, componer platos equilibrados y recibir consejos de bienestar. Diseñada con una estética food-inspired en tonos oliva, terracota y mostaza.
 
 > **Proyecto piloto** creado para testear agentes de IA y skills con [OpenCode](https://opencode.ai). El objetivo es evaluar cómo un agente puede comprender, mantener y mejorar un proyecto real de front-end moderno.
@@ -174,7 +176,7 @@ Si estás trabajando en este proyecto como agente, lee `AGENTS.md` para instrucc
 
 - **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`.
 - **Alias `@`**: Mapea a `./src`. Usa `@/components/...` en imports.
-- **Sin tests aún**: Los primeros tests deben ir en `src/utils/` (funciones puras como `nutrition.ts`).
+- **Tests**: Unit tests en `src/utils/` para funciones puras (30 tests con Vitest).
 - **Prettier**: Sin punto y coma, comillas simples, 100 caracteres de ancho.
 - **Componentes base**: Usar `BaseButton`, `BaseInput`, `BaseCard`, `BaseBadge` en vez de reimplementar estilos.
 - **Composables**: La lógica reactiva va en `src/composables/`, no en los componentes directamente.
