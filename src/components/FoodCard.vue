@@ -110,15 +110,26 @@ const emit = defineEmits<{
   position: absolute;
   right: 100%;
   margin-right: 0.375rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
   font-size: 0.7rem;
   font-weight: 700;
   white-space: nowrap;
+  color: #fff;
   opacity: 0;
   transform: translateX(4px);
   transition:
     opacity 0.2s ease,
     transform 0.2s ease;
   pointer-events: none;
+}
+.btn-eye ~ .btn-slide__text,
+.btn-slide-wrap:has(.btn-eye) .btn-slide__text {
+  background: var(--clr-secondary);
+}
+.btn-primary-slide ~ .btn-slide__text,
+.btn-slide-wrap:has(.btn-primary-slide) .btn-slide__text {
+  background: var(--clr-primary);
 }
 .btn-slide-wrap:hover .btn-slide__text {
   opacity: 1;
