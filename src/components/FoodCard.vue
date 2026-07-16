@@ -54,7 +54,7 @@ const emit = defineEmits<{
       v-if="food.nutriScore"
       :src="`/nutri-${food.nutriScore}.png`"
       :alt="`Nutri-Score ${food.nutriScore.toUpperCase()}`"
-      class="h-5 shrink-0 self-center"
+      class="h-5 shrink-0 self-start mt-0.5"
     />
 
     <div class="btn-col shrink-0">
@@ -98,9 +98,21 @@ const emit = defineEmits<{
   border: none;
   cursor: pointer;
   overflow: visible;
+  z-index: 1;
+  transition: background 0.15s ease;
+}
+.btn-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: var(--radius-md);
   transition:
-    width 0.25s ease,
-    background 0.15s ease;
+    right 0.25s ease,
+    opacity 0.15s ease;
+  z-index: -1;
 }
 .btn-slide__icon {
   display: flex;
@@ -123,26 +135,35 @@ const emit = defineEmits<{
     margin 0.25s ease;
   margin-right: 0;
 }
-.btn-slide:hover {
-  width: 5.5rem;
-}
 .btn-slide:hover .btn-slide__text {
   max-width: 4rem;
   opacity: 1;
   margin-right: 0.25rem;
 }
+
 .btn-eye {
-  background: var(--clr-secondary);
   color: #fff;
   box-shadow: var(--shadow-sm);
+}
+.btn-eye::before {
+  background: var(--clr-secondary);
+}
+.btn-eye:hover::before {
+  right: -3.5rem;
 }
 .btn-eye:hover {
   background: var(--clr-secondary-hover);
 }
+
 .btn-primary-slide {
-  background: var(--clr-primary);
   color: #fff;
   box-shadow: var(--shadow-sm);
+}
+.btn-primary-slide::before {
+  background: var(--clr-primary);
+}
+.btn-primary-slide:hover::before {
+  right: -3.5rem;
 }
 .btn-primary-slide:hover {
   background: var(--clr-primary-hover);
