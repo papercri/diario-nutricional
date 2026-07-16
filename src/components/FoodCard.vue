@@ -60,25 +60,70 @@ const emit = defineEmits<{
 
     <div class="flex flex-col gap-2 shrink-0">
       <button
-        class="btn btn-eye w-8 h-8 p-0 shrink-0"
+        class="btn-slide btn-eye"
         :aria-label="`Ver detalles de ${food.name}`"
         @click="emit('detail', food)"
       >
-        <i class="fa-solid fa-eye" aria-hidden="true" />
+        <span class="btn-slide__icon"><i class="fa-solid fa-eye" aria-hidden="true" /></span>
+        <span class="btn-slide__text">Ver más</span>
       </button>
       <button
         v-if="showAdd"
-        class="btn btn-primary w-8 h-8 p-0 text-sm"
+        class="btn-slide btn-primary-slide"
         :aria-label="`Añadir ${food.name}`"
         @click="emit('add', food)"
       >
-        <i class="fa-solid fa-plus" aria-hidden="true" />
+        <span class="btn-slide__icon"><i class="fa-solid fa-plus" aria-hidden="true" /></span>
+        <span class="btn-slide__text">Añadir</span>
       </button>
     </div>
   </article>
 </template>
 
 <style scoped>
+.btn-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    width 0.25s ease,
+    background 0.15s ease;
+}
+.btn-slide__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+.btn-slide__text {
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(8px);
+  transition:
+    opacity 0.2s ease 0.1s,
+    transform 0.2s ease 0.1s;
+}
+.btn-slide:hover {
+  width: 5.5rem;
+}
+.btn-slide:hover .btn-slide__icon {
+  transform: translateX(-0.25rem);
+}
+.btn-slide:hover .btn-slide__text {
+  opacity: 1;
+  transform: translateX(0);
+}
 .btn-eye {
   background: var(--clr-secondary);
   color: #fff;
@@ -86,5 +131,13 @@ const emit = defineEmits<{
 }
 .btn-eye:hover {
   background: var(--clr-secondary-hover);
+}
+.btn-primary-slide {
+  background: var(--clr-primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary-slide:hover {
+  background: var(--clr-primary-hover);
 }
 </style>
