@@ -47,29 +47,30 @@ defineProps<{
 <template>
   <form class="meal-form" @submit.prevent="handleSubmit" novalidate>
     <label for="meal-description" class="meal-form__label">Describe tu comida</label>
-    <textarea
-      id="meal-description"
-      ref="textareaRef"
-      v-model="description"
-      class="meal-form__textarea"
-      :class="{ 'meal-form__textarea--error': error }"
-      placeholder="Ej: Pollo a la plancha con arroz y ensalada"
-      rows="1"
-      :disabled="loading"
-      aria-describedby="meal-description-error"
-      @input="onInput"
-    />
-    <Button
-      type="submit"
-      variant="accent"
-      size="sm"
-      :loading="loading"
-      :disabled="loading"
-      icon="fa-solid fa-wand-magic-sparkles"
-      class="meal-form__btn"
-    >
-      Analizar
-    </Button>
+    <div class="meal-form__row">
+      <textarea
+        id="meal-description"
+        ref="textareaRef"
+        v-model="description"
+        class="meal-form__textarea"
+        :class="{ 'meal-form__textarea--error': error }"
+        placeholder="Ej: Pollo a la plancha con arroz y ensalada"
+        rows="1"
+        :disabled="loading"
+        aria-describedby="meal-description-error"
+        @input="onInput"
+      />
+      <Button
+        type="submit"
+        variant="accent"
+        size="sm"
+        :loading="loading"
+        :disabled="loading"
+        icon="fa-solid fa-wand-magic-sparkles"
+      >
+        Analizar
+      </Button>
+    </div>
     <p id="meal-description-error" v-if="error" class="meal-form__error" role="alert">
       {{ error }}
     </p>
@@ -89,6 +90,12 @@ defineProps<{
   color: var(--clr-text-muted);
 }
 
+.meal-form__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .meal-form__textarea {
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -106,22 +113,19 @@ defineProps<{
     box-shadow var(--duration-normal) var(--ease-default);
 }
 
-.meal-form__btn {
+.meal-form__row :deep(.meal-form__btn) {
   width: 100%;
 }
 
 @media (min-width: 640px) {
-  .meal-form {
-    gap: 0.5rem;
+  .meal-form__row {
+    flex-direction: row;
+    align-items: stretch;
   }
 
   .meal-form__textarea {
+    flex: 1;
     min-height: 2.25rem;
-  }
-
-  .meal-form__btn {
-    width: auto;
-    align-self: flex-end;
   }
 }
 
