@@ -8,9 +8,10 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
 /coverage
-
+dist/
+build/
+out/
 
 # production
 /build
@@ -45,3 +46,4 @@ PLANTILLA*
 AGENTS.md
 skills-lock.json
 /docs
+.opencodeignore
