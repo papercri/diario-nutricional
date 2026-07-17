@@ -15,7 +15,6 @@ Reglas:
 - Proporciona consejos de bienestar prácticos.
 - Nunca proporciones diagnósticos médicos.
 - Siempre responde en español.
-- Incluye un nivel de confianza (low, medium, high).
 
 Schema JSON requerido:
 {
