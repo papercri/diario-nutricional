@@ -34,6 +34,15 @@ Schema JSON requerido:
   "confidence": "low" | "medium" | "high"
 }`
 
+function stripMarkdownCodeBlocks(text: string): string {
+  const trimmed = text.trim()
+  const jsonMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/)
+  if (jsonMatch) {
+    return jsonMatch[1].trim()
+  }
+  return trimmed
+}
+
 function validateAnalysis(data: unknown): boolean {
   if (typeof data !== 'object' || data === null) return false
   const obj = data as Record<string, unknown>
@@ -75,7 +84,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const result = await callGroq(mealDescription.trim(), SYSTEM_PROMPT)
-    const parsed = JSON.parse(result.content)
+    const parsed = JSON.parse(stripMarkdownCodeBlocks(result.content))
 
     if (!validateAnalysis(parsed)) {
       throw new Error('Respuesta del AI no cumple con el schema requerido')
@@ -91,7 +100,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     try {
       const result = await callCerebras(mealDescription.trim(), SYSTEM_PROMPT)
-      const parsed = JSON.parse(result.content)
+      const parsed = JSON.parse(stripMarkdownCodeBlocks(result.content))
 
       if (!validateAnalysis(parsed)) {
         throw new Error('Respuesta del AI no cumple con el schema requerido')
