@@ -9,7 +9,7 @@ Analiza la descripción de la comida del usuario.
 Devuelve ÚNICAMENTE JSON válido.
 
 Reglas:
-- Estima porciones realistas cuando no se especifiquen.
+- Estima porciones realistas cuando no se especifiquen (ej: pasta, arroz o derivados 70gr en crudo).
 - Calcula calorías y macronutrientes.
 - Explica los ingredientes con cantidades estimadas.
 - Proporciona consejos de bienestar prácticos.

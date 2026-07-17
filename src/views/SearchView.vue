@@ -32,10 +32,15 @@ function addFromDetail(food: FoodItem) {
   <main class="max-w-2xl mx-auto px-4 py-8 space-y-6">
     <header class="text-center">
       <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">
+        <i
+          class="fa-solid fa-magnifying-glass"
+          aria-hidden="true"
+          style="color: var(--clr-primary)"
+        />
         Buscar alimentos
       </h1>
       <p style="font-size: 0.875rem; color: var(--clr-text-muted); margin-top: 4px">
-        Base de datos de productos de supermercado — Open Food Facts
+        Busca entre miles de productos alimentarios gracias a la base de datos colaborativa de <strong>Open Food Facts</strong>.
       </p>
     </header>
 

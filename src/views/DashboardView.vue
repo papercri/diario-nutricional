@@ -4,6 +4,8 @@ import { useUserStore } from '../stores/userStore'
 import { useFoodStore } from '../stores/foodStore'
 import CalorieRing from '../components/CalorieRing.vue'
 import NutrientCard from '../components/NutrientCard.vue'
+import Modal from '../components/ui/Modal.vue'
+import { useToast } from '../composables/useToast'
 import { groupEntriesByMealType } from '../utils/nutrition'
 import { formatDateEs } from '../utils/formatting'
 import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '../utils/constants'
@@ -11,12 +13,42 @@ import type { MealType } from '../types/user'
 
 const userStore = useUserStore()
 const foodStore = useFoodStore()
+const toast = useToast()
 
 const todayDate = computed(() => formatDateEs(new Date()))
 const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntries))
 
 const mealsOpen = ref(true)
 const openMealTypes = ref<Set<MealType>>(new Set(['breakfast', 'lunch', 'dinner', 'snack']))
+
+const deleteEntryId = ref<string | null>(null)
+const deleteEntryName = ref('')
+const showClearModal = ref(false)
+
+function confirmDeleteEntry(id: string, name: string) {
+  deleteEntryId.value = id
+  deleteEntryName.value = name
+}
+
+function executeDeleteEntry() {
+  if (deleteEntryId.value) {
+    foodStore.removeEntry(deleteEntryId.value)
+    toast.show('Elemento eliminado')
+    deleteEntryId.value = null
+    deleteEntryName.value = ''
+  }
+}
+
+function cancelDeleteEntry() {
+  deleteEntryId.value = null
+  deleteEntryName.value = ''
+}
+
+function executeClearToday() {
+  foodStore.clearToday()
+  toast.show('Elemento eliminado')
+  showClearModal.value = false
+}
 
 function toggleMealType(type: MealType) {
   if (openMealTypes.value.has(type)) {
@@ -50,7 +82,7 @@ function entryMacros(entry: {
         {{
           userStore.isProfileComplete
             ? `¡Bienvenid${userStore.profile.sex === 'female' ? 'a' : 'o'}, ${userStore.profile.name}!`
-            : '¡Bienvenido a Avocato!'
+            : '¡Bienvenid@ a Avocato!'
         }}
       </h1>
       <p class="text-body-sm capitalize">{{ todayDate }}</p>
@@ -66,7 +98,7 @@ function entryMacros(entry: {
         Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
       </p>
       <router-link to="/profile" class="btn btn-primary" role="button">
-        Completar perfil
+        Completa tu perfil
       </router-link>
     </section>
 
@@ -106,28 +138,20 @@ function entryMacros(entry: {
     <section aria-label="Comidas registradas hoy">
       <button class="dash__meals-toggle" :aria-expanded="mealsOpen" @click="mealsOpen = !mealsOpen">
         <div class="flex items-center gap-1 min-w-0">
-          <h2 class="text-sm font-semibold truncate" style="color: var(--clr-text)">
+          <h2 class="text-xs font-semibold truncate uppercase" style="color: var(--clr-text)">
             Comidas de hoy
           </h2>
           <span
             v-if="foodStore.todayEntries.length > 0"
-            class="text-[11px] font-bold shrink-0 px-1 py-0.5 rounded"
+            class="text-[12px] font-bold shrink-0 px-1 py-1 rounded"
             style="color: var(--clr-text-muted); background: var(--clr-surface-alt)"
           >
             {{ foodStore.todayEntries.length }}
           </span>
         </div>
         <div class="flex items-center gap-1 shrink-0">
-          <button
-            v-if="foodStore.todayEntries.length > 0"
-            class="btn btn-danger py-0 px-1 text-[10px]"
-            aria-label="Eliminar todas las comidas de hoy"
-            @click.stop="foodStore.clearToday()"
-          >
-            Limpiar
-          </button>
           <i
-            class="fa-solid fa-chevron-down text-[8px] transition-transform duration-200"
+            class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
             :class="{ 'rotate-180': mealsOpen }"
             aria-hidden="true"
             style="color: var(--clr-text-faint)"
@@ -173,15 +197,15 @@ function entryMacros(entry: {
                   class="text-[10px]"
                   style="color: var(--clr-primary)"
                 />
-                <span class="text-xs font-semibold" style="color: var(--clr-text)">{{
+                <span class="text-sm font-semibold" style="color: var(--clr-text)">{{
                   MEAL_TYPE_LABELS[type]
                 }}</span>
-                <span class="text-[10px] font-medium" style="color: var(--clr-text-faint)">
+                <span class="text-[13px] font-medium" style="color: var(--clr-text-faint)">
                   {{ entries.length }} · {{ mealTypeTotalCalories(entries) }} kcal
                 </span>
               </div>
               <i
-                class="fa-solid fa-chevron-down text-[7px] transition-transform duration-200"
+                class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
                 :class="{ 'rotate-180': openMealTypes.has(type as MealType) }"
                 aria-hidden="true"
                 style="color: var(--clr-text-faint)"
@@ -198,7 +222,7 @@ function entryMacros(entry: {
                     class="w-7 h-7 rounded object-cover shrink-0"
                     loading="lazy"
                   />
-                  <p class="text-[13px] font-medium truncate" style="color: var(--clr-text)">
+                  <p class="text-[14px] font-medium truncate" style="color: var(--clr-text)">
                     {{ entry.food.name }}
                   </p>
                 </div>
@@ -220,36 +244,79 @@ function entryMacros(entry: {
                     class="w-5 h-5 flex items-center justify-center rounded shrink-0 transition-colors"
                     style="color: var(--clr-text-faint)"
                     :aria-label="`Eliminar ${entry.food.name}`"
-                    @click="foodStore.removeEntry(entry.id)"
+                    @click="confirmDeleteEntry(entry.id, entry.food.name)"
                     @mouseenter="($event.target as HTMLElement).style.color = 'var(--clr-accent)'"
                     @mouseleave="
                       ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
                     "
                   >
-                    <i class="fa-solid fa-xmark text-[8px]" aria-hidden="true" />
+                    <i class="fa-solid fa-xmark text-[13px]" aria-hidden="true" />
                   </button>
                 </div>
               </li>
             </ul>
           </article>
         </div>
+      </div>
 
-        <div class="flex items-center justify-center gap-1 mt-1.5">
-          <router-link to="/search" class="btn btn-primary text-[10px] py-1 px-2" role="button">
+      <div class="dash__actions">
+        <div class="dash__actions-row">
+          <router-link
+            to="/search"
+            class="btn btn-primary text-[10px] py-1 px-2 whitespace-nowrap"
+            role="button"
+          >
             <i class="fa-solid fa-magnifying-glass" aria-hidden="true" />
             Buscar
           </router-link>
           <router-link
             to="/nutrition-ai"
-            class="btn btn-secondary text-[10px] py-1 px-2"
+            class="btn btn-accent text-[10px] py-1 px-2 whitespace-nowrap"
             role="button"
           >
             <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true" />
             Mis platos
           </router-link>
         </div>
+        <button
+          v-if="foodStore.todayEntries.length > 0"
+          class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap dash__btn-clear"
+          aria-label="Eliminar todas las comidas de hoy"
+          @click.stop="showClearModal = true"
+        >
+          <i class="fa-solid fa-broom" aria-hidden="true" />
+          Limpiar
+        </button>
       </div>
     </section>
+
+    <!-- Delete entry confirmation modal -->
+    <Modal
+      :open="deleteEntryId !== null"
+      size="sm"
+      title="Eliminar plato"
+      @close="cancelDeleteEntry"
+    >
+      <p class="text-sm" style="color: var(--clr-text-muted)">
+        ¿Eliminar <strong style="color: var(--clr-text)">{{ deleteEntryName }}</strong> de tus
+        comidas de hoy?
+      </p>
+      <template #footer>
+        <button class="btn btn-secondary" @click="cancelDeleteEntry">Cancelar</button>
+        <button class="btn btn-primary" @click="executeDeleteEntry">Eliminar</button>
+      </template>
+    </Modal>
+
+    <!-- Clear all confirmation modal -->
+    <Modal :open="showClearModal" size="sm" title="Limpiar día" @close="showClearModal = false">
+      <p class="text-sm" style="color: var(--clr-text-muted)">
+        ¿Eliminar todas las comidas registradas hoy? Esta acción no se puede deshacer.
+      </p>
+      <template #footer>
+        <button class="btn btn-secondary" @click="showClearModal = false">Cancelar</button>
+        <button class="btn btn-primary" @click="executeClearToday">Eliminar todo</button>
+      </template>
+    </Modal>
   </main>
 </template>
 
@@ -302,7 +369,7 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.375rem 0.5rem;
+  padding: 0.5rem 0.6rem;
   border-radius: var(--radius-md);
   background: var(--clr-surface);
   border: 1px solid var(--clr-border-subtle);
@@ -319,7 +386,7 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.25rem 0.5rem;
+  padding: 0.45rem 0.6rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -341,7 +408,7 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.1875rem 0.5rem;
+  padding: 0.3rem 0.5rem;
   gap: 0.25rem;
   transition: background 0.1s ease;
 }
@@ -357,8 +424,8 @@ function entryMacros(entry: {
 .dash__macros {
   display: flex;
   align-items: center;
-  gap: 0.125rem;
-  font-size: 0.6875rem;
+  gap: 0.2rem;
+  font-size: 0.8rem;
   white-space: nowrap;
 }
 
@@ -373,12 +440,49 @@ function entryMacros(entry: {
 
 .dash__macro-sep {
   color: var(--clr-border);
-  margin: 0 0.0625rem;
+  margin: 0 0.07rem;
 }
 
 @media (max-width: 380px) {
   .dash__macros {
     display: none;
+  }
+}
+
+.dash__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.dash__actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dash__btn-clear {
+  width: 100%;
+}
+
+@media (min-width: 400px) {
+  .dash__actions {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    align-items: center;
+  }
+
+  .dash__actions-row {
+    gap: 0.375rem;
+  }
+
+  .dash__btn-clear {
+    width: auto;
   }
 }
 </style>

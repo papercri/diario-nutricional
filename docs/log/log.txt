@@ -902,5 +902,93 @@ ajuste a primera pantalla (above the fold).
 
 
 ================================================================================
+ 20. FEATURE — CONFIRMATION MODALS + TOAST + BUTTONS LAYOUT (2026-07-17)
+================================================================================
+
+20.1. Toast Component (Design System)
+
+  Archivo nuevo: src/components/ui/Toast.vue
+  Archivo nuevo: src/composables/useToast.ts
+
+  Componente de notificación toast que se muestra en la parte superior
+  de la pantalla con auto-dismiss (~3 segundos).
+
+  Características:
+    - Auto-dismiss configurable (default 3s)
+    - Variantes: success, error, info
+    - Transiciones de entrada/salida (slide + fade)
+    - Botón de cerrar manual
+    - Z-index: var(--z-toast) = 500
+    - Teleport a <body>
+    - Soporte para prefers-reduced-motion
+    - Respeta design tokens del proyecto
+
+  Integración:
+    - Montado en App.vue (disponible globalmente)
+    - Consumido via useToast() composable
+
+20.2. Modal de Confirmación — Eliminar Plato
+
+  Archivo: src/views/DashboardView.vue
+
+  Al clicar la "x" de cualquier plato, ahora se abre una modal de
+  confirmación (Modal.vue del Design System) en lugar de eliminar
+  directamente.
+
+  Flujo:
+    1. Click en "x" → confirmDeleteEntry(id, name)
+    2. Se abre modal "Eliminar plato" con nombre del alimento
+    3. Confirmar → removeEntry() + toast "Elemento eliminado"
+    4. Cancelar → cierra modal sin acción
+
+20.3. Modal de Confirmación — Limpiar Todo
+
+  Al clicar el botón "Limpiar", se abre una modal de confirmación.
+
+  Flujo:
+    1. Click en "Limpiar" → showClearModal = true
+    2. Se abre modal "Limpiar día" con advertencia
+    3. Confirmar → clearToday() + toast "Elemento eliminado"
+    4. Cancelar → cierra modal sin acción
+
+20.4. Botones Siempre Visibles + Layout Responsive
+
+  Los botones (Buscar, Mis platos, Limpiar) ahora están FUERA del
+  v-if="mealsOpen", por lo tanto siempre son visibles.
+
+  Layout responsive:
+    - Mobile (<400px): "Buscar" y "Mis platos" en fila, "Limpiar" debajo
+    - Desktop (≥400px): los 3 botones en fila centrados
+    - whitespace-nowrap en todos los botones para evitar ruptura de texto
+
+  CSS新增: .dash__actions, .dash__actions-row
+
+20.5. Icono en Título de SearchView
+
+  Archivo: src/views/SearchView.vue
+
+  Añadido icono fa-magnifying-glass dentro del <h1>, siguiendo el
+  patrón de ProfileView (fa-user) y NutritionAnalyzerView (fa-wand-magic-sparkles).
+
+  Color: var(--clr-primary) (consistente con ProfileView)
+
+20.6. Verificación
+
+  - Lint: 0 errores
+  - Build: completado sin errores
+  - Type-check: 0 errores
+
+  Archivos nuevos:
+    src/components/ui/Toast.vue
+    src/composables/useToast.ts
+
+  Archivos modificados:
+    src/App.vue (montar Toast)
+    src/views/DashboardView.vue (modales + botones + layout)
+    src/views/SearchView.vue (icono título)
+    docs/log/log.txt
+
+
+================================================================================
  FIN DEL REGISTRO
 ================================================================================

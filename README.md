@@ -1,6 +1,6 @@
 # Avocato
 
-> **Live deploy:** [avocato-inky.vercel.app](https://avocato-inky.vercel.app)
+> **Live deploy:** [avocato-ia.vercel.app](https://avocato-ia.vercel.app)
 
 Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular el IMC, el peso ideal y el gasto calórico diario, analizar comidas con IA y recibir recomendaciones nutricionales personalizadas a través de una experiencia visual inspirada en la alimentación mediterránea.
 
