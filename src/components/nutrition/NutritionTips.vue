@@ -7,10 +7,10 @@ defineProps<{
 </script>
 
 <template>
-  <Card variant="warm" padding="lg">
+  <Card variant="warm" padding="md">
     <h3 class="tips-title">
       <i class="fa-solid fa-lightbulb" aria-hidden="true" />
-      Consejos de bienestar
+      Consejos
     </h3>
 
     <ul class="tips-list" role="list">
@@ -25,15 +25,15 @@ defineProps<{
 <style scoped>
 .tips-title {
   font-family: var(--font-display);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
   color: var(--clr-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.375rem;
 }
 
 .tips-title i {
@@ -46,24 +46,24 @@ defineProps<{
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.375rem;
 }
 
 .tips-item {
   display: flex;
   align-items: flex-start;
-  gap: 0.625rem;
+  gap: 0.5rem;
 }
 
 .tips-item__icon {
-  font-size: 0.625rem;
+  font-size: 0.5rem;
   color: var(--clr-primary);
-  margin-top: 0.375rem;
+  margin-top: 0.25rem;
   flex-shrink: 0;
 }
 
 .tips-item__text {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   line-height: var(--leading-normal);
   color: var(--clr-text);
 }

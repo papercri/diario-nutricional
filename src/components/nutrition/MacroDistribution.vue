@@ -26,10 +26,10 @@ const macros = [
 </script>
 
 <template>
-  <Card variant="surface" padding="lg">
+  <Card variant="surface" padding="md">
     <h3 class="macro-title">
       <i class="fa-solid fa-chart-pie" aria-hidden="true" />
-      Distribución de macronutrientes
+      Macros
     </h3>
 
     <div class="macro-grid">
@@ -90,15 +90,15 @@ const macros = [
 <style scoped>
 .macro-title {
   font-family: var(--font-display);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
   color: var(--clr-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.375rem;
 }
 
 .macro-title i {
@@ -108,31 +108,31 @@ const macros = [
 .macro-grid {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 0.75rem;
 }
 
 .macro-item__header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.375rem;
+  gap: 0.375rem;
+  margin-bottom: 0.25rem;
 }
 
 .macro-item__icon {
-  font-size: var(--text-sm);
-  width: 1rem;
+  font-size: var(--text-xs);
+  width: 0.875rem;
   text-align: center;
 }
 
 .macro-item__label {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   color: var(--clr-text);
 }
 
 .macro-item__bar-track {
   width: 100%;
-  height: 0.5rem;
+  height: 0.375rem;
   border-radius: var(--radius-full);
   background: var(--clr-surface-alt);
   overflow: hidden;
@@ -148,17 +148,17 @@ const macros = [
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: 0.25rem;
+  margin-top: 0.125rem;
 }
 
 .macro-item__grams {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   color: var(--clr-text);
 }
 
 .macro-item__detail {
-  font-size: var(--text-xs);
+  font-size: 0.625rem;
   color: var(--clr-text-faint);
 }
 </style>

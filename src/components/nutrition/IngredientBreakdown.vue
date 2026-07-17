@@ -8,19 +8,18 @@ defineProps<{
 </script>
 
 <template>
-  <Card variant="surface" padding="lg">
+  <Card variant="surface" padding="md">
     <h3 class="ingredient-title">
       <i class="fa-solid fa-list-check" aria-hidden="true" />
-      Ingredientes estimados
+      Ingredientes
     </h3>
 
     <ul class="ingredient-list" role="list">
       <li v-for="(ingredient, index) in ingredients" :key="index" class="ingredient-item">
-        <div class="ingredient-item__info">
-          <span class="ingredient-item__name">{{ ingredient.name }}</span>
-          <span class="ingredient-item__quantity">{{ ingredient.quantity }}</span>
-        </div>
-        <span class="ingredient-item__calories">{{ ingredient.calories }} kcal</span>
+        <span class="ingredient-item__name">{{ ingredient.name }}</span>
+        <span class="ingredient-item__meta">
+          {{ ingredient.quantity }} · {{ ingredient.calories }} kcal
+        </span>
       </li>
     </ul>
   </Card>
@@ -29,15 +28,15 @@ defineProps<{
 <style scoped>
 .ingredient-title {
   font-family: var(--font-display);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
   color: var(--clr-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.375rem;
 }
 
 .ingredient-title i {
@@ -50,14 +49,13 @@ defineProps<{
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 .ingredient-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 0;
+  padding: 0.375rem 0;
   border-bottom: 1px solid var(--clr-border-subtle);
 }
 
@@ -70,27 +68,15 @@ defineProps<{
   padding-top: 0;
 }
 
-.ingredient-item__info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-}
-
 .ingredient-item__name {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   color: var(--clr-text);
 }
 
-.ingredient-item__quantity {
-  font-size: var(--text-xs);
+.ingredient-item__meta {
+  font-size: 0.625rem;
   color: var(--clr-text-faint);
-}
-
-.ingredient-item__calories {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--clr-primary);
   white-space: nowrap;
 }
 </style>
