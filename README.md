@@ -8,11 +8,12 @@ Web app para calcular calorías diarias, componer platos equilibrados y recibir 
 
 ## Screenshots
 
-La app incluye 4 vistas principales:
+La app incluye 5 vistas principales:
 
 - **Dashboard** — Anillo de calorías con progreso visual, macro nutrientes, registro de comidas del día
 - **Buscar** — Búsqueda de alimentos contra la API pública de Open Food Facts
-- **Perfil** — Formulario de datos personales para calcular metas calóricas (Mifflin-St Jeor)
+- **Analizar** — Analizador de comidas potenciado por IA
+- **Perfil** — Formulario de datos personales, calculadora de IMC con gauge lineal, metas calóricas (Mifflin-St Jeor)
 - **Consejos** — Tips de bienestar aleatorios
 
 ## Stack
@@ -81,6 +82,7 @@ src/
 │   ├── DashboardView.vue
 │   ├── ProfileView.vue
 │   ├── SearchView.vue
+│   ├── NutritionAnalyzerView.vue
 │   └── TipsView.vue
 ├── stores/                    # Almacenes Pinia con persistencia localStorage
 │   ├── userStore.ts           # Perfil de usuario + metas calóricas
@@ -90,9 +92,12 @@ src/
 │   └── tipsService.ts         # API de consejos + fallback local
 ├── types/                     # Definiciones TypeScript
 │   ├── user.ts
-│   └── food.ts
+│   ├── food.ts
+│   └── calculator.ts          # BmiResult, IdealWeightResult
 ├── utils/                     # Funciones puras y constantes
 │   ├── mifflinStJeor.ts       # Fórmula Mifflin-St Jeor (TMB/TDEE)
+│   ├── bmi.ts                 # Cálculo de IMC y peso ideal
+│   ├── bmiClassification.ts   # Clasificación WHO del IMC
 │   ├── nutrition.ts           # calcPercentage, groupEntriesByMealType, sumServings
 │   ├── formatting.ts          # formatDateEs, formatCalorieEntry
 │   └── constants.ts           # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS
@@ -207,7 +212,7 @@ Si estás trabajando en este proyecto como agente, lee `AGENTS.md` para instrucc
 - **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`, los tokens en `src/design-system/tokens/index.css`.
 - **Alias `@`**: Mapea a `./src`. Usa `@/components/...` en imports.
 - **Design System**: Usar componentes `Ds*` desde `src/design-system/index.ts` (Button, Input, Card, Badge, Modal, Typography, Container, Stack, Grid, Field, EmptyState, Loading, ErrorState).
-- **Tests**: Unit tests en `src/utils/` para funciones puras (30 tests con Vitest).
+- **Tests**: Unit tests en `src/utils/` para funciones puras (48 tests con Vitest).
 - **Prettier**: Sin punto y coma, comillas simples, 100 caracteres de ancho.
 - **Composables**: La lógica reactiva va en `src/composables/`, no en los componentes directamente.
 
