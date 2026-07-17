@@ -44,7 +44,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
     <header class="profile-page__header">
       <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
         <i class="fa-solid fa-user" aria-hidden="true" style="color: var(--clr-primary)" />
-        Tu perfil
+        Mi perfil
       </h1>
       <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
         Tus datos se guardan localmente y nunca se comparten.
@@ -84,7 +84,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
                 <div class="btn-group" role="radiogroup" aria-label="Sexo biológico">
                   <button
                     type="button"
-                    class="btn-toggle"
+                    class="btn-toggle btn-toggle--sm"
                     :class="{ 'btn-toggle--active': userStore.profile.sex === 'female' }"
                     role="radio"
                     :aria-checked="userStore.profile.sex === 'female'"
@@ -94,7 +94,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
                   </button>
                   <button
                     type="button"
-                    class="btn-toggle"
+                    class="btn-toggle btn-toggle--sm"
                     :class="{ 'btn-toggle--active': userStore.profile.sex === 'male' }"
                     role="radio"
                     :aria-checked="userStore.profile.sex === 'male'"
@@ -163,7 +163,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
                   v-for="opt in GOAL_OPTIONS"
                   :key="opt.value"
                   type="button"
-                  class="btn-toggle btn-toggle--sm btn-toggle--col"
+                  class="btn-toggle btn-toggle--sm"
                   :class="{ 'btn-toggle--active': userStore.profile.goal === opt.value }"
                   role="radio"
                   :aria-checked="userStore.profile.goal === opt.value"
@@ -171,7 +171,6 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
                 >
                   <i :class="opt.icon" aria-hidden="true" />
                   <span>{{ opt.label }}</span>
-                  <span class="btn-toggle__desc">{{ opt.desc }}</span>
                 </button>
               </div>
             </div>

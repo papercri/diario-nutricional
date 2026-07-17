@@ -35,7 +35,7 @@ function addFromDetail(food: FoodItem) {
         Buscar alimentos
       </h1>
       <p style="font-size: 0.875rem; color: var(--clr-text-muted); margin-top: 4px">
-        Encuentra alimentos en Open Food Facts
+        Base de datos de productos de supermercado — Open Food Facts
       </p>
     </header>
 

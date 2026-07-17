@@ -76,7 +76,7 @@ function closeModal() {
           aria-hidden="true"
           style="color: var(--clr-accent)"
         />
-        Analizador de comidas
+        Mis platos
       </h1>
       <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
         Describe lo que comiste y obtén un análisis nutricional estimado
