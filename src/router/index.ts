@@ -23,6 +23,11 @@ const router = createRouter({
       name: 'tips',
       component: () => import('../views/TipsView.vue'),
     },
+    {
+      path: '/nutrition-ai',
+      name: 'nutrition-ai',
+      component: () => import('../views/NutritionAnalyzerView.vue'),
+    },
   ],
 })
 

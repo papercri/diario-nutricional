@@ -8,6 +8,12 @@ const isMenuOpen = ref(false)
 const links = [
   { name: 'dashboard', path: '/', label: 'Inicio', icon: 'fa-solid fa-house' },
   { name: 'search', path: '/search', label: 'Buscar', icon: 'fa-solid fa-magnifying-glass' },
+  {
+    name: 'nutrition-ai',
+    path: '/nutrition-ai',
+    label: 'Analizar',
+    icon: 'fa-solid fa-wand-magic-sparkles',
+  },
   { name: 'profile', path: '/profile', label: 'Perfil', icon: 'fa-solid fa-user' },
   { name: 'tips', path: '/tips', label: 'Consejos', icon: 'fa-solid fa-lightbulb' },
 ]
