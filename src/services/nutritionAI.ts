@@ -11,7 +11,7 @@ export async function analyzeMeal(mealDescription: string): Promise<NutritionAna
   const trimmed = mealDescription.trim()
 
   if (!trimmed) {
-    throw new NutritionAIError('Describe tu comida para analizarla')
+    throw new NutritionAIError('Describe tu plato para analizarlo')
   }
 
   if (trimmed.length < 3) {
