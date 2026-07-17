@@ -50,7 +50,7 @@ function entryMacros(entry: {
         {{
           userStore.isProfileComplete
             ? `¡Bienvenid${userStore.profile.sex === 'female' ? 'a' : 'o'}, ${userStore.profile.name}!`
-            : '¡Bienvenido a Avocato!'
+            : '¡Bienvenid@ a Avocato!'
         }}
       </h1>
       <p class="text-body-sm capitalize">{{ todayDate }}</p>
@@ -66,7 +66,7 @@ function entryMacros(entry: {
         Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
       </p>
       <router-link to="/profile" class="btn btn-primary" role="button">
-        Completar perfil
+        Completa tu perfil
       </router-link>
     </section>
 
@@ -106,28 +106,20 @@ function entryMacros(entry: {
     <section aria-label="Comidas registradas hoy">
       <button class="dash__meals-toggle" :aria-expanded="mealsOpen" @click="mealsOpen = !mealsOpen">
         <div class="flex items-center gap-1 min-w-0">
-          <h2 class="text-sm font-semibold truncate" style="color: var(--clr-text)">
+          <h2 class="text-xs font-semibold truncate uppercase" style="color: var(--clr-text)">
             Comidas de hoy
           </h2>
           <span
             v-if="foodStore.todayEntries.length > 0"
-            class="text-[11px] font-bold shrink-0 px-1 py-0.5 rounded"
+            class="text-[12px] font-bold shrink-0 px-1 py-1 rounded"
             style="color: var(--clr-text-muted); background: var(--clr-surface-alt)"
           >
             {{ foodStore.todayEntries.length }}
           </span>
         </div>
         <div class="flex items-center gap-1 shrink-0">
-          <button
-            v-if="foodStore.todayEntries.length > 0"
-            class="btn btn-danger py-0 px-1 text-[10px]"
-            aria-label="Eliminar todas las comidas de hoy"
-            @click.stop="foodStore.clearToday()"
-          >
-            Limpiar
-          </button>
           <i
-            class="fa-solid fa-chevron-down text-[8px] transition-transform duration-200"
+            class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
             :class="{ 'rotate-180': mealsOpen }"
             aria-hidden="true"
             style="color: var(--clr-text-faint)"
@@ -173,15 +165,15 @@ function entryMacros(entry: {
                   class="text-[10px]"
                   style="color: var(--clr-primary)"
                 />
-                <span class="text-xs font-semibold" style="color: var(--clr-text)">{{
+                <span class="text-sm font-semibold" style="color: var(--clr-text)">{{
                   MEAL_TYPE_LABELS[type]
                 }}</span>
-                <span class="text-[10px] font-medium" style="color: var(--clr-text-faint)">
+                <span class="text-[13px] font-medium" style="color: var(--clr-text-faint)">
                   {{ entries.length }} · {{ mealTypeTotalCalories(entries) }} kcal
                 </span>
               </div>
               <i
-                class="fa-solid fa-chevron-down text-[7px] transition-transform duration-200"
+                class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
                 :class="{ 'rotate-180': openMealTypes.has(type as MealType) }"
                 aria-hidden="true"
                 style="color: var(--clr-text-faint)"
@@ -198,7 +190,7 @@ function entryMacros(entry: {
                     class="w-7 h-7 rounded object-cover shrink-0"
                     loading="lazy"
                   />
-                  <p class="text-[13px] font-medium truncate" style="color: var(--clr-text)">
+                  <p class="text-[14px] font-medium truncate" style="color: var(--clr-text)">
                     {{ entry.food.name }}
                   </p>
                 </div>
@@ -226,7 +218,7 @@ function entryMacros(entry: {
                       ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
                     "
                   >
-                    <i class="fa-solid fa-xmark text-[8px]" aria-hidden="true" />
+                    <i class="fa-solid fa-xmark text-[13px]" aria-hidden="true" />
                   </button>
                 </div>
               </li>
@@ -234,19 +226,28 @@ function entryMacros(entry: {
           </article>
         </div>
 
-        <div class="flex items-center justify-center gap-1 mt-1.5">
+        <div class="flex items-center justify-center gap-1 mt-3.5">
           <router-link to="/search" class="btn btn-primary text-[10px] py-1 px-2" role="button">
             <i class="fa-solid fa-magnifying-glass" aria-hidden="true" />
             Buscar
           </router-link>
           <router-link
             to="/nutrition-ai"
-            class="btn btn-secondary text-[10px] py-1 px-2"
+            class="btn btn-accent text-[10px] py-1 px-2"
             role="button"
           >
             <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true" />
             Mis platos
           </router-link>
+          <button
+            v-if="foodStore.todayEntries.length > 0"
+            class="btn btn-secondary py-0 px-1 text-[10px]"
+            aria-label="Eliminar todas las comidas de hoy"
+            @click.stop="foodStore.clearToday()"
+          >
+            <i class="fa-solid fa-broom" aria-hidden="true" />
+            Limpiar
+          </button>
         </div>
       </div>
     </section>
@@ -302,7 +303,7 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.375rem 0.5rem;
+  padding: 0.5rem 0.6rem;
   border-radius: var(--radius-md);
   background: var(--clr-surface);
   border: 1px solid var(--clr-border-subtle);
@@ -319,7 +320,7 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.25rem 0.5rem;
+  padding: 0.45rem 0.6rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -341,7 +342,7 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.1875rem 0.5rem;
+  padding: 0.3rem 0.5rem;
   gap: 0.25rem;
   transition: background 0.1s ease;
 }
@@ -357,8 +358,8 @@ function entryMacros(entry: {
 .dash__macros {
   display: flex;
   align-items: center;
-  gap: 0.125rem;
-  font-size: 0.6875rem;
+  gap: 0.2rem;
+  font-size: 0.8rem;
   white-space: nowrap;
 }
 
@@ -373,7 +374,7 @@ function entryMacros(entry: {
 
 .dash__macro-sep {
   color: var(--clr-border);
-  margin: 0 0.0625rem;
+  margin: 0 0.07rem;
 }
 
 @media (max-width: 380px) {

@@ -18,6 +18,7 @@ const colorStyles = computed(() => {
       bg: 'background: #f4f8ec; border-color: #d1e0be',
       bar: 'background: var(--clr-accent)',
       text: 'color: var(--clr-accent)',
+      justify: 'justify-between',
     }
   }
   if (props.color === 'amber') {
@@ -54,7 +55,7 @@ const ariaLabel = computed(
     :aria-label="ariaLabel"
   >
     <span
-      class="text-[10px] sm:text-xs font-semibold uppercase tracking-wide shrink-0 w-14 text-right"
+      class="text-[10px] sm:text-xs font-semibold uppercase tracking-wide shrink-0 w-14 text-left"
       style="color: var(--clr-text)"
     >
       {{ label }}
