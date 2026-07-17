@@ -15,7 +15,6 @@ const links = [
     icon: 'fa-solid fa-wand-magic-sparkles',
   },
   { name: 'profile', path: '/profile', label: 'Perfil', icon: 'fa-solid fa-user' },
-  { name: 'tips', path: '/tips', label: 'Consejos', icon: 'fa-solid fa-lightbulb' },
 ]
 
 function toggleMenu() {

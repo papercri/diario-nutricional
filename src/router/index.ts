@@ -19,11 +19,6 @@ const router = createRouter({
       component: () => import('../views/SearchView.vue'),
     },
     {
-      path: '/tips',
-      name: 'tips',
-      component: () => import('../views/TipsView.vue'),
-    },
-    {
       path: '/nutrition-ai',
       name: 'nutrition-ai',
       component: () => import('../views/NutritionAnalyzerView.vue'),
