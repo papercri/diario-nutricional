@@ -44,42 +44,61 @@ El repositorio incluye un archivo `AGENTS.md` con instrucciones específicas par
 
 ```
 src/
-├── components/              # Componentes Vue reutilizables
-│   ├── AppHeader.vue        # Navbar sticky con hamburger menu
-│   ├── CalorieRing.vue      # Anillo SVG de progreso calórico
-│   ├── FoodCard.vue         # Tarjeta de alimento con opción "Añadir"
-│   ├── NutrientCard.vue     # Barra de progreso por macro nutriente
-│   └── base/                # Componentes base del design system
-│       ├── BaseButton.vue   # Botón con variant/size
-│       ├── BaseInput.vue    # Input con label/hint/error
-│       ├── BaseCard.vue     # Card con variant default/elevated
-│       └── BaseBadge.vue    # Badge/pill con icon y color
-├── composables/             # Composables para lógica reactiva
-│   ├── useFoodSearch.ts     # Search state, debounce, performSearch
-│   ├── useAddFood.ts        # Modal state, openAddModal, confirmAdd
-│   └── useTip.ts            # Fetch tip, loading/error state
-├── views/                   # Vistas principales (todas lazy-loaded)
+├── design-system/             # Design System
+│   ├── tokens/index.css       # Design tokens (colors, spacing, typography, etc.)
+│   └── index.ts               # Barrel export de todos los componentes Ds*
+├── components/
+│   ├── ui/                    # Primitivos UI del Design System
+│   │   ├── Button.vue         # Variantes: primary/secondary/ghost/danger/accent
+│   │   ├── Input.vue          # Label, helper, error, tamaños sm/md/lg
+│   │   ├── Card.vue           # Variantes: default/elevated/warm/surface
+│   │   ├── Badge.vue          # Variantes: primary/accent/success/warning/danger/info
+│   │   ├── Modal.vue          # Teleport, tamaños sm/md/lg/xl, backdrop blur
+│   │   └── Typography.vue     # Variantes: display/h1-h4/body/label/caption
+│   ├── layout/                # Componentes de layout
+│   │   ├── Container.vue      # Max-width responsive + padding
+│   │   ├── Stack.vue          # Flex direction + gap + align + justify
+│   │   └── Grid.vue           # CSS Grid responsive con minItemWidth
+│   ├── forms/                 # Componentes de formulario
+│   │   └── Field.vue          # Wrapper con label/error/helper
+│   ├── state/                 # Componentes de estado
+│   │   ├── EmptyState.vue     # Estado vacío con icono + action slot
+│   │   ├── Loading.vue        # Spinner animado con tamaños
+│   │   └── ErrorState.vue     # Error con retry
+│   ├── AppHeader.vue          # Navbar sticky con hamburger menu
+│   ├── CalorieRing.vue        # Anillo SVG de progreso calórico
+│   ├── FoodCard.vue           # Tarjeta de alimento con Nutri-Score badge
+│   └── NutrientCard.vue       # Barra de progreso por macro nutriente
+├── hooks/                     # Hooks reutilizables
+│   ├── useModal.ts            # Estado open/close/toggle
+│   ├── useDebounce.ts         # Debounce genérico con cleanup
+│   └── index.ts               # Barrel export
+├── composables/               # Composables para lógica reactiva
+│   ├── useFoodSearch.ts       # Search state, debounce, performSearch
+│   ├── useAddFood.ts          # Modal state, openAddModal, confirmAdd
+│   └── useTip.ts              # Fetch tip, loading/error state
+├── views/                     # Vistas principales (todas lazy-loaded)
 │   ├── DashboardView.vue
 │   ├── ProfileView.vue
 │   ├── SearchView.vue
 │   └── TipsView.vue
-├── stores/                  # Almacenes Pinia con persistencia localStorage
-│   ├── userStore.ts         # Perfil de usuario + metas calóricas
-│   └── foodStore.ts         # Registro de comidas del día
-├── services/                # Clientes HTTP
-│   ├── openFoodFacts.ts     # API pública de Open Food Facts
-│   └── tipsService.ts       # API de consejos + fallback local
-├── types/                   # Definiciones TypeScript
+├── stores/                    # Almacenes Pinia con persistencia localStorage
+│   ├── userStore.ts           # Perfil de usuario + metas calóricas
+│   └── foodStore.ts           # Registro de comidas del día
+├── services/                  # Clientes HTTP
+│   ├── openFoodFacts.ts       # API pública de Open Food Facts
+│   └── tipsService.ts         # API de consejos + fallback local
+├── types/                     # Definiciones TypeScript
 │   ├── user.ts
 │   └── food.ts
-├── utils/                   # Funciones puras y constantes
-│   ├── mifflinStJeor.ts     # Fórmula Mifflin-St Jeor (TMB/TDEE)
-│   ├── nutrition.ts         # calcPercentage, groupEntriesByMealType, sumServings
-│   ├── formatting.ts        # formatDateEs, formatCalorieEntry
-│   └── constants.ts         # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS
-├── router/index.ts          # Vue Router
-├── style.css                # Tailwind v4 + design system CSS variables
-└── main.ts                  # Entry point
+├── utils/                     # Funciones puras y constantes
+│   ├── mifflinStJeor.ts       # Fórmula Mifflin-St Jeor (TMB/TDEE)
+│   ├── nutrition.ts           # calcPercentage, groupEntriesByMealType, sumServings
+│   ├── formatting.ts          # formatDateEs, formatCalorieEntry
+│   └── constants.ts           # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS
+├── router/index.ts            # Vue Router
+├── style.css                  # Tailwind v4 + design tokens import
+└── main.ts                    # Entry point
 ```
 
 ## Arquitectura interna
@@ -88,25 +107,36 @@ src/
 
 El código está organizado en capas claras:
 
+- **Design System** (`src/design-system/`) — Tokens de diseño y barrel export de todos los componentes reutilizables.
 - **Utils** (`src/utils/`) — Funciones puras sin dependencias de Vue. Calculan, transforman y formatean datos. Testables de forma aislada.
+- **Hooks** (`src/hooks/`) — Hooks reutilizables (useModal, useDebounce).
 - **Composables** (`src/composables/`) — Lógica reactiva extraída de componentes. Manejan estado, efectos secundarios y orquestación.
 - **Stores** (`src/stores/`) — Estado global persistido. Solo manejan datos del usuario y registros de comida.
 - **Services** (`src/services/`) — Clientes HTTP puros. Solo hacen fetch y transforman la respuesta de APIs externas.
-- **Components** (`src/components/`) — Presentación pura. Reciben props, emiten eventos, consumen composables y utils.
-- **Base** (`src/components/base/`) — Componentes primitivos del design system. Reutilizables en toda la app.
+- **UI Components** (`src/components/ui/`) — Primitivos del design system: Button, Input, Card, Badge, Modal, Typography.
+- **Layout** (`src/components/layout/`) — Container, Stack, Grid para layouts reutilizables.
+- **Forms** (`src/components/forms/`) — Field wrapper para formularios.
+- **State** (`src/components/state/`) — EmptyState, Loading, ErrorState.
+- **Business Components** (`src/components/`) — AppHeader, CalorieRing, FoodCard, NutrientCard. Componen primitivos UI + lógica de negocio.
 
 ### Design system
 
-Los tokens de diseño están centralizados en `src/style.css` como CSS variables:
+Los tokens de diseño están centralizados en `src/design-system/tokens/index.css` como CSS custom properties:
 
 - **Colores**: `--clr-primary` (olive), `--clr-accent` (terracotta), `--clr-secondary` (mustard), `--clr-bg` (cream)
 - **Superficies**: `--clr-surface`, `--clr-surface-alt`, `--clr-surface-muted`
-- **Texto**: `--clr-text`, `--clr-text-muted`, `--clr-text-faint`
-- **Bordes**: `--clr-border`, `--clr-border-subtle`
-- **Radios**: `--radius-sm` (6px), `--radius-md` (10px), `--radius-lg` (16px), `--radius-xl` (24px)
-- **Sombras**: `--shadow-sm`, `--shadow-md`, `--shadow-lg`
+- **Texto**: `--clr-text`, `--clr-text-muted`, `--clr-text-faint`, `--clr-text-inverse`
+- **Semánticos**: `--clr-success`, `--clr-warning`, `--clr-danger`, `--clr-info` (+ light variants)
+- **Bordes**: `--clr-border`, `--clr-border-subtle`, `--clr-border-strong`
+- **Spacing**: `--space-0` a `--space-24` (escala 4px)
+- **Radios**: `--radius-xs` (4px) a `--radius-full` (9999px)
+- **Sombras**: `--shadow-xs` a `--shadow-xl` + `--shadow-inner`
+- **Tipografía**: `--font-display` (DM Sans), `--font-body` (Source Sans 3), `--font-mono`
+- **Animación**: `--duration-*`, `--ease-*`
+- **Z-index**: `--z-base` (0) a `--z-tooltip` (600)
+- **Opacidad**: `--opacity-disabled`, `--opacity-hover`, `--opacity-muted`, `--opacity-faint`
 
-Las clases compartidas (`.btn`, `.input-field`, `.card`, `.card-elevated`) usan estas variables y se consumen desde los componentes.
+Los componentes UI (`Button`, `Input`, `Card`, `Badge`, `Modal`, `Typography`) encapsulan estilos scoped y consumen estos tokens. Las clases legacy (`.btn`, `.input-field`, `.card`, `.card-elevated`) se mantienen para compatibilidad con vistas existentes.
 
 ## Datos y persistencia
 
@@ -174,11 +204,11 @@ Este proyecto tiene las siguientes skills de OpenCode configuradas en `skills-lo
 
 Si estás trabajando en este proyecto como agente, lee `AGENTS.md` para instrucciones específicas. Puntos clave:
 
-- **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`.
+- **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`, los tokens en `src/design-system/tokens/index.css`.
 - **Alias `@`**: Mapea a `./src`. Usa `@/components/...` en imports.
+- **Design System**: Usar componentes `Ds*` desde `src/design-system/index.ts` (Button, Input, Card, Badge, Modal, Typography, Container, Stack, Grid, Field, EmptyState, Loading, ErrorState).
 - **Tests**: Unit tests en `src/utils/` para funciones puras (30 tests con Vitest).
 - **Prettier**: Sin punto y coma, comillas simples, 100 caracteres de ancho.
-- **Componentes base**: Usar `BaseButton`, `BaseInput`, `BaseCard`, `BaseBadge` en vez de reimplementar estilos.
 - **Composables**: La lógica reactiva va en `src/composables/`, no en los componentes directamente.
 
 ## Licencia

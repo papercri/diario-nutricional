@@ -1,75 +1,41 @@
 @import 'tailwindcss';
+@import './design-system/tokens/index.css' layer(tokens);
 
 @theme {
-  --color-avocado-50: #ecfdf5;
-  --color-avocado-100: #d1fae5;
-  --color-avocado-200: #a7f3d0;
-  --color-avocado-400: #34d399;
-  --color-avocado-500: #10b981;
-  --color-avocado-600: #059669;
-  --color-avocado-700: #047857;
-  --color-avocado-800: #065f46;
-  --color-avocado-900: #064e3b;
-  --color-avocado-950: #022c22;
-  --color-honey-50: #fffbeb;
-  --color-honey-100: #fef3c7;
-  --color-honey-200: #fde68a;
-  --color-honey-400: #fbbf24;
-  --color-honey-500: #f59e0b;
-}
+  --color-primary: var(--clr-primary);
+  --color-primary-hover: var(--clr-primary-hover);
+  --color-primary-light: var(--clr-primary-light);
+  --color-primary-faint: var(--clr-primary-faint);
+  --color-accent: var(--clr-accent);
+  --color-accent-hover: var(--clr-accent-hover);
+  --color-accent-light: var(--clr-accent-light);
+  --color-secondary: var(--clr-secondary);
+  --color-secondary-hover: var(--clr-secondary-hover);
+  --color-secondary-light: var(--clr-secondary-light);
 
-:root {
-  /* ── Food-inspired palette ── */
-  --clr-primary: #5b7a3d;
-  --clr-primary-hover: #4a6632;
-  --clr-primary-active: #3d5529;
-  --clr-primary-light: #e8f0e0;
-  --clr-primary-faint: #f3f7ed;
-  --clr-accent: #c4704b;
-  --clr-accent-hover: #b0603e;
-  --clr-accent-light: #f5e0d6;
-  --clr-secondary: #d4a843;
-  --clr-secondary-hover: #c49a38;
-  --clr-secondary-light: #fdf4dc;
+  --color-bg: var(--clr-bg);
+  --color-bg-warm: var(--clr-bg-warm);
+  --color-surface: var(--clr-surface);
+  --color-surface-alt: var(--clr-surface-alt);
 
-  /* ── Surfaces ── */
-  --clr-bg: #faf5eb;
-  --clr-bg-warm: #f5ede0;
-  --clr-surface: #ffffff;
-  --clr-surface-alt: #f0e9dd;
-  --clr-surface-muted: rgba(240, 233, 221, 0.5);
+  --color-text: var(--clr-text);
+  --color-text-muted: var(--clr-text-muted);
+  --color-text-faint: var(--clr-text-faint);
 
-  /* ── Text ── */
-  --clr-text: #2d2a26;
-  --clr-text-muted: #6b6560;
-  --clr-text-faint: #a09890;
+  --color-border: var(--clr-border);
+  --color-border-subtle: var(--clr-border-subtle);
+  --color-border-strong: var(--clr-border-strong);
 
-  /* ── Borders ── */
-  --clr-border: #e2d9cc;
-  --clr-border-subtle: rgba(226, 217, 204, 0.5);
-  --clr-border-strong: #cdc2b4;
+  --color-focus-ring: var(--clr-focus-ring);
 
-  /* ── Focus ring ── */
-  --clr-focus-ring: rgba(91, 122, 61, 0.4);
-
-  /* ── Radii ── */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
-
-  /* ── Shadows ── */
-  --shadow-xs: 0 1px 2px rgba(45, 42, 38, 0.04);
-  --shadow-sm: 0 1px 3px rgba(45, 42, 38, 0.06);
-  --shadow-md: 0 4px 12px rgba(45, 42, 38, 0.08);
-  --shadow-lg: 0 8px 24px rgba(45, 42, 38, 0.12);
-  --shadow-xl: 0 16px 48px rgba(45, 42, 38, 0.16);
-
-  /* ── Typography ── */
-  --font-display: 'DM Sans', system-ui, sans-serif;
-  --font-body: 'Source Sans 3', system-ui, sans-serif;
+  --color-success: var(--clr-success);
+  --color-success-light: var(--clr-success-light);
+  --color-warning: var(--clr-warning);
+  --color-warning-light: var(--clr-warning-light);
+  --color-danger: var(--clr-danger);
+  --color-danger-light: var(--clr-danger-light);
+  --color-info: var(--clr-info);
+  --color-info-light: var(--clr-info-light);
 }
 
 /* ═══════════════════════════════════════
@@ -109,7 +75,7 @@ button {
 }
 
 /* ═══════════════════════════════════════
-   Typography utilities
+   Typography utilities (used by Typography.vue)
    ═══════════════════════════════════════ */
 .text-display-xl {
   font-family: var(--font-display);
@@ -162,7 +128,7 @@ button {
 }
 
 /* ═══════════════════════════════════════
-   Layout utilities
+   Layout utilities (used by views)
    ═══════════════════════════════════════ */
 .page-container {
   max-width: 42rem;
@@ -186,7 +152,7 @@ button {
 }
 
 /* ═══════════════════════════════════════
-   Shared form controls
+   Shared form controls (used by views)
    ═══════════════════════════════════════ */
 .input-field {
   width: 100%;
@@ -211,7 +177,7 @@ button {
 }
 
 /* ═══════════════════════════════════════
-   Shared button styles
+   Shared button styles (used by views)
    ═══════════════════════════════════════ */
 .btn {
   display: inline-flex;
@@ -292,7 +258,7 @@ button {
 }
 
 /* ═══════════════════════════════════════
-   Card styles
+   Card styles (used by views)
    ═══════════════════════════════════════ */
 .card {
   background: var(--clr-surface);

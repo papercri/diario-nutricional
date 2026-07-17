@@ -36,6 +36,8 @@ export default tseslint.config(
         localStorage: 'readonly',
         MouseEvent: 'readonly',
         Event: 'readonly',
+        FocusEvent: 'readonly',
+        KeyboardEvent: 'readonly',
       },
     },
     rules: {
