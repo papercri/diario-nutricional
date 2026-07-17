@@ -38,6 +38,7 @@ export default tseslint.config(
         Event: 'readonly',
         FocusEvent: 'readonly',
         KeyboardEvent: 'readonly',
+        HTMLElement: 'readonly',
       },
     },
     rules: {

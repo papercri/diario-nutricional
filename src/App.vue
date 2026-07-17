@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppHeader from './components/AppHeader.vue'
+const currentYear = new Date().getFullYear()
 </script>
 
 <template>
@@ -18,7 +19,17 @@ import AppHeader from './components/AppHeader.vue'
       class="py-8 text-center text-xs"
       style="color: var(--clr-text-faint); border-top: 1px solid var(--clr-border-subtle)"
     >
-      <p class="font-display">Avocato — Tu diario nutricional</p>
+      <span>
+        &copy; {{ currentYear }} Avocato · Tu diario nutricional · by
+        <a
+          href="https://frontend-ux.website/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-medium underline"
+        >
+          Cristiana Sollini
+        </a>
+      </span>
     </footer>
   </div>
 </template>
