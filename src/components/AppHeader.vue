@@ -11,10 +11,10 @@ const links = [
   {
     name: 'nutrition-ai',
     path: '/nutrition-ai',
-    label: 'Analizar',
+    label: 'Mis platos',
     icon: 'fa-solid fa-wand-magic-sparkles',
   },
-  { name: 'profile', path: '/profile', label: 'Perfil', icon: 'fa-solid fa-user' },
+  { name: 'profile', path: '/profile', label: 'Mi perfil', icon: 'fa-solid fa-user' },
 ]
 
 function toggleMenu() {

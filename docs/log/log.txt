@@ -808,5 +808,99 @@ layout compacto similar al NutritionAnalyzerView.
 
 
 ================================================================================
+ 19. UI OVERHAUL — DASHBOARD + PROFILE COMPACT REDESIGN (2026-07-17)
+================================================================================
+
+Se rediseñó la UI de toda la web con foco en compacidad, legibilidad y
+ajuste a primera pantalla (above the fold).
+
+19.1. CalorieRing.vue — Anillo compacto
+
+  - Tamaño reducido: w-28/h-28 (mobile), w-32/h-32 (desktop)
+  - Stroke-width aumentado a 12 para mejor visibilidad
+  - Layout responsive: columna centrada en mobile, fila en desktop (sm+)
+  - Barra de progreso horizontal debajo del anillo en mobile
+  - Texto: consumido en text-xl/2xl, target en [10px]/xs
+
+19.2. NutrientCard.vue — Badges compactos inline
+
+  - Layout inline: label | progress bar | value
+  - Label con ancho fijo w-14 y text-right para alineación perfecta
+  - Progress bar: h-1, ancho completo con mx-2
+  - Nuevo color "brown" para carbohidratos (#f5ebe0 bg, #a0785c bar)
+  - Padding reducido: px-2.5 py-1
+  - Variantes de color: emerald, lime, amber, brown
+
+19.3. DashboardView.vue — Rediseño completo
+
+  Header:
+    - Tamaño reducido (text-display-lg en vez de text-display-xl)
+    - Margin-bottom mínimo (0.125rem)
+
+  Resumen nutricional (dash__summary):
+    - Mobile: anillo centrado + badges apilados debajo
+    - Desktop (≥640px): anillo a la izquierda + badges apilados a la derecha
+    - Gap reducido a 0.75rem
+
+  Sección "Comidas de hoy":
+    - Toggle plegable con chevron animado
+    - Header: text-sm, padding 0.375rem 0.5rem
+    - Badge de conteo con fondo surface-alt
+    - Cada tipo de comida (desayuno/comida/cena/snack) individualmente plegable
+    - Header de tipo: icono text-[10px], texto text-xs, stats text-[10px]
+
+  Filas de alimentos:
+    - Imagen: w-7 h-7 (antes w-10 h-10)
+    - Nombre: text-[13px] (antes text-sm)
+    - Macros inline a la derecha: kcal · P · C · G en 0.6875rem
+    - Botón eliminar: w-6 h-6 con icono text-[10px]
+    - Padding reducido: 0.25rem 0.625rem
+
+  Botones de acción (siempre visibles):
+    - "Buscar" (primary) y "Mis platos" (secondary)
+    - Tamaño: text-[10px] py-1 px-2 con iconos
+    - Visibles tanto en estado vacío como con listado
+
+  Empty state:
+    - Icono text-2xl, text-xs para título, text-[10px] para descripción
+    - Padding py-6 px-4
+
+19.4. ProfileView.vue — Botones uniformes
+
+  - Botones de sexo (Mujer/Hombre): añadido clase btn-toggle--sm
+    para igualar altura con botones de actividad
+  - Botones de objetivo: eliminadas descripciones (Déficit calórico, etc.)
+    y quitada clase btn-toggle--col
+
+19.5. AppHeader.vue — Navegación renombrada
+
+  - "Analizar" → "Mis platos"
+  - "Perfil" → "Mi perfil"
+
+19.6. NutritionAnalyzerView.vue — Título actualizado
+
+  - "Analizador de comidas" → "Mis platos"
+
+19.7. SearchView.vue — Subtítulo actualizado
+
+  - "Encuentra alimentos en Open Food Facts"
+  → "Base de datos de productos de supermercado — Open Food Facts"
+
+19.8. Design Tokens — Texto faint más oscuro
+
+  - --clr-text-faint: #a09890 → #8a827a (mejor contraste/legibilidad)
+
+19.9. style.css — Mejoras globales
+
+  - Añadido text-rendering: optimizeLegibility al body
+  - Añadida clase .btn-sm para botones pequeños
+
+19.10. Verificación
+
+  - Lint: 0 errores
+  - Build: completado sin errores
+
+
+================================================================================
  FIN DEL REGISTRO
 ================================================================================
