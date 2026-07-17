@@ -2,7 +2,7 @@
 
 > **Live deploy:** [avocato-inky.vercel.app](https://avocato-inky.vercel.app)
 
-Web app para calcular calorías diarias, componer platos equilibrados y recibir consejos de bienestar. Diseñada con una estética food-inspired en tonos oliva, terracota y mostaza.
+Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular el IMC, el peso ideal y el gasto calórico diario, analizar comidas con IA y recibir recomendaciones nutricionales personalizadas a través de una experiencia visual inspirada en la alimentación mediterránea.
 
 > **Proyecto piloto** creado para testear agentes de IA y skills con [OpenCode](https://opencode.ai). El objetivo es evaluar cómo un agente puede comprender, mantener y mejorar un proyecto real de front-end moderno.
 
