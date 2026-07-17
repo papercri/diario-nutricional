@@ -54,16 +54,18 @@ defineProps<{
         {{ error }}
       </p>
     </div>
-    <Button
-      type="submit"
-      variant="accent"
-      size="md"
-      :loading="loading"
-      :disabled="loading"
-      icon="fa-solid fa-wand-magic-sparkles"
-    >
-      {{ loading ? 'Analizando...' : 'Analizar comida' }}
-    </Button>
+    <div class="meal-form__actions">
+      <Button
+        type="submit"
+        variant="accent"
+        size="sm"
+        :loading="loading"
+        :disabled="loading"
+        icon="fa-solid fa-wand-magic-sparkles"
+      >
+        {{ loading ? 'Analizando...' : 'Analizar comida' }}
+      </Button>
+    </div>
   </form>
 </template>
 
@@ -71,7 +73,12 @@ defineProps<{
 .meal-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
+}
+
+.meal-form__actions {
+  display: flex;
+  justify-content: center;
 }
 
 .meal-form__field {
