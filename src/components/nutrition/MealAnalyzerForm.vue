@@ -6,8 +6,16 @@ const emit = defineEmits<{
   submit: [description: string]
 }>()
 
+const textareaRef = ref<HTMLElement | null>(null)
 const description = ref('')
 const error = ref('')
+
+function autoResize() {
+  const el = textareaRef.value
+  if (!el) return
+  el.style.height = 'auto'
+  el.style.height = `${el.scrollHeight}px`
+}
 
 function handleSubmit() {
   const trimmed = description.value.trim()
@@ -26,7 +34,8 @@ function handleSubmit() {
   emit('submit', trimmed)
 }
 
-function clearError() {
+function onInput() {
+  autoResize()
   if (error.value) error.value = ''
 }
 
@@ -37,51 +46,38 @@ defineProps<{
 
 <template>
   <form class="meal-form" @submit.prevent="handleSubmit" novalidate>
-    <div class="meal-form__field">
-      <label for="meal-description" class="meal-form__label"> Describe tu comida </label>
-      <textarea
-        id="meal-description"
-        v-model="description"
-        class="meal-form__textarea"
-        :class="{ 'meal-form__textarea--error': error }"
-        placeholder="Ej: Pollo a la plancha con arroz y ensalada"
-        rows="3"
-        :disabled="loading"
-        aria-describedby="meal-description-error"
-        @input="clearError"
-      />
-      <p id="meal-description-error" v-if="error" class="meal-form__error" role="alert">
-        {{ error }}
-      </p>
-    </div>
-    <div class="meal-form__actions">
-      <Button
-        type="submit"
-        variant="accent"
-        size="sm"
-        :loading="loading"
-        :disabled="loading"
-        icon="fa-solid fa-wand-magic-sparkles"
-      >
-        {{ loading ? 'Analizando...' : 'Analizar comida' }}
-      </Button>
-    </div>
+    <label for="meal-description" class="meal-form__label">Describe tu comida</label>
+    <textarea
+      id="meal-description"
+      ref="textareaRef"
+      v-model="description"
+      class="meal-form__textarea"
+      :class="{ 'meal-form__textarea--error': error }"
+      placeholder="Ej: Pollo a la plancha con arroz y ensalada"
+      rows="1"
+      :disabled="loading"
+      aria-describedby="meal-description-error"
+      @input="onInput"
+    />
+    <Button
+      type="submit"
+      variant="accent"
+      size="sm"
+      :loading="loading"
+      :disabled="loading"
+      icon="fa-solid fa-wand-magic-sparkles"
+      class="meal-form__btn"
+    >
+      Analizar
+    </Button>
+    <p id="meal-description-error" v-if="error" class="meal-form__error" role="alert">
+      {{ error }}
+    </p>
   </form>
 </template>
 
 <style scoped>
 .meal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.meal-form__actions {
-  display: flex;
-  justify-content: center;
-}
-
-.meal-form__field {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
@@ -95,7 +91,7 @@ defineProps<{
 
 .meal-form__textarea {
   width: 100%;
-  padding: 0.625rem 0.875rem;
+  padding: 0.5rem 0.75rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--clr-border);
   background: var(--clr-surface);
@@ -103,11 +99,30 @@ defineProps<{
   font-family: var(--font-body);
   font-size: var(--text-sm);
   line-height: var(--leading-normal);
-  resize: vertical;
-  min-height: 5rem;
+  resize: none;
+  min-height: 4rem;
   transition:
     border-color var(--duration-normal) var(--ease-default),
     box-shadow var(--duration-normal) var(--ease-default);
+}
+
+.meal-form__btn {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .meal-form {
+    gap: 0.5rem;
+  }
+
+  .meal-form__textarea {
+    min-height: 2.25rem;
+  }
+
+  .meal-form__btn {
+    width: auto;
+    align-self: flex-end;
+  }
 }
 
 .meal-form__textarea::placeholder {
