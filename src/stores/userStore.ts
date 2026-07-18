@@ -8,6 +8,7 @@ const DEFAULT_PROFILE: UserProfile = {
   age: 30,
   weight: 70,
   height: 170,
+  desiredWeight: 65,
   sex: 'female',
   activityLevel: 'moderate',
   goal: 'maintain',
@@ -45,7 +46,15 @@ export const useUserStore = defineStore('user', () => {
 
   const goals = computed<CalorieGoals>(() => {
     if (!profile.value.name) {
-      return { bmr: 0, tdee: 0, targetCalories: 0, proteinGrams: 0, fatGrams: 0, carbGrams: 0 }
+      return {
+        bmr: 0,
+        tdee: 0,
+        targetCalories: 0,
+        proteinGrams: 0,
+        fatGrams: 0,
+        carbGrams: 0,
+        timeToGoalMonths: 0,
+      }
     }
     return calculateCalorieGoals(profile.value)
   })
@@ -55,7 +64,8 @@ export const useUserStore = defineStore('user', () => {
       profile.value.name.length > 0 &&
       profile.value.age > 0 &&
       profile.value.weight > 0 &&
-      profile.value.height > 0
+      profile.value.height > 0 &&
+      profile.value.desiredWeight > 0
     )
   })
 

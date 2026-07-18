@@ -18,11 +18,12 @@ const bmiLabel = computed(() => classifyBMI(bmi.value))
 const bmiBadge = computed(() => getBmiBadgeVariant(bmi.value))
 const idealWeight = computed(() => calculateIdealWeight(userStore.profile.height))
 const weightDiff = computed(
-  () => Math.round((userStore.profile.weight - idealWeight.value) * 10) / 10,
+  () => Math.round((userStore.profile.weight - userStore.profile.desiredWeight) * 10) / 10,
 )
 const bmr = computed(() => userStore.goals.bmr)
 const tdee = computed(() => userStore.goals.tdee)
 const target = computed(() => userStore.goals.targetCalories)
+const timeToGoalMonths = computed(() => userStore.goals.timeToGoalMonths)
 
 const BMI_MIN = 15
 const BMI_MAX = 40
@@ -31,7 +32,7 @@ const bmiPercent = computed(() => {
   return ((clamped - BMI_MIN) / (BMI_MAX - BMI_MIN)) * 100
 })
 
-function onNumberInput(field: 'age' | 'weight' | 'height', value: string | number) {
+function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', value: string | number) {
   const num = Number(value)
   if (!isNaN(num)) {
     userStore.updateProfile({ [field]: num })
@@ -80,7 +81,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
               />
 
               <div class="field-group">
-                <span class="field-label">Sexo</span>
+                <span class="field-label">Sexo biológico</span>
                 <div class="btn-group" role="radiogroup" aria-label="Sexo biológico">
                   <button
                     type="button"
@@ -120,6 +121,13 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
                 type="number"
                 size="sm"
                 @update:model-value="onNumberInput('height', $event)"
+              />
+              <DsInput
+                :model-value="userStore.profile.desiredWeight"
+                label="Peso deseado (kg)"
+                type="number"
+                size="sm"
+                @update:model-value="onNumberInput('desiredWeight', $event)"
               />
             </div>
           </div>
@@ -182,7 +190,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
       <DsCard variant="warm" padding="md" aria-label="Resultados calculados">
         <h2 class="section-title section-title--primary">
           <i class="fa-solid fa-chart-simple" aria-hidden="true" />
-          Tus resultados
+          Mis resultados
         </h2>
 
         <!-- BMI Card with linear indicator -->
@@ -218,7 +226,11 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
               <span class="bmi-detail__value">{{ idealWeight }} kg</span>
             </div>
             <div class="bmi-detail">
-              <span class="bmi-detail__label">Diferencia</span>
+              <span class="bmi-detail__label">Peso deseado</span>
+              <span class="bmi-detail__value">{{ userStore.profile.desiredWeight }} kg</span>
+            </div>
+            <div class="bmi-detail">
+              <span class="bmi-detail__label">Kg de sobrepeso</span>
               <span
                 class="bmi-detail__value"
                 :class="
@@ -232,6 +244,10 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
                 {{ weightDiff > 0 ? '+' : '' }}{{ weightDiff }} kg
               </span>
             </div>
+            <div v-if="timeToGoalMonths > 0" class="bmi-detail">
+              <span class="bmi-detail__label">Tiempo estimado</span>
+              <span class="bmi-detail__value">{{ timeToGoalMonths }} meses</span>
+            </div>
           </div>
         </div>
 
@@ -239,7 +255,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
         <div class="metrics-grid">
           <div class="metric-card">
             <p class="metric-card__value metric-card__value--primary">{{ bmr }}</p>
-            <p class="metric-card__label">TMB (kcal)</p>
+            <p class="metric-card__label">Metabolismo basal (kcal)</p>
           </div>
           <div class="metric-card">
             <p class="metric-card__value metric-card__value--accent">{{ tdee }}</p>
@@ -348,8 +364,14 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
 
 .field-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .field-row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .field-group {
@@ -359,7 +381,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
 }
 
 .field-label {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   color: var(--clr-text-muted);
 }
@@ -368,6 +390,10 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
 .btn-group {
   display: flex;
   gap: 0.25rem;
+}
+
+.btn-group .btn-toggle {
+  flex: 1;
 }
 
 .btn-grid {
@@ -402,6 +428,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
+  line-height: 1.2;
   cursor: pointer;
   transition:
     background var(--duration-normal) var(--ease-default),
@@ -520,7 +547,8 @@ function onNumberInput(field: 'age' | 'weight' | 'height', value: string | numbe
 
 .bmi-card__details {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
   padding-top: 0.5rem;
   border-top: 1px solid var(--clr-border-subtle);
 }
