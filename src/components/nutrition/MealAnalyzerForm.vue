@@ -59,6 +59,7 @@ defineProps<{
         :disabled="loading"
         aria-describedby="meal-description-error"
         @input="onInput"
+        @keydown.enter.exact.prevent="handleSubmit"
       />
       <Button
         type="submit"

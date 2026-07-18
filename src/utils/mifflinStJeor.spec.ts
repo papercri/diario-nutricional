@@ -50,6 +50,7 @@ describe('calculateCalorieGoals', () => {
     age: 30,
     weight: 70,
     height: 175,
+    desiredWeight: 65,
     sex: 'male',
     activityLevel: 'moderate',
     goal: 'maintain',

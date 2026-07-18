@@ -61,9 +61,10 @@ const emit = defineEmits<{
 }
 
 .ds-input__label {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   color: var(--clr-text-muted);
+  white-space: nowrap;
 }
 
 .ds-input__required {

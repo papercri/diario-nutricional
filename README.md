@@ -12,8 +12,8 @@ La app incluye 4 vistas principales:
 
 - **Dashboard** — Anillo de calorías con progreso visual, macro nutrientes, registro de comidas del día
 - **Buscar** — Búsqueda de alimentos contra la API pública de Open Food Facts
-- **Analizar** — Analizador de comidas potenciado por IA
-- **Perfil** — Formulario de datos personales, calculadora de IMC con gauge lineal, metas calóricas (Mifflin-St Jeor)
+- **Analizar** — Analizador de comidas potenciado por IA, envía con Enter o botón
+- **Perfil** — Formulario de datos personales (con peso deseado), calculadora de IMC con gauge lineal, metas calóricas (Mifflin-St Jeor), tiempo estimado para alcanzar el objetivo
 
 ## Stack
 
@@ -102,7 +102,7 @@ BMI = peso (kg) / altura (m)²
 
 **Peso ideal** se calcula con la fórmula: `22 × altura (m)²`
 
-El **BMI Gauge** en el perfil muestra un indicador lineal con gradiente de color (verde a rojo) que posiciona el BMI actual en el rango 15–40, con un pill flotante que muestra el valor numérico.
+El **BMI Gauge** en el perfil muestra un indicador lineal con gradiente de color (verde a rojo) que posiciona el BMI actual en el rango 15–40, con un pill flotante que muestra el valor numérico. Junto al gauge se muestran: peso actual, peso ideal, peso deseado, kg de sobrepeso y tiempo estimado para alcanzar el objetivo (~3 kg/mes).
 
 ### Metas calóricas (Mifflin-St Jeor)
 

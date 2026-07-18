@@ -5,11 +5,11 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <div class="min-h-screen" style="background: var(--clr-bg)">
+  <div class="flex flex-col min-h-screen" style="background: var(--clr-bg)">
     <AppHeader />
     <Toast />
 
-    <main class="pb-16">
+    <main class="flex-1 pb-16">
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
           <component :is="Component" />

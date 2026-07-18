@@ -8,6 +8,7 @@ export interface UserProfile {
   age: number
   weight: number
   height: number
+  desiredWeight: number
   sex: Sex
   activityLevel: ActivityLevel
   goal: GoalType
@@ -20,4 +21,5 @@ export interface CalorieGoals {
   proteinGrams: number
   fatGrams: number
   carbGrams: number
+  timeToGoalMonths: number
 }

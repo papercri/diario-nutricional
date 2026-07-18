@@ -39,5 +39,8 @@ export function calculateCalorieGoals(profile: UserProfile): CalorieGoals {
   const fatGrams = Math.round((targetCalories * 0.25) / 9)
   const carbGrams = Math.round((targetCalories * 0.45) / 4)
 
-  return { bmr, tdee, targetCalories, proteinGrams, fatGrams, carbGrams }
+  const weightDiffKg = Math.abs(profile.weight - profile.desiredWeight)
+  const timeToGoalMonths = weightDiffKg > 0 ? Math.ceil(weightDiffKg / 3) : 0
+
+  return { bmr, tdee, targetCalories, proteinGrams, fatGrams, carbGrams, timeToGoalMonths }
 }
