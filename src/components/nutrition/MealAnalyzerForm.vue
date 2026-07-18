@@ -46,7 +46,7 @@ defineProps<{
 
 <template>
   <form class="meal-form" @submit.prevent="handleSubmit" novalidate>
-    <label for="meal-description" class="meal-form__label">Describe tu comida</label>
+    <!-- <label for="meal-description" class="meal-form__label">Describe tu comida</label> -->
     <div class="meal-form__row">
       <textarea
         id="meal-description"

@@ -1,24 +1,16 @@
 <script setup lang="ts">
 import Card from '@/components/ui/Card.vue'
-import Badge from '@/components/ui/Badge.vue'
 import Button from '@/components/ui/Button.vue'
 
 defineProps<{
   mealName: string
   estimatedCalories: number
-  confidence: 'low' | 'medium' | 'high'
 }>()
 
 defineEmits<{
   addToDaily: []
 }>()
 
-const confidenceConfig: Record<string, { label: string; variant: 'warning' | 'info' | 'success' }> =
-  {
-    low: { label: 'Baja', variant: 'warning' },
-    medium: { label: 'Media', variant: 'info' },
-    high: { label: 'Alta', variant: 'success' },
-  }
 </script>
 
 <template>
@@ -33,9 +25,6 @@ const confidenceConfig: Record<string, { label: string; variant: 'warning' | 'in
           <div class="result-card__calories">
             <span class="result-card__calories-value">{{ estimatedCalories }}</span>
             <span class="result-card__calories-unit">kcal</span>
-            <Badge :variant="confidenceConfig[confidence]?.variant ?? 'default'" size="xs" dot>
-              {{ confidenceConfig[confidence]?.label ?? confidence }}
-            </Badge>
           </div>
         </div>
         <Button variant="accent" size="sm" icon="fa-solid fa-plus" @click="$emit('addToDaily')">

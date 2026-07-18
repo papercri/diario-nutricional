@@ -24,11 +24,12 @@ export async function analyzeMeal(mealDescription: string): Promise<NutritionAna
     body: JSON.stringify({ mealDescription: trimmed }),
   })
 
-  if (!response.ok) {
+  let result: NutritionAIResponse
+  try {
+    result = await response.json()
+  } catch (err) {
     throw new NutritionAIError(`Error del servidor (${response.status}). Intenta de nuevo.`)
   }
-
-  const result: NutritionAIResponse = await response.json()
 
   if (!result.success || !result.data) {
     throw new NutritionAIError(result.error || 'No se pudo analizar la comida')

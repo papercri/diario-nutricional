@@ -79,7 +79,7 @@ function closeModal() {
         Mis platos
       </h1>
       <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
-        Describe lo que comiste y obtén un análisis nutricional estimado
+        Describe tu comida y obtén un análisis nutricional estimado
       </p>
     </header>
 
@@ -108,7 +108,6 @@ function closeModal() {
         <NutritionResultCard
           :meal-name="result.mealName"
           :estimated-calories="result.estimatedCalories"
-          :confidence="result.confidence"
           @add-to-daily="openAddModal"
         />
 
