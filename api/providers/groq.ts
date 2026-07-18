@@ -42,8 +42,8 @@ export async function callGroq(
         { role: 'system', content: systemPrompt },
         { role: 'user', content: mealDescription },
       ],
-      temperature: 1,
-      max_tokens: 1024,
+      temperature: 0.5,
+      max_tokens: 2048,
     }),
   })
 

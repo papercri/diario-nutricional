@@ -42,8 +42,9 @@ export async function callCerebras(
         { role: 'system', content: systemPrompt },
         { role: 'user', content: mealDescription },
       ],
-      temperature: 0.3,
-      max_tokens: 1024,
+      temperature: 0.5,
+      max_tokens: 2048,
+      response_format: { type: 'json_object' },
     }),
   })
 
