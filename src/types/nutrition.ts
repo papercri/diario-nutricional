@@ -26,7 +26,6 @@ export interface NutritionAnalysis {
   ingredients: Ingredient[]
   nutritionScore: NutritionScore
   healthTips: string[]
-  confidence: 'low' | 'medium' | 'high'
 }
 
 export interface NutritionAIResponse {

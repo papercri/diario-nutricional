@@ -108,7 +108,6 @@ function closeModal() {
         <NutritionResultCard
           :meal-name="result.mealName"
           :estimated-calories="result.estimatedCalories"
-          :confidence="result.confidence"
           @add-to-daily="openAddModal"
         />
 

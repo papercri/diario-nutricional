@@ -30,7 +30,6 @@ Schema JSON requerido:
   ],
   "nutritionScore": { "value": number - de 1 a 100, "reason": "string" },
   "healthTips": ["string - consejo práctico"],
-  "confidence": "low" | "medium" | "high"
 }`
 
 function stripMarkdownCodeBlocks(text: string): string {
@@ -62,7 +61,6 @@ function validateAnalysis(data: unknown): boolean {
   if (!Array.isArray(obj.ingredients)) return false
   if (typeof obj.nutritionScore !== 'object' || obj.nutritionScore === null) return false
   if (!Array.isArray(obj.healthTips)) return false
-  if (!['low', 'medium', 'high'].includes(obj.confidence as string)) return false
 
   return true
 }
