@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { useAuth } from '@/composables/useAuth'
+import { useUserStore } from '@/stores/userStore'
 
 const route = useRoute()
+const router = useRouter()
+const { user, signOut } = useAuth()
+const userStore = useUserStore()
 const isMenuOpen = ref(false)
 
 const links = [
@@ -29,6 +34,12 @@ function toggleMenu() {
 
 function closeMenu() {
   isMenuOpen.value = false
+}
+
+async function handleSignOut() {
+  await signOut()
+  closeMenu()
+  router.push('/')
 }
 
 watch(
@@ -71,6 +82,26 @@ watch(
           <span class="hidden lg:inline">{{ link.label }}</span>
         </router-link>
       </nav>
+
+      <!-- Auth status -->
+      <div class="hidden sm:flex items-center gap-2">
+        <template v-if="user">
+          <span class="text-sm font-medium" style="color: var(--clr-text)">
+            Hola, {{ userStore.profile.name || 'usuario' }}
+          </span>
+          <button
+            class="btn btn-ghost text-sm"
+            aria-label="Cerrar sesión"
+            @click="handleSignOut"
+          >
+            <font-awesome-icon :icon="['fas', 'right-from-bracket']" aria-hidden="true" />
+          </button>
+        </template>
+        <router-link v-else to="/auth" class="btn btn-ghost text-sm">
+          <font-awesome-icon :icon="['fas', 'right-to-bracket']" aria-hidden="true" />
+          <span class="hidden lg:inline">Entrar</span>
+        </router-link>
+      </div>
 
       <!-- Hamburger -->
       <button
@@ -130,6 +161,31 @@ watch(
             <font-awesome-icon :icon="link.icon" aria-hidden="true" />
             {{ link.label }}
           </router-link>
+
+          <div class="border-t pt-2 mt-2" style="border-color: var(--clr-border-subtle)">
+            <template v-if="user">
+              <div class="px-4 py-2 text-sm font-medium" style="color: var(--clr-text)">
+                Hola, {{ userStore.profile.name || 'usuario' }}
+              </div>
+              <button
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 w-full text-left hover:bg-black/5"
+                style="color: var(--clr-text)"
+                @click="handleSignOut"
+              >
+                <font-awesome-icon :icon="['fas', 'right-from-bracket']" aria-hidden="true" />
+                Cerrar sesión
+              </button>
+            </template>
+            <router-link
+              v-else
+              to="/auth"
+              class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 no-underline hover:bg-black/5"
+              style="color: var(--clr-text)"
+            >
+              <font-awesome-icon :icon="['fas', 'right-to-bracket']" aria-hidden="true" />
+              Iniciar sesión
+            </router-link>
+          </div>
         </div>
       </nav>
     </Transition>

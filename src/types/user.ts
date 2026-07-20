@@ -1,3 +1,5 @@
+import type { Allergen, DietaryPreference } from './recipe'
+
 export type ActivityLevel = 'sedentary' | 'light' | 'moderate' | 'active' | 'very_active'
 export type GoalType = 'lose' | 'maintain' | 'gain'
 export type Sex = 'male' | 'female'
@@ -12,6 +14,8 @@ export interface UserProfile {
   sex: Sex
   activityLevel: ActivityLevel
   goal: GoalType
+  allergens: Allergen[]
+  dietaryPreferences: DietaryPreference[]
 }
 
 export interface CalorieGoals {

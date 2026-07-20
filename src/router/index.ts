@@ -28,6 +28,11 @@ const router = createRouter({
       name: 'recipes',
       component: () => import('../views/RecipeGeneratorView.vue'),
     },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () => import('../views/AuthView.vue'),
+    },
   ],
 })
 

@@ -39,6 +39,8 @@ import {
   faPersonRunning,
   faPersonWalking,
   faPlus,
+  faRightFromBracket,
+  faRightToBracket,
   faRotateLeft,
   faScaleBalanced,
   faSeedling,
@@ -52,7 +54,9 @@ import {
   faWandMagicSparkles,
   faWheatAwnCircleExclamation,
   faXmark,
+  faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 library.add(
   faArrowDown,
@@ -94,6 +98,8 @@ library.add(
   faPersonRunning,
   faPersonWalking,
   faPlus,
+  faRightFromBracket,
+  faRightToBracket,
   faRotateLeft,
   faScaleBalanced,
   faSeedling,
@@ -107,4 +113,6 @@ library.add(
   faWandMagicSparkles,
   faWheatAwnCircleExclamation,
   faXmark,
+  faEyeSlash,
+  faGoogle,
 )
