@@ -180,7 +180,7 @@ function entryMacros(entry: {
         </div>
 
         <!-- Meal entries -->
-        <div v-else class="mt-1.5 flex flex-col gap-0.5">
+        <div v-else class="mt-1.5 flex flex-col gap-1.5">
           <article
             v-for="(entries, type) in groupedEntries"
             :key="type"
@@ -225,6 +225,18 @@ function entryMacros(entry: {
                     class="w-7 h-7 rounded object-cover shrink-0"
                     loading="lazy"
                   />
+                  <div
+                    v-else
+                    class="w-7 h-7 rounded flex items-center justify-center shrink-0"
+                    style="background: var(--clr-primary-light)"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'utensils']"
+                      class="text-[10px]"
+                      aria-hidden="true"
+                      style="color: var(--clr-primary); opacity: 0.5"
+                    />
+                  </div>
                   <p class="text-[14px] font-medium truncate" style="color: var(--clr-text)">
                     {{ entry.food.name }}
                   </p>
