@@ -30,7 +30,7 @@ La app incluye 4 vistas principales:
 | IA Providers | Groq (gpt-oss-120b) + Cerebras (gpt-oss-120b) con fallback automático |
 | Tests | Vitest + @vue/test-utils |
 | Linting | ESLint 9 (flat config) + Prettier |
-| Iconos | Font Awesome Free |
+| Iconos | Font Awesome (SVG tree-shaking, 40 iconos) |
 
 ## Por qué existe este proyecto
 
@@ -192,9 +192,10 @@ src/
 │   ├── nutrition.ts           # calcPercentage, groupEntriesByMealType, sumServings
 │   ├── formatting.ts          # formatDateEs, formatCalorieEntry
 │   └── constants.ts           # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS
+├── fontawesome.ts             # Tree-shaking: solo 40 iconos FA registrados
 ├── router/index.ts            # Vue Router
-├── style.css                  # Tailwind v4 + design tokens import
-└── main.ts                    # Entry point
+├── style.css                  # Tailwind v4 + design tokens + shared DS classes
+└── main.ts                    # Entry point (registra FontAwesomeIcon globally)
 
 api/                           # Vercel Serverless Functions (backend IA)
 ├── analyze-meal.ts            # Endpoint POST /api/analyze-meal con fallback
@@ -230,6 +231,9 @@ Los tokens de diseño están centralizados en `src/design-system/tokens/index.cs
 - **Superficies**: `--clr-surface`, `--clr-surface-alt`, `--clr-surface-muted`
 - **Texto**: `--clr-text`, `--clr-text-muted`, `--clr-text-faint`, `--clr-text-inverse`
 - **Semánticos**: `--clr-success`, `--clr-warning`, `--clr-danger`, `--clr-info` (+ light variants)
+- **Nutri-Score**: `--clr-nutri-a` a `--clr-nutri-e` + `--clr-nutri-c-text`
+- **Nutrientes**: `--clr-nutrient-lime-*`, `--clr-nutrient-amber-*`, `--clr-nutrient-brown-*`, `--clr-nutrient-emerald-*`
+- **BMI**: `--clr-bmi-underweight`, `--clr-bmi-normal`, `--clr-bmi-overweight`, `--clr-bmi-obese`, `--clr-bmi-extreme`
 - **Bordes**: `--clr-border`, `--clr-border-subtle`, `--clr-border-strong`
 - **Spacing**: `--space-0` a `--space-24` (escala 4px)
 - **Radios**: `--radius-xs` (4px) a `--radius-full` (9999px)
@@ -238,6 +242,18 @@ Los tokens de diseño están centralizados en `src/design-system/tokens/index.cs
 - **Animación**: `--duration-*`, `--ease-*`
 - **Z-index**: `--z-base` (0) a `--z-tooltip` (600)
 - **Opacidad**: `--opacity-disabled`, `--opacity-hover`, `--opacity-muted`, `--opacity-faint`
+
+### Clases compartidas del Design System
+
+En `src/style.css` se definen clases reutilizables para patrones comunes:
+
+- **Layout**: `.ds-page`, `.ds-page-header`, `.ds-page-content` — Layout de página centrado
+- **Títulos**: `.ds-section-title` + `.ds-section-title--accent/--secondary` — Encabezados de sección con icono
+- **Listas**: `.ds-list-reset` — Reset de lista con flex column
+- **Progreso**: `.ds-progress-track`, `.ds-progress-fill` — Barras de progreso
+- **Superficies**: `.ds-surface`, `.ds-surface--padded` — Tarjetas de superficie rápida
+- **Separadores**: `.ds-separator` — Línea divisora horizontal
+- **Animaciones**: `.animate-slide-up` — Animación de entrada desde abajo
 
 Los componentes UI (`Button`, `Input`, `Card`, `Badge`, `Modal`, `Typography`) encapsulan estilos scoped y consumen estos tokens. Las clases legacy (`.btn`, `.input-field`, `.card`, `.card-elevated`) se mantienen para compatibilidad con vistas existentes.
 
@@ -314,7 +330,7 @@ Si estás trabajando en este proyecto como agente, lee `AGENTS.md` para instrucc
 - **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`, los tokens en `src/design-system/tokens/index.css`.
 - **Alias `@`**: Mapea a `./src`. Usa `@/components/...` en imports.
 - **Design System**: Usar componentes `Ds*` desde `src/design-system/index.ts` (Button, Input, Card, Badge, Modal, Typography, Container, Stack, Grid, Field, EmptyState, Loading, ErrorState).
-- **Tests**: Unit tests en `src/utils/` para funciones puras (48 tests con Vitest).
+- **Tests**: Unit tests en `src/utils/`, `src/stores/`, `src/services/`, `src/composables/` (107 tests con Vitest).
 - **Prettier**: Sin punto y coma, comillas simples, 100 caracteres de ancho.
 - **Composables**: La lógica reactiva va en `src/composables/`, no en los componentes directamente.
 - **Backend IA**: Las serverless functions en `/api/` usan Groq y Cerebras con fallback automático. No requieren configuración local — corren en Vercel.
