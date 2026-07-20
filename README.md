@@ -27,7 +27,7 @@ La app incluye 4 vistas principales:
 | Enrutado | Vue Router (lazy-loaded) |
 | Datos | Fetch Nativo → Open Food Facts API |
 | IA Backend | Vercel Serverless Functions (Node.js) |
-| IA Providers | Groq (llama-3.3-70b-versatile) + Cerebras (gpt-oss-120b) con fallback automático |
+| IA Providers | Groq (gpt-oss-120b) + Cerebras (gpt-oss-120b) con fallback automático |
 | Tests | Vitest + @vue/test-utils |
 | Linting | ESLint 9 (flat config) + Prettier |
 | Iconos | Font Awesome Free |
@@ -56,7 +56,7 @@ Frontend (Vue)  →  /api/analyze-meal  →  Groq (primario)  →  Respuesta JSO
 
 | Proveedor | Modelo | Rol |
 |-----------|--------|-----|
-| **Groq** | `llama-3.3-70b-versatile` | Proveedor primario — respuesta rápida y de alta calidad |
+| **Groq** | `gpt-oss-120b` | Proveedor primario — respuesta rápida y de alta calidad |
 | **Cerebras** | `gpt-oss-120b` | Proveedor de respaldo — fallback automático si Groq falla |
 
 ### Cómo funciona
@@ -199,7 +199,7 @@ src/
 api/                           # Vercel Serverless Functions (backend IA)
 ├── analyze-meal.ts            # Endpoint POST /api/analyze-meal con fallback
 └── providers/
-    ├── groq.ts                # Cliente Groq API (llama-3.3-70b-versatile)
+    ├── groq.ts                # Cliente Groq API (gpt-oss-120b)
     └── cerebras.ts            # Cliente Cerebras API (gpt-oss-120b)
 ```
 
