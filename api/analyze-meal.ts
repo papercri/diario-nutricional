@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { callGroq } from './providers/groq.js'
 import { callCerebras } from './providers/cerebras.js'
 
-const SYSTEM_PROMPT = `Eres un asistente que solo habla de comida.
+const SYSTEM_PROMPT = `Eres un asistente experto en nutrición y alérgenos alimentarios.
 
 Analiza el mensaje del usuario, en cualquier idioma.
 
@@ -24,11 +24,39 @@ Si el mensaje SÍ es un plato, ingrediente o alimento, responde ÚNICAMENTE con 
     { "name": "string", "quantity": "string - ej: 150g", "calories": number }
   ],
   "nutritionScore": { "value": number - de 1 a 100, "reason": "string" },
-  "healthTips": ["string - consejo práctico"]
+  "healthTips": ["string - consejo práctico"],
+  "allergens": ["string - lista de alérgenos presentes"],
+  "isVegan": boolean,
+  "isVegetarian": boolean
 }
 
-Reglas:
-- Estima porciones realistas cuando no se especifiquen (ej: pasta, arroz o derivados 70gr en crudo).
+REGLAS PARA ALÉRGENOS (MUY IMPORTANTE - SIEMPRE DEBES INCLUIR ESTE CAMPO):
+- Analiza CADA ingrediente del plato y determina qué alérgenos contiene.
+- Usa EXACTAMENTE estos valores en el array: "gluten", "milk", "eggs", "peanuts", "tree_nuts", "soy", "fish", "shellfish", "sesame", "mustard", "celery", "lupin".
+- Ejemplos de alérgenos por ingrediente:
+  - Pan, pasta, harina, trigo, cebada, centeno → gluten
+  - Leche, queso, yogur, mantequilla, nata → milk
+  - Huevos, mayonesa → eggs
+  - Cacuetes, mantequilla de cacahuete → peanuts
+  - Almendras, nueces, avellanas, pistachos → tree_nuts
+  - Tofu, salsa de soja, edamame → soy
+  - Salmón, atún, bacalao, sardinas → fish
+  - Camarones, langostinos, calamares, mejillones → shellfish
+  - Pan con semillas, hummus → sesame
+  - Mostaza, salsa de mostaza → mustard
+  - Apio, salsa de apio → celery
+  - Altramuces → lupin
+- Si el plato contiene harina de trigo, pan, o cualquier cereal con gluten → SIEMPRE incluir "gluten".
+- Si el plato tiene任何形式 de lácteos → SIEMPRE incluir "milk".
+- Si el plato contiene huevo o derivados → SIEMPRE incluir "eggs".
+- Si NO contiene ninguno de estos alérgenos conocidos, devuelve un array vacío [].
+
+REGLAS PARA ISVEGAN / ISVEGETARIAN:
+- isVegan: true solo si NO contiene carne, pescado, huevos, lácteos, miel ni ningún producto de origen animal.
+- isVegetarian: true si NO contiene carne ni pescado, pero SÍ puede contener huevos, lácteos o miel.
+
+REGLAS GENERALES:
+- Estima porciones realistas cuando no se especifiquen.
 - Calcula calorías y macronutrientes.
 - Explica los ingredientes con cantidades estimadas.
 - Proporciona consejos de bienestar prácticos.
@@ -57,6 +85,121 @@ function stripMarkdownCodeBlocks(text: string): string {
 
 const NOT_FOOD_MESSAGE = 'Por favor introduce el nombre de un plato o de una comida'
 
+// ── Inferencia de alérgenos y dieta desde ingredientes ──
+
+type AllergenType =
+  | 'gluten' | 'milk' | 'eggs' | 'peanuts' | 'tree_nuts'
+  | 'soy' | 'fish' | 'shellfish' | 'sesame' | 'mustard'
+  | 'celery' | 'lupin'
+
+const ALLERGEN_KEYWORDS: Record<AllergenType, string[]> = {
+  gluten: [
+    'pan', 'pasta', 'harina', 'trigo', 'cebada', 'centeno', 'avena', 'galleta',
+    'tortilla', 'pizza', 'empanada', 'croissant', 'baguette', 'cereal', 'avena',
+    'sémola', 'bulgur', 'cuscús', 'macarrones', 'espagueti', 'fideos', 'masa',
+    'bizcocho', 'magdalena', 'pancakes', 'waffle', 'bollo', 'sandwich', 'tostada',
+  ],
+  milk: [
+    'leche', 'queso', 'yogur', 'mantequilla', 'nata', 'crema', 'helado',
+    'chocolate', 'requesón', 'ricotta', 'mozzarella', 'parmesano', 'cheddar',
+    'bechamel', 'salsa blanca', 'suero', 'buttermilk', 'kefir',
+  ],
+  eggs: [
+    'huevo', 'huevos', 'mayonesa', 'merengue', 'batido', 'tortilla francesa',
+    'omelette', 'flan', 'bizcocho', 'magdalena', 'pasta fresca', 'carbonara',
+  ],
+  peanuts: ['cacahuete', 'cacahuate', 'mantequilla de cacahuete', 'gofio'],
+  tree_nuts: [
+    'almendra', 'almendras', 'nuez', 'nueces', 'avellana', 'avellanas',
+    'pistacho', 'pistachos', 'cashew', 'anacardo', 'nuez de Brasil',
+    'macadamia', 'piñones', 'curracha',
+  ],
+  soy: ['tofu', 'soja', 'edamame', 'salsa de soja', 'tempeh', 'miso', 'leche de soja'],
+  fish: [
+    'salmón', 'atún', 'bacalao', 'sardinas', 'anchoa', 'anchoas', 'trucha',
+    'merluza', 'dorada', 'lubina', 'pez espada', 'jurel', 'pescado',
+  ],
+  shellfish: [
+    'camarón', 'camarones', 'langostino', 'langostinos', 'calamar', 'calamares',
+    'mejillón', 'mejillones', 'ostra', 'ostras', 'almeja', 'almejas',
+    'cangrejo', 'cigala', 'percebe', 'berberecho',
+  ],
+  sesame: ['sésamo', 'sesamo', 'tahini', 'hummus', 'pan de semillas'],
+  mustard: ['mostaza', 'salsa de mostaza'],
+  celery: ['apio', 'salsa de apio', 'celery'],
+  lupin: ['altramuz', 'altramuces', 'lupini'],
+}
+
+const MEAT_KEYWORDS = [
+  'pollo', 'carne', 'ternera', 'cerdo', 'cordero', 'vacuno', 'buey',
+  'jamón', 'jamón', 'tocino', 'bacon', 'chorizo', 'salchicha', 'pavo',
+  'pato', 'conejo', 'venado', 'cabrito', 'costillas', 'entrecot',
+  'chuletón', 'hamburguesa', 'meatball', 'albóndiga', 'bistec', 'filete',
+]
+
+const FISH_KEYWORDS = [
+  'salmón', 'atún', 'bacalao', 'sardinas', 'anchoa', 'trucha',
+  'merluza', 'pescado', 'marisco', 'camarón', 'langostino', 'calamar',
+  'mejillón', 'ostra', 'cangrejo',
+]
+
+const ANIMAL_PRODUCTS = [
+  'huevo', 'huevos', 'leche', 'queso', 'yogur', 'mantequilla', 'nata',
+  'miel', 'gelatina',
+]
+
+function detectAllergens(ingredientNames: string[]): AllergenType[] {
+  const found = new Set<AllergenType>()
+  const lower = ingredientNames.map(n => n.toLowerCase())
+
+  for (const [allergen, keywords] of Object.entries(ALLERGEN_KEYWORDS) as [AllergenType, string[]][]) {
+    for (const ingredient of lower) {
+      for (const kw of keywords) {
+        if (ingredient.includes(kw)) {
+          found.add(allergen)
+          break
+        }
+      }
+      if (found.has(allergen)) break
+    }
+  }
+
+  return Array.from(found)
+}
+
+function inferDietaryFlags(ingredientNames: string[]): { isVegan: boolean; isVegetarian: boolean } {
+  const lower = ingredientNames.map(n => n.toLowerCase())
+  const fullText = lower.join(' ')
+
+  const hasMeat = MEAT_KEYWORDS.some(kw => fullText.includes(kw))
+  const hasFish = FISH_KEYWORDS.some(kw => fullText.includes(kw))
+  const hasAnimal = ANIMAL_PRODUCTS.some(kw => fullText.includes(kw))
+
+  const isVegetarian = !hasMeat && !hasFish
+  const isVegan = isVegetarian && !hasAnimal
+
+  return { isVegan, isVegetarian }
+}
+
+function enrichAnalysis(data: Record<string, unknown>): Record<string, unknown> {
+  const ingredients = data.ingredients as Array<{ name: string }> | undefined
+  if (!ingredients || !Array.isArray(ingredients)) return data
+
+  const names = ingredients.map(i => i.name)
+
+  if (!Array.isArray(data.allergens) || data.allergens.length === 0) {
+    data.allergens = detectAllergens(names)
+  }
+
+  if (typeof data.isVegan !== 'boolean' || typeof data.isVegetarian !== 'boolean') {
+    const flags = inferDietaryFlags(names)
+    if (typeof data.isVegan !== 'boolean') data.isVegan = flags.isVegan
+    if (typeof data.isVegetarian !== 'boolean') data.isVegetarian = flags.isVegetarian
+  }
+
+  return data
+}
+
 function isNotFoodError(data: unknown): data is { error: string } {
   if (typeof data !== 'object' || data === null) return false
   const obj = data as Record<string, unknown>
@@ -83,6 +226,11 @@ function validateAnalysis(data: unknown): boolean {
   if (!Array.isArray(obj.ingredients)) return false
   if (typeof obj.nutritionScore !== 'object' || obj.nutritionScore === null) return false
   if (!Array.isArray(obj.healthTips)) return false
+
+  // New fields: allergens, isVegan, isVegetarian (optional for backwards compatibility)
+  if (obj.allergens !== undefined && !Array.isArray(obj.allergens)) return false
+  if (obj.isVegan !== undefined && typeof obj.isVegan !== 'boolean') return false
+  if (obj.isVegetarian !== undefined && typeof obj.isVegetarian !== 'boolean') return false
 
   return true
 }
@@ -113,7 +261,9 @@ function parseProviderResponse(result: ProviderResult): AnalysisOutcome {
     throw new Error('Respuesta del AI no cumple con el schema requerido')
   }
 
-  return { kind: 'success', data: parsed, provider: result.provider }
+  const enriched = enrichAnalysis(parsed as Record<string, unknown>)
+
+  return { kind: 'success', data: enriched, provider: result.provider }
 }
 
 function respondWithOutcome(res: VercelResponse, outcome: AnalysisOutcome) {

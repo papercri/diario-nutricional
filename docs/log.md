@@ -103,7 +103,7 @@ Added new CSS custom properties to `src/design-system/tokens/index.css`:
 - Fallback color changed from `#ccc` to `var(--clr-border)`
 
 **ProfileView.vue:**
-- Replaced BMI gauge gradient colors with `--clr-bmi-*` tokens
+- Replaced BMI gauge gradient codlors with `--clr-bmi-*` tokens
 
 **style.css (Nutri-Score badges):**
 - Replaced all Nutri-Score background colors with tokens

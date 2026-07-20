@@ -15,6 +15,20 @@ export interface NutritionScore {
   reason: string
 }
 
+export type AllergenType =
+  | 'gluten'
+  | 'milk'
+  | 'eggs'
+  | 'peanuts'
+  | 'tree_nuts'
+  | 'soy'
+  | 'fish'
+  | 'shellfish'
+  | 'sesame'
+  | 'mustard'
+  | 'celery'
+  | 'lupin'
+
 export interface NutritionAnalysis {
   mealName: string
   estimatedCalories: number
@@ -26,6 +40,9 @@ export interface NutritionAnalysis {
   ingredients: Ingredient[]
   nutritionScore: NutritionScore
   healthTips: string[]
+  allergens?: AllergenType[]
+  isVegan?: boolean
+  isVegetarian?: boolean
 }
 
 export interface NutritionAIResponse {
