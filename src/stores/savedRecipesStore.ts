@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { supabase } from '@/lib/supabase'
 import type { RecipeIngredient } from '@/types/recipe'
 
@@ -39,6 +39,14 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
   function setUserId(id: string) {
     userId.value = id
   }
+
+  watch(userId, async (id) => {
+    if (id) {
+      await loadRecipes()
+    } else {
+      recipes.value = loadLocal()
+    }
+  })
 
   async function loadRecipes() {
     if (userId.value) {

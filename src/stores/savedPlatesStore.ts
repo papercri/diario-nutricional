@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { supabase } from '@/lib/supabase'
 
 const STORAGE_KEY = 'avocato-saved-plates'
@@ -38,6 +38,14 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
   function setUserId(id: string) {
     userId.value = id
   }
+
+  watch(userId, async (id) => {
+    if (id) {
+      await loadPlates()
+    } else {
+      plates.value = loadLocal()
+    }
+  })
 
   async function loadPlates() {
     if (userId.value) {

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { UserProfile, CalorieGoals } from '@/types/user'
 import type { Allergen, DietaryPreference } from '@/types/recipe'
 import { calculateCalorieGoals } from '@/utils/mifflinStJeor'
@@ -75,6 +75,15 @@ export const useUserStore = defineStore('user', () => {
   function setUserId(id: string) {
     userId.value = id
   }
+
+  watch(userId, async (id) => {
+    if (id) {
+      await loadProfile()
+    } else {
+      profile.value = loadLocal()
+      loaded.value = true
+    }
+  })
 
   async function loadProfile() {
     if (userId.value) {

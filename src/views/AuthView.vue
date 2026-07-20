@@ -78,7 +78,7 @@ async function handleSubmit() {
     } else {
       await signUp(email.value, password.value)
     }
-    router.push('/')
+    router.push('/profile')
   } catch (e: unknown) {
     error.value = getErrorMessage(e)
   } finally {

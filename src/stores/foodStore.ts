@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { FoodItem, MealEntry, NutritionSummary, MealType } from '@/types/food'
 import { supabase } from '@/lib/supabase'
 
@@ -57,6 +57,15 @@ export const useFoodStore = defineStore('food', () => {
   function setUserId(id: string) {
     userId.value = id
   }
+
+  watch(userId, async (id) => {
+    if (id) {
+      await loadEntries()
+    } else {
+      dailyLogs.value = loadLocal()
+      loaded.value = true
+    }
+  })
 
   const todayEntries = computed(() => {
     return dailyLogs.value[getToday()] ?? []

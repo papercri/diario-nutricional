@@ -39,32 +39,15 @@ export function useAuth() {
     savedRecipesStore.setUserId('')
   }
 
-  async function migrateLocalData() {
-    const userId = user.value?.id
-    if (!userId) return
-
-    userStore.setUserId(userId)
-    foodStore.setUserId(userId)
-    savedPlatesStore.setUserId(userId)
-    savedRecipesStore.setUserId(userId)
-
-    await userStore.migrateToSupabase()
-    await foodStore.migrateToSupabase()
-    await savedPlatesStore.migrateToSupabase()
-    await savedRecipesStore.migrateToSupabase()
-
-    await userStore.loadProfile()
-    await foodStore.loadEntries()
-    await savedPlatesStore.loadPlates()
-    await savedRecipesStore.loadRecipes()
-  }
-
   onMounted(() => {
     supabase.auth.getSession().then(async ({ data: { session: s } }) => {
       session.value = s
       user.value = s?.user ?? null
       if (s?.user) {
-        await migrateLocalData()
+        userStore.setUserId(s.user.id)
+        foodStore.setUserId(s.user.id)
+        savedPlatesStore.setUserId(s.user.id)
+        savedRecipesStore.setUserId(s.user.id)
       }
       loading.value = false
     })
@@ -73,16 +56,22 @@ export function useAuth() {
       session.value = s
       user.value = s?.user ?? null
       if (s?.user) {
-        await migrateLocalData()
+        userStore.setUserId(s.user.id)
+        foodStore.setUserId(s.user.id)
+        savedPlatesStore.setUserId(s.user.id)
+        savedRecipesStore.setUserId(s.user.id)
+
+        Promise.all([
+          userStore.migrateToSupabase(),
+          foodStore.migrateToSupabase(),
+          savedPlatesStore.migrateToSupabase(),
+          savedRecipesStore.migrateToSupabase(),
+        ]).catch(() => {})
       } else {
         userStore.setUserId('')
         foodStore.setUserId('')
         savedPlatesStore.setUserId('')
         savedRecipesStore.setUserId('')
-        await userStore.loadProfile()
-        await foodStore.loadEntries()
-        await savedPlatesStore.loadPlates()
-        await savedRecipesStore.loadRecipes()
       }
     })
   })
