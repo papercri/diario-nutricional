@@ -7,6 +7,7 @@ import { useFoodStore } from '@/stores/foodStore'
 import { useSavedPlatesStore } from '@/stores/savedPlatesStore'
 import { useToast } from '@/composables/useToast'
 import { MEAL_TYPE_OPTIONS } from '@/utils/constants'
+import Modal from '@/components/ui/Modal.vue'
 import MealAnalyzerForm from '@/components/nutrition/MealAnalyzerForm.vue'
 import NutritionResultCard from '@/components/nutrition/NutritionResultCard.vue'
 import MacroDistribution from '@/components/nutrition/MacroDistribution.vue'
@@ -167,53 +168,36 @@ async function savePlate() {
     </div>
 
     <!-- Add to daily modal -->
-    <div
-      v-if="showAddModal"
-      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Añadir al registro diario"
-      @click.self="closeModal"
-      @keydown.escape="closeModal"
-    >
-      <div
-        class="w-full sm:max-w-sm rounded-t-2xl sm:rounded-2xl p-5 shadow-xl space-y-4 animate-slide-up"
-        style="background: var(--clr-surface)"
-      >
-        <h2 class="font-display" style="font-size: 1.125rem; color: var(--clr-text)">
-          Añadir al día
-        </h2>
+    <Modal :open="showAddModal" size="sm" title="Añadir al día" @close="closeModal">
+      <p class="text-sm" style="color: var(--clr-text)">
+        {{ result?.mealName }} · {{ result?.estimatedCalories }} kcal
+      </p>
 
-        <p class="font-medium" style="font-size: 0.8125rem; color: var(--clr-text)">
-          {{ result?.mealName }} · {{ result?.estimatedCalories }} kcal
-        </p>
-
-        <fieldset class="border-0 p-0 m-0">
-          <legend class="block text-xs font-medium" style="color: var(--clr-text-muted)">
-            Tipo de comida
-          </legend>
-          <div class="grid grid-cols-2 gap-1.5 mt-1.5">
-            <button
-              v-for="opt in MEAL_TYPE_OPTIONS"
-              :key="opt.value"
-              type="button"
-              class="btn text-xs"
-              :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
-              :aria-pressed="mealType === opt.value"
-              @click="mealType = opt.value"
-            >
-              <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
-              {{ opt.label }}
-            </button>
-          </div>
-        </fieldset>
-
-        <div class="flex gap-2 pt-1">
-          <button class="btn btn-secondary flex-1 text-xs" @click="closeModal">Cancelar</button>
-          <button class="btn btn-primary flex-1 text-xs" @click="confirmAdd">Añadir</button>
+      <fieldset class="border-0 p-0 m-0 mt-3">
+        <legend class="block text-xs font-medium" style="color: var(--clr-text-muted)">
+          Tipo de comida
+        </legend>
+        <div class="grid grid-cols-2 gap-1.5 mt-1.5">
+          <button
+            v-for="opt in MEAL_TYPE_OPTIONS"
+            :key="opt.value"
+            type="button"
+            class="btn text-xs"
+            :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+            :aria-pressed="mealType === opt.value"
+            @click="mealType = opt.value"
+          >
+            <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
+            {{ opt.label }}
+          </button>
         </div>
-      </div>
-    </div>
+      </fieldset>
+
+      <template #footer>
+        <button class="btn btn-secondary" @click="closeModal">Cancelar</button>
+        <button class="btn btn-primary" @click="confirmAdd">Añadir</button>
+      </template>
+    </Modal>
   </main>
 </template>
 

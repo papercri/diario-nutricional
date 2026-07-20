@@ -150,7 +150,6 @@ async function handleSubmit() {
   align-items: center;
   justify-content: center;
   padding: 3rem 1rem;
-  background: var(--clr-surface-alt);
 }
 
 .auth-card {
