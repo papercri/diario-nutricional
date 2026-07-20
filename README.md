@@ -8,11 +8,12 @@ Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular
 
 ## Screenshots
 
-La app incluye 4 vistas principales:
+La app incluye 5 vistas principales:
 
 - **Dashboard** — Anillo de calorías con progreso visual, macro nutrientes, registro de comidas del día
 - **Buscar** — Búsqueda de alimentos contra la API pública de Open Food Facts
 - **Analizar** — Analizador de comidas potenciado por IA, envía con Enter o botón
+- **Recetas** — Generador de recetas personalizadas con IA según preferencias dietéticas, alérgenos e ingredientes
 - **Perfil** — Formulario de datos personales (con peso deseado), calculadora de IMC con gauge lineal, metas calóricas (Mifflin-St Jeor), tiempo estimado para alcanzar el objetivo
 
 ## Stack
@@ -30,7 +31,7 @@ La app incluye 4 vistas principales:
 | IA Providers | Groq (gpt-oss-120b) + Cerebras (gpt-oss-120b) con fallback automático |
 | Tests | Vitest + @vue/test-utils |
 | Linting | ESLint 9 (flat config) + Prettier |
-| Iconos | Font Awesome (SVG tree-shaking, 40 iconos) |
+| Iconos | Font Awesome (SVG tree-shaking, ~50 iconos) |
 
 ## Por qué existe este proyecto
 
@@ -42,16 +43,20 @@ Avocato es un **proyecto piloto** para experimentar con:
 
 El repositorio incluye un archivo `AGENTS.md` con instrucciones específicas para agentes de IA que trabajen en el proyecto.
 
-## Agentes de IA — Análisis Nutricional
+## Agentes de IA — Análisis Nutricional y Generación de Recetas
 
-La app integra **dos agentes de IA** con fallback automático para analizar comidas descritas por el usuario. El sistema intenta el proveedor primario y, si falla, recurre al secundario sin intervención del usuario.
+La app integra **dos agentes de IA** con fallback automático para analizar comidas y generar recetas personalizadas. El sistema intenta el proveedor primario y, si falla, recurre al secundario sin intervención del usuario.
 
 ### Arquitectura del sistema de IA
 
 ```
-Frontend (Vue)  →  /api/analyze-meal  →  Groq (primario)  →  Respuesta JSON
-                         ↓ (si falla)
-                    Cerebras (fallback)  →  Respuesta JSON
+Frontend (Vue)  →  /api/analyze-meal   →  Groq (primario)  →  Respuesta JSON
+                          ↓ (si falla)
+                     Cerebras (fallback)  →  Respuesta JSON
+
+Frontend (Vue)  →  /api/generate-recipe →  Groq (primario)  →  Respuesta JSON
+                          ↓ (si falla)
+                     Cerebras (fallback)  →  Respuesta JSON
 ```
 
 | Proveedor | Modelo | Rol |
@@ -59,7 +64,7 @@ Frontend (Vue)  →  /api/analyze-meal  →  Groq (primario)  →  Respuesta JSO
 | **Groq** | `gpt-oss-120b` | Proveedor primario — respuesta rápida y de alta calidad |
 | **Cerebras** | `gpt-oss-120b` | Proveedor de respaldo — fallback automático si Groq falla |
 
-### Cómo funciona
+### Analizador de comidas (`/api/analyze-meal`)
 
 1. El usuario describe una comida en texto libre (ej: "ensalada de pollo con aguacate y pan integral").
 2. El frontend envía la descripción a `/api/analyze-meal` (Vercel serverless function).
@@ -82,6 +87,20 @@ Frontend (Vue)  →  /api/analyze-meal  →  Groq (primario)  →  Respuesta JSO
 | `MacroDistribution` | `src/components/nutrition/MacroDistribution.vue` | Barras de distribución de macronutrientes |
 | `IngredientBreakdown` | `src/components/nutrition/IngredientBreakdown.vue` | Lista de ingredientes con cantidades y calorías |
 | `NutritionTips` | `src/components/nutrition/NutritionTips.vue` | Consejos de bienestar devueltos por la IA |
+
+### Generador de recetas (`/api/generate-recipe`)
+
+1. El usuario configura preferencias dietéticas, alérgenos a excluir, ingredientes preferidos e instrucciones adicionales.
+2. El frontend envía la configuración a `/api/generate-recipe` junto con el objetivo nutricional del perfil del usuario.
+3. El endpoint construye un prompt con todas las restricciones y genera una receta personalizada con:
+   - Nombre y descripción del plato
+   - Tiempos de preparación y cocción
+   - Ingredientes con cantidades métricas
+   - Pasos de preparación numerados
+   - Información nutricional (calorías, proteínas, carbohidratos, grasas)
+   - Consejos prácticos
+4. La receta se adapta al objetivo calórico del usuario si tiene perfil configurado.
+5. Los alérgenos seleccionados se excluyen estrictamente de la receta.
 
 ## Cálculo de BMI y Metas Calóricas
 
@@ -173,17 +192,20 @@ src/
 │   ├── DashboardView.vue
 │   ├── ProfileView.vue
 │   ├── SearchView.vue
-│   └── NutritionAnalyzerView.vue
+│   ├── NutritionAnalyzerView.vue
+│   └── RecipeGeneratorView.vue          # Generador de recetas con IA
 ├── stores/                    # Almacenes Pinia con persistencia localStorage
 │   ├── userStore.ts           # Perfil de usuario + metas calóricas
 │   └── foodStore.ts           # Registro de comidas del día
 ├── services/                  # Clientes HTTP
 │   ├── openFoodFacts.ts       # API pública de Open Food Facts
-│   └── nutritionAI.ts         # Cliente del analizador IA → /api/analyze-meal
+│   ├── nutritionAI.ts         # Cliente del analizador IA → /api/analyze-meal
+│   └── recipeAI.ts            # Cliente del generador IA → /api/generate-recipe
 ├── types/                     # Definiciones TypeScript
 │   ├── user.ts                # UserProfile, CalorieGoals, ActivityLevel, GoalType
 │   ├── food.ts                # FoodItem, MealEntry, NutritionSummary
 │   ├── nutrition.ts           # NutritionAnalysis, MacroValue, Ingredient
+│   ├── recipe.ts              # Allergen, DietaryPreference, RecipeConfig, GeneratedRecipe
 │   └── calculator.ts          # BmiResult, IdealWeightResult
 ├── utils/                     # Funciones puras y constantes
 │   ├── mifflinStJeor.ts       # Fórmula Mifflin-St Jeor (TMB/TDEE)
@@ -191,7 +213,7 @@ src/
 │   ├── bmiClassification.ts   # Clasificación WHO del IMC
 │   ├── nutrition.ts           # calcPercentage, groupEntriesByMealType, sumServings
 │   ├── formatting.ts          # formatDateEs, formatCalorieEntry
-│   └── constants.ts           # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS
+│   └── constants.ts           # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS, DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS
 ├── fontawesome.ts             # Tree-shaking: solo 40 iconos FA registrados
 ├── router/index.ts            # Vue Router
 ├── style.css                  # Tailwind v4 + design tokens + shared DS classes
@@ -199,6 +221,7 @@ src/
 
 api/                           # Vercel Serverless Functions (backend IA)
 ├── analyze-meal.ts            # Endpoint POST /api/analyze-meal con fallback
+├── generate-recipe.ts         # Endpoint POST /api/generate-recipe con fallback
 └── providers/
     ├── groq.ts                # Cliente Groq API (gpt-oss-120b)
     └── cerebras.ts            # Cliente Cerebras API (gpt-oss-120b)
