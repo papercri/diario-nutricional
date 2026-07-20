@@ -1,4 +1,4 @@
-import type { UserProfile, CalorieGoals } from '../types/user'
+import type { UserProfile, CalorieGoals } from '@/types/user'
 
 const activityMultipliers: Record<string, number> = {
   sedentary: 1.2,

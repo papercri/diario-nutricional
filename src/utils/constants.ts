@@ -1,4 +1,4 @@
-import type { MealType } from '../types/user'
+import type { MealType } from '@/types/user'
 
 export interface SelectOption<T = string> {
   value: T

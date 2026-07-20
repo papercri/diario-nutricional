@@ -1,5 +1,5 @@
-import type { MealEntry } from '../types/food'
-import type { MealType } from '../types/user'
+import type { MealEntry } from '@/types/food'
+import type { MealType } from '@/types/user'
 
 /**
  * Returns the percentage of value relative to target, capped at 100.
