@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import { supabase } from '@/lib/supabase'
+import type { Ingredient, AllergenType, NutritionScore } from '@/types/nutrition'
 
 const STORAGE_KEY = 'avocato-saved-plates'
 
@@ -14,6 +15,11 @@ export interface SavedPlate {
   fat: number
   servingSize: string | null
   imageUrl: string | null
+  ingredients: Ingredient[]
+  allergens: AllergenType[]
+  isVegan: boolean
+  isVegetarian: boolean
+  nutritionScore: NutritionScore | null
   createdAt: string
 }
 
@@ -66,6 +72,11 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
           fat: row.fat,
           servingSize: row.serving_size,
           imageUrl: row.image_url,
+          ingredients: (row.ingredients as Ingredient[]) ?? [],
+          allergens: (row.allergens as AllergenType[]) ?? [],
+          isVegan: (row.is_vegan as boolean) ?? false,
+          isVegetarian: (row.is_vegetarian as boolean) ?? false,
+          nutritionScore: (row.nutrition_score as NutritionScore) ?? null,
           createdAt: row.created_at,
         }))
       }
@@ -88,6 +99,11 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
           fat: plate.fat,
           serving_size: plate.servingSize,
           image_url: plate.imageUrl,
+          ingredients: plate.ingredients,
+          allergens: plate.allergens,
+          is_vegan: plate.isVegan,
+          is_vegetarian: plate.isVegetarian,
+          nutrition_score: plate.nutritionScore,
         })
         .select()
         .single()
@@ -104,6 +120,11 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
             fat: data.fat,
             servingSize: data.serving_size,
             imageUrl: data.image_url,
+            ingredients: (data.ingredients as Ingredient[]) ?? [],
+            allergens: (data.allergens as AllergenType[]) ?? [],
+            isVegan: (data.is_vegan as boolean) ?? false,
+            isVegetarian: (data.is_vegetarian as boolean) ?? false,
+            nutritionScore: (data.nutrition_score as NutritionScore) ?? null,
             createdAt: data.created_at,
           },
           ...plates.value,
@@ -144,6 +165,11 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
         fat: plate.fat,
         serving_size: plate.servingSize,
         image_url: plate.imageUrl,
+        ingredients: plate.ingredients,
+        allergens: plate.allergens,
+        is_vegan: plate.isVegan,
+        is_vegetarian: plate.isVegetarian,
+        nutrition_score: plate.nutritionScore,
       })
     }
     localStorage.removeItem(STORAGE_KEY)

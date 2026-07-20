@@ -84,6 +84,11 @@ async function savePlate() {
     fat: result.value.macros.fat.grams,
     servingSize: null,
     imageUrl: null,
+    ingredients: result.value.ingredients,
+    allergens: result.value.allergens ?? [],
+    isVegan: result.value.isVegan ?? false,
+    isVegetarian: result.value.isVegetarian ?? false,
+    nutritionScore: result.value.nutritionScore,
   })
   saved.value = true
   toast.show('Plato guardado en favoritos')

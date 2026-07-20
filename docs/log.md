@@ -225,3 +225,28 @@ Redesigned the DashboardView to include a tabbed interface for navigating betwee
 - Profile tab: avatar, name, stats grid, allergen tags, dietary preference tags, edit button
 - Favorite button: secondary style with star icon, changes to "Guardado en favoritos" text after saving
 - All modals use existing Modal component with `size="md"` for detail views
+
+## 2026-07-20
+
+### Feature: ProfileView with Tabs + Login Fix + Auto-loading Stores
+
+Rewrote ProfileView to be the main page after login with 4 tabs matching Dashboard layout. Fixed login hanging by making stores auto-load data when userId changes.
+
+**Files modified:**
+- `src/views/ProfileView.vue` — Complete rewrite with 4 tabs (Mi día, Mis platos, Mis recetas, Datos). Horizontal cards with accent bar, delete button with confirmation modal, centered "add" buttons
+- `src/views/AuthView.vue` — Redirect to `/profile` after login, fixed multi-line click handler
+- `src/composables/useAuth.ts` — Non-blocking migration, simplified auth state handler
+- `src/stores/userStore.ts` — Auto-load profile when userId changes via `watch()`
+- `src/stores/foodStore.ts` — Auto-load entries when userId changes via `watch()`
+- `src/stores/savedPlatesStore.ts` — Extended SavedPlate with ingredients, allergens, isVegan, isVegetarian, nutritionScore. Auto-load when userId changes
+- `src/stores/savedRecipesStore.ts` — Auto-load recipes when userId changes
+- `src/views/NutritionAnalyzerView.vue` — Save all plate details (ingredients, allergens, dietary info)
+- `src/fontawesome.ts` — Added faStar, faStarHalfStroke, faTag icons
+
+**Design details:**
+- Saved cards: horizontal layout with colored accent bar (primary for plates, accent for recipes)
+- Delete button: subtle X on right side, hover turns danger color
+- Confirmation modal for delete actions
+- Centered "add" buttons below card lists with margin-top
+- Cards have soft hover shadow instead of border change
+- Each user sees only their own data from Supabase (filtered by user_id)

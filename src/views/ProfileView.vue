@@ -47,6 +47,11 @@ const showPlateModal = ref(false)
 const selectedRecipe = ref<SavedRecipe | null>(null)
 const showRecipeModal = ref(false)
 
+const deleteId = ref<string | null>(null)
+const deleteType = ref<'plate' | 'recipe'>('plate')
+const deleteName = ref('')
+const showDeleteModal = ref(false)
+
 const bmi = computed(() => calculateBMI(userStore.profile.weight, userStore.profile.height))
 const bmiLabel = computed(() => classifyBMI(bmi.value))
 const bmiBadge = computed(() => getBmiBadgeVariant(bmi.value))
@@ -149,6 +154,27 @@ async function deleteRecipe(id: string) {
   showRecipeModal.value = false
   selectedRecipe.value = null
   toast.show('Receta eliminada')
+}
+
+function confirmDelete(id: string, type: 'plate' | 'recipe', name: string) {
+  deleteId.value = id
+  deleteType.value = type
+  deleteName.value = name
+  showDeleteModal.value = true
+}
+
+async function executeDelete() {
+  if (!deleteId.value) return
+  if (deleteType.value === 'plate') {
+    await savedPlatesStore.deletePlate(deleteId.value)
+    toast.show('Plato eliminado')
+  } else {
+    await savedRecipesStore.deleteRecipe(deleteId.value)
+    toast.show('Receta eliminada')
+  }
+  showDeleteModal.value = false
+  deleteId.value = null
+  deleteName.value = ''
 }
 </script>
 
@@ -316,25 +342,27 @@ async function deleteRecipe(id: string) {
         </router-link>
       </div>
 
-      <div v-else class="saved-grid">
-        <article v-for="plate in savedPlatesStore.plates" :key="plate.id" class="saved-card" tabindex="0" role="button" :aria-label="`Ver detalles de ${plate.name}`" @click="openPlateModal(plate)" @keydown.enter="openPlateModal(plate)">
-          <div v-if="plate.imageUrl" class="saved-card__img">
-            <img :src="plate.imageUrl" :alt="plate.name" loading="lazy" />
-          </div>
-          <div v-else class="saved-card__icon">
-            <font-awesome-icon :icon="['fas', 'bowl-food']" aria-hidden="true" />
-          </div>
-          <div class="saved-card__body">
+      <div v-else class="saved-list">
+        <article v-for="plate in savedPlatesStore.plates" :key="plate.id" class="saved-card" tabindex="0" :aria-label="`Ver detalles de ${plate.name}`">
+          <div class="saved-card__accent" />
+          <div class="saved-card__body" role="button" @click="openPlateModal(plate)" @keydown.enter="openPlateModal(plate)">
             <h3 class="saved-card__title">{{ plate.name }}</h3>
-            <p class="saved-card__cal">{{ plate.calories }} kcal</p>
             <div class="saved-card__macros">
-              <span>P {{ plate.protein }}g</span>
-              <span>C {{ plate.carbs }}g</span>
-              <span>G {{ plate.fat }}g</span>
+              <span class="saved-card__macro"><strong>{{ plate.calories }}</strong> kcal</span>
+              <span class="saved-card__macro">P {{ plate.protein }}g</span>
+              <span class="saved-card__macro">C {{ plate.carbs }}g</span>
+              <span class="saved-card__macro">G {{ plate.fat }}g</span>
             </div>
           </div>
+          <button class="saved-card__delete" :aria-label="`Eliminar ${plate.name}`" @click.stop="confirmDelete(plate.id, 'plate', plate.name)">
+            <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
+          </button>
         </article>
       </div>
+      <router-link to="/nutrition-ai" class="btn btn-accent btn-sm saved-list__add">
+        <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
+        Analizar otro plato
+      </router-link>
     </div>
 
     <!-- Tab: Mis recetas -->
@@ -357,24 +385,25 @@ async function deleteRecipe(id: string) {
         </router-link>
       </div>
 
-      <div v-else class="saved-grid">
-        <article v-for="recipe in savedRecipesStore.recipes" :key="recipe.id" class="saved-card" tabindex="0" role="button" :aria-label="`Ver detalles de ${recipe.name}`" @click="openRecipeModal(recipe)" @keydown.enter="openRecipeModal(recipe)">
-          <div class="saved-card__icon saved-card__icon--recipe">
-            <font-awesome-icon :icon="['fas', 'cookie']" aria-hidden="true" />
-          </div>
-          <div class="saved-card__body">
+      <div v-else class="saved-list">
+        <article v-for="recipe in savedRecipesStore.recipes" :key="recipe.id" class="saved-card saved-card--recipe" tabindex="0" :aria-label="`Ver detalles de ${recipe.name}`">
+          <div class="saved-card__accent saved-card__accent--recipe" />
+          <div class="saved-card__body" role="button" @click="openRecipeModal(recipe)" @keydown.enter="openRecipeModal(recipe)">
             <h3 class="saved-card__title">{{ recipe.name }}</h3>
-            <p v-if="recipe.calories" class="saved-card__cal">{{ recipe.calories }} kcal</p>
-            <p v-if="recipe.prepTime" class="saved-card__time">
-              <font-awesome-icon :icon="['fas', 'clock']" aria-hidden="true" />
-              {{ recipe.prepTime }}
-            </p>
             <div class="saved-card__macros">
-              <span v-if="recipe.protein">P {{ recipe.protein }}g</span>
-              <span v-if="recipe.carbs">C {{ recipe.carbs }}g</span>
-              <span v-if="recipe.fat">G {{ recipe.fat }}g</span>
+              <span v-if="recipe.calories" class="saved-card__macro"><strong>{{ recipe.calories }}</strong> kcal</span>
+              <span v-if="recipe.protein" class="saved-card__macro">P {{ recipe.protein }}g</span>
+              <span v-if="recipe.carbs" class="saved-card__macro">C {{ recipe.carbs }}g</span>
+              <span v-if="recipe.fat" class="saved-card__macro">G {{ recipe.fat }}g</span>
+              <span v-if="recipe.prepTime" class="saved-card__macro">
+                <font-awesome-icon :icon="['fas', 'clock']" aria-hidden="true" />
+                {{ recipe.prepTime }}
+              </span>
             </div>
           </div>
+          <button class="saved-card__delete" :aria-label="`Eliminar ${recipe.name}`" @click.stop="confirmDelete(recipe.id, 'recipe', recipe.name)">
+            <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
+          </button>
         </article>
       </div>
     </div>
@@ -507,6 +536,16 @@ async function deleteRecipe(id: string) {
       <template #footer>
         <button class="btn btn-secondary" @click="showClearModal = false">Cancelar</button>
         <button class="btn btn-primary" @click="executeClearToday">Eliminar todo</button>
+      </template>
+    </Modal>
+
+    <Modal :open="showDeleteModal" size="sm" title="Eliminar" @close="showDeleteModal = false">
+      <p class="text-sm" style="color: var(--clr-text-muted)">
+        ¿Eliminar <strong style="color: var(--clr-text)">{{ deleteName }}</strong> de favoritos?
+      </p>
+      <template #footer>
+        <button class="btn btn-secondary" @click="showDeleteModal = false">Cancelar</button>
+        <button class="btn btn-primary" @click="executeDelete">Eliminar</button>
       </template>
     </Modal>
 
@@ -683,9 +722,9 @@ async function deleteRecipe(id: string) {
   .dash__btn-clear { width: auto; }
 }
 
-.saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; }
-
 .saved-card {
+  display: flex;
+  align-items: center;
   background: var(--clr-surface);
   border: 1px solid var(--clr-border-subtle);
   border-radius: var(--radius-lg);
@@ -694,31 +733,64 @@ async function deleteRecipe(id: string) {
   transition: all var(--duration-normal) var(--ease-default);
 }
 
-.saved-card:hover { border-color: var(--clr-primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
+.saved-card:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); }
 .saved-card:focus-visible { outline: 2px solid var(--clr-primary); outline-offset: 2px; }
 
-.saved-card__img { width: 100%; height: 100px; overflow: hidden; }
-.saved-card__img img { width: 100%; height: 100%; object-fit: cover; }
+.saved-card__accent {
+  width: 4px;
+  align-self: stretch;
+  background: var(--clr-primary);
+  flex-shrink: 0;
+}
 
-.saved-card__icon {
-  width: 100%;
-  height: 80px;
+.saved-card__accent--recipe { background: var(--clr-accent); }
+
+.saved-card__body {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+}
+
+.saved-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--clr-text);
+  margin: 0 0 0.375rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.saved-card__macros {
+  display: flex;
+  gap: 0.625rem;
+  font-size: 0.675rem;
+  color: var(--clr-text-muted);
+}
+
+.saved-card__macro { white-space: nowrap; }
+
+.saved-card__delete {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--clr-primary-light);
-  color: var(--clr-primary);
-  font-size: 1.75rem;
-  opacity: 0.6;
+  width: 2rem;
+  height: 100%;
+  min-height: 2.5rem;
+  background: none;
+  border: none;
+  color: var(--clr-text-faint);
+  cursor: pointer;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
 }
 
-.saved-card__icon--recipe { background: var(--clr-surface-alt); color: var(--clr-accent); }
+.saved-card__delete:hover { color: var(--clr-danger); }
 
-.saved-card__body { padding: 0.625rem; }
-.saved-card__title { font-family: var(--font-display); font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--clr-text); margin: 0 0 0.25rem 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.saved-card__cal { font-size: var(--text-xs); font-weight: var(--weight-bold); color: var(--clr-primary); margin: 0 0 0.25rem 0; }
-.saved-card__time { font-size: 0.675rem; color: var(--clr-text-faint); margin: 0 0 0.25rem 0; display: flex; align-items: center; gap: 0.25rem; }
-.saved-card__macros { display: flex; gap: 0.5rem; font-size: 0.675rem; color: var(--clr-text-muted); }
+.saved-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.saved-list__add { align-self: center; }
 
 .form-row { display: flex; flex-direction: column; gap: 0.75rem; }
 
