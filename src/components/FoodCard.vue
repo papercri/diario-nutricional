@@ -124,9 +124,10 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 1rem;
+  height: 1rem;
   flex-shrink: 0;
+  font-size: 0.875rem;
 }
 
 .btn-slide__label {
