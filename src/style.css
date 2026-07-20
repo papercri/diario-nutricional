@@ -397,11 +397,11 @@ button {
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--clr-text-inverse);
   line-height: 1;
   flex-shrink: 0;
   white-space: nowrap;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-sm);
 }
 .nutri-score__letter {
   display: inline-flex;
@@ -416,21 +416,21 @@ button {
   line-height: 1;
 }
 .nutri-score--a {
-  background: #038141;
+  background: var(--clr-nutri-a);
 }
 .nutri-score--b {
-  background: #85bb2f;
+  background: var(--clr-nutri-b);
 }
 .nutri-score--c {
-  background: #f0c800;
-  color: #3d3400;
+  background: var(--clr-nutri-c);
+  color: var(--clr-nutri-c-text);
 }
 .nutri-score--c .nutri-score__letter {
   background: rgba(0, 0, 0, 0.12);
 }
 .nutri-score--d {
-  background: #ee8100;
+  background: var(--clr-nutri-d);
 }
 .nutri-score--e {
-  background: #e63e11;
+  background: var(--clr-nutri-e);
 }

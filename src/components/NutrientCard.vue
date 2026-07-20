@@ -15,7 +15,7 @@ const percentage = computed(() => calcPercentage(props.value, props.target))
 const colorStyles = computed(() => {
   if (props.color === 'lime') {
     return {
-      bg: 'background: #f4f8ec; border-color: #d1e0be',
+      bg: 'background: var(--clr-nutrient-lime-bg); border-color: var(--clr-nutrient-lime-border)',
       bar: 'background: var(--clr-accent)',
       text: 'color: var(--clr-accent)',
       justify: 'justify-between',
@@ -23,20 +23,20 @@ const colorStyles = computed(() => {
   }
   if (props.color === 'amber') {
     return {
-      bg: 'background: var(--clr-secondary-light); border-color: #e8d9b0',
+      bg: 'background: var(--clr-secondary-light); border-color: var(--clr-nutrient-amber-border)',
       bar: 'background: var(--clr-secondary)',
       text: 'color: var(--clr-secondary)',
     }
   }
   if (props.color === 'brown') {
     return {
-      bg: 'background: #f5ebe0; border-color: #d9c4b0',
-      bar: 'background: #a0785c',
-      text: 'color: #8b6548',
+      bg: 'background: var(--clr-nutrient-brown-bg); border-color: var(--clr-nutrient-brown-border)',
+      bar: 'background: var(--clr-nutrient-brown-bar)',
+      text: 'color: var(--clr-nutrient-brown-text)',
     }
   }
   return {
-    bg: 'background: var(--clr-primary-light); border-color: #c0d4a8',
+    bg: 'background: var(--clr-primary-light); border-color: var(--clr-nutrient-emerald-border)',
     bar: 'background: var(--clr-primary)',
     text: 'color: var(--clr-primary)',
   }

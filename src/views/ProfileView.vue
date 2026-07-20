@@ -498,16 +498,16 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   border-radius: var(--radius-full);
   background: linear-gradient(
     to right,
-    #22c55e 0%,
-    #22c55e 14%,
-    #84cc16 14%,
-    #84cc16 28%,
-    #eab308 28%,
-    #eab308 42%,
-    #f97316 42%,
-    #f97316 56%,
-    #ef4444 56%,
-    #ef4444 100%
+    var(--clr-bmi-underweight) 0%,
+    var(--clr-bmi-underweight) 14%,
+    var(--clr-bmi-normal) 14%,
+    var(--clr-bmi-normal) 28%,
+    var(--clr-bmi-overweight) 28%,
+    var(--clr-bmi-overweight) 42%,
+    var(--clr-bmi-obese) 42%,
+    var(--clr-bmi-obese) 56%,
+    var(--clr-bmi-extreme) 56%,
+    var(--clr-bmi-extreme) 100%
   );
 }
 

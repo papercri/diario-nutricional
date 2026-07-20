@@ -12,13 +12,13 @@ const emit = defineEmits<{
 
 function getGradeColor(grade: string): string {
   const colors: Record<string, string> = {
-    a: '#038141',
-    b: '#85bb2f',
-    c: '#fecb02',
-    d: '#ee8100',
-    e: '#e63e11',
+    a: 'var(--clr-nutri-a)',
+    b: 'var(--clr-nutri-b)',
+    c: 'var(--clr-nutri-c)',
+    d: 'var(--clr-nutri-d)',
+    e: 'var(--clr-nutri-e)',
   }
-  return colors[grade] ?? '#ccc'
+  return colors[grade] ?? 'var(--clr-border)'
 }
 
 function getGradeLabel(grade: string): string {
