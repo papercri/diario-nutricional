@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import type { FoodItem } from '@/types/food'
 
 defineProps<{
@@ -9,6 +10,9 @@ const emit = defineEmits<{
   close: []
   add: [food: FoodItem]
 }>()
+
+const modalRef = ref<HTMLElement | null>(null)
+const previousFocus = ref<HTMLElement | null>(null)
 
 function getGradeColor(grade: string): string {
   const colors: Record<string, string> = {
@@ -31,16 +35,68 @@ function getGradeLabel(grade: string): string {
   }
   return labels[grade] ?? ''
 }
+
+function getFocusableElements(): HTMLElement[] {
+  if (!modalRef.value) return []
+  return Array.from(
+    modalRef.value.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    ),
+  )
+}
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    emit('close')
+    return
+  }
+
+  if (e.key !== 'Tab') return
+
+  const focusable = getFocusableElements()
+  if (focusable.length === 0) return
+
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+
+  if (e.shiftKey) {
+    if (document.activeElement === first) {
+      e.preventDefault()
+      last.focus()
+    }
+  } else {
+    if (document.activeElement === last) {
+      e.preventDefault()
+      first.focus()
+    }
+  }
+}
+
+onMounted(async () => {
+  previousFocus.value = document.activeElement as HTMLElement
+  document.body.style.overflow = 'hidden'
+  await nextTick()
+  const focusable = getFocusableElements()
+  if (focusable.length > 0) {
+    focusable[0].focus()
+  }
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+  previousFocus.value?.focus()
+})
 </script>
 
 <template>
   <div
+    ref="modalRef"
     class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
     role="dialog"
     aria-modal="true"
     :aria-label="`Detalles de ${food.name}`"
     @click.self="emit('close')"
-    @keydown.escape="emit('close')"
+    @keydown="handleKeydown"
   >
     <div
       class="w-full sm:max-w-xl max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-xl animate-slide-up"
