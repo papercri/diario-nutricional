@@ -2,6 +2,67 @@
 
 ## 2026-07-20
 
+### Feature: Allergen & Dietary Info Card (Mis Platos)
+
+Added allergen and dietary information card to the AI meal analyzer ("Mis Platos") page. Each analyzed dish now displays its main allergens with icons and labels, plus a vegan/vegetarian badge when applicable.
+
+**Files created:**
+- `src/components/nutrition/AllergenInfoCard.vue` — Card component showing allergen badges (icon + text) and dietary icons (vegan/vegetarian)
+
+**Files modified:**
+- `src/types/nutrition.ts` — Added `AllergenType` union type (12 allergens), extended `NutritionAnalysis` with `allergens`, `isVegan`, `isVegetarian` fields
+- `api/analyze-meal.ts` — Updated AI prompt to request allergen and dietary data; extended `validateAnalysis` to accept new fields
+- `src/views/NutritionAnalyzerView.vue` — Integrated `AllergenInfoCard` between result card and nutrition grid
+
+**Design system:**
+- Reuses existing `Card` component with `elevated` variant
+- Allergen badges use `--clr-accent-light` / `--clr-accent` tokens
+- Vegan badge uses `--clr-success-light` / `--clr-success` tokens
+- Vegetarian badge uses `--clr-primary-light` / `--clr-primary` tokens
+- Follows established typography patterns for section titles
+
+### Feature: Recent Meals Dropdown (Mis Platos)
+
+Added a dropdown list of recent meal descriptions below the textarea input in the AI meal analyzer. Users can click any previous entry to reuse it instantly.
+
+**Files modified:**
+- `src/components/nutrition/MealAnalyzerForm.vue` — Added localStorage-backed history (max 5), dropdown UI with listbox semantics, clear button
+- `src/fontawesome.ts` — Added `faArrowRight`, `faClockRotateLeft` icons
+- `src/components/nutrition/AllergenInfoCard.vue` — Fixed icon mapping (replaced invalid `faNut` with `faBowlFood`)
+
+---
+
+### Feature: Generador de Recetas con IA
+
+New standalone recipe generation page at `/recetas`. Users can configure dietary preferences, exclude allergens, specify preferred ingredients, and add custom instructions. The AI generates personalised recipes adapted to the user's dietary goal from their profile.
+
+**Files created:**
+- `src/types/recipe.ts` — Types: `Allergen`, `DietaryPreference`, `RecipeConfig`, `GeneratedRecipe`, `RecipeAIResponse`
+- `api/generate-recipe.ts` — Serverless endpoint reusing Groq/Cerebras providers with recipe-specific system prompt
+- `src/services/recipeAI.ts` — Client service calling `/api/generate-recipe`
+- `src/views/RecipeGeneratorView.vue` — Full page view with config panel and result display
+
+**Files modified:**
+- `src/utils/constants.ts` — Added `DIETARY_PREFERENCE_OPTIONS` (4 options) and `ALLERGEN_OPTIONS` (12 allergens) with icons
+- `src/router/index.ts` — Added `/recetas` route (lazy-loaded)
+- `src/components/AppHeader.vue` — Added "Recetas" nav link with utensils icon
+- `src/fontawesome.ts` — Added 9 new icons: `faBowlFood`, `faBullseye`, `faCarrot`, `faClock`, `faEgg`, `faFish`, `faGlassWater`, `faListOl`, `faSeedling`, `faShrimp`, `faUsers`
+- `server-dev.ts` — Extended dev proxy to handle `/api/generate-recipe`
+
+**Design system usage:**
+- Reuses existing `DsCard`, `DsButton`, `DsTypography` components
+- Toggle buttons follow the established `btn-toggle` CSS pattern from ProfileView
+- Recipe result uses card layout with nutrition grid, ingredients list, ordered steps, and tips
+- Mobile-first responsive layout with 2-column grid (config + result)
+
+**AI integration:**
+- Reuses existing Groq/Cerebras provider infrastructure
+- New system prompt generates structured JSON: recipe name, description, ingredients, steps, macros, tips
+- User's dietary goal, calorie target, and macro targets are passed to the AI prompt
+- All allergens are strictly excluded from generated recipes
+
+---
+
 ### Design Tokens Added
 
 Added new CSS custom properties to `src/design-system/tokens/index.css`:

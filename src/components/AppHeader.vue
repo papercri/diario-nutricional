@@ -14,6 +14,12 @@ const links = [
     label: 'Mis platos',
     icon: ['fas', 'wand-magic-sparkles'] as [string, string],
   },
+  {
+    name: 'recipes',
+    path: '/recetas',
+    label: 'Recetas',
+    icon: ['fas', 'utensils'] as [string, string],
+  },
   { name: 'profile', path: '/profile', label: 'Mi perfil', icon: ['fas', 'user'] as [string, string] },
 ]
 
