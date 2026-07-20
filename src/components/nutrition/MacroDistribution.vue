@@ -27,8 +27,8 @@ const macros = [
 
 <template>
   <Card variant="surface" padding="md">
-    <h3 class="macro-title">
-      <font-awesome-icon :icon="['fas', 'chart-pie']" aria-hidden="true" />
+    <h3 class="ds-section-title">
+      <font-awesome-icon :icon="['fas', 'chart-pie']" class="ds-section-title--accent" aria-hidden="true" />
       Macros
     </h3>
 
@@ -88,23 +88,6 @@ const macros = [
 </template>
 
 <style scoped>
-.macro-title {
-  font-family: var(--font-display);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--clr-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.75rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-}
-
-.macro-title i {
-  color: var(--clr-accent);
-}
-
 .macro-grid {
   display: flex;
   flex-direction: column;

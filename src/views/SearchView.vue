@@ -196,18 +196,4 @@ function addFromDetail(food: FoodItem) {
   </main>
 </template>
 
-<style scoped>
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-.animate-slide-up {
-  animation: slide-up 0.25s ease-out;
-}
-</style>
+

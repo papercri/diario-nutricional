@@ -41,8 +41,8 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 </script>
 
 <template>
-  <main class="profile-page">
-    <header class="profile-page__header">
+  <main class="ds-page">
+    <header class="ds-page-header">
       <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
         <font-awesome-icon :icon="['fas', 'user']" aria-hidden="true" style="color: var(--clr-primary)" />
         Mi perfil
@@ -52,7 +52,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
       </p>
     </header>
 
-    <div class="profile-page__content">
+    <div class="ds-page-content">
       <!-- Form row: personal data + lifestyle side by side on desktop -->
       <div class="form-row">
         <!-- Datos personales -->
@@ -283,27 +283,6 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 </template>
 
 <style scoped>
-.profile-page {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.profile-page__header {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.profile-page__content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .profile-page__reset {
   display: flex;
   justify-content: center;

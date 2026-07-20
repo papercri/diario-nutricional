@@ -68,8 +68,8 @@ function closeModal() {
 </script>
 
 <template>
-  <main class="nutrition-page">
-    <header class="nutrition-page__header">
+  <main class="ds-page">
+    <header class="ds-page-header">
       <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
         <font-awesome-icon
           :icon="['fas', 'wand-magic-sparkles']"
@@ -83,7 +83,7 @@ function closeModal() {
       </p>
     </header>
 
-    <div class="nutrition-page__content">
+    <div class="ds-page-content">
       <MealAnalyzerForm :loading="isLoading" @submit="handleAnalyze" />
 
       <div v-if="isLoading" class="nutrition-loading" role="status" aria-label="Analizando comida">
@@ -183,41 +183,6 @@ function closeModal() {
 </template>
 
 <style scoped>
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-.animate-slide-up {
-  animation: slide-up 0.25s ease-out;
-}
-
-.nutrition-page {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.nutrition-page__header {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.nutrition-page__content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .nutrition-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

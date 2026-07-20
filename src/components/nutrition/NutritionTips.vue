@@ -8,12 +8,12 @@ defineProps<{
 
 <template>
   <Card variant="warm" padding="md">
-    <h3 class="tips-title">
-      <font-awesome-icon :icon="['fas', 'lightbulb']" aria-hidden="true" />
+    <h3 class="ds-section-title">
+      <font-awesome-icon :icon="['fas', 'lightbulb']" class="ds-section-title--secondary" aria-hidden="true" />
       Consejos
     </h3>
 
-    <ul class="tips-list" role="list">
+    <ul class="ds-list-reset" role="list">
       <li v-for="(tip, index) in tips" :key="index" class="tips-item">
         <font-awesome-icon :icon="['fas', 'check']" class="tips-item__icon" aria-hidden="true" />
         <span class="tips-item__text">{{ tip }}</span>
@@ -23,32 +23,6 @@ defineProps<{
 </template>
 
 <style scoped>
-.tips-title {
-  font-family: var(--font-display);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--clr-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.5rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-}
-
-.tips-title i {
-  color: var(--clr-secondary);
-}
-
-.tips-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
 .tips-item {
   display: flex;
   align-items: flex-start;
