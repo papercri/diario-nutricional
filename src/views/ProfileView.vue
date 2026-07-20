@@ -440,7 +440,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 }
 
 .btn-toggle__desc {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   opacity: 0.7;
 }
 
@@ -539,7 +539,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 }
 
 .bmi-detail__label {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-faint);
 }
 
@@ -603,7 +603,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 }
 
 .metric-card__label {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-muted);
   margin: 0;
 }

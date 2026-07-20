@@ -50,7 +50,7 @@ defineProps<{
 }
 
 .ingredient-item__meta {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-faint);
   white-space: nowrap;
 }

@@ -37,7 +37,7 @@ withDefaults(
 
 /* ── Sizes ── */
 .ds-badge--xs {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   padding: 0.125rem 0.375rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;

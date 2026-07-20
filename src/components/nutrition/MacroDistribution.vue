@@ -141,7 +141,7 @@ const macros = [
 }
 
 .macro-item__detail {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-faint);
 }
 </style>
