@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { calcPercentage, calcRemaining, groupEntriesByMealType, sumServings } from './nutrition'
-import type { MealEntry } from '../types/food'
+import type { MealEntry } from '@/types/food'
 
 describe('calcPercentage', () => {
   it('calculates percentage correctly', () => {

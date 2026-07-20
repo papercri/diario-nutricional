@@ -9,12 +9,12 @@ defineProps<{
 
 <template>
   <Card variant="surface" padding="md">
-    <h3 class="ingredient-title">
-      <i class="fa-solid fa-list-check" aria-hidden="true" />
+    <h3 class="ds-section-title">
+      <font-awesome-icon :icon="['fas', 'list-check']" class="ds-section-title--accent" aria-hidden="true" />
       Ingredientes
     </h3>
 
-    <ul class="ingredient-list" role="list">
+    <ul class="ds-list-reset" role="list">
       <li v-for="(ingredient, index) in ingredients" :key="index" class="ingredient-item">
         <span class="ingredient-item__name">{{ ingredient.name }}</span>
         <span class="ingredient-item__meta">
@@ -26,31 +26,6 @@ defineProps<{
 </template>
 
 <style scoped>
-.ingredient-title {
-  font-family: var(--font-display);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--clr-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.5rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-}
-
-.ingredient-title i {
-  color: var(--clr-accent);
-}
-
-.ingredient-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
 .ingredient-item {
   display: flex;
   align-items: center;
@@ -75,7 +50,7 @@ defineProps<{
 }
 
 .ingredient-item__meta {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-faint);
   white-space: nowrap;
 }

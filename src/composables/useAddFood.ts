@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { useFoodStore } from '../stores/foodStore'
-import type { FoodItem, MealType } from '../types/food'
+import { useFoodStore } from '@/stores/foodStore'
+import type { FoodItem, MealType } from '@/types/food'
 
 export function useAddFood() {
   const foodStore = useFoodStore()

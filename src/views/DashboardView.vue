@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useUserStore } from '../stores/userStore'
-import { useFoodStore } from '../stores/foodStore'
-import CalorieRing from '../components/CalorieRing.vue'
-import NutrientCard from '../components/NutrientCard.vue'
-import Modal from '../components/ui/Modal.vue'
-import { useToast } from '../composables/useToast'
-import { groupEntriesByMealType } from '../utils/nutrition'
-import { formatDateEs } from '../utils/formatting'
-import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '../utils/constants'
-import type { MealType } from '../types/user'
+import { useUserStore } from '@/stores/userStore'
+import { useFoodStore } from '@/stores/foodStore'
+import CalorieRing from '@/components/CalorieRing.vue'
+import NutrientCard from '@/components/NutrientCard.vue'
+import Modal from '@/components/ui/Modal.vue'
+import { useToast } from '@/composables/useToast'
+import { groupEntriesByMealType } from '@/utils/nutrition'
+import { formatDateEs } from '@/utils/formatting'
+import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '@/utils/constants'
+import type { MealType } from '@/types/user'
 
 const userStore = useUserStore()
 const foodStore = useFoodStore()
@@ -150,8 +150,9 @@ function entryMacros(entry: {
           </span>
         </div>
         <div class="flex items-center gap-1 shrink-0">
-          <i
-            class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
+          <font-awesome-icon
+            :icon="['fas', 'chevron-down']"
+            class="text-[13px] transition-transform duration-200"
             :class="{ 'rotate-180': mealsOpen }"
             aria-hidden="true"
             style="color: var(--clr-text-faint)"
@@ -166,8 +167,9 @@ function entryMacros(entry: {
           class="card-warm text-center py-6 px-4 mt-1.5"
           role="status"
         >
-          <i
-            class="fa-solid fa-utensils text-2xl block mb-1.5"
+          <font-awesome-icon
+            :icon="['fas', 'utensils']"
+            class="text-2xl block mb-1.5"
             aria-hidden="true"
             style="color: var(--clr-primary); opacity: 0.4"
           />
@@ -178,7 +180,7 @@ function entryMacros(entry: {
         </div>
 
         <!-- Meal entries -->
-        <div v-else class="mt-1.5 flex flex-col gap-0.5">
+        <div v-else class="mt-1.5 flex flex-col gap-1.5">
           <article
             v-for="(entries, type) in groupedEntries"
             :key="type"
@@ -191,8 +193,8 @@ function entryMacros(entry: {
               @click="toggleMealType(type as MealType)"
             >
               <div class="flex items-center gap-1 min-w-0">
-                <i
-                  :class="MEAL_TYPE_ICONS[type]"
+                <font-awesome-icon
+                  :icon="MEAL_TYPE_ICONS[type]"
                   aria-hidden="true"
                   class="text-[10px]"
                   style="color: var(--clr-primary)"
@@ -204,8 +206,9 @@ function entryMacros(entry: {
                   {{ entries.length }} · {{ mealTypeTotalCalories(entries) }} kcal
                 </span>
               </div>
-              <i
-                class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
+              <font-awesome-icon
+                :icon="['fas', 'chevron-down']"
+                class="text-[13px] transition-transform duration-200"
                 :class="{ 'rotate-180': openMealTypes.has(type as MealType) }"
                 aria-hidden="true"
                 style="color: var(--clr-text-faint)"
@@ -222,6 +225,18 @@ function entryMacros(entry: {
                     class="w-7 h-7 rounded object-cover shrink-0"
                     loading="lazy"
                   />
+                  <div
+                    v-else
+                    class="w-7 h-7 rounded flex items-center justify-center shrink-0"
+                    style="background: var(--clr-primary-light)"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'utensils']"
+                      class="text-[10px]"
+                      aria-hidden="true"
+                      style="color: var(--clr-primary); opacity: 0.5"
+                    />
+                  </div>
                   <p class="text-[14px] font-medium truncate" style="color: var(--clr-text)">
                     {{ entry.food.name }}
                   </p>
@@ -250,7 +265,7 @@ function entryMacros(entry: {
                       ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
                     "
                   >
-                    <i class="fa-solid fa-xmark text-[13px]" aria-hidden="true" />
+                    <font-awesome-icon :icon="['fas', 'xmark']" class="text-[13px]" aria-hidden="true" />
                   </button>
                 </div>
               </li>
@@ -266,7 +281,7 @@ function entryMacros(entry: {
             class="btn btn-primary text-[10px] py-1 px-2 whitespace-nowrap"
             role="button"
           >
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'magnifying-glass']" aria-hidden="true" />
             Buscar
           </router-link>
           <router-link
@@ -274,7 +289,7 @@ function entryMacros(entry: {
             class="btn btn-accent text-[10px] py-1 px-2 whitespace-nowrap"
             role="button"
           >
-            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
             Mis platos
           </router-link>
         </div>
@@ -284,7 +299,7 @@ function entryMacros(entry: {
           aria-label="Eliminar todas las comidas de hoy"
           @click.stop="showClearModal = true"
         >
-          <i class="fa-solid fa-broom" aria-hidden="true" />
+          <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
           Limpiar
         </button>
       </div>

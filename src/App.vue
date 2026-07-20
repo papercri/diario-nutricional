@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AppHeader from './components/AppHeader.vue'
-import Toast from './components/ui/Toast.vue'
+import AppHeader from '@/components/AppHeader.vue'
+import Toast from '@/components/ui/Toast.vue'
 const currentYear = new Date().getFullYear()
 </script>
 

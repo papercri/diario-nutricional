@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { searchFood } from '../services/openFoodFacts'
-import type { FoodItem } from '../types/food'
+import { searchFood } from '@/services/openFoodFacts'
+import type { FoodItem } from '@/types/food'
 
 const DEBOUNCE_MS = 400
 const MIN_QUERY_LENGTH = 2

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { calcPercentage, calcRemaining } from '../utils/nutrition'
+import { calcPercentage, calcRemaining } from '@/utils/nutrition'
 
 const props = defineProps<{
   consumed: number

@@ -12,31 +12,31 @@ const macros = [
   {
     key: 'protein',
     label: 'Proteínas',
-    icon: 'fa-solid fa-drumstick-bite',
+    icon: ['fas', 'drumstick-bite'] as [string, string],
     color: 'var(--clr-primary)',
   },
   {
     key: 'carbohydrates',
     label: 'Carbohidratos',
-    icon: 'fa-solid fa-bread-slice',
+    icon: ['fas', 'bread-slice'] as [string, string],
     color: 'var(--clr-accent)',
   },
-  { key: 'fat', label: 'Grasas', icon: 'fa-solid fa-droplet', color: 'var(--clr-secondary)' },
+  { key: 'fat', label: 'Grasas', icon: ['fas', 'droplet'] as [string, string], color: 'var(--clr-secondary)' },
 ] as const
 </script>
 
 <template>
   <Card variant="surface" padding="md">
-    <h3 class="macro-title">
-      <i class="fa-solid fa-chart-pie" aria-hidden="true" />
+    <h3 class="ds-section-title">
+      <font-awesome-icon :icon="['fas', 'chart-pie']" class="ds-section-title--accent" aria-hidden="true" />
       Macros
     </h3>
 
     <div class="macro-grid">
       <div v-for="macro in macros" :key="macro.key" class="macro-item">
         <div class="macro-item__header">
-          <i
-            :class="macro.icon"
+          <font-awesome-icon
+            :icon="macro.icon"
             class="macro-item__icon"
             :style="{ color: macro.color }"
             aria-hidden="true"
@@ -88,23 +88,6 @@ const macros = [
 </template>
 
 <style scoped>
-.macro-title {
-  font-family: var(--font-display);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--clr-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.75rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-}
-
-.macro-title i {
-  color: var(--clr-accent);
-}
-
 .macro-grid {
   display: flex;
   flex-direction: column;
@@ -158,7 +141,7 @@ const macros = [
 }
 
 .macro-item__detail {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-faint);
 }
 </style>

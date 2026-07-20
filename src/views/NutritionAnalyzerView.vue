@@ -68,11 +68,11 @@ function closeModal() {
 </script>
 
 <template>
-  <main class="nutrition-page">
-    <header class="nutrition-page__header">
+  <main class="ds-page">
+    <header class="ds-page-header">
       <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
-        <i
-          class="fa-solid fa-wand-magic-sparkles"
+        <font-awesome-icon
+          :icon="['fas', 'wand-magic-sparkles']"
           aria-hidden="true"
           style="color: var(--clr-accent)"
         />
@@ -83,12 +83,14 @@ function closeModal() {
       </p>
     </header>
 
-    <div class="nutrition-page__content">
+    <div class="ds-page-content">
       <MealAnalyzerForm :loading="isLoading" @submit="handleAnalyze" />
 
       <div v-if="isLoading" class="nutrition-loading" role="status" aria-label="Analizando comida">
-        <i
-          class="fa-solid fa-spinner fa-spin-pulse"
+        <font-awesome-icon
+          :icon="['fas', 'spinner']"
+          spin
+          pulse
           aria-hidden="true"
           style="color: var(--clr-primary)"
         />
@@ -96,8 +98,8 @@ function closeModal() {
       </div>
 
       <div v-else-if="error" class="nutrition-error" role="alert">
-        <i
-          class="fa-solid fa-triangle-exclamation"
+        <font-awesome-icon
+          :icon="['fas', 'triangle-exclamation']"
           aria-hidden="true"
           style="color: var(--clr-danger)"
         />
@@ -112,7 +114,7 @@ function closeModal() {
         />
 
         <p v-if="added" class="nutrition-added" role="status">
-          <i class="fa-solid fa-check-circle" aria-hidden="true" />
+          <font-awesome-icon :icon="['fas', 'check-circle']" aria-hidden="true" />
           Añadido a tu registro diario
         </p>
 
@@ -165,7 +167,7 @@ function closeModal() {
               :aria-pressed="mealType === opt.value"
               @click="mealType = opt.value"
             >
-              <i :class="opt.icon" aria-hidden="true" />
+              <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
               {{ opt.label }}
             </button>
           </div>
@@ -181,41 +183,6 @@ function closeModal() {
 </template>
 
 <style scoped>
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-.animate-slide-up {
-  animation: slide-up 0.25s ease-out;
-}
-
-.nutrition-page {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.nutrition-page__header {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.nutrition-page__content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .nutrition-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

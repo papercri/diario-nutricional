@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useUserStore } from '../stores/userStore'
-import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '../utils/constants'
-import { calculateBMI, calculateIdealWeight } from '../utils/bmi'
-import { classifyBMI, getBmiBadgeVariant } from '../utils/bmiClassification'
-import DsCard from '../components/ui/Card.vue'
-import DsInput from '../components/ui/Input.vue'
-import DsButton from '../components/ui/Button.vue'
-import DsBadge from '../components/ui/Badge.vue'
-import DsTypography from '../components/ui/Typography.vue'
-import type { ActivityLevel, GoalType, Sex } from '../types/user'
+import { useUserStore } from '@/stores/userStore'
+import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '@/utils/constants'
+import { calculateBMI, calculateIdealWeight } from '@/utils/bmi'
+import { classifyBMI, getBmiBadgeVariant } from '@/utils/bmiClassification'
+import DsCard from '@/components/ui/Card.vue'
+import DsInput from '@/components/ui/Input.vue'
+import DsButton from '@/components/ui/Button.vue'
+import DsBadge from '@/components/ui/Badge.vue'
+import DsTypography from '@/components/ui/Typography.vue'
+import type { ActivityLevel, GoalType, Sex } from '@/types/user'
 
 const userStore = useUserStore()
 
@@ -41,10 +41,10 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 </script>
 
 <template>
-  <main class="profile-page">
-    <header class="profile-page__header">
+  <main class="ds-page">
+    <header class="ds-page-header">
       <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
-        <i class="fa-solid fa-user" aria-hidden="true" style="color: var(--clr-primary)" />
+        <font-awesome-icon :icon="['fas', 'user']" aria-hidden="true" style="color: var(--clr-primary)" />
         Mi perfil
       </h1>
       <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
@@ -52,13 +52,13 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
       </p>
     </header>
 
-    <div class="profile-page__content">
+    <div class="ds-page-content">
       <!-- Form row: personal data + lifestyle side by side on desktop -->
       <div class="form-row">
         <!-- Datos personales -->
         <DsCard variant="elevated" padding="md" class="form-row__card">
           <h2 class="section-title">
-            <i class="fa-solid fa-id-card" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'id-card']" aria-hidden="true" />
             Datos personales
           </h2>
 
@@ -136,7 +136,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
         <!-- Estilo de vida -->
         <DsCard variant="elevated" padding="md" class="form-row__card">
           <h2 class="section-title">
-            <i class="fa-solid fa-heart-pulse" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'heart-pulse']" aria-hidden="true" />
             Estilo de vida
           </h2>
 
@@ -158,7 +158,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
                   :aria-checked="userStore.profile.activityLevel === opt.value"
                   @click="userStore.updateProfile({ activityLevel: opt.value as ActivityLevel })"
                 >
-                  <i :class="opt.icon" aria-hidden="true" />
+                  <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
                   {{ opt.label }}
                 </button>
               </div>
@@ -177,7 +177,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
                   :aria-checked="userStore.profile.goal === opt.value"
                   @click="userStore.updateProfile({ goal: opt.value as GoalType })"
                 >
-                  <i :class="opt.icon" aria-hidden="true" />
+                  <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
                   <span>{{ opt.label }}</span>
                 </button>
               </div>
@@ -189,7 +189,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
       <!-- Resultados calculados -->
       <DsCard variant="warm" padding="md" aria-label="Resultados calculados">
         <h2 class="section-title section-title--primary">
-          <i class="fa-solid fa-chart-simple" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'chart-simple']" aria-hidden="true" />
           Mis resultados
         </h2>
 
@@ -272,7 +272,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
         <DsButton
           variant="danger"
           size="sm"
-          icon="fa-solid fa-rotate-left"
+          :icon="['fas', 'rotate-left']"
           @click="userStore.resetProfile()"
         >
           Restablecer valores
@@ -283,27 +283,6 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 </template>
 
 <style scoped>
-.profile-page {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.profile-page__header {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.profile-page__content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .profile-page__reset {
   display: flex;
   justify-content: center;
@@ -461,7 +440,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 }
 
 .btn-toggle__desc {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   opacity: 0.7;
 }
 
@@ -498,16 +477,16 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   border-radius: var(--radius-full);
   background: linear-gradient(
     to right,
-    #22c55e 0%,
-    #22c55e 14%,
-    #84cc16 14%,
-    #84cc16 28%,
-    #eab308 28%,
-    #eab308 42%,
-    #f97316 42%,
-    #f97316 56%,
-    #ef4444 56%,
-    #ef4444 100%
+    var(--clr-bmi-underweight) 0%,
+    var(--clr-bmi-underweight) 14%,
+    var(--clr-bmi-normal) 14%,
+    var(--clr-bmi-normal) 28%,
+    var(--clr-bmi-overweight) 28%,
+    var(--clr-bmi-overweight) 42%,
+    var(--clr-bmi-obese) 42%,
+    var(--clr-bmi-obese) 56%,
+    var(--clr-bmi-extreme) 56%,
+    var(--clr-bmi-extreme) 100%
   );
 }
 
@@ -560,7 +539,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 }
 
 .bmi-detail__label {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-faint);
 }
 
@@ -624,7 +603,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 }
 
 .metric-card__label {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   color: var(--clr-text-muted);
   margin: 0;
 }

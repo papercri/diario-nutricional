@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FoodItem } from '../types/food'
+import type { FoodItem } from '@/types/food'
 
 defineProps<{
   food: FoodItem
@@ -26,8 +26,9 @@ const emit = defineEmits<{
       class="w-16 h-16 rounded-lg flex items-center justify-center shrink-0"
       style="background: var(--clr-primary-light)"
     >
-      <i
-        class="fa-solid fa-utensils text-2xl"
+      <font-awesome-icon
+        :icon="['fas', 'utensils']"
+        class="text-2xl"
         aria-hidden="true"
         style="color: var(--clr-primary); opacity: 0.6"
       />
@@ -71,7 +72,7 @@ const emit = defineEmits<{
         @click="emit('detail', food)"
       >
         <span class="btn-slide__label">Ver más</span>
-        <i class="fa-solid fa-eye btn-slide__icon" aria-hidden="true" />
+        <font-awesome-icon :icon="['fas', 'eye']" class="btn-slide__icon" aria-hidden="true" />
       </button>
       <button
         v-if="showAdd"
@@ -80,7 +81,7 @@ const emit = defineEmits<{
         @click="emit('add', food)"
       >
         <span class="btn-slide__label">Añadir</span>
-        <i class="fa-solid fa-plus btn-slide__icon" aria-hidden="true" />
+        <font-awesome-icon :icon="['fas', 'plus']" class="btn-slide__icon" aria-hidden="true" />
       </button>
     </div>
   </article>
@@ -98,7 +99,7 @@ const emit = defineEmits<{
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-md);
@@ -123,9 +124,10 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 1rem;
+  height: 1rem;
   flex-shrink: 0;
+  font-size: 0.875rem;
 }
 
 .btn-slide__label {

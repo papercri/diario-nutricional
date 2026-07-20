@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useFoodSearch } from '../composables/useFoodSearch'
-import { useAddFood } from '../composables/useAddFood'
-import FoodCard from '../components/FoodCard.vue'
-import FoodDetailModal from '../components/FoodDetailModal.vue'
-import { MEAL_TYPE_OPTIONS } from '../utils/constants'
-import type { FoodItem } from '../types/food'
+import { useFoodSearch } from '@/composables/useFoodSearch'
+import { useAddFood } from '@/composables/useAddFood'
+import FoodCard from '@/components/FoodCard.vue'
+import FoodDetailModal from '@/components/FoodDetailModal.vue'
+import { MEAL_TYPE_OPTIONS } from '@/utils/constants'
+import type { FoodItem } from '@/types/food'
 
 const { query, results, isSearching, error, hasSearched, onSearchInput, performSearch } =
   useFoodSearch()
@@ -32,8 +32,8 @@ function addFromDetail(food: FoodItem) {
   <main class="max-w-2xl mx-auto px-4 py-8 space-y-6">
     <header class="text-center">
       <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">
-        <i
-          class="fa-solid fa-magnifying-glass"
+        <font-awesome-icon
+          :icon="['fas', 'magnifying-glass']"
           aria-hidden="true"
           style="color: var(--clr-primary)"
         />
@@ -46,8 +46,9 @@ function addFromDetail(food: FoodItem) {
 
     <div class="relative">
       <label for="food-search" class="sr-only">Buscar alimentos</label>
-      <i
-        class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-sm pointer-events-none"
+      <font-awesome-icon
+        :icon="['fas', 'magnifying-glass']"
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-sm pointer-events-none"
         aria-hidden="true"
         style="color: var(--clr-text-faint)"
       />
@@ -64,8 +65,11 @@ function addFromDetail(food: FoodItem) {
     </div>
 
     <div v-if="isSearching" class="text-center py-12" role="status" aria-label="Buscando alimentos">
-      <i
-        class="fa-solid fa-spinner fa-spin-pulse text-3xl block mb-2"
+      <font-awesome-icon
+        :icon="['fas', 'spinner']"
+        spin
+        pulse
+        class="text-3xl block mb-2"
         aria-hidden="true"
         style="color: var(--clr-primary)"
       />
@@ -83,8 +87,9 @@ function addFromDetail(food: FoodItem) {
     </div>
 
     <div v-else-if="hasSearched && results.length === 0" class="text-center py-12" role="status">
-      <i
-        class="fa-solid fa-magnifying-glass text-5xl block mb-3"
+      <font-awesome-icon
+        :icon="['fas', 'magnifying-glass']"
+        class="text-5xl block mb-3"
         aria-hidden="true"
         style="color: var(--clr-text-faint); opacity: 0.4"
       />
@@ -154,7 +159,7 @@ function addFromDetail(food: FoodItem) {
               :aria-pressed="mealType === opt.value"
               @click="mealType = opt.value"
             >
-              <i :class="opt.icon" aria-hidden="true" />
+              <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
               {{ opt.label }}
             </button>
           </div>
@@ -191,18 +196,4 @@ function addFromDetail(food: FoodItem) {
   </main>
 </template>
 
-<style scoped>
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-.animate-slide-up {
-  animation: slide-up 0.25s ease-out;
-}
-</style>
+

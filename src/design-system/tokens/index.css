@@ -60,7 +60,7 @@
      ═══════════════════════════════════════ */
   --clr-text: #2d2a26;
   --clr-text-muted: #534f4c;
-  --clr-text-faint: #66605b;
+  --clr-text-faint: #504b47;
   --clr-text-inverse: #ffffff;
 
   /* ═══════════════════════════════════════
@@ -74,6 +74,37 @@
      Colors — Focus
      ═══════════════════════════════════════ */
   --clr-focus-ring: rgba(91, 122, 61, 0.4);
+
+  /* ═══════════════════════════════════════
+     Colors — Nutri-Score
+     ═══════════════════════════════════════ */
+  --clr-nutri-a: #038141;
+  --clr-nutri-b: #85bb2f;
+  --clr-nutri-c: #fecb02;
+  --clr-nutri-c-text: #3d3400;
+  --clr-nutri-d: #ee8100;
+  --clr-nutri-e: #e63e11;
+
+  /* ═══════════════════════════════════════
+     Colors — Nutrient variants
+     ═══════════════════════════════════════ */
+  --clr-nutrient-lime-bg: #f4f8ec;
+  --clr-nutrient-lime-border: #d1e0be;
+  --clr-nutrient-amber-border: #e8d9b0;
+  --clr-nutrient-brown-bg: #f5ebe0;
+  --clr-nutrient-brown-border: #d9c4b0;
+  --clr-nutrient-brown-bar: #a0785c;
+  --clr-nutrient-brown-text: #8b6548;
+  --clr-nutrient-emerald-border: #c0d4a8;
+
+  /* ═══════════════════════════════════════
+     Colors — BMI gauge
+     ═══════════════════════════════════════ */
+  --clr-bmi-underweight: #22c55e;
+  --clr-bmi-normal: #84cc16;
+  --clr-bmi-overweight: #eab308;
+  --clr-bmi-obese: #f97316;
+  --clr-bmi-extreme: #ef4444;
 
   /* ═══════════════════════════════════════
      Spacing scale (4px base)

@@ -1,4 +1,4 @@
-import type { BmiResult } from '../types/calculator'
+import type { BmiResult } from '@/types/calculator'
 
 export function classifyBMI(bmi: number): BmiResult['classification'] {
   if (bmi < 18.5) return 'Bajo peso'

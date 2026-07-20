@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { FoodItem, MealEntry, NutritionSummary, MealType } from '../types/food'
+import type { FoodItem, MealEntry, NutritionSummary, MealType } from '@/types/food'
 
 function getToday(): string {
   return new Date().toISOString().split('T')[0]

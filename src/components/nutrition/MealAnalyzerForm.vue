@@ -67,7 +67,7 @@ defineProps<{
         size="sm"
         :loading="loading"
         :disabled="loading"
-        icon="fa-solid fa-wand-magic-sparkles"
+        :icon="['fas', 'wand-magic-sparkles']"
       >
         Analizar
       </Button>

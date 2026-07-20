@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { calculateBMR, calculateTDEE, calculateCalorieGoals } from './mifflinStJeor'
-import type { UserProfile } from '../types/user'
+import type { UserProfile } from '@/types/user'
 
 describe('calculateBMR', () => {
   it('calculates BMR for males using Mifflin-St Jeor', () => {

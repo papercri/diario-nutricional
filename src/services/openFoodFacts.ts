@@ -3,7 +3,7 @@ import type {
   NutriScoreGrade,
   OpenFoodFactsSearchResult,
   OpenFoodFactsProduct,
-} from '../types/food'
+} from '@/types/food'
 
 const BASE_URL = 'https://world.openfoodfacts.org'
 const DEFAULT_TIMEOUT_MS = 8000

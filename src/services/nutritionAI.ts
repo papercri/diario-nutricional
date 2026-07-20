@@ -1,4 +1,4 @@
-import type { NutritionAnalysis, NutritionAIResponse } from '../types/nutrition'
+import type { NutritionAnalysis, NutritionAIResponse } from '@/types/nutrition'
 
 export class NutritionAIError extends Error {
   constructor(message: string) {
