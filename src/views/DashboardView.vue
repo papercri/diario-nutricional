@@ -150,8 +150,9 @@ function entryMacros(entry: {
           </span>
         </div>
         <div class="flex items-center gap-1 shrink-0">
-          <i
-            class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
+          <font-awesome-icon
+            :icon="['fas', 'chevron-down']"
+            class="text-[13px] transition-transform duration-200"
             :class="{ 'rotate-180': mealsOpen }"
             aria-hidden="true"
             style="color: var(--clr-text-faint)"
@@ -166,8 +167,9 @@ function entryMacros(entry: {
           class="card-warm text-center py-6 px-4 mt-1.5"
           role="status"
         >
-          <i
-            class="fa-solid fa-utensils text-2xl block mb-1.5"
+          <font-awesome-icon
+            :icon="['fas', 'utensils']"
+            class="text-2xl block mb-1.5"
             aria-hidden="true"
             style="color: var(--clr-primary); opacity: 0.4"
           />
@@ -191,8 +193,8 @@ function entryMacros(entry: {
               @click="toggleMealType(type as MealType)"
             >
               <div class="flex items-center gap-1 min-w-0">
-                <i
-                  :class="MEAL_TYPE_ICONS[type]"
+                <font-awesome-icon
+                  :icon="MEAL_TYPE_ICONS[type]"
                   aria-hidden="true"
                   class="text-[10px]"
                   style="color: var(--clr-primary)"
@@ -204,8 +206,9 @@ function entryMacros(entry: {
                   {{ entries.length }} · {{ mealTypeTotalCalories(entries) }} kcal
                 </span>
               </div>
-              <i
-                class="fa-solid fa-chevron-down text-[13px] transition-transform duration-200"
+              <font-awesome-icon
+                :icon="['fas', 'chevron-down']"
+                class="text-[13px] transition-transform duration-200"
                 :class="{ 'rotate-180': openMealTypes.has(type as MealType) }"
                 aria-hidden="true"
                 style="color: var(--clr-text-faint)"
@@ -250,7 +253,7 @@ function entryMacros(entry: {
                       ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
                     "
                   >
-                    <i class="fa-solid fa-xmark text-[13px]" aria-hidden="true" />
+                    <font-awesome-icon :icon="['fas', 'xmark']" class="text-[13px]" aria-hidden="true" />
                   </button>
                 </div>
               </li>
@@ -266,7 +269,7 @@ function entryMacros(entry: {
             class="btn btn-primary text-[10px] py-1 px-2 whitespace-nowrap"
             role="button"
           >
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'magnifying-glass']" aria-hidden="true" />
             Buscar
           </router-link>
           <router-link
@@ -274,7 +277,7 @@ function entryMacros(entry: {
             class="btn btn-accent text-[10px] py-1 px-2 whitespace-nowrap"
             role="button"
           >
-            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
             Mis platos
           </router-link>
         </div>
@@ -284,7 +287,7 @@ function entryMacros(entry: {
           aria-label="Eliminar todas las comidas de hoy"
           @click.stop="showClearModal = true"
         >
-          <i class="fa-solid fa-broom" aria-hidden="true" />
+          <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
           Limpiar
         </button>
       </div>

@@ -71,8 +71,8 @@ function closeModal() {
   <main class="nutrition-page">
     <header class="nutrition-page__header">
       <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
-        <i
-          class="fa-solid fa-wand-magic-sparkles"
+        <font-awesome-icon
+          :icon="['fas', 'wand-magic-sparkles']"
           aria-hidden="true"
           style="color: var(--clr-accent)"
         />
@@ -87,8 +87,10 @@ function closeModal() {
       <MealAnalyzerForm :loading="isLoading" @submit="handleAnalyze" />
 
       <div v-if="isLoading" class="nutrition-loading" role="status" aria-label="Analizando comida">
-        <i
-          class="fa-solid fa-spinner fa-spin-pulse"
+        <font-awesome-icon
+          :icon="['fas', 'spinner']"
+          spin
+          pulse
           aria-hidden="true"
           style="color: var(--clr-primary)"
         />
@@ -96,8 +98,8 @@ function closeModal() {
       </div>
 
       <div v-else-if="error" class="nutrition-error" role="alert">
-        <i
-          class="fa-solid fa-triangle-exclamation"
+        <font-awesome-icon
+          :icon="['fas', 'triangle-exclamation']"
           aria-hidden="true"
           style="color: var(--clr-danger)"
         />
@@ -112,7 +114,7 @@ function closeModal() {
         />
 
         <p v-if="added" class="nutrition-added" role="status">
-          <i class="fa-solid fa-check-circle" aria-hidden="true" />
+          <font-awesome-icon :icon="['fas', 'check-circle']" aria-hidden="true" />
           Añadido a tu registro diario
         </p>
 
@@ -165,7 +167,7 @@ function closeModal() {
               :aria-pressed="mealType === opt.value"
               @click="mealType = opt.value"
             >
-              <i :class="opt.icon" aria-hidden="true" />
+              <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
               {{ opt.label }}
             </button>
           </div>

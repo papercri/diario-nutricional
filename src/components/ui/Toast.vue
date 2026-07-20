@@ -3,10 +3,10 @@ import { useToast } from '@/composables/useToast'
 
 const { toasts, remove } = useToast()
 
-function iconClass(type: string) {
-  if (type === 'success') return 'fa-solid fa-check-circle'
-  if (type === 'error') return 'fa-solid fa-exclamation-circle'
-  return 'fa-solid fa-info-circle'
+function iconClass(type: string): [string, string] {
+  if (type === 'success') return ['fas', 'check-circle']
+  if (type === 'error') return ['fas', 'exclamation-circle']
+  return ['fas', 'info-circle']
 }
 
 function bgColor(type: string) {
@@ -27,15 +27,15 @@ function bgColor(type: string) {
           :style="{ borderLeftColor: bgColor(toast.type) }"
           role="status"
         >
-          <i
-            :class="iconClass(toast.type)"
+          <font-awesome-icon
+            :icon="iconClass(toast.type)"
             class="toast-icon"
             :style="{ color: bgColor(toast.type) }"
             aria-hidden="true"
           />
           <span class="toast-message">{{ toast.message }}</span>
           <button class="toast-close" aria-label="Cerrar" @click="remove(toast.id)">
-            <i class="fa-solid fa-xmark" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
           </button>
         </div>
       </TransitionGroup>

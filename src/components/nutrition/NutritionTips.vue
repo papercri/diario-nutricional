@@ -9,13 +9,13 @@ defineProps<{
 <template>
   <Card variant="warm" padding="md">
     <h3 class="tips-title">
-      <i class="fa-solid fa-lightbulb" aria-hidden="true" />
+      <font-awesome-icon :icon="['fas', 'lightbulb']" aria-hidden="true" />
       Consejos
     </h3>
 
     <ul class="tips-list" role="list">
       <li v-for="(tip, index) in tips" :key="index" class="tips-item">
-        <i class="fa-solid fa-check tips-item__icon" aria-hidden="true" />
+        <font-awesome-icon :icon="['fas', 'check']" class="tips-item__icon" aria-hidden="true" />
         <span class="tips-item__text">{{ tip }}</span>
       </li>
     </ul>

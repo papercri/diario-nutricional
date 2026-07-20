@@ -12,31 +12,31 @@ const macros = [
   {
     key: 'protein',
     label: 'Proteínas',
-    icon: 'fa-solid fa-drumstick-bite',
+    icon: ['fas', 'drumstick-bite'] as [string, string],
     color: 'var(--clr-primary)',
   },
   {
     key: 'carbohydrates',
     label: 'Carbohidratos',
-    icon: 'fa-solid fa-bread-slice',
+    icon: ['fas', 'bread-slice'] as [string, string],
     color: 'var(--clr-accent)',
   },
-  { key: 'fat', label: 'Grasas', icon: 'fa-solid fa-droplet', color: 'var(--clr-secondary)' },
+  { key: 'fat', label: 'Grasas', icon: ['fas', 'droplet'] as [string, string], color: 'var(--clr-secondary)' },
 ] as const
 </script>
 
 <template>
   <Card variant="surface" padding="md">
     <h3 class="macro-title">
-      <i class="fa-solid fa-chart-pie" aria-hidden="true" />
+      <font-awesome-icon :icon="['fas', 'chart-pie']" aria-hidden="true" />
       Macros
     </h3>
 
     <div class="macro-grid">
       <div v-for="macro in macros" :key="macro.key" class="macro-item">
         <div class="macro-item__header">
-          <i
-            :class="macro.icon"
+          <font-awesome-icon
+            :icon="macro.icon"
             class="macro-item__icon"
             :style="{ color: macro.color }"
             aria-hidden="true"

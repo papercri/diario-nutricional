@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useFoodStore } from './foodStore'
-import type { FoodItem, MealType } from '@/types/food'
+import type { FoodItem } from '@/types/food'
 
 const mockStorage = new Map<string, string>()
 vi.spyOn(Storage.prototype, 'getItem').mockImplementation(key => mockStorage.get(key) ?? null)

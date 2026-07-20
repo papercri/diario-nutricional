@@ -6,15 +6,15 @@ const route = useRoute()
 const isMenuOpen = ref(false)
 
 const links = [
-  { name: 'dashboard', path: '/', label: 'Inicio', icon: 'fa-solid fa-house' },
-  { name: 'search', path: '/search', label: 'Buscar', icon: 'fa-solid fa-magnifying-glass' },
+  { name: 'dashboard', path: '/', label: 'Inicio', icon: ['fas', 'house'] as [string, string] },
+  { name: 'search', path: '/search', label: 'Buscar', icon: ['fas', 'magnifying-glass'] as [string, string] },
   {
     name: 'nutrition-ai',
     path: '/nutrition-ai',
     label: 'Mis platos',
-    icon: 'fa-solid fa-wand-magic-sparkles',
+    icon: ['fas', 'wand-magic-sparkles'] as [string, string],
   },
-  { name: 'profile', path: '/profile', label: 'Mi perfil', icon: 'fa-solid fa-user' },
+  { name: 'profile', path: '/profile', label: 'Mi perfil', icon: ['fas', 'user'] as [string, string] },
 ]
 
 function toggleMenu() {
@@ -46,7 +46,7 @@ watch(
           class="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105"
           style="background: var(--clr-primary)"
         >
-          <i class="fa-solid fa-leaf text-sm" aria-hidden="true" style="color: #fff" />
+          <font-awesome-icon :icon="['fas', 'leaf']" class="text-sm" aria-hidden="true" style="color: #fff" />
         </div>
         <span class="font-display text-lg font-bold tracking-tight"> Avocato </span>
       </router-link>
@@ -61,7 +61,7 @@ watch(
           :aria-current="route.name === link.name ? 'page' : undefined"
           :class="route.name === link.name ? 'btn-primary' : ''"
         >
-          <i :class="link.icon" aria-hidden="true" />
+          <font-awesome-icon :icon="link.icon" aria-hidden="true" />
           <span class="hidden lg:inline">{{ link.label }}</span>
         </router-link>
       </nav>
@@ -121,7 +121,7 @@ watch(
                 : 'color: var(--clr-text)'
             "
           >
-            <i :class="link.icon" aria-hidden="true" />
+            <font-awesome-icon :icon="link.icon" aria-hidden="true" />
             {{ link.label }}
           </router-link>
         </div>

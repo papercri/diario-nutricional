@@ -19,7 +19,7 @@ defineEmits<{
       <div class="result-card__main">
         <div class="result-card__info">
           <div class="result-card__header">
-            <i class="fa-solid fa-utensils result-card__icon" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'utensils']" class="result-card__icon" aria-hidden="true" />
             <h3 class="result-card__meal-name">{{ mealName }}</h3>
           </div>
           <div class="result-card__calories">
@@ -27,7 +27,7 @@ defineEmits<{
             <span class="result-card__calories-unit">kcal</span>
           </div>
         </div>
-        <Button variant="accent" size="sm" icon="fa-solid fa-plus" @click="$emit('addToDaily')">
+        <Button variant="accent" size="sm" :icon="['fas', 'plus']" @click="$emit('addToDaily')">
           Añadir
         </Button>
       </div>

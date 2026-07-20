@@ -54,7 +54,7 @@ function getGradeLabel(grade: string): string {
           aria-label="Cerrar"
           @click="emit('close')"
         >
-          <i class="fa-solid fa-xmark text-sm" aria-hidden="true" />
+          <font-awesome-icon :icon="['fas', 'xmark']" class="text-sm" aria-hidden="true" />
         </button>
       </div>
 
@@ -65,7 +65,7 @@ function getGradeLabel(grade: string): string {
             <h2 class="text-display-lg">{{ food.name }}</h2>
             <p v-if="food.brand" class="text-body mt-1">{{ food.brand }}</p>
             <p v-if="food.servingSize" class="text-body-sm mt-1">
-              <i class="fa-solid fa-scale-balanced mr-1" aria-hidden="true" />
+              <font-awesome-icon :icon="['fas', 'scale-balanced']" class="mr-1" aria-hidden="true" />
               Porción: {{ food.servingSize }}
             </p>
             <img
@@ -86,8 +86,9 @@ function getGradeLabel(grade: string): string {
             class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl flex items-center justify-center shrink-0"
             style="background: var(--clr-primary-light)"
           >
-            <i
-              class="fa-solid fa-utensils text-3xl"
+            <font-awesome-icon
+              :icon="['fas', 'utensils']"
+              class="text-3xl"
               aria-hidden="true"
               style="color: var(--clr-primary); opacity: 0.3"
             />
@@ -146,7 +147,7 @@ function getGradeLabel(grade: string): string {
         <div class="flex gap-3">
           <button class="btn btn-secondary flex-1" @click="emit('close')">Cerrar</button>
           <button class="btn btn-primary flex-1" @click="emit('add', food)">
-            <i class="fa-solid fa-plus" aria-hidden="true" />
+            <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
             Añadir
           </button>
         </div>

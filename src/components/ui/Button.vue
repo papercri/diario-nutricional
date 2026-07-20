@@ -6,7 +6,7 @@ withDefaults(
     disabled?: boolean
     loading?: boolean
     type?: 'button' | 'submit' | 'reset'
-    icon?: string
+    icon?: string | [string, string]
     iconPosition?: 'start' | 'end'
   }>(),
   {
@@ -32,9 +32,9 @@ defineEmits<{
     @click="$emit('click', $event)"
   >
     <span v-if="loading" class="ds-btn__spinner" aria-hidden="true" />
-    <i v-else-if="icon && iconPosition === 'start'" :class="icon" aria-hidden="true" />
+    <font-awesome-icon v-else-if="icon && iconPosition === 'start'" :icon="icon" aria-hidden="true" />
     <slot />
-    <i v-if="icon && iconPosition === 'end'" :class="icon" aria-hidden="true" />
+    <font-awesome-icon v-if="icon && iconPosition === 'end'" :icon="icon" aria-hidden="true" />
   </button>
 </template>
 
