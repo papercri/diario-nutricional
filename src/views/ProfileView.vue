@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useUserStore } from '../stores/userStore'
-import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '../utils/constants'
-import { calculateBMI, calculateIdealWeight } from '../utils/bmi'
-import { classifyBMI, getBmiBadgeVariant } from '../utils/bmiClassification'
-import DsCard from '../components/ui/Card.vue'
-import DsInput from '../components/ui/Input.vue'
-import DsButton from '../components/ui/Button.vue'
-import DsBadge from '../components/ui/Badge.vue'
-import DsTypography from '../components/ui/Typography.vue'
-import type { ActivityLevel, GoalType, Sex } from '../types/user'
+import { useUserStore } from '@/stores/userStore'
+import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '@/utils/constants'
+import { calculateBMI, calculateIdealWeight } from '@/utils/bmi'
+import { classifyBMI, getBmiBadgeVariant } from '@/utils/bmiClassification'
+import DsCard from '@/components/ui/Card.vue'
+import DsInput from '@/components/ui/Input.vue'
+import DsButton from '@/components/ui/Button.vue'
+import DsBadge from '@/components/ui/Badge.vue'
+import DsTypography from '@/components/ui/Typography.vue'
+import type { ActivityLevel, GoalType, Sex } from '@/types/user'
 
 const userStore = useUserStore()
 

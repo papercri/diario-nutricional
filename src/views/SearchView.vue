@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useFoodSearch } from '../composables/useFoodSearch'
-import { useAddFood } from '../composables/useAddFood'
-import FoodCard from '../components/FoodCard.vue'
-import FoodDetailModal from '../components/FoodDetailModal.vue'
-import { MEAL_TYPE_OPTIONS } from '../utils/constants'
-import type { FoodItem } from '../types/food'
+import { useFoodSearch } from '@/composables/useFoodSearch'
+import { useAddFood } from '@/composables/useAddFood'
+import FoodCard from '@/components/FoodCard.vue'
+import FoodDetailModal from '@/components/FoodDetailModal.vue'
+import { MEAL_TYPE_OPTIONS } from '@/utils/constants'
+import type { FoodItem } from '@/types/food'
 
 const { query, results, isSearching, error, hasSearched, onSearchInput, performSearch } =
   useFoodSearch()

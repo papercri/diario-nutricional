@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { calcPercentage } from '../utils/nutrition'
+import { calcPercentage } from '@/utils/nutrition'
 
 const props = defineProps<{
   label: string

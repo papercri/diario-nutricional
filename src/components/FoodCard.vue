@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FoodItem } from '../types/food'
+import type { FoodItem } from '@/types/food'
 
 defineProps<{
   food: FoodItem

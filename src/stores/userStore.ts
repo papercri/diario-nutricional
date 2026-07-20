@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { UserProfile, CalorieGoals } from '../types/user'
-import { calculateCalorieGoals } from '../utils/mifflinStJeor'
+import type { UserProfile, CalorieGoals } from '@/types/user'
+import { calculateCalorieGoals } from '@/utils/mifflinStJeor'
 
 const DEFAULT_PROFILE: UserProfile = {
   name: '',

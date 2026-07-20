@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useUserStore } from '../stores/userStore'
-import { useFoodStore } from '../stores/foodStore'
-import CalorieRing from '../components/CalorieRing.vue'
-import NutrientCard from '../components/NutrientCard.vue'
-import Modal from '../components/ui/Modal.vue'
-import { useToast } from '../composables/useToast'
-import { groupEntriesByMealType } from '../utils/nutrition'
-import { formatDateEs } from '../utils/formatting'
-import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '../utils/constants'
-import type { MealType } from '../types/user'
+import { useUserStore } from '@/stores/userStore'
+import { useFoodStore } from '@/stores/foodStore'
+import CalorieRing from '@/components/CalorieRing.vue'
+import NutrientCard from '@/components/NutrientCard.vue'
+import Modal from '@/components/ui/Modal.vue'
+import { useToast } from '@/composables/useToast'
+import { groupEntriesByMealType } from '@/utils/nutrition'
+import { formatDateEs } from '@/utils/formatting'
+import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '@/utils/constants'
+import type { MealType } from '@/types/user'
 
 const userStore = useUserStore()
 const foodStore = useFoodStore()
