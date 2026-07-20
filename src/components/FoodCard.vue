@@ -99,7 +99,7 @@ const emit = defineEmits<{
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-md);
