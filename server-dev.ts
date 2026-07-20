@@ -28,9 +28,12 @@ function loadEnv() {
 loadEnv()
 
 const PORT = 3001
+const API_ROUTES = ['/api/analyze-meal', '/api/generate-recipe']
 
 const server = createServer(async (req, res) => {
-  if (req.method === 'POST' && req.url === '/api/analyze-meal') {
+  console.log(`[api-dev] ${req.method} ${req.url}`)
+
+  if (req.method === 'POST' && API_ROUTES.includes(req.url ?? '')) {
     let body = ''
     for await (const chunk of req) {
       body += chunk
@@ -40,7 +43,7 @@ const server = createServer(async (req, res) => {
       const parsed = JSON.parse(body)
       const fakeReq = {
         method: 'POST',
-        url: '/api/analyze-meal',
+        url: req.url,
         headers: { 'content-type': 'application/json' },
         body: parsed,
       }
@@ -59,17 +62,20 @@ const server = createServer(async (req, res) => {
         },
       }
 
-      const { default: handler } = await import('./api/analyze-meal.ts')
+      const handlerPath =
+        req.url === '/api/analyze-meal' ? './api/analyze-meal.ts' : './api/generate-recipe.ts'
+      const { default: handler } = await import(handlerPath)
       await handler(fakeReq as never, fakeRes as never)
 
       res.writeHead(statusCode, { 'Content-Type': 'application/json' })
       res.end(JSON.stringify(responseData))
     } catch (err) {
-      console.error('Error en API handler:', err)
+      console.error('[api-dev] Error en handler:', err)
       res.writeHead(500, { 'Content-Type': 'application/json' })
       res.end(JSON.stringify({ success: false, error: 'Error interno del servidor' }))
     }
   } else {
+    console.warn(`[api-dev] 404 — ${req.method} ${req.url}`)
     res.writeHead(404, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify({ error: 'Not found' }))
   }
@@ -77,4 +83,5 @@ const server = createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`[api-dev] Servidor API escuchando en http://localhost:${PORT}`)
+  console.log(`[api-dev] Rutas: ${API_ROUTES.join(', ')}`)
 })

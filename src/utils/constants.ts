@@ -1,4 +1,5 @@
 import type { MealType } from '@/types/user'
+import type { DietaryPreference, Allergen } from '@/types/recipe'
 
 export interface SelectOption<T = string> {
   value: T
@@ -46,4 +47,38 @@ export const GOAL_OPTIONS: GoalOption[] = [
   { value: 'lose', label: 'Perder peso', desc: 'Déficit calórico', icon: ['fas', 'arrow-down'] },
   { value: 'maintain', label: 'Mantener', desc: 'Balance calórico', icon: ['fas', 'equals'] },
   { value: 'gain', label: 'Ganar masa', desc: 'Superávit calórico', icon: ['fas', 'arrow-up'] },
+]
+
+export interface DietaryPreferenceOption {
+  value: DietaryPreference
+  label: string
+  icon: [string, string]
+}
+
+export const DIETARY_PREFERENCE_OPTIONS: DietaryPreferenceOption[] = [
+  { value: 'none', label: 'Sin preferencias específicas', icon: ['fas', 'utensils'] },
+  { value: 'vegetarian', label: 'Vegetariana', icon: ['fas', 'leaf'] },
+  { value: 'vegan', label: 'Vegana', icon: ['fas', 'seedling'] },
+  { value: 'gluten_free', label: 'Sin gluten', icon: ['fas', 'wheat-awn-circle-exclamation'] },
+]
+
+export interface AllergenOption {
+  value: Allergen
+  label: string
+  icon: [string, string]
+}
+
+export const ALLERGEN_OPTIONS: AllergenOption[] = [
+  { value: 'gluten', label: 'Gluten', icon: ['fas', 'bread-slice'] },
+  { value: 'milk', label: 'Leche', icon: ['fas', 'glass-water'] },
+  { value: 'eggs', label: 'Huevo', icon: ['fas', 'egg'] },
+  { value: 'peanuts', label: 'Cacahuetes', icon: ['fas', 'cookie'] },
+  { value: 'tree_nuts', label: 'Frutos secos', icon: ['fas', 'bowl-food'] },
+  { value: 'soy', label: 'Soja', icon: ['fas', 'leaf'] },
+  { value: 'fish', label: 'Pescado', icon: ['fas', 'fish'] },
+  { value: 'shellfish', label: 'Marisco', icon: ['fas', 'shrimp'] },
+  { value: 'sesame', label: 'Sésamo', icon: ['fas', 'droplet'] },
+  { value: 'mustard', label: 'Mostaza', icon: ['fas', 'droplet'] },
+  { value: 'celery', label: 'Apio', icon: ['fas', 'carrot'] },
+  { value: 'lupin', label: 'Altramuces', icon: ['fas', 'seedling'] },
 ]

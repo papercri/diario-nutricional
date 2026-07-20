@@ -10,6 +10,7 @@ import NutritionResultCard from '@/components/nutrition/NutritionResultCard.vue'
 import MacroDistribution from '@/components/nutrition/MacroDistribution.vue'
 import IngredientBreakdown from '@/components/nutrition/IngredientBreakdown.vue'
 import NutritionTips from '@/components/nutrition/NutritionTips.vue'
+import AllergenInfoCard from '@/components/nutrition/AllergenInfoCard.vue'
 
 const foodStore = useFoodStore()
 
@@ -110,7 +111,13 @@ function closeModal() {
         <NutritionResultCard
           :meal-name="result.mealName"
           :estimated-calories="result.estimatedCalories"
+          :is-vegan="result.isVegan"
+          :is-vegetarian="result.isVegetarian"
           @add-to-daily="openAddModal"
+        />
+
+        <AllergenInfoCard
+          :allergens="result.allergens ?? []"
         />
 
         <p v-if="added" class="nutrition-added" role="status">
