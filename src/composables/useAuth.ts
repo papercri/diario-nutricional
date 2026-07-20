@@ -3,6 +3,8 @@ import type { User, Session } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
 import { useUserStore } from '@/stores/userStore'
 import { useFoodStore } from '@/stores/foodStore'
+import { useSavedPlatesStore } from '@/stores/savedPlatesStore'
+import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
 
 const user = ref<User | null>(null)
 const session = ref<Session | null>(null)
@@ -11,6 +13,8 @@ const loading = ref(true)
 export function useAuth() {
   const userStore = useUserStore()
   const foodStore = useFoodStore()
+  const savedPlatesStore = useSavedPlatesStore()
+  const savedRecipesStore = useSavedRecipesStore()
 
   async function signIn(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
@@ -31,6 +35,8 @@ export function useAuth() {
     session.value = null
     userStore.setUserId('')
     foodStore.setUserId('')
+    savedPlatesStore.setUserId('')
+    savedRecipesStore.setUserId('')
   }
 
   async function migrateLocalData() {
@@ -39,12 +45,18 @@ export function useAuth() {
 
     userStore.setUserId(userId)
     foodStore.setUserId(userId)
+    savedPlatesStore.setUserId(userId)
+    savedRecipesStore.setUserId(userId)
 
     await userStore.migrateToSupabase()
     await foodStore.migrateToSupabase()
+    await savedPlatesStore.migrateToSupabase()
+    await savedRecipesStore.migrateToSupabase()
 
     await userStore.loadProfile()
     await foodStore.loadEntries()
+    await savedPlatesStore.loadPlates()
+    await savedRecipesStore.loadRecipes()
   }
 
   onMounted(() => {
@@ -65,8 +77,12 @@ export function useAuth() {
       } else {
         userStore.setUserId('')
         foodStore.setUserId('')
+        savedPlatesStore.setUserId('')
+        savedRecipesStore.setUserId('')
         await userStore.loadProfile()
         await foodStore.loadEntries()
+        await savedPlatesStore.loadPlates()
+        await savedRecipesStore.loadRecipes()
       }
     })
   })

@@ -12,7 +12,12 @@ const isMenuOpen = ref(false)
 
 const links = [
   { name: 'dashboard', path: '/', label: 'Inicio', icon: ['fas', 'house'] as [string, string] },
-  { name: 'search', path: '/search', label: 'Buscar', icon: ['fas', 'magnifying-glass'] as [string, string] },
+  {
+    name: 'search',
+    path: '/search',
+    label: 'Buscar',
+    icon: ['fas', 'magnifying-glass'] as [string, string],
+  },
   {
     name: 'nutrition-ai',
     path: '/nutrition-ai',
@@ -25,7 +30,12 @@ const links = [
     label: 'Recetas',
     icon: ['fas', 'utensils'] as [string, string],
   },
-  { name: 'profile', path: '/profile', label: 'Mi perfil', icon: ['fas', 'user'] as [string, string] },
+  {
+    name: 'profile',
+    path: '/profile',
+    label: 'Mi perfil',
+    icon: ['fas', 'user'] as [string, string],
+  },
 ]
 
 function toggleMenu() {
@@ -63,7 +73,12 @@ watch(
           class="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105"
           style="background: var(--clr-primary)"
         >
-          <font-awesome-icon :icon="['fas', 'leaf']" class="text-sm" aria-hidden="true" style="color: #fff" />
+          <font-awesome-icon
+            :icon="['fas', 'leaf']"
+            class="text-sm"
+            aria-hidden="true"
+            style="color: #fff"
+          />
         </div>
         <span class="font-display text-lg font-bold tracking-tight"> Avocato </span>
       </router-link>
@@ -89,11 +104,7 @@ watch(
           <span class="text-sm font-medium" style="color: var(--clr-text)">
             Hola, {{ userStore.profile.name || 'usuario' }}
           </span>
-          <button
-            class="btn btn-ghost text-sm"
-            aria-label="Cerrar sesión"
-            @click="handleSignOut"
-          >
+          <button class="btn btn-ghost text-sm" aria-label="Cerrar sesión" @click="handleSignOut">
             <font-awesome-icon :icon="['fas', 'right-from-bracket']" aria-hidden="true" />
           </button>
         </template>

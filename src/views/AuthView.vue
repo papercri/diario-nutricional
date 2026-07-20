@@ -51,9 +51,11 @@ function getErrorMessage(e: unknown): string {
   const msg = e.message.toLowerCase()
   if (msg.includes('invalid login credentials')) return 'Email o contraseña incorrectos'
   if (msg.includes('user already registered')) return 'Este email ya está registrado'
-  if (msg.includes('password should be at least')) return 'La contraseña debe tener al menos 6 caracteres'
+  if (msg.includes('password should be at least'))
+    return 'La contraseña debe tener al menos 6 caracteres'
   if (msg.includes('unable to validate email address')) return 'Email no válido'
-  if (msg.includes('email not confirmed')) return 'Email no confirmado. Revisa tu bandeja de entrada'
+  if (msg.includes('email not confirmed'))
+    return 'Email no confirmado. Revisa tu bandeja de entrada'
   if (msg.includes('429') || msg.includes('too many') || msg.includes('rate limit')) {
     return 'Servidor ocupado. Espera un momento y vuelve a intentar'
   }
@@ -133,7 +135,10 @@ async function handleSubmit() {
         <button
           type="button"
           class="auth-toggle-btn"
-          @click="isLogin = !isLogin; error = ''"
+          @click="
+            isLogin = !isLogin
+            error = ''
+          "
         >
           {{ isLogin ? 'Crear cuenta' : 'Iniciar sesión' }}
         </button>

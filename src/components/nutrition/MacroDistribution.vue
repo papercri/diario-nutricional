@@ -21,14 +21,23 @@ const macros = [
     icon: ['fas', 'bread-slice'] as [string, string],
     color: 'var(--clr-accent)',
   },
-  { key: 'fat', label: 'Grasas', icon: ['fas', 'droplet'] as [string, string], color: 'var(--clr-secondary)' },
+  {
+    key: 'fat',
+    label: 'Grasas',
+    icon: ['fas', 'droplet'] as [string, string],
+    color: 'var(--clr-secondary)',
+  },
 ] as const
 </script>
 
 <template>
   <Card variant="surface" padding="md">
     <h3 class="ds-section-title">
-      <font-awesome-icon :icon="['fas', 'chart-pie']" class="ds-section-title--accent" aria-hidden="true" />
+      <font-awesome-icon
+        :icon="['fas', 'chart-pie']"
+        class="ds-section-title--accent"
+        aria-hidden="true"
+      />
       Macros
     </h3>
 

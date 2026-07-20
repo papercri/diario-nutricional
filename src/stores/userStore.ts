@@ -57,7 +57,9 @@ function loadLocal(): UserProfile {
       const parsed = JSON.parse(stored) as Partial<UserProfile>
       return { ...DEFAULT_PROFILE, ...parsed }
     }
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
   return { ...DEFAULT_PROFILE }
 }
 
@@ -76,11 +78,7 @@ export const useUserStore = defineStore('user', () => {
 
   async function loadProfile() {
     if (userId.value) {
-      const { data } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId.value)
-        .single()
+      const { data } = await supabase.from('profiles').select('*').eq('id', userId.value).single()
       if (data) {
         profile.value = rowToProfile(data)
         saveLocal(profile.value)
@@ -96,9 +94,7 @@ export const useUserStore = defineStore('user', () => {
     saveLocal(profile.value)
     if (userId.value) {
       const row = profileToRow(profile.value)
-      await supabase
-        .from('profiles')
-        .upsert({ id: userId.value, ...row }, { onConflict: 'id' })
+      await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
     }
   }
 
@@ -107,9 +103,7 @@ export const useUserStore = defineStore('user', () => {
     saveLocal(profile.value)
     if (userId.value) {
       const row = profileToRow(profile.value)
-      await supabase
-        .from('profiles')
-        .upsert({ id: userId.value, ...row }, { onConflict: 'id' })
+      await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
     }
   }
 
@@ -118,9 +112,7 @@ export const useUserStore = defineStore('user', () => {
     const local = loadLocal()
     if (local.name || local.age !== 30 || local.weight !== 70) {
       const row = profileToRow(local)
-      await supabase
-        .from('profiles')
-        .upsert({ id: userId.value, ...row }, { onConflict: 'id' })
+      await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
     }
     localStorage.removeItem(STORAGE_KEY)
   }

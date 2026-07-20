@@ -32,7 +32,11 @@ defineEmits<{
     @click="$emit('click', $event)"
   >
     <span v-if="loading" class="ds-btn__spinner" aria-hidden="true" />
-    <font-awesome-icon v-else-if="icon && iconPosition === 'start'" :icon="icon" aria-hidden="true" />
+    <font-awesome-icon
+      v-else-if="icon && iconPosition === 'start'"
+      :icon="icon"
+      aria-hidden="true"
+    />
     <slot />
     <font-awesome-icon v-if="icon && iconPosition === 'end'" :icon="icon" aria-hidden="true" />
   </button>

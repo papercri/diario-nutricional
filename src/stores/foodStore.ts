@@ -36,7 +36,9 @@ function loadLocal(): Record<string, MealEntry[]> {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored) return JSON.parse(stored) as Record<string, MealEntry[]>
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
   return {}
 }
 
@@ -144,11 +146,7 @@ export const useFoodStore = defineStore('food', () => {
 
   async function removeEntry(entryId: string) {
     if (userId.value) {
-      await supabase
-        .from('meal_entries')
-        .delete()
-        .eq('id', entryId)
-        .eq('user_id', userId.value)
+      await supabase.from('meal_entries').delete().eq('id', entryId).eq('user_id', userId.value)
     }
 
     const today = getToday()
@@ -161,11 +159,7 @@ export const useFoodStore = defineStore('food', () => {
   async function clearToday() {
     const today = getToday()
     if (userId.value) {
-      await supabase
-        .from('meal_entries')
-        .delete()
-        .eq('user_id', userId.value)
-        .eq('date', today)
+      await supabase.from('meal_entries').delete().eq('user_id', userId.value).eq('date', today)
     }
     dailyLogs.value[today] = []
     saveLocal(dailyLogs.value)

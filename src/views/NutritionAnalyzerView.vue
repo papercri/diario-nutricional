@@ -4,6 +4,8 @@ import type { NutritionAnalysis } from '@/types/nutrition'
 import type { FoodItem, MealType } from '@/types/food'
 import { analyzeMeal, NutritionAIError } from '@/services/nutritionAI'
 import { useFoodStore } from '@/stores/foodStore'
+import { useSavedPlatesStore } from '@/stores/savedPlatesStore'
+import { useToast } from '@/composables/useToast'
 import { MEAL_TYPE_OPTIONS } from '@/utils/constants'
 import MealAnalyzerForm from '@/components/nutrition/MealAnalyzerForm.vue'
 import NutritionResultCard from '@/components/nutrition/NutritionResultCard.vue'
@@ -13,6 +15,8 @@ import NutritionTips from '@/components/nutrition/NutritionTips.vue'
 import AllergenInfoCard from '@/components/nutrition/AllergenInfoCard.vue'
 
 const foodStore = useFoodStore()
+const savedPlatesStore = useSavedPlatesStore()
+const toast = useToast()
 
 const isLoading = ref(false)
 const error = ref('')
@@ -21,6 +25,7 @@ const result = ref<NutritionAnalysis | null>(null)
 const showAddModal = ref(false)
 const mealType = ref<MealType>('lunch')
 const added = ref(false)
+const saved = ref(false)
 
 async function handleAnalyze(description: string) {
   isLoading.value = true
@@ -65,6 +70,22 @@ function confirmAdd() {
 
 function closeModal() {
   showAddModal.value = false
+}
+
+async function savePlate() {
+  if (!result.value) return
+  await savedPlatesStore.savePlate({
+    name: result.value.mealName,
+    description: null,
+    calories: result.value.estimatedCalories,
+    protein: result.value.macros.protein.grams,
+    carbs: result.value.macros.carbohydrates.grams,
+    fat: result.value.macros.fat.grams,
+    servingSize: null,
+    imageUrl: null,
+  })
+  saved.value = true
+  toast.show('Plato guardado en favoritos')
 }
 </script>
 
@@ -116,13 +137,20 @@ function closeModal() {
           @add-to-daily="openAddModal"
         />
 
-        <AllergenInfoCard
-          :allergens="result.allergens ?? []"
-        />
+        <AllergenInfoCard :allergens="result.allergens ?? []" />
 
         <p v-if="added" class="nutrition-added" role="status">
           <font-awesome-icon :icon="['fas', 'check-circle']" aria-hidden="true" />
           Añadido a tu registro diario
+        </p>
+
+        <button v-if="!saved" class="btn btn-secondary btn-sm save-plate-btn" @click="savePlate">
+          <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
+          Guardar plato
+        </button>
+        <p v-else class="nutrition-saved" role="status">
+          <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
+          Guardado en favoritos
         </p>
 
         <div class="nutrition-grid">
@@ -226,6 +254,25 @@ function closeModal() {
 .nutrition-added {
   font-size: 0.75rem;
   color: var(--clr-success);
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+}
+
+.save-plate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  margin: 0 auto;
+}
+
+.nutrition-saved {
+  font-size: 0.75rem;
+  color: var(--clr-accent);
   text-align: center;
   margin: 0;
   display: flex;

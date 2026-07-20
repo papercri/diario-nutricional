@@ -130,7 +130,10 @@ describe('useFoodSearch', () => {
     it('sets isSearching during search', async () => {
       let resolveSearch!: (value: FoodItem[]) => void
       mockSearchFood.mockImplementation(
-        () => new Promise(resolve => { resolveSearch = resolve }),
+        () =>
+          new Promise(resolve => {
+            resolveSearch = resolve
+          }),
       )
       const { query, performSearch, isSearching } = useFoodSearch()
 

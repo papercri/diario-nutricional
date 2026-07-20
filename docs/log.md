@@ -198,3 +198,30 @@ Added new CSS custom properties to `src/design-system/tokens/index.css`:
 - Added fallback utensils icon for food entries without images
 - Applied to foods added via AI analyzer that lack imageUrl
 - Icon displays with light green background when no image available
+
+## 2026-07-20
+
+### Feature: Dashboard with Tabs (Mi día, Mis platos, Mis recetas, Perfil)
+
+Redesigned the DashboardView to include a tabbed interface for navigating between different sections of the app.
+
+**Files modified:**
+- `src/views/DashboardView.vue` — Complete rewrite with 4 tabs: Mi día (daily tracking), Mis platos (saved plates), Mis recetas (saved recipes), Perfil (profile summary + edit link)
+- `src/fontawesome.ts` — Added `faStar`, `faStarHalfStroke`, `faTag` icons for favorites and tags
+- `src/composables/useAuth.ts` — Added savedPlatesStore and savedRecipesStore to migration and auth state handling
+- `src/views/NutritionAnalyzerView.vue` — Added "Guardar plato" button with star icon to save analyzed plates to favorites
+- `src/views/RecipeGeneratorView.vue` — Added "Guardar receta" button with star icon to save generated recipes to favorites
+
+**Files created:**
+- `src/stores/savedPlatesStore.ts` — Pinia store for saved plates with dual localStorage/Supabase persistence
+- `src/stores/savedRecipesStore.ts` — Pinia store for saved recipes with dual localStorage/Supabase persistence
+
+**Design details:**
+- Tab bar uses `--clr-primary` active state with `--clr-text-inverse` text
+- Saved plates grid: responsive auto-fill with 160px min columns
+- Saved recipes grid: same responsive pattern
+- Plate modal: shows image, name, description, macros, serving size
+- Recipe modal: shows name, stats, ingredients list, preparation steps
+- Profile tab: avatar, name, stats grid, allergen tags, dietary preference tags, edit button
+- Favorite button: secondary style with star icon, changes to "Guardado en favoritos" text after saving
+- All modals use existing Modal component with `size="md"` for detail views

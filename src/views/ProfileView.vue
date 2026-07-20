@@ -32,7 +32,10 @@ const bmiPercent = computed(() => {
   return ((clamped - BMI_MIN) / (BMI_MAX - BMI_MIN)) * 100
 })
 
-function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', value: string | number) {
+function onNumberInput(
+  field: 'age' | 'weight' | 'height' | 'desiredWeight',
+  value: string | number,
+) {
   const num = Number(value)
   if (!isNaN(num)) {
     userStore.updateProfile({ [field]: num })
@@ -44,7 +47,11 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   <main class="ds-page">
     <header class="ds-page-header">
       <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
-        <font-awesome-icon :icon="['fas', 'user']" aria-hidden="true" style="color: var(--clr-primary)" />
+        <font-awesome-icon
+          :icon="['fas', 'user']"
+          aria-hidden="true"
+          style="color: var(--clr-primary)"
+        />
         Mi perfil
       </h1>
       <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
@@ -189,7 +196,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
       <!-- Resultados calculados -->
       <DsCard variant="warm" padding="md" aria-label="Resultados calculados">
         <h2 class="section-title section-title--primary">
-            <font-awesome-icon :icon="['fas', 'chart-simple']" aria-hidden="true" />
+          <font-awesome-icon :icon="['fas', 'chart-simple']" aria-hidden="true" />
           Mis resultados
         </h2>
 

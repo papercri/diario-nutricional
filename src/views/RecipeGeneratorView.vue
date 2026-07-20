@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { generateRecipe, RecipeAIError } from '@/services/recipeAI'
+import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
+import { useToast } from '@/composables/useToast'
 import { DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS } from '@/utils/constants'
 import type { GeneratedRecipe } from '@/types/recipe'
 import type { DietaryPreference, Allergen } from '@/types/recipe'
@@ -9,10 +11,13 @@ import DsCard from '@/components/ui/Card.vue'
 import DsButton from '@/components/ui/Button.vue'
 
 const userStore = useUserStore()
+const savedRecipesStore = useSavedRecipesStore()
+const toast = useToast()
 
 const isLoading = ref(false)
 const error = ref('')
 const result = ref<GeneratedRecipe | null>(null)
+const saved = ref(false)
 
 const selectedPreferences = ref<DietaryPreference[]>([])
 const selectedAllergens = ref<Allergen[]>([])
@@ -28,7 +33,7 @@ function togglePreference(value: DietaryPreference) {
   if (idx !== -1) {
     selectedPreferences.value.splice(idx, 1)
   } else {
-    selectedPreferences.value = selectedPreferences.value.filter((v) => v !== 'none')
+    selectedPreferences.value = selectedPreferences.value.filter(v => v !== 'none')
     selectedPreferences.value.push(value)
   }
 }
@@ -54,6 +59,7 @@ async function handleGenerate() {
   isLoading.value = true
   error.value = ''
   result.value = null
+  saved.value = false
 
   try {
     result.value = await generateRecipe({
@@ -73,6 +79,25 @@ async function handleGenerate() {
   } finally {
     isLoading.value = false
   }
+}
+
+async function saveRecipe() {
+  if (!result.value) return
+  await savedRecipesStore.saveRecipe({
+    name: result.value.recipeName,
+    instructions: result.value.steps.join('\n\n'),
+    ingredients: result.value.ingredients.map(ing => ({
+      name: ing.name,
+      quantity: ing.quantity,
+    })),
+    calories: result.value.estimatedCalories,
+    protein: result.value.macros.protein,
+    carbs: result.value.macros.carbohydrates,
+    fat: result.value.macros.fat,
+    prepTime: result.value.preparationTime,
+  })
+  saved.value = true
+  toast.show('Receta guardada en favoritos')
 }
 </script>
 
@@ -99,7 +124,11 @@ async function handleGenerate() {
         <div class="recipe-config__col">
           <DsCard variant="elevated" padding="sm">
             <h2 class="section-title">
-              <font-awesome-icon :icon="['fas', 'leaf']" aria-hidden="true" style="color: var(--clr-primary)" />
+              <font-awesome-icon
+                :icon="['fas', 'leaf']"
+                aria-hidden="true"
+                style="color: var(--clr-primary)"
+              />
               Preferencias dietéticas
             </h2>
             <div class="toggle-group" role="group" aria-label="Preferencias dietéticas">
@@ -120,10 +149,18 @@ async function handleGenerate() {
 
           <DsCard variant="elevated" padding="sm">
             <h2 class="section-title">
-              <font-awesome-icon :icon="['fas', 'triangle-exclamation']" aria-hidden="true" style="color: var(--clr-danger)" />
+              <font-awesome-icon
+                :icon="['fas', 'triangle-exclamation']"
+                aria-hidden="true"
+                style="color: var(--clr-danger)"
+              />
               Excluir alérgenos
             </h2>
-            <div class="toggle-group toggle-group--wrap" role="group" aria-label="Alérgenos a excluir">
+            <div
+              class="toggle-group toggle-group--wrap"
+              role="group"
+              aria-label="Alérgenos a excluir"
+            >
               <button
                 v-for="opt in ALLERGEN_OPTIONS"
                 :key="opt.value"
@@ -144,7 +181,11 @@ async function handleGenerate() {
         <div class="recipe-config__col">
           <DsCard variant="elevated" padding="sm">
             <h2 class="section-title">
-              <font-awesome-icon :icon="['fas', 'carrot']" aria-hidden="true" style="color: var(--clr-secondary)" />
+              <font-awesome-icon
+                :icon="['fas', 'carrot']"
+                aria-hidden="true"
+                style="color: var(--clr-secondary)"
+              />
               Ingredientes preferidos
             </h2>
             <textarea
@@ -158,7 +199,11 @@ async function handleGenerate() {
 
           <DsCard variant="elevated" padding="sm">
             <h2 class="section-title">
-              <font-awesome-icon :icon="['fas', 'info-circle']" aria-hidden="true" style="color: var(--clr-info)" />
+              <font-awesome-icon
+                :icon="['fas', 'info-circle']"
+                aria-hidden="true"
+                style="color: var(--clr-info)"
+              />
               Instrucciones adicionales
             </h2>
             <textarea
@@ -193,9 +238,7 @@ async function handleGenerate() {
             aria-hidden="true"
             style="color: var(--clr-primary); font-size: 1.5rem"
           />
-          <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
-            Generando tu receta...
-          </p>
+          <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">Generando tu receta...</p>
         </div>
 
         <div v-else-if="error" class="recipe-error" role="alert">
@@ -231,15 +274,27 @@ async function handleGenerate() {
 
             <div class="recipe-meta">
               <span class="recipe-meta__item">
-                <font-awesome-icon :icon="['fas', 'clock']" aria-hidden="true" style="color: var(--clr-primary)" />
+                <font-awesome-icon
+                  :icon="['fas', 'clock']"
+                  aria-hidden="true"
+                  style="color: var(--clr-primary)"
+                />
                 Prep: {{ result.preparationTime }}
               </span>
               <span class="recipe-meta__item">
-                <font-awesome-icon :icon="['fas', 'fire']" aria-hidden="true" style="color: var(--clr-accent)" />
+                <font-awesome-icon
+                  :icon="['fas', 'fire']"
+                  aria-hidden="true"
+                  style="color: var(--clr-accent)"
+                />
                 Cocción: {{ result.cookingTime }}
               </span>
               <span class="recipe-meta__item">
-                <font-awesome-icon :icon="['fas', 'users']" aria-hidden="true" style="color: var(--clr-secondary)" />
+                <font-awesome-icon
+                  :icon="['fas', 'users']"
+                  aria-hidden="true"
+                  style="color: var(--clr-secondary)"
+                />
                 {{ result.servings }} porcion{{ result.servings > 1 ? 'es' : '' }}
               </span>
             </div>
@@ -272,7 +327,11 @@ async function handleGenerate() {
                   Ingredientes
                 </h3>
                 <ul class="recipe-ingredients">
-                  <li v-for="(ing, i) in result.ingredients" :key="i" class="recipe-ingredients__item">
+                  <li
+                    v-for="(ing, i) in result.ingredients"
+                    :key="i"
+                    class="recipe-ingredients__item"
+                  >
                     <span class="recipe-ingredients__qty">{{ ing.quantity }}</span>
                     <span>{{ ing.name }}</span>
                   </li>
@@ -295,7 +354,11 @@ async function handleGenerate() {
 
             <div v-if="result.tips.length > 0" class="recipe-section">
               <h3 class="recipe-subtitle">
-                <font-awesome-icon :icon="['fas', 'lightbulb']" aria-hidden="true" style="color: var(--clr-secondary)" />
+                <font-awesome-icon
+                  :icon="['fas', 'lightbulb']"
+                  aria-hidden="true"
+                  style="color: var(--clr-secondary)"
+                />
                 Consejos
               </h3>
               <ul class="recipe-tips">
@@ -303,6 +366,17 @@ async function handleGenerate() {
                   {{ tip }}
                 </li>
               </ul>
+            </div>
+
+            <div class="recipe-save">
+              <button v-if="!saved" class="btn btn-secondary" @click="saveRecipe">
+                <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
+                Guardar receta
+              </button>
+              <p v-else class="recipe-saved" role="status">
+                <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
+                Guardada en favoritos
+              </p>
             </div>
           </DsCard>
         </template>
@@ -655,5 +729,23 @@ async function handleGenerate() {
   .recipe-card {
     animation: none;
   }
+}
+
+/* Save recipe */
+.recipe-save {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--clr-border-subtle);
+}
+
+.recipe-saved {
+  font-size: 0.75rem;
+  color: var(--clr-accent);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
 }
 </style>

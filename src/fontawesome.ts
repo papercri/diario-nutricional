@@ -22,6 +22,7 @@ import {
   faEquals,
   faExclamationCircle,
   faEye,
+  faEyeSlash,
   faFish,
   faFire,
   faGlassWater,
@@ -46,7 +47,10 @@ import {
   faSeedling,
   faShrimp,
   faSpinner,
+  faStar,
+  faStarHalfStroke,
   faSun,
+  faTag,
   faTriangleExclamation,
   faUser,
   faUsers,
@@ -54,7 +58,6 @@ import {
   faWandMagicSparkles,
   faWheatAwnCircleExclamation,
   faXmark,
-  faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
@@ -81,6 +84,7 @@ library.add(
   faEquals,
   faExclamationCircle,
   faEye,
+  faEyeSlash,
   faFish,
   faFire,
   faGlassWater,
@@ -105,7 +109,10 @@ library.add(
   faSeedling,
   faShrimp,
   faSpinner,
+  faStar,
+  faStarHalfStroke,
   faSun,
+  faTag,
   faTriangleExclamation,
   faUser,
   faUsers,
@@ -113,6 +120,5 @@ library.add(
   faWandMagicSparkles,
   faWheatAwnCircleExclamation,
   faXmark,
-  faEyeSlash,
   faGoogle,
 )
