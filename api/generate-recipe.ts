@@ -25,7 +25,7 @@ Responde ÚNICAMENTE con este JSON, sin texto adicional ni backticks:
     "protein": number - gramos de proteína de UNA SOLA RACIÓN,
     "carbohydrates": number - gramos de carbohidratos de UNA SOLA RACIÓN,
     "fat": number - gramos de grasa de UNA SOLA RACIÓN
-  }
+  },
   "tips": ["string - consejo útil sobre la receta, almacenamiento o variaciones"]
 }
 
