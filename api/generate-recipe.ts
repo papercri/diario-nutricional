@@ -20,12 +20,12 @@ Responde ÚNICAMENTE con este JSON, sin texto adicional ni backticks:
   "steps": [
     "string - paso detallado de preparación"
   ],
-  "estimatedCalories": number - calorías totales de la receta para una porción,
+  "estimatedCalories": number - calorías de UNA SOLA RACIÓN,
   "macros": {
-    "protein": number - gramos de proteína para una porción,
-    "carbohydrates": number - gramos de carbohidratos para una porción,
-    "fat": number - gramos de grasa para una porción
-  },
+    "protein": number - gramos de proteína de UNA SOLA RACIÓN,
+    "carbohydrates": number - gramos de carbohidratos de UNA SOLA RACIÓN,
+    "fat": number - gramos de grasa de UNA SOLA RACIÓN
+  }
   "tips": ["string - consejo útil sobre la receta, almacenamiento o variaciones"]
 }
 
