@@ -101,7 +101,6 @@ export const useFoodStore = defineStore('food', () => {
         }
       }
       dailyLogs.value = logs
-      saveLocal(logs)
     } else {
       dailyLogs.value = loadLocal()
     }
@@ -149,8 +148,8 @@ export const useFoodStore = defineStore('food', () => {
       }
       if (!dailyLogs.value[today]) dailyLogs.value[today] = []
       dailyLogs.value[today] = [...dailyLogs.value[today], entry]
+      saveLocal(dailyLogs.value)
     }
-    saveLocal(dailyLogs.value)
   }
 
   async function removeEntry(entryId: string) {
@@ -161,7 +160,7 @@ export const useFoodStore = defineStore('food', () => {
     const today = getToday()
     if (dailyLogs.value[today]) {
       dailyLogs.value[today] = dailyLogs.value[today].filter(e => e.id !== entryId)
-      saveLocal(dailyLogs.value)
+      if (!userId.value) saveLocal(dailyLogs.value)
     }
   }
 
@@ -171,7 +170,7 @@ export const useFoodStore = defineStore('food', () => {
       await supabase.from('meal_entries').delete().eq('user_id', userId.value).eq('date', today)
     }
     dailyLogs.value[today] = []
-    saveLocal(dailyLogs.value)
+    if (!userId.value) saveLocal(dailyLogs.value)
   }
 
   function getEntriesForDate(date: string): MealEntry[] {

@@ -39,6 +39,7 @@ function saveLocal(plates: SavedPlate[]) {
 
 export const useSavedPlatesStore = defineStore('savedPlates', () => {
   const plates = ref<SavedPlate[]>(loadLocal())
+  const loaded = ref(true)
   const userId = ref('')
 
   function setUserId(id: string) {
@@ -50,6 +51,7 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
       await loadPlates()
     } else {
       plates.value = loadLocal()
+      loaded.value = true
     }
   })
 
@@ -83,11 +85,12 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
     } else {
       plates.value = loadLocal()
     }
+    loaded.value = true
   }
 
   async function savePlate(plate: Omit<SavedPlate, 'id' | 'createdAt'>) {
     if (userId.value) {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('saved_plates')
         .insert({
           user_id: userId.value,
@@ -107,6 +110,11 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
         })
         .select()
         .single()
+
+      if (error) {
+        console.error('Error guardando plato en Supabase:', error.message)
+        return false
+      }
 
       if (data) {
         plates.value = [
@@ -130,6 +138,7 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
           ...plates.value,
         ]
       }
+      return true
     } else {
       const newPlate: SavedPlate = {
         ...plate,
@@ -138,6 +147,7 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
       }
       plates.value = [newPlate, ...plates.value]
       saveLocal(plates.value)
+      return true
     }
   }
 
@@ -146,7 +156,9 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
       await supabase.from('saved_plates').delete().eq('id', plateId).eq('user_id', userId.value)
     }
     plates.value = plates.value.filter(p => p.id !== plateId)
-    saveLocal(plates.value)
+    if (!userId.value) {
+      saveLocal(plates.value)
+    }
   }
 
   async function migrateToSupabase() {
@@ -178,6 +190,7 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
 
   return {
     plates,
+    loaded,
     userId,
     setUserId,
     loadPlates,

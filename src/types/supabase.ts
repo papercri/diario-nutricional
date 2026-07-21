@@ -93,21 +93,6 @@ export interface Database {
           meal_type?: string
         }
       }
-      meal_history: {
-        Row: {
-          id: string
-          user_id: string
-          description: string
-          created_at: string
-        }
-        Insert: {
-          user_id: string
-          description: string
-        }
-        Update: {
-          description?: string
-        }
-      }
       saved_plates: {
         Row: {
           id: string
@@ -120,6 +105,11 @@ export interface Database {
           fat: number
           serving_size: string | null
           image_url: string | null
+          ingredients: Array<{ name: string; quantity: string; calories?: number }>
+          allergens: string[]
+          is_vegan: boolean
+          is_vegetarian: boolean
+          nutrition_score: { value: number; reason?: string } | null
           created_at: string
         }
         Insert: {
@@ -132,6 +122,11 @@ export interface Database {
           fat: number
           serving_size?: string | null
           image_url?: string | null
+          ingredients?: Array<{ name: string; quantity: string; calories?: number }>
+          allergens?: string[]
+          is_vegan?: boolean
+          is_vegetarian?: boolean
+          nutrition_score?: { value: number; reason?: string } | null
         }
         Update: {
           name?: string
@@ -142,6 +137,11 @@ export interface Database {
           fat?: number
           serving_size?: string | null
           image_url?: string | null
+          ingredients?: Array<{ name: string; quantity: string; calories?: number }>
+          allergens?: string[]
+          is_vegan?: boolean
+          is_vegetarian?: boolean
+          nutrition_score?: { value: number; reason?: string } | null
         }
       }
       saved_recipes: {

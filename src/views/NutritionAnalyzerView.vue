@@ -75,7 +75,7 @@ function closeModal() {
 
 async function savePlate() {
   if (!result.value) return
-  await savedPlatesStore.savePlate({
+  const ok = await savedPlatesStore.savePlate({
     name: result.value.mealName,
     description: null,
     calories: result.value.estimatedCalories,
@@ -90,8 +90,12 @@ async function savePlate() {
     isVegetarian: result.value.isVegetarian ?? false,
     nutritionScore: result.value.nutritionScore,
   })
-  saved.value = true
-  toast.show('Plato guardado en favoritos')
+  if (ok) {
+    saved.value = true
+    toast.show('Plato guardado en favoritos')
+  } else {
+    toast.show('No se pudo guardar el plato')
+  }
 }
 </script>
 

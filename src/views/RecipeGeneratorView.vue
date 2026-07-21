@@ -83,7 +83,7 @@ async function handleGenerate() {
 
 async function saveRecipe() {
   if (!result.value) return
-  await savedRecipesStore.saveRecipe({
+  const ok = await savedRecipesStore.saveRecipe({
     name: result.value.recipeName,
     instructions: result.value.steps.join('\n\n'),
     ingredients: result.value.ingredients.map(ing => ({
@@ -96,8 +96,12 @@ async function saveRecipe() {
     fat: result.value.macros.fat,
     prepTime: result.value.preparationTime,
   })
-  saved.value = true
-  toast.show('Receta guardada en favoritos')
+  if (ok) {
+    saved.value = true
+    toast.show('Receta guardada en favoritos')
+  } else {
+    toast.show('No se pudo guardar la receta')
+  }
 }
 </script>
 

@@ -38,10 +38,10 @@ function rowToProfile(row: Record<string, unknown>): UserProfile {
 function profileToRow(profile: UserProfile) {
   return {
     name: profile.name,
-    age: profile.age,
-    weight: profile.weight,
-    height: profile.height,
-    desired_weight: profile.desiredWeight,
+    age: Math.max(1, Math.min(150, profile.age)),
+    weight: Math.max(1, Math.min(500, profile.weight)),
+    height: Math.max(50, Math.min(300, profile.height)),
+    desired_weight: Math.max(1, Math.min(500, profile.desiredWeight)),
     sex: profile.sex,
     activity_level: profile.activityLevel,
     goal: profile.goal,
@@ -67,6 +67,10 @@ function saveLocal(profile: UserProfile) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(profile))
 }
 
+function isDefaultProfile(p: UserProfile): boolean {
+  return !p.name && p.age === 30 && p.weight === 70 && p.height === 170 && p.desiredWeight === 65
+}
+
 export const useUserStore = defineStore('user', () => {
   const profile = ref<UserProfile>(loadLocal())
   const loaded = ref(true)
@@ -90,7 +94,6 @@ export const useUserStore = defineStore('user', () => {
       const { data } = await supabase.from('profiles').select('*').eq('id', userId.value).single()
       if (data) {
         profile.value = rowToProfile(data)
-        saveLocal(profile.value)
       }
     } else {
       profile.value = loadLocal()
@@ -100,7 +103,9 @@ export const useUserStore = defineStore('user', () => {
 
   async function updateProfile(partial: Partial<UserProfile>) {
     Object.assign(profile.value, partial)
-    saveLocal(profile.value)
+    if (!userId.value) {
+      saveLocal(profile.value)
+    }
     if (userId.value) {
       const row = profileToRow(profile.value)
       await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
@@ -109,7 +114,9 @@ export const useUserStore = defineStore('user', () => {
 
   async function resetProfile() {
     profile.value = { ...DEFAULT_PROFILE }
-    saveLocal(profile.value)
+    if (!userId.value) {
+      saveLocal(profile.value)
+    }
     if (userId.value) {
       const row = profileToRow(profile.value)
       await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
@@ -119,10 +126,13 @@ export const useUserStore = defineStore('user', () => {
   async function migrateToSupabase() {
     if (!userId.value) return
     const local = loadLocal()
-    if (local.name || local.age !== 30 || local.weight !== 70) {
-      const row = profileToRow(local)
-      await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
+    if (isDefaultProfile(local)) {
+      localStorage.removeItem(STORAGE_KEY)
+      return
     }
+
+    const row = profileToRow(local)
+    await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
     localStorage.removeItem(STORAGE_KEY)
   }
 

@@ -20,17 +20,18 @@ Responde ÚNICAMENTE con este JSON, sin texto adicional ni backticks:
   "steps": [
     "string - paso detallado de preparación"
   ],
-  "estimatedCalories": number - calorías totales de la receta completa,
+  "estimatedCalories": number - calorías totales de la receta para una porción,
   "macros": {
-    "protein": number - gramos de proteína total,
-    "carbohydrates": number - gramos de carbohidratos total,
-    "fat": number - gramos de grasa total
+    "protein": number - gramos de proteína para una porción,
+    "carbohydrates": number - gramos de carbohidratos para una porción,
+    "fat": number - gramos de grasa para una porción
   },
   "tips": ["string - consejo útil sobre la receta, almacenamiento o variaciones"]
 }
 
 Reglas:
 - Siempre genera recetas realistas y equilibradas nutricionalmente.
+- Las calorias y macronutrientes deben ser calcoladas por cada ración, no por la receta completa.
 - Adapta las calorías y macronutrientes al objetivo calórico del usuario si se proporciona.
 - Respeta estrictamente todas las restricciones dietéticas, preferencias y alérgenos indicados.
 - Incluye al menos 5 ingredientes y 4 pasos de preparación.

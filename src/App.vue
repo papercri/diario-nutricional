@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { initAuth } from '@/composables/useAuth'
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
 import Toast from '@/components/ui/Toast.vue'
+
+onMounted(() => {
+  initAuth()
+})
 </script>
 
 <template>

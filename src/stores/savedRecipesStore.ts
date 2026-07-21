@@ -34,6 +34,7 @@ function saveLocal(recipes: SavedRecipe[]) {
 
 export const useSavedRecipesStore = defineStore('savedRecipes', () => {
   const recipes = ref<SavedRecipe[]>(loadLocal())
+  const loaded = ref(true)
   const userId = ref('')
 
   function setUserId(id: string) {
@@ -45,6 +46,7 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
       await loadRecipes()
     } else {
       recipes.value = loadLocal()
+      loaded.value = true
     }
   })
 
@@ -73,11 +75,12 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
     } else {
       recipes.value = loadLocal()
     }
+    loaded.value = true
   }
 
   async function saveRecipe(recipe: Omit<SavedRecipe, 'id' | 'createdAt'>) {
     if (userId.value) {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('saved_recipes')
         .insert({
           user_id: userId.value,
@@ -92,6 +95,11 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
         })
         .select()
         .single()
+
+      if (error) {
+        console.error('Error guardando receta en Supabase:', error.message)
+        return false
+      }
 
       if (data) {
         recipes.value = [
@@ -110,6 +118,7 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
           ...recipes.value,
         ]
       }
+      return true
     } else {
       const newRecipe: SavedRecipe = {
         ...recipe,
@@ -118,6 +127,7 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
       }
       recipes.value = [newRecipe, ...recipes.value]
       saveLocal(recipes.value)
+      return true
     }
   }
 
@@ -126,7 +136,9 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
       await supabase.from('saved_recipes').delete().eq('id', recipeId).eq('user_id', userId.value)
     }
     recipes.value = recipes.value.filter(r => r.id !== recipeId)
-    saveLocal(recipes.value)
+    if (!userId.value) {
+      saveLocal(recipes.value)
+    }
   }
 
   async function migrateToSupabase() {
@@ -153,6 +165,7 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
 
   return {
     recipes,
+    loaded,
     userId,
     setUserId,
     loadRecipes,

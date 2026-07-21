@@ -46,24 +46,22 @@ function bgColor(type: string) {
 <style scoped>
 .toast-container {
   position: fixed;
-  top: var(--space-4);
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: var(--space-4);
+  right: var(--space-4);
   z-index: var(--z-toast);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
   pointer-events: none;
-  width: 100%;
-  max-width: 24rem;
-  padding: 0 var(--space-4);
+  width: auto;
+  max-width: 18rem;
 }
 
 .toast-item {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   background: var(--clr-surface);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
@@ -72,13 +70,13 @@ function bgColor(type: string) {
 }
 
 .toast-icon {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   flex-shrink: 0;
 }
 
 .toast-message {
   flex: 1;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   color: var(--clr-text);
 }
@@ -87,8 +85,8 @@ function bgColor(type: string) {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   border: none;
   background: transparent;
   color: var(--clr-text-faint);
