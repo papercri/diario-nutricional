@@ -1,0 +1,6144 @@
+{
+  "nodes": [
+    {
+      "id": "api_analyze_meal",
+      "label": "analyze-meal.ts",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_analyze_meal_stripmarkdowncodeblocks",
+      "label": "stripMarkdownCodeBlocks()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "api_analyze_meal_allergentype",
+      "label": "AllergenType",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L90"
+    },
+    {
+      "id": "api_analyze_meal_allergen_keywords",
+      "label": "ALLERGEN_KEYWORDS",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L95"
+    },
+    {
+      "id": "api_analyze_meal_meat_keywords",
+      "label": "MEAT_KEYWORDS",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "api_analyze_meal_fish_keywords",
+      "label": "FISH_KEYWORDS",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L140"
+    },
+    {
+      "id": "api_analyze_meal_animal_products",
+      "label": "ANIMAL_PRODUCTS",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L146"
+    },
+    {
+      "id": "api_analyze_meal_detectallergens",
+      "label": "detectAllergens()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L151"
+    },
+    {
+      "id": "api_analyze_meal_inferdietaryflags",
+      "label": "inferDietaryFlags()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L170"
+    },
+    {
+      "id": "api_analyze_meal_enrichanalysis",
+      "label": "enrichAnalysis()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L184"
+    },
+    {
+      "id": "api_analyze_meal_isnotfooderror",
+      "label": "isNotFoodError()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L203"
+    },
+    {
+      "id": "api_analyze_meal_validateanalysis",
+      "label": "validateAnalysis()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L209"
+    },
+    {
+      "id": "api_analyze_meal_providerresult",
+      "label": "ProviderResult",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L238"
+    },
+    {
+      "id": "api_analyze_meal_analysisoutcome",
+      "label": "AnalysisOutcome",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L240"
+    },
+    {
+      "id": "api_analyze_meal_parseproviderresponse",
+      "label": "parseProviderResponse()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L244"
+    },
+    {
+      "id": "api_analyze_meal_respondwithoutcome",
+      "label": "respondWithOutcome()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L269"
+    },
+    {
+      "id": "api_analyze_meal_handler",
+      "label": "handler()",
+      "file_type": "code",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L284"
+    },
+    {
+      "id": "api_generate_recipe",
+      "label": "generate-recipe.ts",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_generate_recipe_buildsystemprompt",
+      "label": "buildSystemPrompt()",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "api_generate_recipe_buildusermessage",
+      "label": "buildUserMessage()",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "api_generate_recipe_stripmarkdowncodeblocks",
+      "label": "stripMarkdownCodeBlocks()",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "api_generate_recipe_validaterecipe",
+      "label": "validateRecipe()",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L109"
+    },
+    {
+      "id": "api_generate_recipe_providerresult",
+      "label": "ProviderResult",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "api_generate_recipe_recipeoutcome",
+      "label": "RecipeOutcome",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L135"
+    },
+    {
+      "id": "api_generate_recipe_parseproviderresponse",
+      "label": "parseProviderResponse()",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L139"
+    },
+    {
+      "id": "api_generate_recipe_respondwithoutcome",
+      "label": "respondWithOutcome()",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L158"
+    },
+    {
+      "id": "api_generate_recipe_reciperequestbody",
+      "label": "RecipeRequestBody",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L173"
+    },
+    {
+      "id": "api_generate_recipe_handler",
+      "label": "handler()",
+      "file_type": "code",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L185"
+    },
+    {
+      "id": "providers_cerebras",
+      "label": "cerebras.ts",
+      "file_type": "code",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_cerebras_cerebraschatresponse",
+      "label": "CerebrasChatResponse",
+      "file_type": "code",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "providers_cerebras_aiproviderresult",
+      "label": "AIProviderResult",
+      "file_type": "code",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "providers_cerebras_cerebraserror",
+      "label": "CerebrasError",
+      "file_type": "code",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "providers_cerebras_cerebraserror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "providers_cerebras_callcerebras",
+      "label": "callCerebras()",
+      "file_type": "code",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "providers_groq",
+      "label": "groq.ts",
+      "file_type": "code",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_groq_groqchatresponse",
+      "label": "GroqChatResponse",
+      "file_type": "code",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "providers_groq_aiproviderresult",
+      "label": "AIProviderResult",
+      "file_type": "code",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "providers_groq_groqerror",
+      "label": "GroqError",
+      "file_type": "code",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "providers_groq_groqerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "providers_groq_callgroq",
+      "label": "callGroq()",
+      "file_type": "code",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "env_d",
+      "label": "env.d.ts",
+      "file_type": "code",
+      "source_file": "env.d.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "eslint_config",
+      "label": "eslint.config.js",
+      "file_type": "code",
+      "source_file": "eslint.config.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "server_dev",
+      "label": "server-dev.ts",
+      "file_type": "code",
+      "source_file": "server-dev.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "server_dev_dirname",
+      "label": "__dirname",
+      "file_type": "code",
+      "source_file": "server-dev.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "server_dev_loadenv",
+      "label": "loadEnv()",
+      "file_type": "code",
+      "source_file": "server-dev.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "server_dev_api_routes",
+      "label": "API_ROUTES",
+      "file_type": "code",
+      "source_file": "server-dev.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "server_dev_server",
+      "label": "server",
+      "file_type": "code",
+      "source_file": "server-dev.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "src_app",
+      "label": "App.vue",
+      "file_type": "code",
+      "source_file": "src/App.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_appfooter",
+      "label": "AppFooter.vue",
+      "file_type": "code",
+      "source_file": "src/components/AppFooter.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_appheader",
+      "label": "AppHeader.vue",
+      "file_type": "code",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_appheader_togglemenu",
+      "label": "toggleMenu()",
+      "file_type": "code",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L41"
+    },
+    {
+      "id": "components_appheader_closemenu",
+      "label": "closeMenu()",
+      "file_type": "code",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L45"
+    },
+    {
+      "id": "components_appheader_handlesignout",
+      "label": "handleSignOut()",
+      "file_type": "code",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L49"
+    },
+    {
+      "id": "components_caloriering",
+      "label": "CalorieRing.vue",
+      "file_type": "code",
+      "source_file": "src/components/CalorieRing.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_foodcard",
+      "label": "FoodCard.vue",
+      "file_type": "code",
+      "source_file": "src/components/FoodCard.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_fooddetailmodal",
+      "label": "FoodDetailModal.vue",
+      "file_type": "code",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_fooddetailmodal_getgradecolor",
+      "label": "getGradeColor()",
+      "file_type": "code",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L17"
+    },
+    {
+      "id": "components_fooddetailmodal_getgradelabel",
+      "label": "getGradeLabel()",
+      "file_type": "code",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L28"
+    },
+    {
+      "id": "components_fooddetailmodal_getfocusableelements",
+      "label": "getFocusableElements()",
+      "file_type": "code",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L39"
+    },
+    {
+      "id": "components_fooddetailmodal_handlekeydown",
+      "label": "handleKeydown()",
+      "file_type": "code",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L48"
+    },
+    {
+      "id": "components_nutrientcard",
+      "label": "NutrientCard.vue",
+      "file_type": "code",
+      "source_file": "src/components/NutrientCard.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "forms_field",
+      "label": "Field.vue",
+      "file_type": "code",
+      "source_file": "src/components/forms/Field.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "layout_container",
+      "label": "Container.vue",
+      "file_type": "code",
+      "source_file": "src/components/layout/Container.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "layout_grid",
+      "label": "Grid.vue",
+      "file_type": "code",
+      "source_file": "src/components/layout/Grid.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "layout_stack",
+      "label": "Stack.vue",
+      "file_type": "code",
+      "source_file": "src/components/layout/Stack.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "nutrition_allergeninfocard",
+      "label": "AllergenInfoCard.vue",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/AllergenInfoCard.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "nutrition_ingredientbreakdown",
+      "label": "IngredientBreakdown.vue",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/IngredientBreakdown.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "nutrition_macrodistribution",
+      "label": "MacroDistribution.vue",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MacroDistribution.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "nutrition_mealanalyzerform",
+      "label": "MealAnalyzerForm.vue",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "nutrition_mealanalyzerform_savetohistory",
+      "label": "saveToHistory()",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L27"
+    },
+    {
+      "id": "nutrition_mealanalyzerform_clearhistory",
+      "label": "clearHistory()",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L35"
+    },
+    {
+      "id": "nutrition_mealanalyzerform_selectrecent",
+      "label": "selectRecent()",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L40"
+    },
+    {
+      "id": "nutrition_mealanalyzerform_autoresize",
+      "label": "autoResize()",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L45"
+    },
+    {
+      "id": "nutrition_mealanalyzerform_handlesubmit",
+      "label": "handleSubmit()",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L52"
+    },
+    {
+      "id": "nutrition_mealanalyzerform_oninput",
+      "label": "onInput()",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L70"
+    },
+    {
+      "id": "nutrition_nutritionresultcard",
+      "label": "NutritionResultCard.vue",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/NutritionResultCard.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "nutrition_nutritiontips",
+      "label": "NutritionTips.vue",
+      "file_type": "code",
+      "source_file": "src/components/nutrition/NutritionTips.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "state_emptystate",
+      "label": "EmptyState.vue",
+      "file_type": "code",
+      "source_file": "src/components/state/EmptyState.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "state_errorstate",
+      "label": "ErrorState.vue",
+      "file_type": "code",
+      "source_file": "src/components/state/ErrorState.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "state_loading",
+      "label": "Loading.vue",
+      "file_type": "code",
+      "source_file": "src/components/state/Loading.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_badge",
+      "label": "Badge.vue",
+      "file_type": "code",
+      "source_file": "src/components/ui/Badge.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_button",
+      "label": "Button.vue",
+      "file_type": "code",
+      "source_file": "src/components/ui/Button.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_card",
+      "label": "Card.vue",
+      "file_type": "code",
+      "source_file": "src/components/ui/Card.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_input",
+      "label": "Input.vue",
+      "file_type": "code",
+      "source_file": "src/components/ui/Input.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_modal",
+      "label": "Modal.vue",
+      "file_type": "code",
+      "source_file": "src/components/ui/Modal.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_modal_onbackdropclick",
+      "label": "onBackdropClick()",
+      "file_type": "code",
+      "source_file": "src/components/ui/Modal.vue",
+      "source_location": "L19"
+    },
+    {
+      "id": "ui_modal_onkeydown",
+      "label": "onKeydown()",
+      "file_type": "code",
+      "source_file": "src/components/ui/Modal.vue",
+      "source_location": "L25"
+    },
+    {
+      "id": "ui_toast",
+      "label": "Toast.vue",
+      "file_type": "code",
+      "source_file": "src/components/ui/Toast.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_toast_iconclass",
+      "label": "iconClass()",
+      "file_type": "code",
+      "source_file": "src/components/ui/Toast.vue",
+      "source_location": "L6"
+    },
+    {
+      "id": "ui_toast_bgcolor",
+      "label": "bgColor()",
+      "file_type": "code",
+      "source_file": "src/components/ui/Toast.vue",
+      "source_location": "L12"
+    },
+    {
+      "id": "ui_typography",
+      "label": "Typography.vue",
+      "file_type": "code",
+      "source_file": "src/components/ui/Typography.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "composables_useaddfood_spec",
+      "label": "useAddFood.spec.ts",
+      "file_type": "code",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composables_useaddfood_spec_mockfood",
+      "label": "mockFood",
+      "file_type": "code",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "composables_useaddfood",
+      "label": "useAddFood.ts",
+      "file_type": "code",
+      "source_file": "src/composables/useAddFood.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composables_useaddfood_useaddfood",
+      "label": "useAddFood()",
+      "file_type": "code",
+      "source_file": "src/composables/useAddFood.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "composables_useauth",
+      "label": "useAuth.ts",
+      "file_type": "code",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composables_useauth_user",
+      "label": "user",
+      "file_type": "code",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "composables_useauth_session",
+      "label": "session",
+      "file_type": "code",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "composables_useauth_loading",
+      "label": "loading",
+      "file_type": "code",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "composables_useauth_useauth",
+      "label": "useAuth()",
+      "file_type": "code",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "composables_usefoodsearch_spec",
+      "label": "useFoodSearch.spec.ts",
+      "file_type": "code",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composables_usefoodsearch_spec_mocksearchfood",
+      "label": "mockSearchFood",
+      "file_type": "code",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "composables_usefoodsearch_spec_makefood",
+      "label": "makeFood()",
+      "file_type": "code",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "composables_usefoodsearch",
+      "label": "useFoodSearch.ts",
+      "file_type": "code",
+      "source_file": "src/composables/useFoodSearch.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composables_usefoodsearch_usefoodsearch",
+      "label": "useFoodSearch()",
+      "file_type": "code",
+      "source_file": "src/composables/useFoodSearch.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "composables_usetoast",
+      "label": "useToast.ts",
+      "file_type": "code",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composables_usetoast_toastmessage",
+      "label": "ToastMessage",
+      "file_type": "code",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "composables_usetoast_toasts",
+      "label": "toasts",
+      "file_type": "code",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "composables_usetoast_usetoast",
+      "label": "useToast()",
+      "file_type": "code",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "design_system_index",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_fontawesome",
+      "label": "fontawesome.ts",
+      "file_type": "code",
+      "source_file": "src/fontawesome.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_index",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/hooks/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_usedebounce",
+      "label": "useDebounce.ts",
+      "file_type": "code",
+      "source_file": "src/hooks/useDebounce.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_usedebounce_usedebounce",
+      "label": "useDebounce()",
+      "file_type": "code",
+      "source_file": "src/hooks/useDebounce.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "hooks_usemodal",
+      "label": "useModal.ts",
+      "file_type": "code",
+      "source_file": "src/hooks/useModal.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_usemodal_usemodal",
+      "label": "useModal()",
+      "file_type": "code",
+      "source_file": "src/hooks/useModal.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "lib_supabase",
+      "label": "supabase.ts",
+      "file_type": "code",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "lib_supabase_supabaseurl",
+      "label": "supabaseUrl",
+      "file_type": "code",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "lib_supabase_supabaseanonkey",
+      "label": "supabaseAnonKey",
+      "file_type": "code",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "lib_supabase_supabase",
+      "label": "supabase",
+      "file_type": "code",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_main",
+      "label": "main.ts",
+      "file_type": "code",
+      "source_file": "src/main.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_main_app",
+      "label": "app",
+      "file_type": "code",
+      "source_file": "src/main.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "router_index",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "src/router/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "router_index_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "src/router/index.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "services_nutritionai",
+      "label": "nutritionAI.ts",
+      "file_type": "code",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_nutritionai_nutritionaierror",
+      "label": "NutritionAIError",
+      "file_type": "code",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "services_nutritionai_nutritionaierror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "services_nutritionai_analyzemeal",
+      "label": "analyzeMeal()",
+      "file_type": "code",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "services_openfoodfacts_spec",
+      "label": "openFoodFacts.spec.ts",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_openfoodfacts_spec_mockfetch",
+      "label": "mockFetch",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "services_openfoodfacts_spec_makesearchproduct",
+      "label": "makeSearchProduct()",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "services_openfoodfacts_spec_emptysearchresult",
+      "label": "emptySearchResult",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "services_openfoodfacts_spec_mockjsonresponse",
+      "label": "mockJsonResponse()",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "services_openfoodfacts",
+      "label": "openFoodFacts.ts",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_openfoodfacts_product_fields",
+      "label": "PRODUCT_FIELDS",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "services_openfoodfacts_openfoodfactserror",
+      "label": "OpenFoodFactsError",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "services_openfoodfacts_openfoodfactserror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "services_openfoodfacts_fetchjson",
+      "label": "fetchJson()",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "services_openfoodfacts_valid_nutri_scores",
+      "label": "VALID_NUTRI_SCORES",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "services_openfoodfacts_tofooditem",
+      "label": "toFoodItem()",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "services_openfoodfacts_searchfood",
+      "label": "searchFood()",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "services_openfoodfacts_getproductbybarcode",
+      "label": "getProductByBarcode()",
+      "file_type": "code",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L117"
+    },
+    {
+      "id": "services_recipeai",
+      "label": "recipeAI.ts",
+      "file_type": "code",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_recipeai_recipeaierror",
+      "label": "RecipeAIError",
+      "file_type": "code",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "services_recipeai_recipeaierror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "services_recipeai_reciperequestconfig",
+      "label": "RecipeRequestConfig",
+      "file_type": "code",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "services_recipeai_recipeconfig",
+      "label": "RecipeConfig",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "services_recipeai_generaterecipe",
+      "label": "generateRecipe()",
+      "file_type": "code",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "stores_foodstore_spec",
+      "label": "foodStore.spec.ts",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_foodstore_spec_makefood",
+      "label": "makeFood()",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "stores_foodstore_spec_today",
+      "label": "today()",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "stores_foodstore",
+      "label": "foodStore.ts",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_foodstore_gettoday",
+      "label": "getToday()",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "stores_foodstore_rowtomealentry",
+      "label": "rowToMealEntry()",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "stores_foodstore_loadlocal",
+      "label": "loadLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "stores_foodstore_savelocal",
+      "label": "saveLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "stores_foodstore_usefoodstore",
+      "label": "useFoodStore",
+      "file_type": "code",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "stores_savedplatesstore",
+      "label": "savedPlatesStore.ts",
+      "file_type": "code",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_savedplatesstore_savedplate",
+      "label": "SavedPlate",
+      "file_type": "code",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "stores_savedplatesstore_loadlocal",
+      "label": "loadLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "stores_savedplatesstore_savelocal",
+      "label": "saveLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "stores_savedplatesstore_usesavedplatesstore",
+      "label": "useSavedPlatesStore",
+      "file_type": "code",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "stores_savedrecipesstore",
+      "label": "savedRecipesStore.ts",
+      "file_type": "code",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_savedrecipesstore_savedrecipe",
+      "label": "SavedRecipe",
+      "file_type": "code",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "stores_savedrecipesstore_loadlocal",
+      "label": "loadLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "stores_savedrecipesstore_savelocal",
+      "label": "saveLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "stores_savedrecipesstore_usesavedrecipesstore",
+      "label": "useSavedRecipesStore",
+      "file_type": "code",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "stores_userstore_spec",
+      "label": "userStore.spec.ts",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_userstore",
+      "label": "userStore.ts",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_userstore_default_profile",
+      "label": "DEFAULT_PROFILE",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "stores_userstore_rowtoprofile",
+      "label": "rowToProfile()",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "stores_userstore_profiletorow",
+      "label": "profileToRow()",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "stores_userstore_loadlocal",
+      "label": "loadLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "stores_userstore_savelocal",
+      "label": "saveLocal()",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "stores_userstore_useuserstore",
+      "label": "useUserStore",
+      "file_type": "code",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "types_calculator",
+      "label": "calculator.ts",
+      "file_type": "code",
+      "source_file": "src/types/calculator.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_calculator_bmiresult",
+      "label": "BmiResult",
+      "file_type": "code",
+      "source_file": "src/types/calculator.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_calculator_idealweightresult",
+      "label": "IdealWeightResult",
+      "file_type": "code",
+      "source_file": "src/types/calculator.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "types_food",
+      "label": "food.ts",
+      "file_type": "code",
+      "source_file": "src/types/food.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_food_nutriscoregrade",
+      "label": "NutriScoreGrade",
+      "file_type": "code",
+      "source_file": "src/types/food.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "types_food_fooditem",
+      "label": "FoodItem",
+      "file_type": "code",
+      "source_file": "src/types/food.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "types_food_mealentry",
+      "label": "MealEntry",
+      "file_type": "code",
+      "source_file": "src/types/food.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "types_food_nutritionsummary",
+      "label": "NutritionSummary",
+      "file_type": "code",
+      "source_file": "src/types/food.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "types_food_openfoodfactsproduct",
+      "label": "OpenFoodFactsProduct",
+      "file_type": "code",
+      "source_file": "src/types/food.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "types_food_openfoodfactssearchresult",
+      "label": "OpenFoodFactsSearchResult",
+      "file_type": "code",
+      "source_file": "src/types/food.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "types_nutrition",
+      "label": "nutrition.ts",
+      "file_type": "code",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_nutrition_macrovalue",
+      "label": "MacroValue",
+      "file_type": "code",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_nutrition_ingredient",
+      "label": "Ingredient",
+      "file_type": "code",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "types_nutrition_nutritionscore",
+      "label": "NutritionScore",
+      "file_type": "code",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "types_nutrition_allergentype",
+      "label": "AllergenType",
+      "file_type": "code",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "types_nutrition_nutritionanalysis",
+      "label": "NutritionAnalysis",
+      "file_type": "code",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "types_nutrition_nutritionairesponse",
+      "label": "NutritionAIResponse",
+      "file_type": "code",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "types_recipe",
+      "label": "recipe.ts",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_recipe_allergen",
+      "label": "Allergen",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_recipe_dietarypreference",
+      "label": "DietaryPreference",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "types_recipe_recipeconfig",
+      "label": "RecipeConfig",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "types_recipe_recipeingredient",
+      "label": "RecipeIngredient",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "types_recipe_recipemacros",
+      "label": "RecipeMacros",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "types_recipe_generatedrecipe",
+      "label": "GeneratedRecipe",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "types_recipe_recipeairesponse",
+      "label": "RecipeAIResponse",
+      "file_type": "code",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "types_supabase",
+      "label": "supabase.ts",
+      "file_type": "code",
+      "source_file": "src/types/supabase.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_supabase_database",
+      "label": "Database",
+      "file_type": "code",
+      "source_file": "src/types/supabase.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_user",
+      "label": "user.ts",
+      "file_type": "code",
+      "source_file": "src/types/user.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_user_activitylevel",
+      "label": "ActivityLevel",
+      "file_type": "code",
+      "source_file": "src/types/user.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "types_user_goaltype",
+      "label": "GoalType",
+      "file_type": "code",
+      "source_file": "src/types/user.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "types_user_sex",
+      "label": "Sex",
+      "file_type": "code",
+      "source_file": "src/types/user.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "types_user_mealtype",
+      "label": "MealType",
+      "file_type": "code",
+      "source_file": "src/types/user.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "types_user_userprofile",
+      "label": "UserProfile",
+      "file_type": "code",
+      "source_file": "src/types/user.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "types_user_caloriegoals",
+      "label": "CalorieGoals",
+      "file_type": "code",
+      "source_file": "src/types/user.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "utils_bmi_spec",
+      "label": "bmi.spec.ts",
+      "file_type": "code",
+      "source_file": "src/utils/bmi.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_bmi",
+      "label": "bmi.ts",
+      "file_type": "code",
+      "source_file": "src/utils/bmi.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_bmi_calculatebmi",
+      "label": "calculateBMI()",
+      "file_type": "code",
+      "source_file": "src/utils/bmi.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_bmi_calculateidealweight",
+      "label": "calculateIdealWeight()",
+      "file_type": "code",
+      "source_file": "src/utils/bmi.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "utils_bmiclassification_spec",
+      "label": "bmiClassification.spec.ts",
+      "file_type": "code",
+      "source_file": "src/utils/bmiClassification.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_bmiclassification",
+      "label": "bmiClassification.ts",
+      "file_type": "code",
+      "source_file": "src/utils/bmiClassification.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_bmiclassification_classifybmi",
+      "label": "classifyBMI()",
+      "file_type": "code",
+      "source_file": "src/utils/bmiClassification.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "utils_bmiclassification_getbmibadgevariant",
+      "label": "getBmiBadgeVariant()",
+      "file_type": "code",
+      "source_file": "src/utils/bmiClassification.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "utils_constants",
+      "label": "constants.ts",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_constants_selectoption",
+      "label": "SelectOption",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "utils_constants_goaloption",
+      "label": "GoalOption",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "utils_constants_meal_type_labels",
+      "label": "MEAL_TYPE_LABELS",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "utils_constants_meal_type_icons",
+      "label": "MEAL_TYPE_ICONS",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "utils_constants_meal_type_options",
+      "label": "MEAL_TYPE_OPTIONS",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "utils_constants_activity_options",
+      "label": "ACTIVITY_OPTIONS",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "utils_constants_goal_options",
+      "label": "GOAL_OPTIONS",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L46"
+    },
+    {
+      "id": "utils_constants_dietarypreferenceoption",
+      "label": "DietaryPreferenceOption",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "utils_constants_dietary_preference_options",
+      "label": "DIETARY_PREFERENCE_OPTIONS",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "utils_constants_allergenoption",
+      "label": "AllergenOption",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L65"
+    },
+    {
+      "id": "utils_constants_allergen_options",
+      "label": "ALLERGEN_OPTIONS",
+      "file_type": "code",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "utils_formatting_spec",
+      "label": "formatting.spec.ts",
+      "file_type": "code",
+      "source_file": "src/utils/formatting.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_formatting",
+      "label": "formatting.ts",
+      "file_type": "code",
+      "source_file": "src/utils/formatting.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_formatting_formatdatees",
+      "label": "formatDateEs()",
+      "file_type": "code",
+      "source_file": "src/utils/formatting.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "utils_formatting_formatcalorieentry",
+      "label": "formatCalorieEntry()",
+      "file_type": "code",
+      "source_file": "src/utils/formatting.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "utils_mifflinstjeor_spec",
+      "label": "mifflinStJeor.spec.ts",
+      "file_type": "code",
+      "source_file": "src/utils/mifflinStJeor.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_mifflinstjeor",
+      "label": "mifflinStJeor.ts",
+      "file_type": "code",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_mifflinstjeor_activitymultipliers",
+      "label": "activityMultipliers",
+      "file_type": "code",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "utils_mifflinstjeor_goaladjustments",
+      "label": "goalAdjustments",
+      "file_type": "code",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "utils_mifflinstjeor_calculatebmr",
+      "label": "calculateBMR()",
+      "file_type": "code",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "utils_mifflinstjeor_calculatetdee",
+      "label": "calculateTDEE()",
+      "file_type": "code",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "utils_mifflinstjeor_calculatecaloriegoals",
+      "label": "calculateCalorieGoals()",
+      "file_type": "code",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "utils_nutrition_spec",
+      "label": "nutrition.spec.ts",
+      "file_type": "code",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_nutrition_spec_makeentry",
+      "label": "makeEntry()",
+      "file_type": "code",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "utils_nutrition",
+      "label": "nutrition.ts",
+      "file_type": "code",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_nutrition_calcpercentage",
+      "label": "calcPercentage()",
+      "file_type": "code",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "utils_nutrition_calcremaining",
+      "label": "calcRemaining()",
+      "file_type": "code",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "utils_nutrition_groupentriesbymealtype",
+      "label": "groupEntriesByMealType()",
+      "file_type": "code",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "utils_nutrition_sumservings",
+      "label": "sumServings()",
+      "file_type": "code",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "views_authview",
+      "label": "AuthView.vue",
+      "file_type": "code",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "views_authview_handleblur",
+      "label": "handleBlur()",
+      "file_type": "code",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L40"
+    },
+    {
+      "id": "views_authview_togglepassword",
+      "label": "togglePassword()",
+      "file_type": "code",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L45"
+    },
+    {
+      "id": "views_authview_geterrormessage",
+      "label": "getErrorMessage()",
+      "file_type": "code",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L49"
+    },
+    {
+      "id": "views_authview_handlesubmit",
+      "label": "handleSubmit()",
+      "file_type": "code",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L68"
+    },
+    {
+      "id": "views_dashboardview",
+      "label": "DashboardView.vue",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "views_dashboardview_confirmdeleteentry",
+      "label": "confirmDeleteEntry()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L48"
+    },
+    {
+      "id": "views_dashboardview_executedeleteentry",
+      "label": "executeDeleteEntry()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L53"
+    },
+    {
+      "id": "views_dashboardview_canceldeleteentry",
+      "label": "cancelDeleteEntry()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L62"
+    },
+    {
+      "id": "views_dashboardview_executecleartoday",
+      "label": "executeClearToday()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L67"
+    },
+    {
+      "id": "views_dashboardview_togglemealtype",
+      "label": "toggleMealType()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L73"
+    },
+    {
+      "id": "views_dashboardview_mealtypetotalcalories",
+      "label": "mealTypeTotalCalories()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L81"
+    },
+    {
+      "id": "views_dashboardview_entrymacros",
+      "label": "entryMacros()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L85"
+    },
+    {
+      "id": "views_dashboardview_openplatemodal",
+      "label": "openPlateModal()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L97"
+    },
+    {
+      "id": "views_dashboardview_openrecipemodal",
+      "label": "openRecipeModal()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L102"
+    },
+    {
+      "id": "views_dashboardview_deleteplate",
+      "label": "deletePlate()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L107"
+    },
+    {
+      "id": "views_dashboardview_deleterecipe",
+      "label": "deleteRecipe()",
+      "file_type": "code",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L114"
+    },
+    {
+      "id": "views_nutritionanalyzerview",
+      "label": "NutritionAnalyzerView.vue",
+      "file_type": "code",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "views_nutritionanalyzerview_handleanalyze",
+      "label": "handleAnalyze()",
+      "file_type": "code",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L31"
+    },
+    {
+      "id": "views_nutritionanalyzerview_openaddmodal",
+      "label": "openAddModal()",
+      "file_type": "code",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L50"
+    },
+    {
+      "id": "views_nutritionanalyzerview_confirmadd",
+      "label": "confirmAdd()",
+      "file_type": "code",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L55"
+    },
+    {
+      "id": "views_nutritionanalyzerview_closemodal",
+      "label": "closeModal()",
+      "file_type": "code",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L72"
+    },
+    {
+      "id": "views_nutritionanalyzerview_saveplate",
+      "label": "savePlate()",
+      "file_type": "code",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L76"
+    },
+    {
+      "id": "views_profileview",
+      "label": "ProfileView.vue",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "views_profileview_onnumberinput",
+      "label": "onNumberInput()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L74"
+    },
+    {
+      "id": "views_profileview_confirmdeleteentry",
+      "label": "confirmDeleteEntry()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L86"
+    },
+    {
+      "id": "views_profileview_executedeleteentry",
+      "label": "executeDeleteEntry()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L91"
+    },
+    {
+      "id": "views_profileview_canceldeleteentry",
+      "label": "cancelDeleteEntry()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L100"
+    },
+    {
+      "id": "views_profileview_executecleartoday",
+      "label": "executeClearToday()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L105"
+    },
+    {
+      "id": "views_profileview_togglemealtype",
+      "label": "toggleMealType()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L111"
+    },
+    {
+      "id": "views_profileview_mealtypetotalcalories",
+      "label": "mealTypeTotalCalories()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L119"
+    },
+    {
+      "id": "views_profileview_entrymacros",
+      "label": "entryMacros()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L123"
+    },
+    {
+      "id": "views_profileview_openplatemodal",
+      "label": "openPlateModal()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L135"
+    },
+    {
+      "id": "views_profileview_openrecipemodal",
+      "label": "openRecipeModal()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L140"
+    },
+    {
+      "id": "views_profileview_deleteplate",
+      "label": "deletePlate()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L145"
+    },
+    {
+      "id": "views_profileview_deleterecipe",
+      "label": "deleteRecipe()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L152"
+    },
+    {
+      "id": "views_profileview_confirmdelete",
+      "label": "confirmDelete()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L159"
+    },
+    {
+      "id": "views_profileview_executedelete",
+      "label": "executeDelete()",
+      "file_type": "code",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L166"
+    },
+    {
+      "id": "views_recipegeneratorview",
+      "label": "RecipeGeneratorView.vue",
+      "file_type": "code",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "views_recipegeneratorview_togglepreference",
+      "label": "togglePreference()",
+      "file_type": "code",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L27"
+    },
+    {
+      "id": "views_recipegeneratorview_ispreferenceselected",
+      "label": "isPreferenceSelected()",
+      "file_type": "code",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L41"
+    },
+    {
+      "id": "views_recipegeneratorview_toggleallergen",
+      "label": "toggleAllergen()",
+      "file_type": "code",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L45"
+    },
+    {
+      "id": "views_recipegeneratorview_isallergenselected",
+      "label": "isAllergenSelected()",
+      "file_type": "code",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L54"
+    },
+    {
+      "id": "views_recipegeneratorview_handlegenerate",
+      "label": "handleGenerate()",
+      "file_type": "code",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L58"
+    },
+    {
+      "id": "views_recipegeneratorview_saverecipe",
+      "label": "saveRecipe()",
+      "file_type": "code",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L84"
+    },
+    {
+      "id": "views_searchview",
+      "label": "SearchView.vue",
+      "file_type": "code",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L1"
+    },
+    {
+      "id": "views_searchview_opendetail",
+      "label": "openDetail()",
+      "file_type": "code",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L17"
+    },
+    {
+      "id": "views_searchview_closedetail",
+      "label": "closeDetail()",
+      "file_type": "code",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L21"
+    },
+    {
+      "id": "views_searchview_addfromdetail",
+      "label": "addFromDetail()",
+      "file_type": "code",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L25"
+    },
+    {
+      "id": "src_vite_env_d",
+      "label": "vite-env.d.ts",
+      "file_type": "code",
+      "source_file": "src/vite-env.d.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "vite_config",
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "vite.config.ts",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "api_analyze_meal",
+      "target": "node",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "providers_groq",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "providers_groq_callgroq",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "providers_cerebras",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "providers_cerebras_callcerebras",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_stripmarkdowncodeblocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L67",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_allergentype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L90",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_allergen_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L95",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_meat_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L133",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_fish_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L140",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_animal_products",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L146",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_detectallergens",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L151",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_inferdietaryflags",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L170",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_enrichanalysis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L184",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_isnotfooderror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L203",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_validateanalysis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L209",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_providerresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L238",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_analysisoutcome",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L240",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_parseproviderresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L244",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_respondwithoutcome",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L269",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal",
+      "target": "api_analyze_meal_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L284",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_enrichanalysis",
+      "target": "api_analyze_meal_detectallergens",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L191",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_enrichanalysis",
+      "target": "api_analyze_meal_inferdietaryflags",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L195",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_parseproviderresponse",
+      "target": "api_analyze_meal_stripmarkdowncodeblocks",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L245",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_parseproviderresponse",
+      "target": "api_analyze_meal_isnotfooderror",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L255",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_parseproviderresponse",
+      "target": "api_analyze_meal_validateanalysis",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L259",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_parseproviderresponse",
+      "target": "api_analyze_meal_enrichanalysis",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L264",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_handler",
+      "target": "api_analyze_meal_parseproviderresponse",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L302",
+      "weight": 1
+    },
+    {
+      "source": "api_analyze_meal_handler",
+      "target": "api_analyze_meal_respondwithoutcome",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/analyze-meal.ts",
+      "source_location": "L303",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "node",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "providers_groq",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "providers_groq_callgroq",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "providers_cerebras",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "providers_cerebras_callcerebras",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_buildsystemprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_buildusermessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L44",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_stripmarkdowncodeblocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L92",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_validaterecipe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L109",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_providerresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L133",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_recipeoutcome",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L135",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_parseproviderresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L139",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_respondwithoutcome",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L158",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_reciperequestbody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L173",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe",
+      "target": "api_generate_recipe_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L185",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe_parseproviderresponse",
+      "target": "api_generate_recipe_stripmarkdowncodeblocks",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L140",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe_parseproviderresponse",
+      "target": "api_generate_recipe_validaterecipe",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L150",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe_handler",
+      "target": "api_generate_recipe_buildusermessage",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L193",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe_handler",
+      "target": "api_generate_recipe_buildsystemprompt",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L212",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe_handler",
+      "target": "api_generate_recipe_parseproviderresponse",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L215",
+      "weight": 1
+    },
+    {
+      "source": "api_generate_recipe_handler",
+      "target": "api_generate_recipe_respondwithoutcome",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/generate-recipe.ts",
+      "source_location": "L216",
+      "weight": 1
+    },
+    {
+      "source": "providers_cerebras",
+      "target": "providers_cerebras_cerebraschatresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "providers_cerebras",
+      "target": "providers_cerebras_aiproviderresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L11",
+      "weight": 1
+    },
+    {
+      "source": "providers_cerebras",
+      "target": "providers_cerebras_cerebraserror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L16",
+      "weight": 1
+    },
+    {
+      "source": "providers_cerebras_cerebraserror",
+      "target": "providers_cerebras_cerebraserror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "providers_cerebras",
+      "target": "providers_cerebras_callcerebras",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L23",
+      "weight": 1
+    },
+    {
+      "source": "providers_cerebras_callcerebras",
+      "target": "providers_cerebras_cerebraserror",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/cerebras.ts",
+      "source_location": "L30",
+      "weight": 1
+    },
+    {
+      "source": "providers_groq",
+      "target": "providers_groq_groqchatresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "providers_groq",
+      "target": "providers_groq_aiproviderresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L11",
+      "weight": 1
+    },
+    {
+      "source": "providers_groq",
+      "target": "providers_groq_groqerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L16",
+      "weight": 1
+    },
+    {
+      "source": "providers_groq_groqerror",
+      "target": "providers_groq_groqerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "providers_groq",
+      "target": "providers_groq_callgroq",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L23",
+      "weight": 1
+    },
+    {
+      "source": "providers_groq_callgroq",
+      "target": "providers_groq_groqerror",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/providers/groq.ts",
+      "source_location": "L30",
+      "weight": 1
+    },
+    {
+      "source": "env_d",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "env.d.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "eslint_config",
+      "target": "js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "eslint.config.js",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "eslint_config",
+      "target": "typescript_eslint",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "eslint.config.js",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "eslint_config",
+      "target": "eslint_plugin_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "eslint.config.js",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "eslint_config",
+      "target": "eslint_plugin_prettier",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "eslint.config.js",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "eslint_config",
+      "target": "eslint_config_prettier",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "eslint.config.js",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "node_http",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "node_fs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "node_path",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "node_url",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "server_dev_dirname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "server_dev_loadenv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L8",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "server_dev_api_routes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L31",
+      "weight": 1
+    },
+    {
+      "source": "server_dev",
+      "target": "server_dev_server",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server-dev.ts",
+      "source_location": "L33",
+      "weight": 1
+    },
+    {
+      "source": "components_appheader",
+      "target": "components_appheader_togglemenu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L41",
+      "weight": 1
+    },
+    {
+      "source": "components_appheader",
+      "target": "components_appheader_closemenu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L45",
+      "weight": 1
+    },
+    {
+      "source": "components_appheader",
+      "target": "components_appheader_handlesignout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L49",
+      "weight": 1
+    },
+    {
+      "source": "components_appheader",
+      "target": "components_appheader_togglemenu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L40",
+      "weight": 1
+    },
+    {
+      "source": "components_appheader",
+      "target": "components_appheader_closemenu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/AppHeader.vue",
+      "source_location": "L44",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_getgradecolor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_getgradelabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L28",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_getfocusableelements",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L39",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_handlekeydown",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L48",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_getgradecolor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L16",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_getgradelabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L27",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_getfocusableelements",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L38",
+      "weight": 1
+    },
+    {
+      "source": "components_fooddetailmodal",
+      "target": "components_fooddetailmodal_handlekeydown",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FoodDetailModal.vue",
+      "source_location": "L47",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_savetohistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L27",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_clearhistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L35",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_selectrecent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L40",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_autoresize",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L45",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_handlesubmit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L52",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_oninput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L70",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_savetohistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L26",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_clearhistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L34",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_selectrecent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L39",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_autoresize",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L44",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_handlesubmit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L51",
+      "weight": 1
+    },
+    {
+      "source": "nutrition_mealanalyzerform",
+      "target": "nutrition_mealanalyzerform_oninput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/nutrition/MealAnalyzerForm.vue",
+      "source_location": "L69",
+      "weight": 1
+    },
+    {
+      "source": "ui_modal",
+      "target": "ui_modal_onbackdropclick",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Modal.vue",
+      "source_location": "L19",
+      "weight": 1
+    },
+    {
+      "source": "ui_modal",
+      "target": "ui_modal_onkeydown",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Modal.vue",
+      "source_location": "L25",
+      "weight": 1
+    },
+    {
+      "source": "ui_modal",
+      "target": "ui_modal_onbackdropclick",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Modal.vue",
+      "source_location": "L18",
+      "weight": 1
+    },
+    {
+      "source": "ui_modal",
+      "target": "ui_modal_onkeydown",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Modal.vue",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "ui_toast",
+      "target": "ui_toast_iconclass",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Toast.vue",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "ui_toast",
+      "target": "ui_toast_bgcolor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Toast.vue",
+      "source_location": "L12",
+      "weight": 1
+    },
+    {
+      "source": "ui_toast",
+      "target": "ui_toast_iconclass",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Toast.vue",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "ui_toast",
+      "target": "ui_toast_bgcolor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/ui/Toast.vue",
+      "source_location": "L11",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood_spec",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood_spec",
+      "target": "composables_useaddfood",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood_spec",
+      "target": "composables_useaddfood_useaddfood",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood_spec",
+      "target": "foodstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood_spec",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood_spec",
+      "target": "composables_useaddfood_spec_mockfood",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.spec.ts",
+      "source_location": "L29",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood",
+      "target": "foodstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_useaddfood",
+      "target": "composables_useaddfood_useaddfood",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAddFood.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "supabase",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "userstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "foodstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "savedplatesstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "savedrecipesstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "composables_useauth_user",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L9",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "composables_useauth_session",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L10",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "composables_useauth_loading",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L11",
+      "weight": 1
+    },
+    {
+      "source": "composables_useauth",
+      "target": "composables_useauth_useauth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useAuth.ts",
+      "source_location": "L13",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "composables_usefoodsearch",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "composables_usefoodsearch_usefoodsearch",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "openfoodfacts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "composables_usefoodsearch_spec_mocksearchfood",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L11",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch_spec",
+      "target": "composables_usefoodsearch_spec_makefood",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.spec.ts",
+      "source_location": "L13",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch",
+      "target": "openfoodfacts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_usefoodsearch",
+      "target": "composables_usefoodsearch_usefoodsearch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useFoodSearch.ts",
+      "source_location": "L8",
+      "weight": 1
+    },
+    {
+      "source": "composables_usetoast",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "composables_usetoast",
+      "target": "composables_usetoast_toastmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "composables_usetoast",
+      "target": "composables_usetoast_toasts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L9",
+      "weight": 1
+    },
+    {
+      "source": "composables_usetoast",
+      "target": "composables_usetoast_usetoast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/composables/useToast.ts",
+      "source_location": "L12",
+      "weight": 1
+    },
+    {
+      "source": "design_system_index",
+      "target": "button_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "input_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "card_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "badge_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "modal_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "typography_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "container_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "stack_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "grid_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "field_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L15",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "emptystate_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L18",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "loading_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L19",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "design_system_index",
+      "target": "errorstate_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/design-system/index.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "src_fontawesome",
+      "target": "fontawesome_svg_core",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/fontawesome.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "src_fontawesome",
+      "target": "free_solid_svg_icons",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/fontawesome.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "src_fontawesome",
+      "target": "free_brands_svg_icons",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/fontawesome.ts",
+      "source_location": "L62",
+      "weight": 1
+    },
+    {
+      "source": "hooks_index",
+      "target": "hooks_usemodal",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/index.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "hooks_index",
+      "target": "hooks_usemodal_usemodal",
+      "relation": "re_exports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/index.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "hooks_index",
+      "target": "hooks_usedebounce",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "hooks_index",
+      "target": "hooks_usedebounce_usedebounce",
+      "relation": "re_exports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "hooks_usedebounce",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useDebounce.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "hooks_usedebounce",
+      "target": "hooks_usedebounce_usedebounce",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useDebounce.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "hooks_usemodal",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useModal.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "hooks_usemodal",
+      "target": "hooks_usemodal_usemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useModal.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "lib_supabase",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "lib_supabase",
+      "target": "lib_supabase_supabaseurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "lib_supabase",
+      "target": "lib_supabase_supabaseanonkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "lib_supabase",
+      "target": "lib_supabase_supabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/supabase.ts",
+      "source_location": "L10",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "vue_fontawesome",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "router_index",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "src_app",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "src_fontawesome",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "users_cristianasollini_documents_work_git_avocato_src_style_css",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "src_main",
+      "target": "src_main_app",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.ts",
+      "source_location": "L9",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "vue_router",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "router_index_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "views_dashboardview",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L9",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "views_profileview",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L14",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "views_searchview",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L19",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "views_nutritionanalyzerview",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "views_recipegeneratorview",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L29",
+      "weight": 1
+    },
+    {
+      "source": "router_index",
+      "target": "views_authview",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/router/index.ts",
+      "source_location": "L34",
+      "weight": 1
+    },
+    {
+      "source": "services_nutritionai",
+      "target": "nutrition",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "services_nutritionai",
+      "target": "services_nutritionai_nutritionaierror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "services_nutritionai_nutritionaierror",
+      "target": "services_nutritionai_nutritionaierror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "services_nutritionai",
+      "target": "services_nutritionai_analyzemeal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L10",
+      "weight": 1
+    },
+    {
+      "source": "services_nutritionai_analyzemeal",
+      "target": "services_nutritionai_nutritionaierror",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/nutritionAI.ts",
+      "source_location": "L14",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts_searchfood",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts_getproductbybarcode",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts_openfoodfactserror",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts_spec_mockfetch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts_spec_makesearchproduct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts_spec_emptysearchresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L25",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_spec",
+      "target": "services_openfoodfacts_spec_mockjsonresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.spec.ts",
+      "source_location": "L32",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "services_openfoodfacts_product_fields",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L15",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "services_openfoodfacts_openfoodfactserror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L25",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_openfoodfactserror",
+      "target": "services_openfoodfacts_openfoodfactserror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L27",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "services_openfoodfacts_fetchjson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L34",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "services_openfoodfacts_valid_nutri_scores",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L64",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "services_openfoodfacts_tofooditem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L66",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "services_openfoodfacts_searchfood",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L88",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts",
+      "target": "services_openfoodfacts_getproductbybarcode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L117",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_fetchjson",
+      "target": "services_openfoodfacts_openfoodfactserror",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L49",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_searchfood",
+      "target": "services_openfoodfacts_fetchjson",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L104",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_getproductbybarcode",
+      "target": "services_openfoodfacts_fetchjson",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L123",
+      "weight": 1
+    },
+    {
+      "source": "services_openfoodfacts_getproductbybarcode",
+      "target": "services_openfoodfacts_tofooditem",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/openFoodFacts.ts",
+      "source_location": "L130",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai",
+      "target": "recipe",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai",
+      "target": "user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai",
+      "target": "user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai",
+      "target": "services_recipeai_recipeaierror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai_recipeaierror",
+      "target": "services_recipeai_recipeaierror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai",
+      "target": "services_recipeai_reciperequestconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L12",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai_reciperequestconfig",
+      "target": "services_recipeai_recipeconfig",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L12",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai",
+      "target": "services_recipeai_generaterecipe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "services_recipeai_generaterecipe",
+      "target": "services_recipeai_recipeaierror",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/recipeAI.ts",
+      "source_location": "L44",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore_spec",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore_spec",
+      "target": "stores_foodstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore_spec",
+      "target": "stores_foodstore_usefoodstore",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore_spec",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore_spec",
+      "target": "stores_foodstore_spec_makefood",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore_spec",
+      "target": "stores_foodstore_spec_today",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.spec.ts",
+      "source_location": "L36",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "supabase",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "stores_foodstore_gettoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L8",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "stores_foodstore_rowtomealentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L12",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "stores_foodstore_loadlocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L35",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "stores_foodstore_savelocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L45",
+      "weight": 1
+    },
+    {
+      "source": "stores_foodstore",
+      "target": "stores_foodstore_usefoodstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/foodStore.ts",
+      "source_location": "L49",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "supabase",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "nutrition",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "stores_savedplatesstore_savedplate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L8",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "stores_savedplatesstore_loadlocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L26",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "stores_savedplatesstore_savelocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L36",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedplatesstore",
+      "target": "stores_savedplatesstore_usesavedplatesstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedPlatesStore.ts",
+      "source_location": "L40",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "supabase",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "recipe",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "stores_savedrecipesstore_savedrecipe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L8",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "stores_savedrecipesstore_loadlocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L21",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "stores_savedrecipesstore_savelocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L31",
+      "weight": 1
+    },
+    {
+      "source": "stores_savedrecipesstore",
+      "target": "stores_savedrecipesstore_usesavedrecipesstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/savedRecipesStore.ts",
+      "source_location": "L35",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore_spec",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore_spec",
+      "target": "stores_userstore",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore_spec",
+      "target": "stores_userstore_useuserstore",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "pinia",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "recipe",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "mifflinstjeor",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "supabase",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "stores_userstore_default_profile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L10",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "stores_userstore_rowtoprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L23",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "stores_userstore_profiletorow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L38",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "stores_userstore_loadlocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L53",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "stores_userstore_savelocal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L66",
+      "weight": 1
+    },
+    {
+      "source": "stores_userstore",
+      "target": "stores_userstore_useuserstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/stores/userStore.ts",
+      "source_location": "L70",
+      "weight": 1
+    },
+    {
+      "source": "types_calculator",
+      "target": "types_calculator_bmiresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/calculator.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_calculator",
+      "target": "types_calculator_idealweightresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/calculator.ts",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_user_mealtype",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_food_nutriscoregrade",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_food_fooditem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_food_mealentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L21",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_food_nutritionsummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L30",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_food_openfoodfactsproduct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L37",
+      "weight": 1
+    },
+    {
+      "source": "types_food",
+      "target": "types_food_openfoodfactssearchresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/food.ts",
+      "source_location": "L61",
+      "weight": 1
+    },
+    {
+      "source": "types_nutrition",
+      "target": "types_nutrition_macrovalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_nutrition",
+      "target": "types_nutrition_ingredient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "types_nutrition",
+      "target": "types_nutrition_nutritionscore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L13",
+      "weight": 1
+    },
+    {
+      "source": "types_nutrition",
+      "target": "types_nutrition_allergentype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L18",
+      "weight": 1
+    },
+    {
+      "source": "types_nutrition",
+      "target": "types_nutrition_nutritionanalysis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L32",
+      "weight": 1
+    },
+    {
+      "source": "types_nutrition",
+      "target": "types_nutrition_nutritionairesponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/nutrition.ts",
+      "source_location": "L48",
+      "weight": 1
+    },
+    {
+      "source": "types_recipe",
+      "target": "types_recipe_allergen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_recipe",
+      "target": "types_recipe_dietarypreference",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L15",
+      "weight": 1
+    },
+    {
+      "source": "types_recipe",
+      "target": "types_recipe_recipeconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "types_recipe",
+      "target": "types_recipe_recipeingredient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "types_recipe",
+      "target": "types_recipe_recipemacros",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L29",
+      "weight": 1
+    },
+    {
+      "source": "types_recipe",
+      "target": "types_recipe_generatedrecipe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L35",
+      "weight": 1
+    },
+    {
+      "source": "types_recipe",
+      "target": "types_recipe_recipeairesponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/recipe.ts",
+      "source_location": "L48",
+      "weight": 1
+    },
+    {
+      "source": "types_supabase",
+      "target": "types_supabase_database",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/supabase.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_recipe",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_recipe_allergen",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_recipe_dietarypreference",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_user_activitylevel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_user_goaltype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_user_sex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_user_mealtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_user_userprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L8",
+      "weight": 1
+    },
+    {
+      "source": "types_user",
+      "target": "types_user_caloriegoals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/types/user.ts",
+      "source_location": "L21",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmi_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmi.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmi_spec",
+      "target": "utils_bmi",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmi.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmi_spec",
+      "target": "utils_bmi_calculatebmi",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmi.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmi_spec",
+      "target": "utils_bmi_calculateidealweight",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmi.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmi",
+      "target": "utils_bmi_calculatebmi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmi.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmi",
+      "target": "utils_bmi_calculateidealweight",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmi.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmiclassification_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmiClassification.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmiclassification_spec",
+      "target": "utils_bmiclassification",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmiClassification.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmiclassification_spec",
+      "target": "utils_bmiclassification_classifybmi",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmiClassification.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmiclassification_spec",
+      "target": "utils_bmiclassification_getbmibadgevariant",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmiClassification.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmiclassification",
+      "target": "calculator",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmiClassification.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmiclassification",
+      "target": "utils_bmiclassification_classifybmi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmiClassification.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "utils_bmiclassification",
+      "target": "utils_bmiclassification_getbmibadgevariant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/bmiClassification.ts",
+      "source_location": "L10",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "recipe",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_selectoption",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_goaloption",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L10",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_meal_type_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_meal_type_icons",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_meal_type_options",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L31",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_activity_options",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L38",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_goal_options",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L46",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_dietarypreferenceoption",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L52",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_dietary_preference_options",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L58",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_allergenoption",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L65",
+      "weight": 1
+    },
+    {
+      "source": "utils_constants",
+      "target": "utils_constants_allergen_options",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/constants.ts",
+      "source_location": "L71",
+      "weight": 1
+    },
+    {
+      "source": "utils_formatting_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/formatting.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_formatting_spec",
+      "target": "utils_formatting",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/formatting.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_formatting_spec",
+      "target": "utils_formatting_formatdatees",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/formatting.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_formatting_spec",
+      "target": "utils_formatting_formatcalorieentry",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/formatting.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_formatting",
+      "target": "utils_formatting_formatdatees",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/formatting.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "utils_formatting",
+      "target": "utils_formatting_formatcalorieentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/formatting.ts",
+      "source_location": "L16",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_spec",
+      "target": "utils_mifflinstjeor",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_spec",
+      "target": "utils_mifflinstjeor_calculatebmr",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_spec",
+      "target": "utils_mifflinstjeor_calculatetdee",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_spec",
+      "target": "utils_mifflinstjeor_calculatecaloriegoals",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_spec",
+      "target": "user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor",
+      "target": "user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor",
+      "target": "utils_mifflinstjeor_activitymultipliers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor",
+      "target": "utils_mifflinstjeor_goaladjustments",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L11",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor",
+      "target": "utils_mifflinstjeor_calculatebmr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor",
+      "target": "utils_mifflinstjeor_calculatetdee",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L29",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor",
+      "target": "utils_mifflinstjeor_calculatecaloriegoals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L33",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_calculatecaloriegoals",
+      "target": "utils_mifflinstjeor_calculatebmr",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L34",
+      "weight": 1
+    },
+    {
+      "source": "utils_mifflinstjeor_calculatecaloriegoals",
+      "target": "utils_mifflinstjeor_calculatetdee",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/mifflinStJeor.ts",
+      "source_location": "L35",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "vitest",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "utils_nutrition",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "utils_nutrition_calcpercentage",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "utils_nutrition_calcremaining",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "utils_nutrition_groupentriesbymealtype",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "utils_nutrition_sumservings",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition_spec",
+      "target": "utils_nutrition_spec_makeentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.spec.ts",
+      "source_location": "L47",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition",
+      "target": "food",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition",
+      "target": "user",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition",
+      "target": "utils_nutrition_calcpercentage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition",
+      "target": "utils_nutrition_calcremaining",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L15",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition",
+      "target": "utils_nutrition_groupentriesbymealtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L22",
+      "weight": 1
+    },
+    {
+      "source": "utils_nutrition",
+      "target": "utils_nutrition_sumservings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/nutrition.ts",
+      "source_location": "L36",
+      "weight": 1
+    },
+    {
+      "source": "views_authview",
+      "target": "views_authview_handleblur",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L40",
+      "weight": 1
+    },
+    {
+      "source": "views_authview",
+      "target": "views_authview_togglepassword",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L45",
+      "weight": 1
+    },
+    {
+      "source": "views_authview",
+      "target": "views_authview_geterrormessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L49",
+      "weight": 1
+    },
+    {
+      "source": "views_authview",
+      "target": "views_authview_handlesubmit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L68",
+      "weight": 1
+    },
+    {
+      "source": "views_authview",
+      "target": "views_authview_handleblur",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L39",
+      "weight": 1
+    },
+    {
+      "source": "views_authview",
+      "target": "views_authview_togglepassword",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L44",
+      "weight": 1
+    },
+    {
+      "source": "views_authview",
+      "target": "views_authview_geterrormessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/AuthView.vue",
+      "source_location": "L48",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_confirmdeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L48",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_executedeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L53",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_canceldeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L62",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_executecleartoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L67",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_togglemealtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L73",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_mealtypetotalcalories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L81",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_entrymacros",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L85",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_openplatemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L97",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_openrecipemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L102",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_deleteplate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L107",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_deleterecipe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L114",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_confirmdeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L47",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_executedeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L52",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_canceldeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L61",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_executecleartoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L66",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_togglemealtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L72",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_mealtypetotalcalories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L80",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_entrymacros",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L84",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_openplatemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L96",
+      "weight": 1
+    },
+    {
+      "source": "views_dashboardview",
+      "target": "views_dashboardview_openrecipemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/DashboardView.vue",
+      "source_location": "L101",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_handleanalyze",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L31",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_openaddmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L50",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_confirmadd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L55",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_closemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L72",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_saveplate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L76",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_openaddmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L49",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_confirmadd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L54",
+      "weight": 1
+    },
+    {
+      "source": "views_nutritionanalyzerview",
+      "target": "views_nutritionanalyzerview_closemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/NutritionAnalyzerView.vue",
+      "source_location": "L71",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_onnumberinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L74",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_confirmdeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L86",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_executedeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L91",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_canceldeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L100",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_executecleartoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L105",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_togglemealtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L111",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_mealtypetotalcalories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L119",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_entrymacros",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L123",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_openplatemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L135",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_openrecipemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L140",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_deleteplate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L145",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_deleterecipe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L152",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_confirmdelete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L159",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_executedelete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L166",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_onnumberinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L73",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_confirmdeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L85",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_executedeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L90",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_canceldeleteentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L99",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_executecleartoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L104",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_togglemealtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L110",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_mealtypetotalcalories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L118",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_entrymacros",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L122",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_openplatemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L134",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_openrecipemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L139",
+      "weight": 1
+    },
+    {
+      "source": "views_profileview",
+      "target": "views_profileview_confirmdelete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/ProfileView.vue",
+      "source_location": "L158",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_togglepreference",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L27",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_ispreferenceselected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L41",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_toggleallergen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L45",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_isallergenselected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L54",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_handlegenerate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L58",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_saverecipe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L84",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_togglepreference",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L26",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_ispreferenceselected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L40",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_toggleallergen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L44",
+      "weight": 1
+    },
+    {
+      "source": "views_recipegeneratorview",
+      "target": "views_recipegeneratorview_isallergenselected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/RecipeGeneratorView.vue",
+      "source_location": "L53",
+      "weight": 1
+    },
+    {
+      "source": "views_searchview",
+      "target": "views_searchview_opendetail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "views_searchview",
+      "target": "views_searchview_closedetail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L21",
+      "weight": 1
+    },
+    {
+      "source": "views_searchview",
+      "target": "views_searchview_addfromdetail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L25",
+      "weight": 1
+    },
+    {
+      "source": "views_searchview",
+      "target": "views_searchview_opendetail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L16",
+      "weight": 1
+    },
+    {
+      "source": "views_searchview",
+      "target": "views_searchview_closedetail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L20",
+      "weight": 1
+    },
+    {
+      "source": "views_searchview",
+      "target": "views_searchview_addfromdetail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/views/SearchView.vue",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "vite_config",
+      "target": "config",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "vite.config.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "vite_config",
+      "target": "plugin_vue",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "vite.config.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "vite_config",
+      "target": "vite",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "vite.config.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "vite_config",
+      "target": "node_url",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "vite.config.ts",
+      "source_location": "L4",
+      "weight": 1
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "hyperedges": []
+}
