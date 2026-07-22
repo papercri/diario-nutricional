@@ -20,6 +20,13 @@ const ringColor = computed(() => {
   if (percentage.value >= 70) return 'var(--clr-accent)'
   return 'var(--clr-primary)'
 })
+
+const statusText = computed(() => {
+  const diff = props.target - props.consumed
+  if (diff > 50) return { text: `Te faltan ${Math.round(diff)} kcal`, color: 'var(--clr-warning)' }
+  if (diff < -50) return { text: '¡Te has pasado!', color: 'var(--clr-danger)' }
+  return { text: '¡Meta cumplida!', color: 'var(--clr-success)' }
+})
 </script>
 
 <template>
@@ -67,15 +74,8 @@ const ringColor = computed(() => {
       </div>
     </div>
     <div class="flex flex-col items-center gap-1 min-w-0 sm:items-start">
-      <span
-        v-if="remaining > 0"
-        class="text-xs sm:text-sm font-medium"
-        style="color: var(--clr-text-muted)"
-      >
-        {{ Math.round(remaining) }} restantes
-      </span>
-      <span v-else class="text-xs sm:text-sm font-semibold" style="color: var(--clr-secondary)">
-        ¡Meta cumplida!
+      <span class="text-xs sm:text-sm font-semibold" :style="{ color: statusText.color }">
+        {{ statusText.text }}
       </span>
       <div
         class="w-32 sm:w-full h-1.5 rounded-full overflow-hidden"

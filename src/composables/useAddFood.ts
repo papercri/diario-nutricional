@@ -25,6 +25,7 @@ export function useAddFood() {
       await foodStore.addEntry(selectedFood.value, servings.value, mealType.value)
       showAddModal.value = false
       selectedFood.value = null
+      toast.show('Añadido a tu día')
     } catch {
       toast.show('No se pudo añadir la comida. Inténtalo de nuevo.', 'error')
     }
