@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
-import { useAuth } from '@/composables/useAuth'
 import DsCard from '@/components/ui/Card.vue'
 import DsInput from '@/components/ui/Input.vue'
 import DsButton from '@/components/ui/Button.vue'
@@ -13,7 +12,6 @@ import { classifyBMI, getBmiBadgeVariant } from '@/utils/bmiClassification'
 import type { ActivityLevel, GoalType, Sex } from '@/types/user'
 
 const userStore = useUserStore()
-const { user } = useAuth()
 
 const bmi = computed(() => calculateBMI(userStore.profile.weight, userStore.profile.height))
 const bmiLabel = computed(() => classifyBMI(bmi.value))
@@ -62,19 +60,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
       <p class="text-body-sm">Rellena tus datos y marca tu objetivo nutricional.</p>
     </header>
 
-    <div v-if="!user" class="login-prompt">
-      <DsCard variant="elevated" padding="md">
-        <p class="text-sm" style="color: var(--clr-text-muted); text-align: center; margin-bottom: 1rem;">
-          Inicia sesión para guardar tu perfil y sincronizar tus datos entre dispositivos.
-        </p>
-        <router-link to="/auth" class="btn btn-primary" style="display: flex; justify-content: center;">
-          <font-awesome-icon :icon="['fas', 'right-to-bracket']" aria-hidden="true" />
-          Iniciar sesión
-        </router-link>
-      </DsCard>
-    </div>
-
-    <div v-else class="form-row">
+    <div class="form-row">
       <DsCard variant="elevated" padding="md" class="form-row__card">
         <h2 class="section-title">
           <font-awesome-icon :icon="['fas', 'id-card']" aria-hidden="true" />
