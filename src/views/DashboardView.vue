@@ -303,16 +303,16 @@ function entryMacros(entry: {
             <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
             Mis platos
           </router-link>
-          <button
-            v-if="foodStore.todayEntries.length > 0"
-            class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap"
-            aria-label="Eliminar todas las comidas de hoy"
-            @click.stop="showClearModal = true"
-          >
-            <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
-            Limpiar
-          </button>
         </div>
+        <button
+          v-if="foodStore.todayEntries.length > 0"
+          class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap"
+          aria-label="Eliminar todas las comidas de hoy"
+          @click.stop="showClearModal = true"
+        >
+          <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
+          Limpiar
+        </button>
       </div>
     </section>
 
@@ -549,27 +549,20 @@ function entryMacros(entry: {
 .dash__actions {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   gap: 0.5rem;
   margin-top: 1rem;
 }
 
 .dash__actions-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 }
 
 @media (min-width: 400px) {
-  .dash__actions {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.375rem;
-    align-items: center;
-  }
-
   .dash__actions-row {
     gap: 0.375rem;
   }
