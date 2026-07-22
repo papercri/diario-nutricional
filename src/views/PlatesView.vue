@@ -46,6 +46,8 @@ const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd
 
 const selectedPlate = ref<SavedPlate | null>(null)
 const showPlateModal = ref(false)
+const showDeleteConfirm = ref(false)
+const plateToDelete = ref<SavedPlate | null>(null)
 
 onMounted(async () => {
   if (user.value) {
@@ -58,11 +60,23 @@ function openPlateModal(plate: SavedPlate) {
   showPlateModal.value = true
 }
 
+function confirmDeletePlate(plate: SavedPlate) {
+  plateToDelete.value = plate
+  showDeleteConfirm.value = true
+}
+
 async function deletePlate(id: string) {
   await savedPlatesStore.deletePlate(id)
   showPlateModal.value = false
   selectedPlate.value = null
+  showDeleteConfirm.value = false
+  plateToDelete.value = null
   toast.show('Plato eliminado')
+}
+
+function cancelDelete() {
+  showDeleteConfirm.value = false
+  plateToDelete.value = null
 }
 
 function openAddPlateToDay(plate: SavedPlate) {
@@ -158,7 +172,7 @@ function openAddPlateToDay(plate: SavedPlate) {
             <span class="btn-slide__label">Añadir</span>
             <font-awesome-icon :icon="['fas', 'plus']" class="btn-slide__icon" aria-hidden="true" />
           </button>
-          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${plate.name}`" @click.stop="deletePlate(plate.id)">
+          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${plate.name}`" @click.stop="confirmDeletePlate(plate)">
             <span class="btn-slide__label">Eliminar</span>
             <font-awesome-icon :icon="['fas', 'xmark']" class="btn-slide__icon" aria-hidden="true" />
           </button>
@@ -379,6 +393,19 @@ function openAddPlateToDay(plate: SavedPlate) {
         </div>
       </div>
     </div>
+
+    <!-- Delete confirmation modal -->
+    <Modal :open="showDeleteConfirm" size="sm" title="Eliminar plato" @close="cancelDelete">
+      <p class="text-sm" style="color: var(--clr-text-muted)">
+        ¿Seguro que quieres eliminar <strong>{{ plateToDelete?.name }}</strong>?
+      </p>
+      <template #footer>
+        <button class="btn btn-secondary" @click="cancelDelete">Cancelar</button>
+        <button class="btn btn-danger" @click="plateToDelete && deletePlate(plateToDelete.id)">
+          Eliminar
+        </button>
+      </template>
+    </Modal>
   </main>
 </template>
 

@@ -46,6 +46,8 @@ const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd
 
 const selectedRecipe = ref<SavedRecipe | null>(null)
 const showRecipeModal = ref(false)
+const showDeleteConfirm = ref(false)
+const recipeToDelete = ref<SavedRecipe | null>(null)
 
 onMounted(async () => {
   if (user.value) {
@@ -58,11 +60,23 @@ function openRecipeModal(recipe: SavedRecipe) {
   showRecipeModal.value = true
 }
 
+function confirmDeleteRecipe(recipe: SavedRecipe) {
+  recipeToDelete.value = recipe
+  showDeleteConfirm.value = true
+}
+
 async function deleteRecipe(id: string) {
   await savedRecipesStore.deleteRecipe(id)
   showRecipeModal.value = false
   selectedRecipe.value = null
+  showDeleteConfirm.value = false
+  recipeToDelete.value = null
   toast.show('Receta eliminada')
+}
+
+function cancelDelete() {
+  showDeleteConfirm.value = false
+  recipeToDelete.value = null
 }
 
 function openAddRecipeToDay(recipe: SavedRecipe) {
@@ -161,7 +175,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
             <span class="btn-slide__label">Añadir</span>
             <font-awesome-icon :icon="['fas', 'plus']" class="btn-slide__icon" aria-hidden="true" />
           </button>
-          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${recipe.name}`" @click.stop="deleteRecipe(recipe.id)">
+          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${recipe.name}`" @click.stop="confirmDeleteRecipe(recipe)">
             <span class="btn-slide__label">Eliminar</span>
             <font-awesome-icon :icon="['fas', 'xmark']" class="btn-slide__icon" aria-hidden="true" />
           </button>
@@ -390,6 +404,19 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
         </div>
       </div>
     </div>
+
+    <!-- Delete confirmation modal -->
+    <Modal :open="showDeleteConfirm" size="sm" title="Eliminar receta" @close="cancelDelete">
+      <p class="text-sm" style="color: var(--clr-text-muted)">
+        ¿Seguro que quieres eliminar <strong>{{ recipeToDelete?.name }}</strong>?
+      </p>
+      <template #footer>
+        <button class="btn btn-secondary" @click="cancelDelete">Cancelar</button>
+        <button class="btn btn-danger" @click="recipeToDelete && deleteRecipe(recipeToDelete.id)">
+          Eliminar
+        </button>
+      </template>
+    </Modal>
   </main>
 </template>
 
