@@ -105,9 +105,9 @@ function openAddPlateToDay(plate: SavedPlate) {
           />
           Mis platos
         </h1>
-        <router-link to="/nutrition-ai" class="btn btn-primary btn-sm">
+        <router-link to="/analizar-plato" class="btn btn-primary btn-sm">
           <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
-          Analizar plato
+          Analizar mi comida
         </router-link>
       </div>
       <p class="text-body-sm">Platos que has analizado y guardado</p>
@@ -126,9 +126,9 @@ function openAddPlateToDay(plate: SavedPlate) {
       <p class="text-xs mt-1 mb-3" style="color: var(--clr-text-faint)">
         Analiza un plato y guárdalo aquí
       </p>
-      <router-link to="/nutrition-ai" class="btn btn-primary btn-sm">
+      <router-link to="/analizar-plato" class="btn btn-primary btn-sm">
         <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
-        Analizar plato
+        Analizar mi comida
       </router-link>
     </div>
 
@@ -338,7 +338,7 @@ function openAddPlateToDay(plate: SavedPlate) {
         style="background: var(--clr-surface)"
       >
         <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
-          Añadir alimento
+          Añadir a mi día
         </h2>
 
         <p class="font-medium" style="font-size: 0.875rem; color: var(--clr-text)">

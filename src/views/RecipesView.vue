@@ -104,7 +104,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
           />
           Mis recetas
         </h1>
-        <router-link to="/recetas" class="btn btn-primary btn-sm">
+        <router-link to="/nueva-receta" class="btn btn-primary btn-sm">
           <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
           Nueva receta
         </router-link>
@@ -125,7 +125,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
       <p class="text-xs mt-1 mb-3" style="color: var(--clr-text-faint)">
         Genera una receta y guárdala aquí
       </p>
-      <router-link to="/recetas" class="btn btn-primary btn-sm">
+      <router-link to="/nueva-receta" class="btn btn-primary btn-sm">
         <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
         Generar receta
       </router-link>
@@ -349,7 +349,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
         style="background: var(--clr-surface)"
       >
         <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
-          Añadir alimento
+          Añadir a mi día
         </h2>
 
         <p class="font-medium" style="font-size: 0.875rem; color: var(--clr-text)">

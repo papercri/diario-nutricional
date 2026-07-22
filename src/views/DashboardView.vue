@@ -296,7 +296,7 @@ function entryMacros(entry: {
             Buscar
           </router-link>
           <router-link
-            to="/nutrition-ai"
+            to="/analizar-plato"
             class="btn btn-accent text-[10px] py-1 px-2 whitespace-nowrap"
             role="button"
           >

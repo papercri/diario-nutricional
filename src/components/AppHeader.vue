@@ -20,13 +20,13 @@ const links = [
   },
   {
     name: 'nutrition-ai',
-    path: '/nutrition-ai',
+    path: '/analizar-plato',
     label: 'Mis platos',
     icon: ['fas', 'wand-magic-sparkles'] as [string, string],
   },
   {
     name: 'recipes',
-    path: '/recetas',
+    path: '/nueva-receta',
     label: 'Recetas',
     icon: ['fas', 'utensils'] as [string, string],
   },
@@ -48,13 +48,13 @@ const loggedLinks = [
   },
   {
     name: 'plates',
-    path: '/plates',
+    path: '/platos',
     label: 'Mis platos',
     icon: ['fas', 'bowl-food'] as [string, string],
   },
   {
     name: 'recipes-view',
-    path: '/recipes',
+    path: '/recetas',
     label: 'Mis recetas',
     icon: ['fas', 'cookie'] as [string, string],
   },

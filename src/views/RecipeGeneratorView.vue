@@ -3,29 +3,27 @@ import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuth } from '@/composables/useAuth'
 import { useFoodStore } from '@/stores/foodStore'
+import { useAddFood } from '@/composables/useAddFood'
 import { generateRecipe, RecipeAIError } from '@/services/recipeAI'
 import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
 import { useToast } from '@/composables/useToast'
 import { DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS, MEAL_TYPE_OPTIONS } from '@/utils/constants'
 import type { GeneratedRecipe } from '@/types/recipe'
 import type { DietaryPreference, Allergen } from '@/types/recipe'
-import type { FoodItem, MealType } from '@/types/food'
+import type { FoodItem } from '@/types/food'
 import DsCard from '@/components/ui/Card.vue'
 import DsButton from '@/components/ui/Button.vue'
-import Modal from '@/components/ui/Modal.vue'
 
 const userStore = useUserStore()
-const foodStore = useFoodStore()
 const savedRecipesStore = useSavedRecipesStore()
 const toast = useToast()
 const { user } = useAuth()
+const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } = useAddFood()
 
 const isLoading = ref(false)
 const error = ref('')
 const result = ref<GeneratedRecipe | null>(null)
 const saved = ref(false)
-const showAddModal = ref(false)
-const mealType = ref<MealType>('lunch')
 const added = ref(false)
 
 const selectedPreferences = ref<DietaryPreference[]>([])
@@ -115,14 +113,8 @@ async function saveRecipe() {
   }
 }
 
-function openAddModal() {
-  added.value = false
-  showAddModal.value = true
-}
-
-function confirmAdd() {
+function handleAddToDay() {
   if (!result.value) return
-
   const food: FoodItem = {
     id: `recipe-${Date.now()}`,
     name: result.value.name,
@@ -131,15 +123,8 @@ function confirmAdd() {
     carbs: result.value.macros.carbohydrates,
     fat: result.value.macros.fat,
   }
-
-  foodStore.addEntry(food, 1, mealType.value)
-  showAddModal.value = false
-  added.value = true
-  toast.show('Receta añadida a tu día')
-}
-
-function closeModal() {
-  showAddModal.value = false
+  openAddModal(food)
+  added.value = false
 }
 </script>
 
@@ -411,7 +396,7 @@ function closeModal() {
             </div>
 
             <div class="recipe-save">
-              <button class="btn btn-primary" @click="openAddModal">
+              <button class="btn btn-primary" @click="handleAddToDay">
                 <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
                 Añadir
               </button>
@@ -828,6 +813,17 @@ function closeModal() {
   margin: 0;
   display: flex;
   align-items: center;
+  gap: 0.375rem;
+}
+
+.recipe-added {
+  font-size: 0.75rem;
+  color: var(--clr-success);
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.375rem;
 }
 </style>

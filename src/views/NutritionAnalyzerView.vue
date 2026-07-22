@@ -5,6 +5,7 @@ import type { FoodItem, MealType } from '@/types/food'
 import { analyzeMeal, NutritionAIError } from '@/services/nutritionAI'
 import { useFoodStore } from '@/stores/foodStore'
 import { useSavedPlatesStore } from '@/stores/savedPlatesStore'
+import { useAuth } from '@/composables/useAuth'
 import { useToast } from '@/composables/useToast'
 import { MEAL_TYPE_OPTIONS } from '@/utils/constants'
 import Modal from '@/components/ui/Modal.vue'
@@ -18,6 +19,7 @@ import AllergenInfoCard from '@/components/nutrition/AllergenInfoCard.vue'
 const foodStore = useFoodStore()
 const savedPlatesStore = useSavedPlatesStore()
 const toast = useToast()
+const { user } = useAuth()
 
 const isLoading = ref(false)
 const error = ref('')
@@ -154,11 +156,11 @@ async function savePlate() {
           Añadido a tu registro diario
         </p>
 
-        <button v-if="!saved" class="btn btn-secondary btn-sm save-plate-btn" @click="savePlate">
+        <button v-if="!saved && user" class="btn btn-secondary btn-sm save-plate-btn" @click="savePlate">
           <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
           Guardar plato
         </button>
-        <p v-else class="nutrition-saved" role="status">
+        <p v-else-if="saved" class="nutrition-saved" role="status">
           <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
           Guardado en favoritos
         </p>
