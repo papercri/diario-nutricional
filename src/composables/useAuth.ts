@@ -71,6 +71,9 @@ export function initAuth() {
     user.value = s?.user ?? null
     if (s?.user) {
       syncStoresWithUser(s.user.id)
+    } else {
+      const foodStore = useFoodStore()
+      foodStore.init()
     }
     loading.value = false
     authResolved.value = true

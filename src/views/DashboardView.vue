@@ -83,6 +83,17 @@ function entryMacros(entry: {
 
 <template>
   <main class="dash">
+    <div v-if="!foodStore.loaded" class="dash__loading" role="status" aria-label="Cargando">
+      <font-awesome-icon
+        :icon="['fas', 'spinner']"
+        spin
+        aria-hidden="true"
+        style="color: var(--clr-primary); font-size: 1.5rem"
+      />
+      <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">Cargando...</p>
+    </div>
+
+    <template v-else>
     <header class="dash__header">
       <h1 class="text-display-lg">
         {{
@@ -414,6 +425,7 @@ function entryMacros(entry: {
         </div>
       </div>
     </div>
+    </template>
   </main>
 </template>
 
@@ -429,6 +441,15 @@ function entryMacros(entry: {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.dash__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 3rem 0;
 }
 
 .dash__header {

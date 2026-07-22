@@ -47,11 +47,11 @@ function saveLocal(logs: Record<string, MealEntry[]>) {
 }
 
 export const useFoodStore = defineStore('food', () => {
-  const dailyLogs = ref<Record<string, MealEntry[]>>(loadLocal())
+  const dailyLogs = ref<Record<string, MealEntry[]>>({})
   const searchResults = ref<FoodItem[]>([])
   const isSearching = ref(false)
   const searchError = ref<string | null>(null)
-  const loaded = ref(true)
+  const loaded = ref(false)
   const userId = ref('')
 
   function setUserId(id: string) {
@@ -66,6 +66,13 @@ export const useFoodStore = defineStore('food', () => {
       loaded.value = true
     }
   })
+
+  function init() {
+    if (!userId.value) {
+      dailyLogs.value = loadLocal()
+      loaded.value = true
+    }
+  }
 
   const todayEntries = computed(() => {
     return dailyLogs.value[getToday()] ?? []
@@ -253,6 +260,7 @@ export const useFoodStore = defineStore('food', () => {
     todayEntries,
     todaySummary,
     setUserId,
+    init,
     loadEntries,
     addEntry,
     removeEntry,
