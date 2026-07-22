@@ -561,10 +561,6 @@ function entryMacros(entry: {
   gap: 0.5rem;
 }
 
-.dash__btn-clear {
-  width: 100%;
-}
-
 @media (min-width: 400px) {
   .dash__actions {
     flex-direction: row;
@@ -576,10 +572,6 @@ function entryMacros(entry: {
 
   .dash__actions-row {
     gap: 0.375rem;
-  }
-
-  .dash__btn-clear {
-    width: auto;
   }
 }
 </style>
