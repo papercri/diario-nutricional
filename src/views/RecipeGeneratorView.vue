@@ -34,15 +34,10 @@ const preferredIngredients = ref('')
 const additionalInstructions = ref('')
 
 function togglePreference(value: DietaryPreference) {
-  if (value === 'none') {
-    selectedPreferences.value = ['none']
-    return
-  }
   const idx = selectedPreferences.value.indexOf(value)
   if (idx !== -1) {
     selectedPreferences.value.splice(idx, 1)
   } else {
-    selectedPreferences.value = selectedPreferences.value.filter(v => v !== 'none')
     selectedPreferences.value.push(value)
   }
 }

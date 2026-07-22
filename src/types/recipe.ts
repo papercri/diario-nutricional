@@ -12,7 +12,7 @@ export type Allergen =
   | 'celery'
   | 'lupin'
 
-export type DietaryPreference = 'none' | 'vegetarian' | 'vegan' | 'gluten_free'
+export type DietaryPreference = 'vegetarian' | 'vegan'
 
 export interface RecipeConfig {
   dietaryPreferences: DietaryPreference[]
