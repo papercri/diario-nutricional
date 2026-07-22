@@ -86,21 +86,27 @@ export const useFoodStore = defineStore('food', () => {
 
   async function loadEntries() {
     if (userId.value) {
-      const { data } = await supabase
-        .from('meal_entries')
-        .select('*')
-        .eq('user_id', userId.value)
-        .order('created_at', { ascending: true })
+      try {
+        const { data, error } = await supabase
+          .from('meal_entries')
+          .select('*')
+          .eq('user_id', userId.value)
+          .order('created_at', { ascending: true })
 
-      const logs: Record<string, MealEntry[]> = {}
-      if (data) {
-        for (const row of data) {
-          const entry = rowToMealEntry(row)
-          if (!logs[entry.date]) logs[entry.date] = []
-          logs[entry.date].push(entry)
+        if (error) throw error
+
+        const logs: Record<string, MealEntry[]> = {}
+        if (data) {
+          for (const row of data) {
+            const entry = rowToMealEntry(row)
+            if (!logs[entry.date]) logs[entry.date] = []
+            logs[entry.date].push(entry)
+          }
         }
+        dailyLogs.value = logs
+      } catch (err) {
+        console.error('Error loading entries from Supabase:', err)
       }
-      dailyLogs.value = logs
     } else {
       dailyLogs.value = loadLocal()
     }
@@ -111,31 +117,38 @@ export const useFoodStore = defineStore('food', () => {
     const today = getToday()
 
     if (userId.value) {
-      const { data } = await supabase
-        .from('meal_entries')
-        .insert({
-          user_id: userId.value,
-          food_name: food.name,
-          food_brand: food.brand ?? null,
-          food_calories: food.calories,
-          food_protein: food.protein,
-          food_carbs: food.carbs,
-          food_fat: food.fat,
-          food_serving_size: food.servingSize ?? null,
-          food_barcode: food.barcode ?? null,
-          food_image_url: food.imageUrl ?? null,
-          food_nutri_score: food.nutriScore ?? null,
-          servings,
-          meal_type: mealType,
-          date: today,
-        })
-        .select()
-        .single()
+      try {
+        const { data, error } = await supabase
+          .from('meal_entries')
+          .insert({
+            user_id: userId.value,
+            food_name: food.name,
+            food_brand: food.brand ?? null,
+            food_calories: food.calories,
+            food_protein: food.protein,
+            food_carbs: food.carbs,
+            food_fat: food.fat,
+            food_serving_size: food.servingSize ?? null,
+            food_barcode: food.barcode ?? null,
+            food_image_url: food.imageUrl ?? null,
+            food_nutri_score: food.nutriScore ?? null,
+            servings,
+            meal_type: mealType,
+            date: today,
+          })
+          .select()
+          .single()
 
-      if (data) {
-        const entry = rowToMealEntry(data)
-        if (!dailyLogs.value[today]) dailyLogs.value[today] = []
-        dailyLogs.value[today] = [...dailyLogs.value[today], entry]
+        if (error) throw error
+
+        if (data) {
+          const entry = rowToMealEntry(data)
+          if (!dailyLogs.value[today]) dailyLogs.value[today] = []
+          dailyLogs.value[today] = [...dailyLogs.value[today], entry]
+        }
+      } catch (err) {
+        console.error('Error adding entry to Supabase:', err)
+        throw err
       }
     } else {
       const entry: MealEntry = {
@@ -154,20 +167,45 @@ export const useFoodStore = defineStore('food', () => {
 
   async function removeEntry(entryId: string) {
     if (userId.value) {
-      await supabase.from('meal_entries').delete().eq('id', entryId).eq('user_id', userId.value)
+      try {
+        const { error } = await supabase
+          .from('meal_entries')
+          .delete()
+          .eq('id', entryId)
+          .eq('user_id', userId.value)
+
+        if (error) throw error
+      } catch (err) {
+        console.error('Error removing entry from Supabase:', err)
+        throw err
+      }
     }
 
-    const today = getToday()
-    if (dailyLogs.value[today]) {
-      dailyLogs.value[today] = dailyLogs.value[today].filter(e => e.id !== entryId)
-      if (!userId.value) saveLocal(dailyLogs.value)
+    for (const date of Object.keys(dailyLogs.value)) {
+      const idx = dailyLogs.value[date].findIndex(e => e.id === entryId)
+      if (idx !== -1) {
+        dailyLogs.value[date] = dailyLogs.value[date].filter(e => e.id !== entryId)
+        break
+      }
     }
+    if (!userId.value) saveLocal(dailyLogs.value)
   }
 
   async function clearToday() {
     const today = getToday()
     if (userId.value) {
-      await supabase.from('meal_entries').delete().eq('user_id', userId.value).eq('date', today)
+      try {
+        const { error } = await supabase
+          .from('meal_entries')
+          .delete()
+          .eq('user_id', userId.value)
+          .eq('date', today)
+
+        if (error) throw error
+      } catch (err) {
+        console.error('Error clearing today from Supabase:', err)
+        throw err
+      }
     }
     dailyLogs.value[today] = []
     if (!userId.value) saveLocal(dailyLogs.value)
@@ -202,6 +240,7 @@ export const useFoodStore = defineStore('food', () => {
       })
     }
     localStorage.removeItem(STORAGE_KEY)
+    await loadEntries()
   }
 
   return {
