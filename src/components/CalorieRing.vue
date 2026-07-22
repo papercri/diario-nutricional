@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { calcPercentage, calcRemaining } from '@/utils/nutrition'
+import { calcPercentage } from '@/utils/nutrition'
 
 const props = defineProps<{
   consumed: number
@@ -8,17 +8,10 @@ const props = defineProps<{
 }>()
 
 const percentage = computed(() => calcPercentage(props.consumed, props.target))
-const remaining = computed(() => calcRemaining(props.consumed, props.target))
 
 const circumference = 2 * Math.PI * 90
 const strokeDashoffset = computed(() => {
   return circumference - (percentage.value / 100) * circumference
-})
-
-const ringColor = computed(() => {
-  if (percentage.value >= 90) return 'var(--clr-secondary)'
-  if (percentage.value >= 70) return 'var(--clr-accent)'
-  return 'var(--clr-primary)'
 })
 
 const statusText = computed(() => {
@@ -27,6 +20,8 @@ const statusText = computed(() => {
   if (diff < -50) return { text: '¡Te has pasado!', color: 'var(--clr-danger)' }
   return { text: '¡Meta cumplida!', color: 'var(--clr-success)' }
 })
+
+const ringColor = computed(() => statusText.value.color)
 </script>
 
 <template>
