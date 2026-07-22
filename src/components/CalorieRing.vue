@@ -16,9 +16,9 @@ const strokeDashoffset = computed(() => {
 
 const statusText = computed(() => {
   const diff = props.target - props.consumed
-  if (diff > 50) return { text: `Te faltan ${Math.round(diff)} kcal`, color: 'var(--clr-warning)' }
+  if (diff > 50) return { text: `Te faltan ${Math.round(diff)} kcal`, color: 'var(--clr-secondary)' }
   if (diff < -50) return { text: '¡Te has pasado!', color: 'var(--clr-danger)' }
-  return { text: '¡Meta cumplida!', color: 'var(--clr-success)' }
+  return { text: '¡Meta cumplida!', color: 'var(--clr-primary)' }
 })
 
 const ringColor = computed(() => statusText.value.color)
