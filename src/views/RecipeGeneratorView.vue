@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuth } from '@/composables/useAuth'
 import { useFoodStore } from '@/stores/foodStore'
@@ -31,6 +31,10 @@ const selectedPreferences = ref<DietaryPreference[]>([])
 const selectedAllergens = ref<Allergen[]>([])
 const preferredIngredients = ref('')
 const additionalInstructions = ref('')
+
+const hasInput = computed(() => {
+  return preferredIngredients.value.trim().length > 0 || selectedPreferences.value.length > 0
+})
 
 function togglePreference(value: DietaryPreference) {
   const idx = selectedPreferences.value.indexOf(value)
@@ -247,6 +251,7 @@ function handleAddToDay() {
             variant="primary"
             size="md"
             :loading="isLoading"
+            :disabled="!hasInput"
             class="generate-btn"
             @click="handleGenerate"
           >
