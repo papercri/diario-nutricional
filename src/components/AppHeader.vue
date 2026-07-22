@@ -41,6 +41,12 @@ const links = [
 const loggedLinks = [
   { name: 'dashboard', path: '/', label: 'Mi Día', icon: ['fas', 'house'] as [string, string] },
   {
+    name: 'search',
+    path: '/search',
+    label: 'Buscar',
+    icon: ['fas', 'magnifying-glass'] as [string, string],
+  },
+  {
     name: 'plates',
     path: '/plates',
     label: 'Mis platos',
