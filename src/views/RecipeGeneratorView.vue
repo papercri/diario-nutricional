@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuth } from '@/composables/useAuth'
-import { useFoodStore } from '@/stores/foodStore'
 import { useAddFood } from '@/composables/useAddFood'
 import { generateRecipe, RecipeAIError } from '@/services/recipeAI'
 import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
@@ -122,7 +121,7 @@ function handleAddToDay() {
   if (!result.value) return
   const food: FoodItem = {
     id: `recipe-${Date.now()}`,
-    name: result.value.name,
+    name: result.value.recipeName,
     calories: result.value.estimatedCalories,
     protein: result.value.macros.protein,
     carbs: result.value.macros.carbohydrates,
