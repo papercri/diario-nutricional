@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
 import { useUserStore } from '@/stores/userStore'
@@ -37,6 +37,30 @@ const links = [
     icon: ['fas', 'user'] as [string, string],
   },
 ]
+
+const loggedLinks = [
+  { name: 'dashboard', path: '/', label: 'Mi Día', icon: ['fas', 'house'] as [string, string] },
+  {
+    name: 'plates',
+    path: '/plates',
+    label: 'Mis platos',
+    icon: ['fas', 'bowl-food'] as [string, string],
+  },
+  {
+    name: 'recipes-view',
+    path: '/recipes',
+    label: 'Mis recetas',
+    icon: ['fas', 'cookie'] as [string, string],
+  },
+  {
+    name: 'profile',
+    path: '/profile',
+    label: 'Mi perfil',
+    icon: ['fas', 'user'] as [string, string],
+  },
+]
+
+const activeLinks = computed(() => (user.value ? loggedLinks : links))
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
@@ -86,7 +110,7 @@ watch(
       <!-- Desktop nav -->
       <nav class="hidden sm:flex items-center gap-1" aria-label="Navegación principal">
         <router-link
-          v-for="link in links"
+          v-for="link in activeLinks"
           :key="link.name"
           :to="link.path"
           class="btn btn-ghost text-sm"
@@ -157,7 +181,7 @@ watch(
       >
         <div class="max-w-4xl mx-auto px-4 py-3 space-y-1">
           <router-link
-            v-for="link in links"
+            v-for="link in activeLinks"
             :key="link.name"
             :to="link.path"
             class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 no-underline"

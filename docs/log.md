@@ -2,6 +2,24 @@
 
 ## 2026-07-22
 
+### Feature: Navigation Reorganization — Tabs Removed for Logged-in Users
+
+Removed redundant tab navigation ("Secciones del perfil") from Dashboard and Profile views. For logged-in users, each section is now a top-level route in the main navigation. Guest users see no changes.
+
+**Files created:**
+- `src/views/PlatesView.vue` — Standalone saved plates list with "Analizar plato" button, plate detail modal, add-to-day modal
+- `src/views/RecipesView.vue` — Standalone saved recipes list with "Nueva receta" button, recipe detail modal, add-to-day modal
+
+**Files modified:**
+- `src/router/index.ts` — Added `/plates` and `/recipes` routes
+- `src/components/AppHeader.vue` — Conditional links: logged-in users see "Mi Día", "Mis platos", "Mis recetas", "Mi perfil"; guests see original links unchanged
+- `src/views/DashboardView.vue` — Stripped to "Mi día" content only (calorie ring, meals list, clear/delete actions). Reduced from ~2000 to ~400 lines
+- `src/views/ProfileView.vue` — Stripped to profile form only (personal data, lifestyle, BMI, metrics). Reduced from ~1100 to ~300 lines
+
+---
+
+## 2026-07-22
+
 ### Feature: Recipe Cards Unified with Plate Cards
 
 Recipe cards ("Mis recetas") now use the same component and behavior as plate cards ("Mis platos"). Both display identical accent bar logic, allergen tags, vegan/vegetarian badges, and detail modals.

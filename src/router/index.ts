@@ -9,6 +9,16 @@ const router = createRouter({
       component: () => import('../views/DashboardView.vue'),
     },
     {
+      path: '/plates',
+      name: 'plates',
+      component: () => import('../views/PlatesView.vue'),
+    },
+    {
+      path: '/recipes',
+      name: 'recipes-view',
+      component: () => import('../views/RecipesView.vue'),
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: () => import('../views/ProfileView.vue'),
