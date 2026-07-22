@@ -50,3 +50,5 @@ docs/
 .opencodeignore
 /.graphify
 /studio
+.graphify/
+.graphify
