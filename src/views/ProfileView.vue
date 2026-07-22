@@ -57,7 +57,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
           Mi día
         </router-link>
       </div>
-      <p class="text-body-sm">Tus datos se guardan localmente y nunca se comparten.</p>
+      <p class="text-body-sm">Rellena tus datos y marca tu objetivo nutricional.</p>
     </header>
 
     <div class="form-row">
