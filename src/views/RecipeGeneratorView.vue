@@ -13,6 +13,7 @@ import type { DietaryPreference, Allergen } from '@/types/recipe'
 import type { FoodItem } from '@/types/food'
 import DsCard from '@/components/ui/Card.vue'
 import DsButton from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
 
 const userStore = useUserStore()
 const savedRecipesStore = useSavedRecipesStore()
