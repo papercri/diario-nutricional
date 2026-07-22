@@ -415,6 +415,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
   justify-content: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 
 .saved-card {
@@ -426,6 +427,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
   box-shadow: var(--shadow-md);
   overflow: hidden;
   transition: box-shadow 0.2s ease;
+  margin-bottom: 8px;
 }
 
 .saved-card:hover { box-shadow: var(--shadow-lg); }

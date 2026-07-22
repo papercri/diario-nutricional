@@ -11,7 +11,7 @@ const userStore = useUserStore()
 const isMenuOpen = ref(false)
 
 const links = [
-  { name: 'dashboard', path: '/', label: 'Inicio', icon: ['fas', 'house'] as [string, string] },
+  { name: 'dashboard', path: '/', label: 'Mi Día', icon: ['fas', 'house'] as [string, string] },
   {
     name: 'search',
     path: '/search',
@@ -70,6 +70,10 @@ function closeMenu() {
   isMenuOpen.value = false
 }
 
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 async function handleSignOut() {
   await signOut()
   closeMenu()
@@ -126,7 +130,7 @@ watch(
       <div class="hidden sm:flex items-center gap-2">
         <template v-if="user">
           <span class="text-sm font-medium" style="color: var(--clr-text)">
-            Hola, {{ userStore.profile.name || 'usuario' }}
+                Hola, {{ capitalize(userStore.profile.name || 'usuario') }}
           </span>
           <button class="btn btn-ghost text-sm" aria-label="Cerrar sesión" @click="handleSignOut">
             <font-awesome-icon :icon="['fas', 'right-from-bracket']" aria-hidden="true" />
@@ -200,7 +204,7 @@ watch(
           <div class="border-t pt-2 mt-2" style="border-color: var(--clr-border-subtle)">
             <template v-if="user">
               <div class="px-4 py-2 text-sm font-medium" style="color: var(--clr-text)">
-                Hola, {{ userStore.profile.name || 'usuario' }}
+            Hola, {{ capitalize(userStore.profile.name || 'usuario') }}
               </div>
               <button
                 class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 w-full text-left hover:bg-black/5"
