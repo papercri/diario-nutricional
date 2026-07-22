@@ -43,7 +43,7 @@ export interface Database {
           dietary_preferences?: string[]
         }
       }
-      meal_entries: {
+      daily_meal: {
         Row: {
           id: string
           user_id: string

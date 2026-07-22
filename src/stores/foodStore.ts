@@ -95,7 +95,7 @@ export const useFoodStore = defineStore('food', () => {
     if (userId.value) {
       try {
         const { data, error } = await supabase
-          .from('meal_entries')
+          .from('daily_meal')
           .select('*')
           .eq('user_id', userId.value)
           .order('created_at', { ascending: true })
@@ -126,7 +126,7 @@ export const useFoodStore = defineStore('food', () => {
     if (userId.value) {
       try {
         const { data, error } = await supabase
-          .from('meal_entries')
+          .from('daily_meal')
           .insert({
             user_id: userId.value,
             food_name: food.name,
@@ -176,7 +176,7 @@ export const useFoodStore = defineStore('food', () => {
     if (userId.value) {
       try {
         const { error } = await supabase
-          .from('meal_entries')
+          .from('daily_meal')
           .delete()
           .eq('id', entryId)
           .eq('user_id', userId.value)
@@ -203,7 +203,7 @@ export const useFoodStore = defineStore('food', () => {
     if (userId.value) {
       try {
         const { error } = await supabase
-          .from('meal_entries')
+          .from('daily_meal')
           .delete()
           .eq('user_id', userId.value)
           .eq('date', today)
@@ -229,7 +229,7 @@ export const useFoodStore = defineStore('food', () => {
     if (entries.length === 0) return
 
     for (const entry of entries) {
-      await supabase.from('meal_entries').insert({
+      await supabase.from('daily_meal').insert({
         user_id: userId.value,
         food_name: entry.food.name,
         food_brand: entry.food.brand ?? null,
