@@ -546,6 +546,7 @@ function handleAddToDay() {
 /* Textarea */
 .recipe-textarea {
   width: 100%;
+  height: 3.6rem;
   padding: 0.5rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--clr-border);
