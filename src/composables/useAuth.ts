@@ -43,25 +43,6 @@ function clearAllLocalStorage() {
   }
 }
 
-async function migrateLocalData() {
-  const userStore = useUserStore()
-  const foodStore = useFoodStore()
-  const savedPlatesStore = useSavedPlatesStore()
-  const savedRecipesStore = useSavedRecipesStore()
-
-  const results = await Promise.allSettled([
-    userStore.migrateToSupabase(),
-    foodStore.migrateToSupabase(),
-    savedPlatesStore.migrateToSupabase(),
-    savedRecipesStore.migrateToSupabase(),
-  ])
-
-  const allSucceeded = results.every(r => r.status === 'fulfilled')
-  if (allSucceeded) {
-    clearAllLocalStorage()
-  }
-}
-
 export function initAuth() {
   if (initialized) return
   initialized = true
@@ -84,11 +65,10 @@ export function initAuth() {
     user.value = s?.user ?? null
 
     if (s?.user) {
-      syncStoresWithUser(s.user.id)
-
       if (event === 'SIGNED_IN') {
-        migrateLocalData()
+        clearAllLocalStorage()
       }
+      syncStoresWithUser(s.user.id)
     } else {
       syncStoresWithUser('')
     }

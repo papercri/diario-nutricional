@@ -114,7 +114,7 @@ async function saveRecipe() {
     saved.value = true
     toast.show('Receta guardada en favoritos')
   } else {
-    toast.show('No se pudo guardar la receta')
+    toast.show('No se pudo guardar la receta', 'error')
   }
 }
 

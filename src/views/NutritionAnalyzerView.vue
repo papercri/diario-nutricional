@@ -96,7 +96,7 @@ async function savePlate() {
     saved.value = true
     toast.show('Plato guardado en favoritos')
   } else {
-    toast.show('No se pudo guardar el plato')
+    toast.show('No se pudo guardar el plato', 'error')
   }
 }
 </script>

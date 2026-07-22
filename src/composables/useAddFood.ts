@@ -26,7 +26,7 @@ export function useAddFood() {
       showAddModal.value = false
       selectedFood.value = null
     } catch {
-      toast.show('No se pudo añadir la comida. Inténtalo de nuevo.')
+      toast.show('No se pudo añadir la comida. Inténtalo de nuevo.', 'error')
     }
   }
 
