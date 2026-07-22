@@ -3,14 +3,23 @@ import { setActivePinia, createPinia } from 'pinia'
 import { useFoodStore } from './foodStore'
 import type { FoodItem } from '@/types/food'
 
-const mockStorage = new Map<string, string>()
-vi.spyOn(Storage.prototype, 'getItem').mockImplementation(key => mockStorage.get(key) ?? null)
-vi.spyOn(Storage.prototype, 'setItem').mockImplementation((key, value) => {
-  mockStorage.set(key, value)
-})
-vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(key => {
-  mockStorage.delete(key)
-})
+vi.mock('@/lib/supabase', () => ({
+  supabase: {
+    auth: {
+      getSession: vi.fn().mockResolvedValue({
+        data: { session: null },
+      }),
+    },
+    from: vi.fn(() => ({
+      select: vi.fn().mockReturnThis(),
+      eq: vi.fn().mockReturnThis(),
+      order: vi.fn().mockResolvedValue({ data: [], error: null }),
+      insert: vi.fn().mockResolvedValue({ data: null, error: null }),
+      delete: vi.fn().mockResolvedValue({ error: null }),
+      single: vi.fn().mockResolvedValue({ data: null, error: null }),
+    })),
+  },
+}))
 
 function makeFood(overrides: Partial<FoodItem> = {}): FoodItem {
   return {
@@ -30,8 +39,8 @@ function today(): string {
 
 describe('useFoodStore', () => {
   beforeEach(() => {
+    localStorage.clear()
     setActivePinia(createPinia())
-    mockStorage.clear()
   })
 
   describe('initial state', () => {
@@ -50,74 +59,74 @@ describe('useFoodStore', () => {
   })
 
   describe('addEntry', () => {
-    it('adds an entry to today', () => {
+    it('adds an entry to today', async () => {
       const store = useFoodStore()
       const food = makeFood()
-      store.addEntry(food, 2, 'lunch')
+      await store.addEntry(food, 2, 'lunch')
       expect(store.todayEntries).toHaveLength(1)
-      expect(store.todayEntries[0].food.id).toBe('1')
+      expect(store.todayEntries[0].food.name).toBe('Test Food')
       expect(store.todayEntries[0].servings).toBe(2)
       expect(store.todayEntries[0].mealType).toBe('lunch')
     })
 
-    it('generates unique ids for entries', () => {
+    it('generates unique ids for entries', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
-      store.addEntry(makeFood({ id: '2' }), 1, 'lunch')
+      await store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
+      await store.addEntry(makeFood({ id: '2' }), 1, 'lunch')
       expect(store.todayEntries[0].id).not.toBe(store.todayEntries[1].id)
     })
 
-    it('persists to localStorage', () => {
+    it('persists to localStorage', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood(), 1, 'snack')
-      const stored = JSON.parse(mockStorage.get('avocato-food-log') ?? '{}')
+      await store.addEntry(makeFood(), 1, 'snack')
+      const stored = JSON.parse(localStorage.getItem('avocato-food-log') ?? '{}')
       expect(stored[today()]).toHaveLength(1)
     })
 
-    it('accumulates multiple entries', () => {
+    it('accumulates multiple entries', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
-      store.addEntry(makeFood({ id: '2' }), 2, 'lunch')
-      store.addEntry(makeFood({ id: '3' }), 1, 'dinner')
+      await store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
+      await store.addEntry(makeFood({ id: '2' }), 2, 'lunch')
+      await store.addEntry(makeFood({ id: '3' }), 1, 'dinner')
       expect(store.todayEntries).toHaveLength(3)
     })
   })
 
   describe('removeEntry', () => {
-    it('removes an entry by id', () => {
+    it('removes an entry by id', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood(), 1, 'lunch')
+      await store.addEntry(makeFood(), 1, 'lunch')
       const entryId = store.todayEntries[0].id
-      store.removeEntry(entryId)
+      await store.removeEntry(entryId)
       expect(store.todayEntries).toHaveLength(0)
     })
 
-    it('only removes the matching entry', () => {
+    it('only removes the matching entry', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
-      store.addEntry(makeFood({ id: '2' }), 1, 'lunch')
+      await store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
+      await store.addEntry(makeFood({ id: '2' }), 1, 'lunch')
       const firstId = store.todayEntries[0].id
-      store.removeEntry(firstId)
+      await store.removeEntry(firstId)
       expect(store.todayEntries).toHaveLength(1)
       expect(store.todayEntries[0].food.id).toBe('2')
     })
   })
 
   describe('clearToday', () => {
-    it('removes all today entries', () => {
+    it('removes all today entries', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
-      store.addEntry(makeFood({ id: '2' }), 2, 'lunch')
-      store.clearToday()
+      await store.addEntry(makeFood({ id: '1' }), 1, 'breakfast')
+      await store.addEntry(makeFood({ id: '2' }), 2, 'lunch')
+      await store.clearToday()
       expect(store.todayEntries).toHaveLength(0)
     })
   })
 
   describe('todaySummary', () => {
-    it('calculates nutrition totals across entries', () => {
+    it('calculates nutrition totals across entries', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood({ calories: 200, protein: 10, carbs: 30, fat: 5 }), 2, 'lunch')
-      store.addEntry(makeFood({ calories: 100, protein: 5, carbs: 15, fat: 2 }), 1, 'snack')
+      await store.addEntry(makeFood({ calories: 200, protein: 10, carbs: 30, fat: 5 }), 2, 'lunch')
+      await store.addEntry(makeFood({ calories: 100, protein: 5, carbs: 15, fat: 2 }), 1, 'snack')
       expect(store.todaySummary.calories).toBe(500)
       expect(store.todaySummary.protein).toBe(25)
       expect(store.todaySummary.carbs).toBe(75)
@@ -126,9 +135,9 @@ describe('useFoodStore', () => {
   })
 
   describe('getEntriesForDate', () => {
-    it('returns entries for a specific date', () => {
+    it('returns entries for a specific date', async () => {
       const store = useFoodStore()
-      store.addEntry(makeFood(), 1, 'lunch')
+      await store.addEntry(makeFood(), 1, 'lunch')
       const entries = store.getEntriesForDate(today())
       expect(entries).toHaveLength(1)
     })
@@ -154,14 +163,14 @@ describe('useFoodStore', () => {
           },
         ],
       }
-      mockStorage.set('avocato-food-log', JSON.stringify(existingData))
+      localStorage.setItem('avocato-food-log', JSON.stringify(existingData))
       const store = useFoodStore()
       expect(store.todayEntries).toHaveLength(1)
       expect(store.todayEntries[0].food.id).toBe('10')
     })
 
     it('handles corrupted localStorage gracefully', () => {
-      mockStorage.set('avocato-food-log', 'NOT-JSON')
+      localStorage.setItem('avocato-food-log', 'NOT-JSON')
       const store = useFoodStore()
       expect(store.todayEntries).toHaveLength(0)
     })

@@ -12,7 +12,6 @@ defineProps<{
 defineEmits<{
   addToDaily: []
 }>()
-
 </script>
 
 <template>
@@ -21,13 +20,27 @@ defineEmits<{
       <div class="result-card__main">
         <div class="result-card__info">
           <div class="result-card__header">
-            <font-awesome-icon :icon="['fas', 'utensils']" class="result-card__icon" aria-hidden="true" />
+            <font-awesome-icon
+              :icon="['fas', 'utensils']"
+              class="result-card__icon"
+              aria-hidden="true"
+            />
             <h3 class="result-card__meal-name">{{ mealName }}</h3>
-            <span v-if="isVegan" class="result-card__diet-badge result-card__diet-badge--vegan" title="Vegano" aria-label="Vegano">
+            <span
+              v-if="isVegan"
+              class="result-card__diet-badge result-card__diet-badge--vegan"
+              title="Vegano"
+              aria-label="Vegano"
+            >
               <font-awesome-icon :icon="['fas', 'seedling']" aria-hidden="true" />
               Vegano
             </span>
-            <span v-else-if="isVegetarian" class="result-card__diet-badge result-card__diet-badge--vegetarian" title="Vegetariano" aria-label="Vegetariano">
+            <span
+              v-else-if="isVegetarian"
+              class="result-card__diet-badge result-card__diet-badge--vegetarian"
+              title="Vegetariano"
+              aria-label="Vegetariano"
+            >
               <font-awesome-icon :icon="['fas', 'leaf']" aria-hidden="true" />
               Veggie
             </span>

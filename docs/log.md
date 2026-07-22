@@ -1,5 +1,41 @@
 # Changelog - Design System Improvements
 
+## 2026-07-22
+
+### Feature: Navigation Reorganization — Tabs Removed for Logged-in Users
+
+Removed redundant tab navigation ("Secciones del perfil") from Dashboard and Profile views. For logged-in users, each section is now a top-level route in the main navigation. Guest users see no changes.
+
+**Files created:**
+- `src/views/PlatesView.vue` — Standalone saved plates list with "Analizar plato" button, plate detail modal, add-to-day modal
+- `src/views/RecipesView.vue` — Standalone saved recipes list with "Nueva receta" button, recipe detail modal, add-to-day modal
+
+**Files modified:**
+- `src/router/index.ts` — Added `/plates` and `/recipes` routes
+- `src/components/AppHeader.vue` — Conditional links: logged-in users see "Mi Día", "Mis platos", "Mis recetas", "Mi perfil"; guests see original links unchanged
+- `src/views/DashboardView.vue` — Stripped to "Mi día" content only (calorie ring, meals list, clear/delete actions). Reduced from ~2000 to ~400 lines
+- `src/views/ProfileView.vue` — Stripped to profile form only (personal data, lifestyle, BMI, metrics). Reduced from ~1100 to ~300 lines
+
+---
+
+## 2026-07-22
+
+### Feature: Recipe Cards Unified with Plate Cards
+
+Recipe cards ("Mis recetas") now use the same component and behavior as plate cards ("Mis platos"). Both display identical accent bar logic, allergen tags, vegan/vegetarian badges, and detail modals.
+
+**Database migration (`saved_recipes`):**
+- Added `description`, `serving_size`, `image_url`, `allergens`, `is_vegan`, `is_vegetarian`, `nutrition_score` columns
+
+**Files modified:**
+- `src/types/supabase.ts` — Extended `saved_recipes` Row/Insert/Update with 7 new columns
+- `src/stores/savedRecipesStore.ts` — Extended `SavedRecipe` interface with new fields; updated `loadRecipes`, `saveRecipe`, `migrateToSupabase` mappings
+- `src/views/RecipeGeneratorView.vue` — `saveRecipe()` now passes `description`, `servingSize`, `imageUrl`, `allergens`, `isVegan`, `isVegetarian`, `nutritionScore`
+- `src/views/DashboardView.vue` — Recipe card uses same accent bar logic, allergen tags, vegan/vegetarian badges as plate card; recipe modal adds image, description, serving, nutrition score, allergen section, dietary badges
+- `src/views/ProfileView.vue` — Same card and modal updates as DashboardView
+
+---
+
 ## 2026-07-20
 
 ### Feature: Allergen & Dietary Info Card (Mis Platos)
@@ -198,3 +234,55 @@ Added new CSS custom properties to `src/design-system/tokens/index.css`:
 - Added fallback utensils icon for food entries without images
 - Applied to foods added via AI analyzer that lack imageUrl
 - Icon displays with light green background when no image available
+
+## 2026-07-20
+
+### Feature: Dashboard with Tabs (Mi día, Mis platos, Mis recetas, Perfil)
+
+Redesigned the DashboardView to include a tabbed interface for navigating between different sections of the app.
+
+**Files modified:**
+- `src/views/DashboardView.vue` — Complete rewrite with 4 tabs: Mi día (daily tracking), Mis platos (saved plates), Mis recetas (saved recipes), Perfil (profile summary + edit link)
+- `src/fontawesome.ts` — Added `faStar`, `faStarHalfStroke`, `faTag` icons for favorites and tags
+- `src/composables/useAuth.ts` — Added savedPlatesStore and savedRecipesStore to migration and auth state handling
+- `src/views/NutritionAnalyzerView.vue` — Added "Guardar plato" button with star icon to save analyzed plates to favorites
+- `src/views/RecipeGeneratorView.vue` — Added "Guardar receta" button with star icon to save generated recipes to favorites
+
+**Files created:**
+- `src/stores/savedPlatesStore.ts` — Pinia store for saved plates with dual localStorage/Supabase persistence
+- `src/stores/savedRecipesStore.ts` — Pinia store for saved recipes with dual localStorage/Supabase persistence
+
+**Design details:**
+- Tab bar uses `--clr-primary` active state with `--clr-text-inverse` text
+- Saved plates grid: responsive auto-fill with 160px min columns
+- Saved recipes grid: same responsive pattern
+- Plate modal: shows image, name, description, macros, serving size
+- Recipe modal: shows name, stats, ingredients list, preparation steps
+- Profile tab: avatar, name, stats grid, allergen tags, dietary preference tags, edit button
+- Favorite button: secondary style with star icon, changes to "Guardado en favoritos" text after saving
+- All modals use existing Modal component with `size="md"` for detail views
+
+## 2026-07-20
+
+### Feature: ProfileView with Tabs + Login Fix + Auto-loading Stores
+
+Rewrote ProfileView to be the main page after login with 4 tabs matching Dashboard layout. Fixed login hanging by making stores auto-load data when userId changes.
+
+**Files modified:**
+- `src/views/ProfileView.vue` — Complete rewrite with 4 tabs (Mi día, Mis platos, Mis recetas, Datos). Horizontal cards with accent bar, delete button with confirmation modal, centered "add" buttons
+- `src/views/AuthView.vue` — Redirect to `/profile` after login, fixed multi-line click handler
+- `src/composables/useAuth.ts` — Non-blocking migration, simplified auth state handler
+- `src/stores/userStore.ts` — Auto-load profile when userId changes via `watch()`
+- `src/stores/foodStore.ts` — Auto-load entries when userId changes via `watch()`
+- `src/stores/savedPlatesStore.ts` — Extended SavedPlate with ingredients, allergens, isVegan, isVegetarian, nutritionScore. Auto-load when userId changes
+- `src/stores/savedRecipesStore.ts` — Auto-load recipes when userId changes
+- `src/views/NutritionAnalyzerView.vue` — Save all plate details (ingredients, allergens, dietary info)
+- `src/fontawesome.ts` — Added faStar, faStarHalfStroke, faTag icons
+
+**Design details:**
+- Saved cards: horizontal layout with colored accent bar (primary for plates, accent for recipes)
+- Delete button: subtle X on right side, hover turns danger color
+- Confirmation modal for delete actions
+- Centered "add" buttons below card lists with margin-top
+- Cards have soft hover shadow instead of border change
+- Each user sees only their own data from Supabase (filtered by user_id)

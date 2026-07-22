@@ -117,7 +117,11 @@ defineProps<{
           :aria-label="historyOpen ? 'Ocultar búsquedas recientes' : 'Mostrar búsquedas recientes'"
           @click="historyOpen = !historyOpen"
         >
-          <font-awesome-icon :icon="['fas', 'clock-rotate-left']" class="meal-form__history-icon" aria-hidden="true" />
+          <font-awesome-icon
+            :icon="['fas', 'clock-rotate-left']"
+            class="meal-form__history-icon"
+            aria-hidden="true"
+          />
           <span class="meal-form__history-label">Búsquedas recientes</span>
           <font-awesome-icon
             :icon="['fas', 'chevron-down']"
@@ -290,7 +294,9 @@ defineProps<{
   cursor: pointer;
   border-radius: var(--radius-full);
   flex-shrink: 0;
-  transition: color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
 }
 
 .meal-form__history-clear:hover {

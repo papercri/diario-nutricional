@@ -1,7 +1,11 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { UserProfile, CalorieGoals } from '@/types/user'
+import type { Allergen, DietaryPreference } from '@/types/recipe'
 import { calculateCalorieGoals } from '@/utils/mifflinStJeor'
+import { supabase } from '@/lib/supabase'
+
+const STORAGE_KEY = 'avocato-user-profile'
 
 const DEFAULT_PROFILE: UserProfile = {
   name: '',
@@ -12,11 +16,43 @@ const DEFAULT_PROFILE: UserProfile = {
   sex: 'female',
   activityLevel: 'moderate',
   goal: 'maintain',
+  allergens: [],
+  dietaryPreferences: [],
 }
 
-function loadProfile(): UserProfile {
+function rowToProfile(row: Record<string, unknown>): UserProfile {
+  return {
+    name: (row.name as string) ?? '',
+    age: (row.age as number) ?? 30,
+    weight: (row.weight as number) ?? 70,
+    height: (row.height as number) ?? 170,
+    desiredWeight: (row.desired_weight as number) ?? 65,
+    sex: (row.sex as UserProfile['sex']) ?? 'female',
+    activityLevel: (row.activity_level as UserProfile['activityLevel']) ?? 'moderate',
+    goal: (row.goal as UserProfile['goal']) ?? 'maintain',
+    allergens: (row.allergens as Allergen[]) ?? [],
+    dietaryPreferences: (row.dietary_preferences as DietaryPreference[]) ?? [],
+  }
+}
+
+function profileToRow(profile: UserProfile) {
+  return {
+    name: profile.name,
+    age: Math.max(1, Math.min(150, profile.age)),
+    weight: Math.max(1, Math.min(500, profile.weight)),
+    height: Math.max(50, Math.min(300, profile.height)),
+    desired_weight: Math.max(1, Math.min(500, profile.desiredWeight)),
+    sex: profile.sex,
+    activity_level: profile.activityLevel,
+    goal: profile.goal,
+    allergens: profile.allergens,
+    dietary_preferences: profile.dietaryPreferences,
+  }
+}
+
+function loadLocal(): UserProfile {
   try {
-    const stored = localStorage.getItem('avocato-user-profile')
+    const stored = localStorage.getItem(STORAGE_KEY)
     if (stored) {
       const parsed = JSON.parse(stored) as Partial<UserProfile>
       return { ...DEFAULT_PROFILE, ...parsed }
@@ -27,21 +63,77 @@ function loadProfile(): UserProfile {
   return { ...DEFAULT_PROFILE }
 }
 
-function persistProfile(profile: UserProfile) {
-  localStorage.setItem('avocato-user-profile', JSON.stringify(profile))
+function saveLocal(profile: UserProfile) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(profile))
+}
+
+function isDefaultProfile(p: UserProfile): boolean {
+  return !p.name && p.age === 30 && p.weight === 70 && p.height === 170 && p.desiredWeight === 65
 }
 
 export const useUserStore = defineStore('user', () => {
-  const profile = ref<UserProfile>(loadProfile())
+  const profile = ref<UserProfile>(loadLocal())
+  const loaded = ref(true)
+  const userId = ref('')
 
-  function updateProfile(partial: Partial<UserProfile>) {
-    Object.assign(profile.value, partial)
-    persistProfile(profile.value)
+  function setUserId(id: string) {
+    userId.value = id
   }
 
-  function resetProfile() {
+  watch(userId, async (id) => {
+    if (id) {
+      await loadProfile()
+    } else {
+      profile.value = loadLocal()
+      loaded.value = true
+    }
+  })
+
+  async function loadProfile() {
+    if (userId.value) {
+      const { data } = await supabase.from('profiles').select('*').eq('id', userId.value).single()
+      if (data) {
+        profile.value = rowToProfile(data)
+      }
+    } else {
+      profile.value = loadLocal()
+    }
+    loaded.value = true
+  }
+
+  async function updateProfile(partial: Partial<UserProfile>) {
+    Object.assign(profile.value, partial)
+    if (!userId.value) {
+      saveLocal(profile.value)
+    }
+    if (userId.value) {
+      const row = profileToRow(profile.value)
+      await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
+    }
+  }
+
+  async function resetProfile() {
     profile.value = { ...DEFAULT_PROFILE }
-    persistProfile(profile.value)
+    if (!userId.value) {
+      saveLocal(profile.value)
+    }
+    if (userId.value) {
+      const row = profileToRow(profile.value)
+      await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
+    }
+  }
+
+  async function migrateToSupabase() {
+    if (!userId.value) return
+    const local = loadLocal()
+    if (isDefaultProfile(local)) {
+      localStorage.removeItem(STORAGE_KEY)
+      return
+    }
+
+    const row = profileToRow(local)
+    await supabase.from('profiles').upsert({ id: userId.value, ...row }, { onConflict: 'id' })
+    localStorage.removeItem(STORAGE_KEY)
   }
 
   const goals = computed<CalorieGoals>(() => {
@@ -69,5 +161,16 @@ export const useUserStore = defineStore('user', () => {
     )
   })
 
-  return { profile, goals, isProfileComplete, updateProfile, resetProfile }
+  return {
+    profile,
+    loaded,
+    userId,
+    goals,
+    isProfileComplete,
+    setUserId,
+    loadProfile,
+    updateProfile,
+    resetProfile,
+    migrateToSupabase,
+  }
 })

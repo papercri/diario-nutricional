@@ -6,14 +6,16 @@ import CalorieRing from '@/components/CalorieRing.vue'
 import NutrientCard from '@/components/NutrientCard.vue'
 import Modal from '@/components/ui/Modal.vue'
 import { useToast } from '@/composables/useToast'
+import { useAddFood } from '@/composables/useAddFood'
 import { groupEntriesByMealType } from '@/utils/nutrition'
 import { formatDateEs } from '@/utils/formatting'
-import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '@/utils/constants'
+import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS, MEAL_TYPE_OPTIONS } from '@/utils/constants'
 import type { MealType } from '@/types/user'
 
 const userStore = useUserStore()
 const foodStore = useFoodStore()
 const toast = useToast()
+const { showAddModal, selectedFood, servings, mealType, confirmAdd, closeModal } = useAddFood()
 
 const todayDate = computed(() => formatDateEs(new Date()))
 const groupedEntries = computed(() => groupEntriesByMealType(foodStore.todayEntries))
@@ -88,7 +90,6 @@ function entryMacros(entry: {
       <p class="text-body-sm capitalize">{{ todayDate }}</p>
     </header>
 
-    <!-- Profile incomplete prompt -->
     <section
       v-if="!userStore.isProfileComplete"
       class="card-surface p-6 text-center"
@@ -102,7 +103,6 @@ function entryMacros(entry: {
       </router-link>
     </section>
 
-    <!-- Nutritional summary -->
     <section v-else aria-label="Resumen nutricional del día" class="dash__summary">
       <CalorieRing
         :consumed="foodStore.todaySummary.calories"
@@ -134,9 +134,12 @@ function entryMacros(entry: {
       </div>
     </section>
 
-    <!-- Today's meals -->
     <section aria-label="Comidas registradas hoy">
-      <button class="dash__meals-toggle" :aria-expanded="mealsOpen" @click="mealsOpen = !mealsOpen">
+      <button
+        class="dash__meals-toggle"
+        :aria-expanded="mealsOpen"
+        @click="mealsOpen = !mealsOpen"
+      >
         <div class="flex items-center gap-1 min-w-0">
           <h2 class="text-xs font-semibold truncate uppercase" style="color: var(--clr-text)">
             Comidas de hoy
@@ -161,7 +164,6 @@ function entryMacros(entry: {
       </button>
 
       <div v-if="mealsOpen">
-        <!-- Empty state -->
         <div
           v-if="foodStore.todayEntries.length === 0"
           class="card-warm text-center py-6 px-4 mt-1.5"
@@ -173,13 +175,14 @@ function entryMacros(entry: {
             aria-hidden="true"
             style="color: var(--clr-primary); opacity: 0.4"
           />
-          <p class="text-xs font-medium" style="color: var(--clr-text-muted)">Tu día está vacío</p>
+          <p class="text-xs font-medium" style="color: var(--clr-text-muted)">
+            Tu día está vacío
+          </p>
           <p class="text-[10px] mt-0.5" style="color: var(--clr-text-faint)">
             Registra tu primera comida para comenzar
           </p>
         </div>
 
-        <!-- Meal entries -->
         <div v-else class="mt-1.5 flex flex-col gap-1.5">
           <article
             v-for="(entries, type) in groupedEntries"
@@ -265,7 +268,11 @@ function entryMacros(entry: {
                       ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
                     "
                   >
-                    <font-awesome-icon :icon="['fas', 'xmark']" class="text-[13px]" aria-hidden="true" />
+                    <font-awesome-icon
+                      :icon="['fas', 'xmark']"
+                      class="text-[13px]"
+                      aria-hidden="true"
+                    />
                   </button>
                 </div>
               </li>
@@ -305,7 +312,7 @@ function entryMacros(entry: {
       </div>
     </section>
 
-    <!-- Delete entry confirmation modal -->
+    <!-- Delete entry modal -->
     <Modal
       :open="deleteEntryId !== null"
       size="sm"
@@ -322,7 +329,7 @@ function entryMacros(entry: {
       </template>
     </Modal>
 
-    <!-- Clear all confirmation modal -->
+    <!-- Clear all modal -->
     <Modal :open="showClearModal" size="sm" title="Limpiar día" @close="showClearModal = false">
       <p class="text-sm" style="color: var(--clr-text-muted)">
         ¿Eliminar todas las comidas registradas hoy? Esta acción no se puede deshacer.
@@ -332,6 +339,77 @@ function entryMacros(entry: {
         <button class="btn btn-primary" @click="executeClearToday">Eliminar todo</button>
       </template>
     </Modal>
+
+    <!-- Add food modal -->
+    <div
+      v-if="showAddModal"
+      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="`Añadir ${selectedFood?.name}`"
+      @click.self="closeModal"
+      @keydown.escape="closeModal"
+    >
+      <div
+        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
+        style="background: var(--clr-surface)"
+      >
+        <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
+          Añadir alimento
+        </h2>
+
+        <p class="font-medium" style="font-size: 0.875rem; color: var(--clr-text)">
+          {{ selectedFood?.name }}
+        </p>
+
+        <fieldset class="space-y-2 border-0 p-0 m-0">
+          <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
+            Tipo de comida
+          </legend>
+          <div class="grid grid-cols-2 gap-2">
+            <button
+              v-for="opt in MEAL_TYPE_OPTIONS"
+              :key="opt.value"
+              type="button"
+              class="btn text-sm"
+              :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+              :aria-pressed="mealType === opt.value"
+              @click="mealType = opt.value"
+            >
+              <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
+              {{ opt.label }}
+            </button>
+          </div>
+        </fieldset>
+
+        <div class="space-y-2">
+          <label
+            for="servings-input-dash"
+            class="block text-sm font-medium"
+            style="color: var(--clr-text-muted)"
+          >
+            Porciones (100g c/u)
+          </label>
+          <input
+            id="servings-input-dash"
+            v-model.number="servings"
+            type="number"
+            min="0.25"
+            max="20"
+            step="0.25"
+            class="input-field"
+          />
+          <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
+            Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
+          </p>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button class="btn btn-secondary flex-1" @click="closeModal">Cancelar</button>
+          <button class="btn btn-primary flex-1" @click="confirmAdd">Añadir</button>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 

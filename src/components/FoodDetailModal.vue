@@ -121,7 +121,11 @@ onUnmounted(() => {
             <h2 class="text-display-lg">{{ food.name }}</h2>
             <p v-if="food.brand" class="text-body mt-1">{{ food.brand }}</p>
             <p v-if="food.servingSize" class="text-body-sm mt-1">
-              <font-awesome-icon :icon="['fas', 'scale-balanced']" class="mr-1" aria-hidden="true" />
+              <font-awesome-icon
+                :icon="['fas', 'scale-balanced']"
+                class="mr-1"
+                aria-hidden="true"
+              />
               Porción: {{ food.servingSize }}
             </p>
             <img
@@ -211,5 +215,3 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
-
-
