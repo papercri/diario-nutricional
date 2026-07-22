@@ -327,7 +327,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
           <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
           Agregar a mi día
         </button>
-        <button class="btn btn-danger" @click="selectedRecipe && deleteRecipe(selectedRecipe.id)">
+        <button class="btn btn-danger" @click="selectedRecipe && confirmDeleteRecipe(selectedRecipe)">
           <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
           Eliminar
         </button>

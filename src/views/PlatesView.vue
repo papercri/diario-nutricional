@@ -316,7 +316,7 @@ function openAddPlateToDay(plate: SavedPlate) {
           <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
           Añadir
         </button>
-        <button class="btn btn-danger" @click="selectedPlate && deletePlate(selectedPlate.id)">
+        <button class="btn btn-danger" @click="selectedPlate && confirmDeletePlate(selectedPlate)">
           <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
           Eliminar
         </button>
