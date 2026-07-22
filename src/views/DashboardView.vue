@@ -52,6 +52,10 @@ function executeClearToday() {
   showClearModal.value = false
 }
 
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 function toggleMealType(type: MealType) {
   if (openMealTypes.value.has(type)) {
     openMealTypes.value.delete(type)
@@ -83,7 +87,7 @@ function entryMacros(entry: {
       <h1 class="text-display-lg">
         {{
           userStore.isProfileComplete
-            ? `¡Bienvenid${userStore.profile.sex === 'female' ? 'a' : 'o'}, ${userStore.profile.name}!`
+            ? `¡Bienvenid${userStore.profile.sex === 'female' ? 'a' : 'o'}, ${capitalize(userStore.profile.name)}!`
             : '¡Bienvenid@ a Avocato!'
         }}
       </h1>

@@ -43,14 +43,20 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 <template>
   <main class="dash">
     <header class="dash__header">
-      <h1 class="text-display-lg">
-        <font-awesome-icon
-          :icon="['fas', 'user']"
-          aria-hidden="true"
-          style="color: var(--clr-primary)"
-        />
-        Mi perfil
-      </h1>
+      <div class="dash__title-row">
+        <h1 class="text-display-lg">
+          <font-awesome-icon
+            :icon="['fas', 'user']"
+            aria-hidden="true"
+            style="color: var(--clr-primary)"
+          />
+          Mi perfil
+        </h1>
+        <router-link to="/" class="btn btn-primary btn-sm">
+          <font-awesome-icon :icon="['fas', 'house']" aria-hidden="true" />
+          Mi día
+        </router-link>
+      </div>
       <p class="text-body-sm">Tus datos se guardan localmente y nunca se comparten.</p>
     </header>
 
@@ -114,6 +120,12 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
         Mis resultados
       </h2>
 
+      <div class="metrics-grid">
+        <div class="metric-card"><p class="metric-card__value metric-card__value--primary">{{ bmr }}</p><p class="metric-card__label">Metabolismo basal (kcal)</p></div>
+        <div class="metric-card"><p class="metric-card__value metric-card__value--accent">{{ tdee }}</p><p class="metric-card__label">Gasto total (kcal)</p></div>
+        <div class="metric-card"><p class="metric-card__value metric-card__value--secondary">{{ target }}</p><p class="metric-card__label">Meta diaria (kcal)</p></div>
+      </div>
+
       <div class="bmi-card">
         <div class="bmi-card__header">
           <DsTypography variant="label-sm" color="muted">IMC</DsTypography>
@@ -143,12 +155,6 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
           <div v-if="timeToGoalMonths > 0" class="bmi-detail"><span class="bmi-detail__label">Tiempo estimado</span><span class="bmi-detail__value">{{ timeToGoalMonths }} meses</span></div>
         </div>
       </div>
-
-      <div class="metrics-grid">
-        <div class="metric-card"><p class="metric-card__value metric-card__value--primary">{{ bmr }}</p><p class="metric-card__label">Metabolismo basal (kcal)</p></div>
-        <div class="metric-card"><p class="metric-card__value metric-card__value--accent">{{ tdee }}</p><p class="metric-card__label">Gasto total (kcal)</p></div>
-        <div class="metric-card"><p class="metric-card__value metric-card__value--secondary">{{ target }}</p><p class="metric-card__label">Meta diaria (kcal)</p></div>
-      </div>
     </DsCard>
 
     <div class="profile-page__reset">
@@ -173,6 +179,15 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 
 .dash__header { text-align: center; margin-bottom: 0.125rem; }
 
+.dash__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
 .form-row {
   display: flex;
   flex-direction: column;
@@ -182,7 +197,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 @media (min-width: 640px) {
   .form-row {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
   }
   .form-row__card {
     flex: 1;
@@ -262,6 +277,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   color: var(--clr-text-muted);
   font-size: 0.75rem;
   font-weight: 500;
+  line-height: 11.5px;
   cursor: pointer;
   transition: background var(--duration-fast) var(--ease-default), color var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default);
 }
@@ -279,6 +295,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 .btn-toggle--sm {
   padding: 0.375rem 0.625rem;
   font-size: 0.75rem;
+  line-height: 11.5px;
 }
 
 .btn-toggle--active {
