@@ -303,16 +303,16 @@ function entryMacros(entry: {
             <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
             Mis platos
           </router-link>
+          <button
+            v-if="foodStore.todayEntries.length > 0"
+            class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap"
+            aria-label="Eliminar todas las comidas de hoy"
+            @click.stop="showClearModal = true"
+          >
+            <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
+            Limpiar
+          </button>
         </div>
-        <button
-          v-if="foodStore.todayEntries.length > 0"
-          class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap dash__btn-clear"
-          aria-label="Eliminar todas las comidas de hoy"
-          @click.stop="showClearModal = true"
-        >
-          <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
-          Limpiar
-        </button>
       </div>
     </section>
 
