@@ -2,18 +2,26 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import { supabase } from '@/lib/supabase'
 import type { RecipeIngredient } from '@/types/recipe'
+import type { AllergenType, NutritionScore } from '@/types/nutrition'
 
 const STORAGE_KEY = 'avocato-saved-recipes'
 
 export interface SavedRecipe {
   id: string
   name: string
+  description: string | null
   instructions: string
   ingredients: RecipeIngredient[]
   calories: number | null
   protein: number | null
   carbs: number | null
   fat: number | null
+  servingSize: string | null
+  imageUrl: string | null
+  allergens: AllergenType[]
+  isVegan: boolean
+  isVegetarian: boolean
+  nutritionScore: NutritionScore | null
   prepTime: string | null
   createdAt: string
 }
@@ -62,12 +70,19 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
         recipes.value = data.map(row => ({
           id: row.id,
           name: row.name,
+          description: row.description,
           instructions: row.instructions,
           ingredients: row.ingredients as RecipeIngredient[],
           calories: row.calories,
           protein: row.protein,
           carbs: row.carbs,
           fat: row.fat,
+          servingSize: row.serving_size,
+          imageUrl: row.image_url,
+          allergens: (row.allergens as AllergenType[]) ?? [],
+          isVegan: (row.is_vegan as boolean) ?? false,
+          isVegetarian: (row.is_vegetarian as boolean) ?? false,
+          nutritionScore: (row.nutrition_score as NutritionScore) ?? null,
           prepTime: row.prep_time,
           createdAt: row.created_at,
         }))
@@ -85,12 +100,19 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
         .insert({
           user_id: userId.value,
           name: recipe.name,
+          description: recipe.description,
           instructions: recipe.instructions,
           ingredients: recipe.ingredients,
           calories: recipe.calories,
           protein: recipe.protein,
           carbs: recipe.carbs,
           fat: recipe.fat,
+          serving_size: recipe.servingSize,
+          image_url: recipe.imageUrl,
+          allergens: recipe.allergens,
+          is_vegan: recipe.isVegan,
+          is_vegetarian: recipe.isVegetarian,
+          nutrition_score: recipe.nutritionScore,
           prep_time: recipe.prepTime,
         })
         .select()
@@ -106,12 +128,19 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
           {
             id: data.id,
             name: data.name,
+            description: data.description,
             instructions: data.instructions,
             ingredients: data.ingredients as RecipeIngredient[],
             calories: data.calories,
             protein: data.protein,
             carbs: data.carbs,
             fat: data.fat,
+            servingSize: data.serving_size,
+            imageUrl: data.image_url,
+            allergens: (data.allergens as AllergenType[]) ?? [],
+            isVegan: (data.is_vegan as boolean) ?? false,
+            isVegetarian: (data.is_vegetarian as boolean) ?? false,
+            nutritionScore: (data.nutrition_score as NutritionScore) ?? null,
             prepTime: data.prep_time,
             createdAt: data.created_at,
           },
@@ -150,12 +179,19 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
       await supabase.from('saved_recipes').insert({
         user_id: userId.value,
         name: recipe.name,
+        description: recipe.description,
         instructions: recipe.instructions,
         ingredients: recipe.ingredients,
         calories: recipe.calories,
         protein: recipe.protein,
         carbs: recipe.carbs,
         fat: recipe.fat,
+        serving_size: recipe.servingSize,
+        image_url: recipe.imageUrl,
+        allergens: recipe.allergens,
+        is_vegan: recipe.isVegan,
+        is_vegetarian: recipe.isVegetarian,
+        nutrition_score: recipe.nutritionScore,
         prep_time: recipe.prepTime,
       })
     }

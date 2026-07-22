@@ -85,6 +85,7 @@ async function saveRecipe() {
   if (!result.value) return
   const ok = await savedRecipesStore.saveRecipe({
     name: result.value.recipeName,
+    description: result.value.description,
     instructions: result.value.steps.join('\n\n'),
     ingredients: result.value.ingredients.map(ing => ({
       name: ing.name,
@@ -94,6 +95,12 @@ async function saveRecipe() {
     protein: result.value.macros.protein,
     carbs: result.value.macros.carbohydrates,
     fat: result.value.macros.fat,
+    servingSize: `${result.value.servings} porciones`,
+    imageUrl: null,
+    allergens: [],
+    isVegan: selectedPreferences.value.includes('vegan'),
+    isVegetarian: selectedPreferences.value.includes('vegetarian'),
+    nutritionScore: null,
     prepTime: result.value.preparationTime,
   })
   if (ok) {

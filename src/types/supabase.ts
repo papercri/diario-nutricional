@@ -149,34 +149,55 @@ export interface Database {
           id: string
           user_id: string
           name: string
+          description: string | null
           instructions: string
           ingredients: Array<{ name: string; quantity: string }>
           calories: number | null
           protein: number | null
           carbs: number | null
           fat: number | null
+          serving_size: string | null
+          image_url: string | null
+          allergens: string[]
+          is_vegan: boolean
+          is_vegetarian: boolean
+          nutrition_score: { value: number; reason?: string } | null
           prep_time: string | null
           created_at: string
         }
         Insert: {
           user_id: string
           name: string
+          description?: string | null
           instructions: string
           ingredients?: Array<{ name: string; quantity: string }>
           calories?: number | null
           protein?: number | null
           carbs?: number | null
           fat?: number | null
+          serving_size?: string | null
+          image_url?: string | null
+          allergens?: string[]
+          is_vegan?: boolean
+          is_vegetarian?: boolean
+          nutrition_score?: { value: number; reason?: string } | null
           prep_time?: string | null
         }
         Update: {
           name?: string
+          description?: string | null
           instructions?: string
           ingredients?: Array<{ name: string; quantity: string }>
           calories?: number | null
           protein?: number | null
           carbs?: number | null
           fat?: number | null
+          serving_size?: string | null
+          image_url?: string | null
+          allergens?: string[]
+          is_vegan?: boolean
+          is_vegetarian?: boolean
+          nutrition_score?: { value: number; reason?: string } | null
           prep_time?: string | null
         }
       }

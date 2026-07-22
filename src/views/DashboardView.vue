@@ -593,11 +593,14 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
         <article
           v-for="recipe in savedRecipesStore.recipes"
           :key="recipe.id"
-          class="saved-card saved-card--recipe"
+          class="saved-card"
           tabindex="0"
           :aria-label="`Ver detalles de ${recipe.name}`"
         >
-          <div class="saved-card__accent saved-card__accent--recipe" />
+          <div
+            class="saved-card__accent"
+            :class="recipe.isVegan || recipe.isVegetarian ? 'saved-card__accent--vegan' : recipe.allergens?.includes('gluten') ? 'saved-card__accent--other' : 'saved-card__accent--gluten-free'"
+          />
           <div class="saved-card__body" role="button" @click="openRecipeModal(recipe)" @keydown.enter="openRecipeModal(recipe)">
             <h3 class="saved-card__title">{{ recipe.name }}</h3>
             <div class="saved-card__macros">
@@ -608,6 +611,20 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
               <span v-if="recipe.prepTime" class="saved-card__macro">
                 <font-awesome-icon :icon="['fas', 'clock']" aria-hidden="true" />
                 {{ recipe.prepTime }}
+              </span>
+            </div>
+            <div v-if="recipe.allergens?.length || recipe.isVegan || recipe.isVegetarian" class="saved-card__tags">
+              <span v-for="a in recipe.allergens?.slice(0, 3)" :key="a" class="saved-card__tag">
+                <font-awesome-icon :icon="ALLERGEN_ICONS[a]" aria-hidden="true" />
+                {{ ALLERGEN_LABELS[a] }}
+              </span>
+              <span v-if="recipe.isVegan" class="saved-card__badge saved-card__badge--vegan">
+                <font-awesome-icon :icon="['fas', 'leaf']" aria-hidden="true" />
+                Vegano
+              </span>
+              <span v-else-if="recipe.isVegetarian" class="saved-card__badge saved-card__badge--vegetarian">
+                <font-awesome-icon :icon="['fas', 'seedling']" aria-hidden="true" />
+                Vegetariano
               </span>
             </div>
           </div>
@@ -892,11 +909,39 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
     >
       <template v-if="selectedRecipe">
         <div class="modal-detail">
+          <div v-if="selectedRecipe.imageUrl" class="modal-detail__img">
+            <img :src="selectedRecipe.imageUrl" :alt="selectedRecipe.name" />
+          </div>
           <h3 class="modal-detail__name">{{ selectedRecipe.name }}</h3>
+          <p v-if="selectedRecipe.description" class="modal-detail__desc">{{ selectedRecipe.description }}</p>
 
-          <div v-if="selectedRecipe.prepTime" class="modal-detail__serving">
-            <font-awesome-icon :icon="['fas', 'clock']" aria-hidden="true" />
-            {{ selectedRecipe.prepTime }}
+          <div v-if="selectedRecipe.servingSize || selectedRecipe.prepTime" class="modal-detail__serving">
+            <font-awesome-icon v-if="selectedRecipe.servingSize" :icon="['fas', 'scale-balanced']" aria-hidden="true" />
+            <font-awesome-icon v-else :icon="['fas', 'clock']" aria-hidden="true" />
+            {{ selectedRecipe.servingSize || selectedRecipe.prepTime }}
+          </div>
+
+          <div class="modal-detail__score" v-if="selectedRecipe.nutritionScore">
+            <div class="score-ring">
+              <svg viewBox="0 0 80 80" class="score-ring__svg">
+                <circle cx="40" cy="40" r="34" fill="none" stroke="var(--clr-surface-alt)" stroke-width="6" />
+                <circle
+                  cx="40" cy="40" r="34" fill="none"
+                  :stroke="selectedRecipe.nutritionScore.value >= 70 ? 'var(--clr-success)' : selectedRecipe.nutritionScore.value >= 40 ? 'var(--clr-accent)' : 'var(--clr-danger)'"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  :stroke-dasharray="213.6"
+                  :stroke-dashoffset="213.6 - (213.6 * selectedRecipe.nutritionScore.value / 100)"
+                  transform="rotate(-90 40 40)"
+                  class="score-ring__fill"
+                />
+              </svg>
+              <span class="score-ring__value">{{ selectedRecipe.nutritionScore.value }}</span>
+            </div>
+            <div class="score-ring__info">
+              <span class="score-ring__label">Score nutricional</span>
+              <span v-if="selectedRecipe.nutritionScore.reason" class="score-ring__reason">{{ selectedRecipe.nutritionScore.reason }}</span>
+            </div>
           </div>
 
           <div class="modal-detail__macros">
@@ -945,6 +990,29 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
               <span class="modal-detail__legend-dot modal-detail__legend-dot--fat" />
               Grasas {{ Math.round((selectedRecipe.fat || 0) * 9) }} kcal
             </span>
+          </div>
+
+          <div class="modal-detail__dietary">
+            <span v-if="selectedRecipe.isVegan" class="modal-detail__badge modal-detail__badge--vegan">
+              <font-awesome-icon :icon="['fas', 'leaf']" aria-hidden="true" />
+              Vegano
+            </span>
+            <span v-if="selectedRecipe.isVegetarian" class="modal-detail__badge modal-detail__badge--vegetarian">
+              <font-awesome-icon :icon="['fas', 'carrot']" aria-hidden="true" />
+              Vegetariano
+            </span>
+          </div>
+
+          <div v-if="selectedRecipe.allergens?.length" class="modal-detail__section">
+            <h4 class="modal-detail__section-title">
+              <font-awesome-icon :icon="['fas', 'triangle-exclamation']" aria-hidden="true" />
+              Alérgenos
+            </h4>
+            <div class="modal-detail__tags">
+              <span v-for="a in selectedRecipe.allergens" :key="a" class="modal-detail__tag modal-detail__tag--allergen">
+                {{ ALLERGEN_LABELS[a] || a }}
+              </span>
+            </div>
           </div>
 
           <div v-if="selectedRecipe.ingredients.length > 0" class="modal-detail__section">
@@ -1309,7 +1377,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
 .saved-card__accent--vegetarian { background: var(--clr-success); }
 .saved-card__accent--gluten-free { background: var(--clr-warning); }
 .saved-card__accent--other { background: var(--clr-accent); }
-.saved-card__accent--recipe { background: var(--clr-accent); }
+
 
 /* ── Body ── */
 .saved-card__body {

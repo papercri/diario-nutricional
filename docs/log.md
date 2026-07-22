@@ -1,5 +1,23 @@
 # Changelog - Design System Improvements
 
+## 2026-07-22
+
+### Feature: Recipe Cards Unified with Plate Cards
+
+Recipe cards ("Mis recetas") now use the same component and behavior as plate cards ("Mis platos"). Both display identical accent bar logic, allergen tags, vegan/vegetarian badges, and detail modals.
+
+**Database migration (`saved_recipes`):**
+- Added `description`, `serving_size`, `image_url`, `allergens`, `is_vegan`, `is_vegetarian`, `nutrition_score` columns
+
+**Files modified:**
+- `src/types/supabase.ts` — Extended `saved_recipes` Row/Insert/Update with 7 new columns
+- `src/stores/savedRecipesStore.ts` — Extended `SavedRecipe` interface with new fields; updated `loadRecipes`, `saveRecipe`, `migrateToSupabase` mappings
+- `src/views/RecipeGeneratorView.vue` — `saveRecipe()` now passes `description`, `servingSize`, `imageUrl`, `allergens`, `isVegan`, `isVegetarian`, `nutritionScore`
+- `src/views/DashboardView.vue` — Recipe card uses same accent bar logic, allergen tags, vegan/vegetarian badges as plate card; recipe modal adds image, description, serving, nutrition score, allergen section, dietary badges
+- `src/views/ProfileView.vue` — Same card and modal updates as DashboardView
+
+---
+
 ## 2026-07-20
 
 ### Feature: Allergen & Dietary Info Card (Mis Platos)
