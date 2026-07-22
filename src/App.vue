@@ -4,6 +4,7 @@ import { initAuth } from '@/composables/useAuth'
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
 import Toast from '@/components/ui/Toast.vue'
+import { Analytics } from '@vercel/analytics/vue';
 
 onMounted(() => {
   initAuth()
@@ -25,6 +26,7 @@ onMounted(() => {
 
     <AppFooter />
   </div>
+<Analytics /> 
 </template>
 
 <style>

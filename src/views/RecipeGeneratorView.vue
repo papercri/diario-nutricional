@@ -1,39 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
+import { useAuth } from '@/composables/useAuth'
+import { useAddFood } from '@/composables/useAddFood'
 import { generateRecipe, RecipeAIError } from '@/services/recipeAI'
 import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
 import { useToast } from '@/composables/useToast'
-import { DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS } from '@/utils/constants'
+import { DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS, MEAL_TYPE_OPTIONS } from '@/utils/constants'
 import type { GeneratedRecipe } from '@/types/recipe'
 import type { DietaryPreference, Allergen } from '@/types/recipe'
+import type { FoodItem } from '@/types/food'
 import DsCard from '@/components/ui/Card.vue'
 import DsButton from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
 
 const userStore = useUserStore()
 const savedRecipesStore = useSavedRecipesStore()
 const toast = useToast()
+const { user } = useAuth()
+const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } = useAddFood()
 
 const isLoading = ref(false)
 const error = ref('')
 const result = ref<GeneratedRecipe | null>(null)
 const saved = ref(false)
+const added = ref(false)
 
 const selectedPreferences = ref<DietaryPreference[]>([])
 const selectedAllergens = ref<Allergen[]>([])
 const preferredIngredients = ref('')
 const additionalInstructions = ref('')
 
+const hasInput = computed(() => {
+  return preferredIngredients.value.trim().length > 0 || selectedPreferences.value.length > 0
+})
+
 function togglePreference(value: DietaryPreference) {
-  if (value === 'none') {
-    selectedPreferences.value = ['none']
-    return
-  }
   const idx = selectedPreferences.value.indexOf(value)
   if (idx !== -1) {
     selectedPreferences.value.splice(idx, 1)
   } else {
-    selectedPreferences.value = selectedPreferences.value.filter(v => v !== 'none')
     selectedPreferences.value.push(value)
   }
 }
@@ -107,8 +113,22 @@ async function saveRecipe() {
     saved.value = true
     toast.show('Receta guardada en favoritos')
   } else {
-    toast.show('No se pudo guardar la receta')
+    toast.show('No se pudo guardar la receta', 'error')
   }
+}
+
+function handleAddToDay() {
+  if (!result.value) return
+  const food: FoodItem = {
+    id: `recipe-${Date.now()}`,
+    name: result.value.recipeName,
+    calories: result.value.estimatedCalories,
+    protein: result.value.macros.protein,
+    carbs: result.value.macros.carbohydrates,
+    fat: result.value.macros.fat,
+  }
+  openAddModal(food)
+  added.value = false
 }
 </script>
 
@@ -230,6 +250,7 @@ async function saveRecipe() {
             variant="primary"
             size="md"
             :loading="isLoading"
+            :disabled="!hasInput"
             class="generate-btn"
             @click="handleGenerate"
           >
@@ -380,19 +401,82 @@ async function saveRecipe() {
             </div>
 
             <div class="recipe-save">
-              <button v-if="!saved" class="btn btn-secondary" @click="saveRecipe">
+              <button class="btn btn-primary" @click="handleAddToDay">
+                <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
+                Añadir
+              </button>
+              <button v-if="user && !saved" class="btn btn-secondary" @click="saveRecipe">
                 <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
                 Guardar receta
               </button>
-              <p v-else class="recipe-saved" role="status">
+              <p v-else-if="saved" class="recipe-saved" role="status">
                 <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
                 Guardada en favoritos
               </p>
             </div>
+
+            <p v-if="added" class="recipe-added" role="status">
+              <font-awesome-icon :icon="['fas', 'check-circle']" aria-hidden="true" />
+              Añadido a tu registro diario
+            </p>
           </DsCard>
         </template>
       </div>
     </div>
+
+    <!-- Add to day modal -->
+    <Modal :open="showAddModal" size="sm" title="Añadir a mi día" @close="closeModal">
+      <p class="text-sm font-medium" style="color: var(--clr-text)">
+        {{ selectedFood?.name }}
+      </p>
+
+      <fieldset class="space-y-2 border-0 p-0 m-0 mt-3">
+        <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
+          Tipo de comida
+        </legend>
+        <div class="grid grid-cols-2 gap-2">
+          <button
+            v-for="opt in MEAL_TYPE_OPTIONS"
+            :key="opt.value"
+            type="button"
+            class="btn text-sm"
+            :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+            :aria-pressed="mealType === opt.value"
+            @click="mealType = opt.value"
+          >
+            <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
+            {{ opt.label }}
+          </button>
+        </div>
+      </fieldset>
+
+      <div class="space-y-2 mt-3">
+        <label
+          for="servings-input-recipes"
+          class="block text-sm font-medium"
+          style="color: var(--clr-text-muted)"
+        >
+          Porciones (100g c/u)
+        </label>
+        <input
+          id="servings-input-recipes"
+          v-model.number="servings"
+          type="number"
+          min="0.25"
+          max="20"
+          step="0.25"
+          class="input-field"
+        />
+        <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
+          Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
+        </p>
+      </div>
+
+      <template #footer>
+        <button class="btn btn-secondary" @click="closeModal">Cancelar</button>
+        <button class="btn btn-primary" @click="confirmAdd">Añadir</button>
+      </template>
+    </Modal>
   </main>
 </template>
 
@@ -490,6 +574,7 @@ async function saveRecipe() {
 /* Textarea */
 .recipe-textarea {
   width: 100%;
+  height: 3.6rem;
   padding: 0.5rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--clr-border);
@@ -757,6 +842,17 @@ async function saveRecipe() {
   margin: 0;
   display: flex;
   align-items: center;
+  gap: 0.375rem;
+}
+
+.recipe-added {
+  font-size: 0.75rem;
+  color: var(--clr-success);
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.375rem;
 }
 </style>

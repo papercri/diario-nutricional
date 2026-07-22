@@ -46,6 +46,8 @@ const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd
 
 const selectedRecipe = ref<SavedRecipe | null>(null)
 const showRecipeModal = ref(false)
+const showDeleteConfirm = ref(false)
+const recipeToDelete = ref<SavedRecipe | null>(null)
 
 onMounted(async () => {
   if (user.value) {
@@ -58,11 +60,23 @@ function openRecipeModal(recipe: SavedRecipe) {
   showRecipeModal.value = true
 }
 
+function confirmDeleteRecipe(recipe: SavedRecipe) {
+  recipeToDelete.value = recipe
+  showDeleteConfirm.value = true
+}
+
 async function deleteRecipe(id: string) {
   await savedRecipesStore.deleteRecipe(id)
   showRecipeModal.value = false
   selectedRecipe.value = null
+  showDeleteConfirm.value = false
+  recipeToDelete.value = null
   toast.show('Receta eliminada')
+}
+
+function cancelDelete() {
+  showDeleteConfirm.value = false
+  recipeToDelete.value = null
 }
 
 function openAddRecipeToDay(recipe: SavedRecipe) {
@@ -90,7 +104,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
           />
           Mis recetas
         </h1>
-        <router-link to="/recetas" class="btn btn-primary btn-sm">
+        <router-link to="/nueva-receta" class="btn btn-primary btn-sm">
           <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
           Nueva receta
         </router-link>
@@ -111,7 +125,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
       <p class="text-xs mt-1 mb-3" style="color: var(--clr-text-faint)">
         Genera una receta y guárdala aquí
       </p>
-      <router-link to="/recetas" class="btn btn-primary btn-sm">
+      <router-link to="/nueva-receta" class="btn btn-primary btn-sm">
         <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
         Generar receta
       </router-link>
@@ -161,7 +175,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
             <span class="btn-slide__label">Añadir</span>
             <font-awesome-icon :icon="['fas', 'plus']" class="btn-slide__icon" aria-hidden="true" />
           </button>
-          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${recipe.name}`" @click.stop="deleteRecipe(recipe.id)">
+          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${recipe.name}`" @click.stop="confirmDeleteRecipe(recipe)">
             <span class="btn-slide__label">Eliminar</span>
             <font-awesome-icon :icon="['fas', 'xmark']" class="btn-slide__icon" aria-hidden="true" />
           </button>
@@ -313,7 +327,7 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
           <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
           Agregar a mi día
         </button>
-        <button class="btn btn-danger" @click="selectedRecipe && deleteRecipe(selectedRecipe.id)">
+        <button class="btn btn-danger" @click="selectedRecipe && confirmDeleteRecipe(selectedRecipe)">
           <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
           Eliminar
         </button>
@@ -321,75 +335,71 @@ function openAddRecipeToDay(recipe: SavedRecipe) {
     </Modal>
 
     <!-- Add food modal -->
-    <div
-      v-if="showAddModal"
-      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      :aria-label="`Añadir ${selectedFood?.name}`"
-      @click.self="closeModal"
-      @keydown.escape="closeModal"
-    >
-      <div
-        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
-        style="background: var(--clr-surface)"
-      >
-        <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
-          Añadir alimento
-        </h2>
+    <Modal :open="showAddModal" size="sm" title="Añadir a mi día" @close="closeModal">
+      <p class="text-sm font-medium" style="color: var(--clr-text)">
+        {{ selectedFood?.name }}
+      </p>
 
-        <p class="font-medium" style="font-size: 0.875rem; color: var(--clr-text)">
-          {{ selectedFood?.name }}
-        </p>
-
-        <fieldset class="space-y-2 border-0 p-0 m-0">
-          <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
-            Tipo de comida
-          </legend>
-          <div class="grid grid-cols-2 gap-2">
-            <button
-              v-for="opt in MEAL_TYPE_OPTIONS"
-              :key="opt.value"
-              type="button"
-              class="btn text-sm"
-              :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
-              :aria-pressed="mealType === opt.value"
-              @click="mealType = opt.value"
-            >
-              <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
-              {{ opt.label }}
-            </button>
-          </div>
-        </fieldset>
-
-        <div class="space-y-2">
-          <label
-            for="servings-input-recipes"
-            class="block text-sm font-medium"
-            style="color: var(--clr-text-muted)"
+      <fieldset class="space-y-2 border-0 p-0 m-0 mt-3">
+        <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
+          Tipo de comida
+        </legend>
+        <div class="grid grid-cols-2 gap-2">
+          <button
+            v-for="opt in MEAL_TYPE_OPTIONS"
+            :key="opt.value"
+            type="button"
+            class="btn text-sm"
+            :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+            :aria-pressed="mealType === opt.value"
+            @click="mealType = opt.value"
           >
-            Porciones (100g c/u)
-          </label>
-          <input
-            id="servings-input-recipes"
-            v-model.number="servings"
-            type="number"
-            min="0.25"
-            max="20"
-            step="0.25"
-            class="input-field"
-          />
-          <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
-            Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
-          </p>
+            <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
+            {{ opt.label }}
+          </button>
         </div>
+      </fieldset>
 
-        <div class="flex gap-3 pt-2">
-          <button class="btn btn-secondary flex-1" @click="closeModal">Cancelar</button>
-          <button class="btn btn-primary flex-1" @click="confirmAdd">Añadir</button>
-        </div>
+      <div class="space-y-2 mt-3">
+        <label
+          for="servings-input-recipes"
+          class="block text-sm font-medium"
+          style="color: var(--clr-text-muted)"
+        >
+          Porciones (100g c/u)
+        </label>
+        <input
+          id="servings-input-recipes"
+          v-model.number="servings"
+          type="number"
+          min="0.25"
+          max="20"
+          step="0.25"
+          class="input-field"
+        />
+        <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
+          Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
+        </p>
       </div>
-    </div>
+
+      <template #footer>
+        <button class="btn btn-secondary" @click="closeModal">Cancelar</button>
+        <button class="btn btn-primary" @click="confirmAdd">Añadir</button>
+      </template>
+    </Modal>
+
+    <!-- Delete confirmation modal -->
+    <Modal :open="showDeleteConfirm" size="sm" title="Eliminar receta" @close="cancelDelete">
+      <p class="text-sm" style="color: var(--clr-text-muted)">
+        ¿Seguro que quieres eliminar <strong>{{ recipeToDelete?.name }}</strong>?
+      </p>
+      <template #footer>
+        <button class="btn btn-secondary" @click="cancelDelete">Cancelar</button>
+        <button class="btn btn-danger" @click="recipeToDelete && deleteRecipe(recipeToDelete.id)">
+          Eliminar
+        </button>
+      </template>
+    </Modal>
   </main>
 </template>
 

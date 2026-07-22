@@ -57,7 +57,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
           Mi día
         </router-link>
       </div>
-      <p class="text-body-sm">Tus datos se guardan localmente y nunca se comparten.</p>
+      <p class="text-body-sm">Rellena tus datos y marca tu objetivo nutricional.</p>
     </header>
 
     <div class="form-row">
@@ -270,8 +270,8 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.375rem 0.625rem;
-  border-radius: var(--radius-full);
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-md);
   border: 1px solid var(--clr-border);
   background: var(--clr-surface);
   color: var(--clr-text-muted);
@@ -293,7 +293,7 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 }
 
 .btn-toggle--sm {
-  padding: 0.375rem 0.625rem;
+  padding: 0.625rem 0.875rem;
   font-size: 0.75rem;
   line-height: 11.5px;
 }

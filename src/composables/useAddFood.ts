@@ -1,9 +1,11 @@
 import { ref } from 'vue'
 import { useFoodStore } from '@/stores/foodStore'
+import { useToast } from '@/composables/useToast'
 import type { FoodItem, MealType } from '@/types/food'
 
 export function useAddFood() {
   const foodStore = useFoodStore()
+  const toast = useToast()
 
   const showAddModal = ref(false)
   const selectedFood = ref<FoodItem | null>(null)
@@ -17,11 +19,16 @@ export function useAddFood() {
     showAddModal.value = true
   }
 
-  function confirmAdd() {
+  async function confirmAdd() {
     if (!selectedFood.value) return
-    foodStore.addEntry(selectedFood.value, servings.value, mealType.value)
-    showAddModal.value = false
-    selectedFood.value = null
+    try {
+      await foodStore.addEntry(selectedFood.value, servings.value, mealType.value)
+      showAddModal.value = false
+      selectedFood.value = null
+      toast.show('Añadido a tu día')
+    } catch {
+      toast.show('No se pudo añadir la comida. Inténtalo de nuevo.', 'error')
+    }
   }
 
   function closeModal() {

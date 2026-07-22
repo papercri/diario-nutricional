@@ -46,6 +46,8 @@ const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd
 
 const selectedPlate = ref<SavedPlate | null>(null)
 const showPlateModal = ref(false)
+const showDeleteConfirm = ref(false)
+const plateToDelete = ref<SavedPlate | null>(null)
 
 onMounted(async () => {
   if (user.value) {
@@ -58,11 +60,23 @@ function openPlateModal(plate: SavedPlate) {
   showPlateModal.value = true
 }
 
+function confirmDeletePlate(plate: SavedPlate) {
+  plateToDelete.value = plate
+  showDeleteConfirm.value = true
+}
+
 async function deletePlate(id: string) {
   await savedPlatesStore.deletePlate(id)
   showPlateModal.value = false
   selectedPlate.value = null
+  showDeleteConfirm.value = false
+  plateToDelete.value = null
   toast.show('Plato eliminado')
+}
+
+function cancelDelete() {
+  showDeleteConfirm.value = false
+  plateToDelete.value = null
 }
 
 function openAddPlateToDay(plate: SavedPlate) {
@@ -91,9 +105,9 @@ function openAddPlateToDay(plate: SavedPlate) {
           />
           Mis platos
         </h1>
-        <router-link to="/nutrition-ai" class="btn btn-primary btn-sm">
+        <router-link to="/analizar-plato" class="btn btn-primary btn-sm">
           <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
-          Analizar plato
+          Analizar mi comida
         </router-link>
       </div>
       <p class="text-body-sm">Platos que has analizado y guardado</p>
@@ -112,9 +126,9 @@ function openAddPlateToDay(plate: SavedPlate) {
       <p class="text-xs mt-1 mb-3" style="color: var(--clr-text-faint)">
         Analiza un plato y guárdalo aquí
       </p>
-      <router-link to="/nutrition-ai" class="btn btn-primary btn-sm">
+      <router-link to="/analizar-plato" class="btn btn-primary btn-sm">
         <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
-        Analizar plato
+        Analizar mi comida
       </router-link>
     </div>
 
@@ -158,7 +172,7 @@ function openAddPlateToDay(plate: SavedPlate) {
             <span class="btn-slide__label">Añadir</span>
             <font-awesome-icon :icon="['fas', 'plus']" class="btn-slide__icon" aria-hidden="true" />
           </button>
-          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${plate.name}`" @click.stop="deletePlate(plate.id)">
+          <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${plate.name}`" @click.stop="confirmDeletePlate(plate)">
             <span class="btn-slide__label">Eliminar</span>
             <font-awesome-icon :icon="['fas', 'xmark']" class="btn-slide__icon" aria-hidden="true" />
           </button>
@@ -302,7 +316,7 @@ function openAddPlateToDay(plate: SavedPlate) {
           <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
           Añadir
         </button>
-        <button class="btn btn-danger" @click="selectedPlate && deletePlate(selectedPlate.id)">
+        <button class="btn btn-danger" @click="selectedPlate && confirmDeletePlate(selectedPlate)">
           <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
           Eliminar
         </button>
@@ -310,75 +324,71 @@ function openAddPlateToDay(plate: SavedPlate) {
     </Modal>
 
     <!-- Add food modal -->
-    <div
-      v-if="showAddModal"
-      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      :aria-label="`Añadir ${selectedFood?.name}`"
-      @click.self="closeModal"
-      @keydown.escape="closeModal"
-    >
-      <div
-        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
-        style="background: var(--clr-surface)"
-      >
-        <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
-          Añadir alimento
-        </h2>
+    <Modal :open="showAddModal" size="sm" title="Añadir a mi día" @close="closeModal">
+      <p class="text-sm font-medium" style="color: var(--clr-text)">
+        {{ selectedFood?.name }}
+      </p>
 
-        <p class="font-medium" style="font-size: 0.875rem; color: var(--clr-text)">
-          {{ selectedFood?.name }}
-        </p>
-
-        <fieldset class="space-y-2 border-0 p-0 m-0">
-          <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
-            Tipo de comida
-          </legend>
-          <div class="grid grid-cols-2 gap-2">
-            <button
-              v-for="opt in MEAL_TYPE_OPTIONS"
-              :key="opt.value"
-              type="button"
-              class="btn text-sm"
-              :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
-              :aria-pressed="mealType === opt.value"
-              @click="mealType = opt.value"
-            >
-              <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
-              {{ opt.label }}
-            </button>
-          </div>
-        </fieldset>
-
-        <div class="space-y-2">
-          <label
-            for="servings-input-plates"
-            class="block text-sm font-medium"
-            style="color: var(--clr-text-muted)"
+      <fieldset class="space-y-2 border-0 p-0 m-0 mt-3">
+        <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
+          Tipo de comida
+        </legend>
+        <div class="grid grid-cols-2 gap-2">
+          <button
+            v-for="opt in MEAL_TYPE_OPTIONS"
+            :key="opt.value"
+            type="button"
+            class="btn text-sm"
+            :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+            :aria-pressed="mealType === opt.value"
+            @click="mealType = opt.value"
           >
-            Porciones (100g c/u)
-          </label>
-          <input
-            id="servings-input-plates"
-            v-model.number="servings"
-            type="number"
-            min="0.25"
-            max="20"
-            step="0.25"
-            class="input-field"
-          />
-          <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
-            Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
-          </p>
+            <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
+            {{ opt.label }}
+          </button>
         </div>
+      </fieldset>
 
-        <div class="flex gap-3 pt-2">
-          <button class="btn btn-secondary flex-1" @click="closeModal">Cancelar</button>
-          <button class="btn btn-primary flex-1" @click="confirmAdd">Añadir</button>
-        </div>
+      <div class="space-y-2 mt-3">
+        <label
+          for="servings-input-plates"
+          class="block text-sm font-medium"
+          style="color: var(--clr-text-muted)"
+        >
+          Porciones (100g c/u)
+        </label>
+        <input
+          id="servings-input-plates"
+          v-model.number="servings"
+          type="number"
+          min="0.25"
+          max="20"
+          step="0.25"
+          class="input-field"
+        />
+        <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
+          Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
+        </p>
       </div>
-    </div>
+
+      <template #footer>
+        <button class="btn btn-secondary" @click="closeModal">Cancelar</button>
+        <button class="btn btn-primary" @click="confirmAdd">Añadir</button>
+      </template>
+    </Modal>
+
+    <!-- Delete confirmation modal -->
+    <Modal :open="showDeleteConfirm" size="sm" title="Eliminar plato" @close="cancelDelete">
+      <p class="text-sm" style="color: var(--clr-text-muted)">
+        ¿Seguro que quieres eliminar <strong>{{ plateToDelete?.name }}</strong>?
+      </p>
+      <template #footer>
+        <button class="btn btn-secondary" @click="cancelDelete">Cancelar</button>
+        <button class="btn btn-danger" @click="plateToDelete && deletePlate(plateToDelete.id)">
+          Eliminar
+        </button>
+      </template>
+    </Modal>
   </main>
 </template>
 

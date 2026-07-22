@@ -56,10 +56,8 @@ export interface DietaryPreferenceOption {
 }
 
 export const DIETARY_PREFERENCE_OPTIONS: DietaryPreferenceOption[] = [
-  { value: 'none', label: 'Sin preferencias específicas', icon: ['fas', 'utensils'] },
   { value: 'vegetarian', label: 'Vegetariana', icon: ['fas', 'leaf'] },
   { value: 'vegan', label: 'Vegana', icon: ['fas', 'seedling'] },
-  { value: 'gluten_free', label: 'Sin gluten', icon: ['fas', 'wheat-awn-circle-exclamation'] },
 ]
 
 export interface AllergenOption {

@@ -9,12 +9,12 @@ const router = createRouter({
       component: () => import('../views/DashboardView.vue'),
     },
     {
-      path: '/plates',
+      path: '/platos',
       name: 'plates',
       component: () => import('../views/PlatesView.vue'),
     },
     {
-      path: '/recipes',
+      path: '/recetas',
       name: 'recipes-view',
       component: () => import('../views/RecipesView.vue'),
     },
@@ -29,12 +29,12 @@ const router = createRouter({
       component: () => import('../views/SearchView.vue'),
     },
     {
-      path: '/nutrition-ai',
+      path: '/analizar-plato',
       name: 'nutrition-ai',
       component: () => import('../views/NutritionAnalyzerView.vue'),
     },
     {
-      path: '/recetas',
+      path: '/nueva-receta',
       name: 'recipes',
       component: () => import('../views/RecipeGeneratorView.vue'),
     },

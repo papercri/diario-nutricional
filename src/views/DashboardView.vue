@@ -83,6 +83,17 @@ function entryMacros(entry: {
 
 <template>
   <main class="dash">
+    <div v-if="!foodStore.loaded" class="dash__loading" role="status" aria-label="Cargando">
+      <font-awesome-icon
+        :icon="['fas', 'spinner']"
+        spin
+        aria-hidden="true"
+        style="color: var(--clr-primary); font-size: 1.5rem"
+      />
+      <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">Cargando...</p>
+    </div>
+
+    <template v-else>
     <header class="dash__header">
       <h1 class="text-display-lg">
         {{
@@ -296,23 +307,23 @@ function entryMacros(entry: {
             Buscar
           </router-link>
           <router-link
-            to="/nutrition-ai"
+            to="/analizar-plato"
             class="btn btn-accent text-[10px] py-1 px-2 whitespace-nowrap"
             role="button"
           >
             <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
             Mis platos
           </router-link>
+          <button
+            v-if="foodStore.todayEntries.length > 0"
+            class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap"
+            aria-label="Eliminar todas las comidas de hoy"
+            @click.stop="showClearModal = true"
+          >
+            <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
+            Limpiar
+          </button>
         </div>
-        <button
-          v-if="foodStore.todayEntries.length > 0"
-          class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap dash__btn-clear"
-          aria-label="Eliminar todas las comidas de hoy"
-          @click.stop="showClearModal = true"
-        >
-          <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
-          Limpiar
-        </button>
       </div>
     </section>
 
@@ -414,6 +425,7 @@ function entryMacros(entry: {
         </div>
       </div>
     </div>
+    </template>
   </main>
 </template>
 
@@ -429,6 +441,15 @@ function entryMacros(entry: {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.dash__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 3rem 0;
 }
 
 .dash__header {
@@ -549,37 +570,22 @@ function entryMacros(entry: {
 .dash__actions {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   gap: 0.5rem;
   margin-top: 1rem;
 }
 
 .dash__actions-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 }
 
-.dash__btn-clear {
-  width: 100%;
-}
-
 @media (min-width: 400px) {
-  .dash__actions {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.375rem;
-    align-items: center;
-  }
-
   .dash__actions-row {
     gap: 0.375rem;
-  }
-
-  .dash__btn-clear {
-    width: auto;
   }
 }
 </style>
