@@ -421,29 +421,52 @@ function handleAddToDay() {
     </div>
 
     <!-- Add to day modal -->
-    <Modal :open="showAddModal" size="sm" title="Añadir al día" @close="closeModal">
+    <Modal :open="showAddModal" size="sm" title="Añadir a mi día" @close="closeModal">
       <p class="text-sm font-medium" style="color: var(--clr-text)">
-        {{ result?.name }}
+        {{ selectedFood?.name }}
       </p>
 
       <fieldset class="space-y-2 border-0 p-0 m-0 mt-3">
         <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
           Tipo de comida
         </legend>
-        <div class="flex flex-wrap gap-2">
+        <div class="grid grid-cols-2 gap-2">
           <button
             v-for="opt in MEAL_TYPE_OPTIONS"
             :key="opt.value"
             type="button"
-            class="btn text-xs"
+            class="btn text-sm"
             :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
             :aria-pressed="mealType === opt.value"
             @click="mealType = opt.value"
           >
+            <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
             {{ opt.label }}
           </button>
         </div>
       </fieldset>
+
+      <div class="space-y-2 mt-3">
+        <label
+          for="servings-input-recipes"
+          class="block text-sm font-medium"
+          style="color: var(--clr-text-muted)"
+        >
+          Porciones (100g c/u)
+        </label>
+        <input
+          id="servings-input-recipes"
+          v-model.number="servings"
+          type="number"
+          min="0.25"
+          max="20"
+          step="0.25"
+          class="input-field"
+        />
+        <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
+          Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
+        </p>
+      </div>
 
       <template #footer>
         <button class="btn btn-secondary" @click="closeModal">Cancelar</button>
