@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "branchName": "stage",
+  "worktreePath": "/Users/cristianasollini/Documents/WORK/GIT/Avocato",
+  "upstream": "origin/stage",
+  "mergeBase": "c567a9b68e7acec50878699435dd0dc371bdf2e1",
+  "firstSeenHead": "8d66207cb86f8bb656cd0d20bf8e6fcb01222c2c",
+  "lastSeenHead": "97a16249836d92644cadfa073653a1a29a9357bc",
+  "lastAnalyzedHead": null,
+  "stale": true,
+  "staleReason": "watch-non-code-change",
+  "staleSince": "2026-07-21T22:50:29.852Z",
+  "lifecycleEvent": "watch-non-code-change",
+  "createdAt": "2026-07-21T22:50:29.852Z",
+  "updatedAt": "2026-07-22T08:56:25.162Z"
+}
