@@ -1,23 +1,32 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
+import { useAuth } from '@/composables/useAuth'
+import { useFoodStore } from '@/stores/foodStore'
 import { generateRecipe, RecipeAIError } from '@/services/recipeAI'
 import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
 import { useToast } from '@/composables/useToast'
-import { DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS } from '@/utils/constants'
+import { DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS, MEAL_TYPE_OPTIONS } from '@/utils/constants'
 import type { GeneratedRecipe } from '@/types/recipe'
 import type { DietaryPreference, Allergen } from '@/types/recipe'
+import type { FoodItem, MealType } from '@/types/food'
 import DsCard from '@/components/ui/Card.vue'
 import DsButton from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
 
 const userStore = useUserStore()
+const foodStore = useFoodStore()
 const savedRecipesStore = useSavedRecipesStore()
 const toast = useToast()
+const { user } = useAuth()
 
 const isLoading = ref(false)
 const error = ref('')
 const result = ref<GeneratedRecipe | null>(null)
 const saved = ref(false)
+const showAddModal = ref(false)
+const mealType = ref<MealType>('lunch')
+const added = ref(false)
 
 const selectedPreferences = ref<DietaryPreference[]>([])
 const selectedAllergens = ref<Allergen[]>([])
@@ -109,6 +118,33 @@ async function saveRecipe() {
   } else {
     toast.show('No se pudo guardar la receta')
   }
+}
+
+function openAddModal() {
+  added.value = false
+  showAddModal.value = true
+}
+
+function confirmAdd() {
+  if (!result.value) return
+
+  const food: FoodItem = {
+    id: `recipe-${Date.now()}`,
+    name: result.value.name,
+    calories: result.value.estimatedCalories,
+    protein: result.value.macros.protein,
+    carbs: result.value.macros.carbohydrates,
+    fat: result.value.macros.fat,
+  }
+
+  foodStore.addEntry(food, 1, mealType.value)
+  showAddModal.value = false
+  added.value = true
+  toast.show('Receta añadida a tu día')
+}
+
+function closeModal() {
+  showAddModal.value = false
 }
 </script>
 
@@ -380,19 +416,59 @@ async function saveRecipe() {
             </div>
 
             <div class="recipe-save">
-              <button v-if="!saved" class="btn btn-secondary" @click="saveRecipe">
+              <button class="btn btn-primary" @click="openAddModal">
+                <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
+                Añadir
+              </button>
+              <button v-if="user && !saved" class="btn btn-secondary" @click="saveRecipe">
                 <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
                 Guardar receta
               </button>
-              <p v-else class="recipe-saved" role="status">
+              <p v-else-if="saved" class="recipe-saved" role="status">
                 <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
                 Guardada en favoritos
               </p>
             </div>
+
+            <p v-if="added" class="recipe-added" role="status">
+              <font-awesome-icon :icon="['fas', 'check-circle']" aria-hidden="true" />
+              Añadido a tu registro diario
+            </p>
           </DsCard>
         </template>
       </div>
     </div>
+
+    <!-- Add to day modal -->
+    <Modal :open="showAddModal" size="sm" title="Añadir al día" @close="closeModal">
+      <p class="text-sm font-medium" style="color: var(--clr-text)">
+        {{ result?.name }}
+      </p>
+
+      <fieldset class="space-y-2 border-0 p-0 m-0 mt-3">
+        <legend class="block text-sm font-medium" style="color: var(--clr-text-muted)">
+          Tipo de comida
+        </legend>
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="opt in MEAL_TYPE_OPTIONS"
+            :key="opt.value"
+            type="button"
+            class="btn text-xs"
+            :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+            :aria-pressed="mealType === opt.value"
+            @click="mealType = opt.value"
+          >
+            {{ opt.label }}
+          </button>
+        </div>
+      </fieldset>
+
+      <template #footer>
+        <button class="btn btn-secondary" @click="closeModal">Cancelar</button>
+        <button class="btn btn-primary" @click="confirmAdd">Añadir</button>
+      </template>
+    </Modal>
   </main>
 </template>
 
