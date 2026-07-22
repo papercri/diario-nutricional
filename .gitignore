@@ -48,5 +48,5 @@ skills-lock.json
 /docs
 docs/
 .opencodeignore
-.graphify
+/.graphify
 /studio

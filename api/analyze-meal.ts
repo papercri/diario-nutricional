@@ -74,11 +74,11 @@ REGLAS DE PORCIONES Y CÁLCULO NUTRICIONAL:
 - Si el usuario dice, por ejemplo, "para 4 personas", "4 raciones" o "4 servings", los valores nutricionales deben corresponder a UNA de esas 4 raciones, no a la receta completa.
 - Si el usuario no especifica el número de raciones, estima una única ración individual realista.
 - Las cantidades de los ingredientes deben representar la cantidad consumida en esa única ración.
-- Las calorías de cada ingrediente deben corresponder únicamente a la cantidad indicada en `quantity`.
-- `estimatedCalories` debe representar el total aproximado de las calorías de todos los ingredientes de esa única ración.
+- Las calorías de cada ingrediente deben corresponder únicamente a la cantidad indicada en "quantity".
+- "estimatedCalories" debe representar el total aproximado de las calorías de todos los ingredientes de esa única ración.
 - Los macronutrientes deben corresponder exactamente a esa misma única ración.
 - No devuelvas valores nutricionales de la receta completa cuando la receta contiene varias raciones.
-- La suma de las calorías de proteínas, carbohidratos y grasas debe ser razonablemente consistente con `estimatedCalories`.
+- La suma de las calorías de proteínas, carbohidratos y grasas debe ser razonablemente consistente con "estimatedCalories".
 - Usa aproximadamente:
   - proteína: 4 kcal por gramo
   - carbohidratos: 4 kcal por gramo
