@@ -8,14 +8,23 @@ vi.mock('@/services/openFoodFacts', () => ({
   searchFood: vi.fn(),
 }))
 
-const mockStorage = new Map<string, string>()
-vi.spyOn(Storage.prototype, 'getItem').mockImplementation(key => mockStorage.get(key) ?? null)
-vi.spyOn(Storage.prototype, 'setItem').mockImplementation((key, value) => {
-  mockStorage.set(key, value)
-})
-vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(key => {
-  mockStorage.delete(key)
-})
+vi.mock('@/lib/supabase', () => ({
+  supabase: {
+    auth: {
+      getSession: vi.fn().mockResolvedValue({
+        data: { session: null },
+      }),
+    },
+    from: vi.fn(() => ({
+      select: vi.fn().mockReturnThis(),
+      eq: vi.fn().mockReturnThis(),
+      order: vi.fn().mockResolvedValue({ data: [], error: null }),
+      insert: vi.fn().mockResolvedValue({ data: null, error: null }),
+      delete: vi.fn().mockResolvedValue({ error: null }),
+      single: vi.fn().mockResolvedValue({ data: null, error: null }),
+    })),
+  },
+}))
 
 const mockFood: FoodItem = {
   id: 'test-1',
@@ -28,7 +37,7 @@ const mockFood: FoodItem = {
 
 describe('useAddFood', () => {
   beforeEach(() => {
-    mockStorage.clear()
+    localStorage.clear()
     setActivePinia(createPinia())
   })
 
@@ -64,31 +73,31 @@ describe('useAddFood', () => {
   })
 
   describe('confirmAdd', () => {
-    it('adds entry to food store', () => {
+    it('adds entry to food store', async () => {
       const addFood = useAddFood()
       const foodStore = useFoodStore()
 
       addFood.openAddModal(mockFood)
-      addFood.confirmAdd()
+      await addFood.confirmAdd()
 
       expect(foodStore.todayEntries).toHaveLength(1)
       expect(foodStore.todayEntries[0].food.id).toBe('test-1')
     })
 
-    it('closes modal after adding', () => {
+    it('closes modal after adding', async () => {
       const addFood = useAddFood()
 
       addFood.openAddModal(mockFood)
-      addFood.confirmAdd()
+      await addFood.confirmAdd()
 
       expect(addFood.showAddModal.value).toBe(false)
     })
 
-    it('clears selectedFood after adding', () => {
+    it('clears selectedFood after adding', async () => {
       const addFood = useAddFood()
 
       addFood.openAddModal(mockFood)
-      addFood.confirmAdd()
+      await addFood.confirmAdd()
 
       expect(addFood.selectedFood.value).toBeNull()
     })
@@ -102,14 +111,14 @@ describe('useAddFood', () => {
       expect(foodStore.todayEntries).toHaveLength(0)
     })
 
-    it('uses selected servings and meal type', () => {
+    it('uses selected servings and meal type', async () => {
       const addFood = useAddFood()
       const foodStore = useFoodStore()
 
       addFood.openAddModal(mockFood)
       addFood.servings.value = 3
       addFood.mealType.value = 'lunch'
-      addFood.confirmAdd()
+      await addFood.confirmAdd()
 
       expect(foodStore.todayEntries).toHaveLength(1)
       expect(foodStore.todayEntries[0].servings).toBe(3)

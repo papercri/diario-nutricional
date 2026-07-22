@@ -31,11 +31,7 @@ const ALLERGEN_MAP: Record<AllergenType, { label: string; icon: [string, string]
           Alérgenos
         </h4>
         <div v-if="allergens.length > 0" class="allergen-card__list">
-          <span
-            v-for="allergen in allergens"
-            :key="allergen"
-            class="allergen-card__item"
-          >
+          <span v-for="allergen in allergens" :key="allergen" class="allergen-card__item">
             <font-awesome-icon
               :icon="ALLERGEN_MAP[allergen].icon"
               aria-hidden="true"

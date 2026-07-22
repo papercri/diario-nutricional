@@ -10,7 +10,11 @@ defineProps<{
 <template>
   <Card variant="surface" padding="md">
     <h3 class="ds-section-title">
-      <font-awesome-icon :icon="['fas', 'list-check']" class="ds-section-title--accent" aria-hidden="true" />
+      <font-awesome-icon
+        :icon="['fas', 'list-check']"
+        class="ds-section-title--accent"
+        aria-hidden="true"
+      />
       Ingredientes
     </h3>
 

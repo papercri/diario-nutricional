@@ -105,35 +105,41 @@ function onKeydown(e: KeyboardEvent) {
 /* ── Header ── */
 .ds-modal__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: var(--space-5) var(--space-6) 0;
+  padding: var(--space-4) var(--space-6) 0;
   min-height: 0;
 }
 .ds-modal__title {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
+  font-size: var(--text-2xl);
   font-weight: var(--weight-bold);
   color: var(--clr-text);
   margin: 0;
+  line-height: 1.2;
 }
 .ds-modal__close {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border: none;
-  background: transparent;
-  color: var(--clr-text-faint);
-  font-size: var(--text-lg);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background var(--duration-normal) var(--ease-default);
-}
-.ds-modal__close:hover {
   background: var(--clr-surface-alt);
   color: var(--clr-text-muted);
+  font-size: var(--text-lg);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-top: -0.25rem;
+  margin-right: -0.25rem;
+  transition: background var(--duration-normal) var(--ease-default),
+    color var(--duration-normal) var(--ease-default);
+}
+.ds-modal__close:hover {
+  background: var(--clr-border);
+  color: var(--clr-text);
 }
 
 /* ── Body ── */

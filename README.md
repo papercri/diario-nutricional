@@ -8,13 +8,14 @@ Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular
 
 ## Screenshots
 
-La app incluye 5 vistas principales:
+La app incluye 6 vistas principales:
 
 - **Dashboard** — Anillo de calorías con progreso visual, macro nutrientes, registro de comidas del día
+- **Perfil** — Pestañas: Mi día, Mis platos, Mis recetas, Datos. Formulario de datos personales, calculadora de IMC con gauge lineal, metas calóricas (Mifflin-St Jeor), tiempo estimado para alcanzar el objetivo
 - **Buscar** — Búsqueda de alimentos contra la API pública de Open Food Facts
-- **Analizar** — Analizador de comidas potenciado por IA, envía con Enter o botón
-- **Recetas** — Generador de recetas personalizadas con IA según preferencias dietéticas, alérgenos e ingredientes
-- **Perfil** — Formulario de datos personales (con peso deseado), calculadora de IMC con gauge lineal, metas calóricas (Mifflin-St Jeor), tiempo estimado para alcanzar el objetivo
+- **Analizar** — Analizador de comidas potenciado por IA, envía con Enter o botón. Botón de guardar en favoritos
+- **Recetas** — Generador de recetas personalizadas con IA según preferencias dietéticas, alérgenos e ingredientes. Botón de guardar en favoritos
+- **Auth** — Login/registro con email y contraseña via Supabase Auth
 
 ## Stack
 
@@ -23,15 +24,16 @@ La app incluye 5 vistas principales:
 | Lenguaje | TypeScript estricto |
 | Framework | Vue 3 (Composition API, `<script setup>`) |
 | Runtime / Build | Vite 8 |
-| Estado | Pinia (persistencia en `localStorage`) |
+| Estado | Pinia (persistencia en `localStorage` + Supabase) |
 | Estilos | Tailwind CSS v4 (configuración vía CSS) |
 | Enrutado | Vue Router (lazy-loaded) |
 | Datos | Fetch Nativo → Open Food Facts API |
+| Backend | Supabase (Auth + PostgreSQL + RLS) |
 | IA Backend | Vercel Serverless Functions (Node.js) |
 | IA Providers | Groq (gpt-oss-120b) + Cerebras (gpt-oss-120b) con fallback automático |
 | Tests | Vitest + @vue/test-utils |
 | Linting | ESLint 9 (flat config) + Prettier |
-| Iconos | Font Awesome (SVG tree-shaking, ~50 iconos) |
+| Iconos | Font Awesome (SVG tree-shaking, ~55 iconos) |
 
 ## Por qué existe este proyecto
 
@@ -187,16 +189,22 @@ src/
 │   └── index.ts               # Barrel export
 ├── composables/               # Composables para lógica reactiva
 │   ├── useFoodSearch.ts       # Search state, debounce, performSearch
-│   └── useAddFood.ts          # Modal state, openAddModal, confirmAdd
+│   ├── useAddFood.ts          # Modal state, openAddModal, confirmAdd
+│   └── useAuth.ts             # Auth state, signIn/signUp/signOut, migración
+├── lib/                       # Configuración de servicios
+│   └── supabase.ts            # Cliente Supabase singleton
 ├── views/                     # Vistas principales (todas lazy-loaded)
-│   ├── DashboardView.vue
-│   ├── ProfileView.vue
+│   ├── DashboardView.vue      # Pestañas: Mi día, Mis platos, Mis recetas, Perfil
+│   ├── ProfileView.vue        # Pestañas: Mi día, Mis platos, Mis recetas, Datos
 │   ├── SearchView.vue
-│   ├── NutritionAnalyzerView.vue
-│   └── RecipeGeneratorView.vue          # Generador de recetas con IA
-├── stores/                    # Almacenes Pinia con persistencia localStorage
-│   ├── userStore.ts           # Perfil de usuario + metas calóricas
-│   └── foodStore.ts           # Registro de comidas del día
+│   ├── NutritionAnalyzerView.vue  # Botón guardar plato en favoritos
+│   ├── RecipeGeneratorView.vue    # Botón guardar receta en favoritos
+│   └── AuthView.vue           # Login/registro con Supabase Auth
+├── stores/                    # Almacenes Pinia con persistencia dual
+│   ├── userStore.ts           # Perfil de usuario + metas calóricas (localStorage/Supabase)
+│   ├── foodStore.ts           # Registro de comidas del día (localStorage/Supabase)
+│   ├── savedPlatesStore.ts    # Platos guardados en favoritos (localStorage/Supabase)
+│   └── savedRecipesStore.ts   # Recetas guardadas en favoritos (localStorage/Supabase)
 ├── services/                  # Clientes HTTP
 │   ├── openFoodFacts.ts       # API pública de Open Food Facts
 │   ├── nutritionAI.ts         # Cliente del analizador IA → /api/analyze-meal
@@ -206,6 +214,7 @@ src/
 │   ├── food.ts                # FoodItem, MealEntry, NutritionSummary
 │   ├── nutrition.ts           # NutritionAnalysis, MacroValue, Ingredient
 │   ├── recipe.ts              # Allergen, DietaryPreference, RecipeConfig, GeneratedRecipe
+│   ├── supabase.ts            # Database types (5 tablas)
 │   └── calculator.ts          # BmiResult, IdealWeightResult
 ├── utils/                     # Funciones puras y constantes
 │   ├── mifflinStJeor.ts       # Fórmula Mifflin-St Jeor (TMB/TDEE)
@@ -282,11 +291,14 @@ Los componentes UI (`Button`, `Input`, `Card`, `Badge`, `Modal`, `Typography`) e
 
 ## Datos y persistencia
 
-- **Frontend sin backend propio** — toda la app corre en el navegador
+- **Modo dual** — La app funciona sin login (datos en localStorage) y con login (datos en Supabase)
+- **Supabase** — Auth (email/password), PostgreSQL con RLS, 5 tablas: profiles, meal_entries, saved_plates, saved_recipes, meal_history
+- **Migración automática** — Al hacer login, los datos de localStorage se migran a Supabase
 - **Backend IA** — Vercel Serverless Functions en `/api/` para el análisis nutricional con LLMs
-- **localStorage** bajo prefijo `avocato-` para persistir perfil y registros diarios
 - **APIs públicas** sin autenticación: Open Food Facts (alimentos)
-- **APIs de IA** con autenticación por API key (variables de entorno en Vercel):
+- **Variables de entorno**:
+  - `VITE_SUPABASE_URL` — URL de tu proyecto Supabase
+  - `VITE_SUPABASE_ANON_KEY` — Anon key de Supabase
   - `GROQ_API_KEY` — Proveedor primario (Groq)
   - `CEREBRAS_API_KEY` — Proveedor de respaldo (Cerebras)
 

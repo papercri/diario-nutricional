@@ -2,23 +2,30 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useUserStore } from './userStore'
 
-const mockStorage = new Map<string, string>()
-vi.spyOn(Storage.prototype, 'getItem').mockImplementation(key => mockStorage.get(key) ?? null)
-vi.spyOn(Storage.prototype, 'setItem').mockImplementation((key, value) => {
-  mockStorage.set(key, value)
-})
-vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(key => {
-  mockStorage.delete(key)
-})
+vi.mock('@/lib/supabase', () => ({
+  supabase: {
+    auth: {
+      getSession: vi.fn().mockResolvedValue({
+        data: { session: null },
+      }),
+    },
+    from: vi.fn(() => ({
+      select: vi.fn().mockReturnThis(),
+      eq: vi.fn().mockReturnThis(),
+      single: vi.fn().mockResolvedValue({ data: null }),
+      upsert: vi.fn().mockResolvedValue({ error: null }),
+    })),
+  },
+}))
 
 describe('useUserStore', () => {
   beforeEach(() => {
+    localStorage.clear()
     setActivePinia(createPinia())
-    mockStorage.clear()
   })
 
   describe('initial state', () => {
-    it('loads default profile when localStorage is empty', () => {
+    it('loads default profile when no data exists', () => {
       const store = useUserStore()
       expect(store.profile.name).toBe('')
       expect(store.profile.age).toBe(30)
@@ -27,6 +34,8 @@ describe('useUserStore', () => {
       expect(store.profile.sex).toBe('female')
       expect(store.profile.activityLevel).toBe('moderate')
       expect(store.profile.goal).toBe('maintain')
+      expect(store.profile.allergens).toEqual([])
+      expect(store.profile.dietaryPreferences).toEqual([])
     })
 
     it('isProfileComplete is false with default profile', () => {
@@ -46,7 +55,7 @@ describe('useUserStore', () => {
     it('persists to localStorage', () => {
       const store = useUserStore()
       store.updateProfile({ name: 'Ana' })
-      const stored = JSON.parse(mockStorage.get('avocato-user-profile') ?? '{}')
+      const stored = JSON.parse(localStorage.getItem('avocato-user-profile') ?? '{}')
       expect(stored.name).toBe('Ana')
     })
 
@@ -122,7 +131,7 @@ describe('useUserStore', () => {
 
   describe('localStorage persistence', () => {
     it('loads profile from localStorage on init', () => {
-      mockStorage.set(
+      localStorage.setItem(
         'avocato-user-profile',
         JSON.stringify({ name: 'Ana', age: 25, weight: 55 }),
       )
@@ -134,7 +143,7 @@ describe('useUserStore', () => {
     })
 
     it('handles corrupted localStorage gracefully', () => {
-      mockStorage.set('avocato-user-profile', 'NOT-JSON')
+      localStorage.setItem('avocato-user-profile', 'NOT-JSON')
       const store = useUserStore()
       expect(store.profile.name).toBe('')
       expect(store.profile.age).toBe(30)

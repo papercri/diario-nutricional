@@ -31,6 +31,7 @@ Responde ÚNICAMENTE con este JSON, sin texto adicional ni backticks:
 
 Reglas:
 - Siempre genera recetas realistas y equilibradas nutricionalmente.
+- Las calorias y macronutrientes deben ser calcoladas por cada ración, no por la receta completa.
 - Adapta las calorías y macronutrientes al objetivo calórico del usuario si se proporciona.
 - Respeta estrictamente todas las restricciones dietéticas, preferencias y alérgenos indicados.
 - Incluye al menos 5 ingredientes y 4 pasos de preparación.

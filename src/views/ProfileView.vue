@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
-import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '@/utils/constants'
-import { calculateBMI, calculateIdealWeight } from '@/utils/bmi'
-import { classifyBMI, getBmiBadgeVariant } from '@/utils/bmiClassification'
 import DsCard from '@/components/ui/Card.vue'
 import DsInput from '@/components/ui/Input.vue'
 import DsButton from '@/components/ui/Button.vue'
 import DsBadge from '@/components/ui/Badge.vue'
 import DsTypography from '@/components/ui/Typography.vue'
+import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '@/utils/constants'
+import { calculateBMI, calculateIdealWeight } from '@/utils/bmi'
+import { classifyBMI, getBmiBadgeVariant } from '@/utils/bmiClassification'
 import type { ActivityLevel, GoalType, Sex } from '@/types/user'
 
 const userStore = useUserStore()
@@ -41,316 +41,184 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 </script>
 
 <template>
-  <main class="ds-page">
-    <header class="ds-page-header">
-      <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
-        <font-awesome-icon :icon="['fas', 'user']" aria-hidden="true" style="color: var(--clr-primary)" />
+  <main class="dash">
+    <header class="dash__header">
+      <h1 class="text-display-lg">
+        <font-awesome-icon
+          :icon="['fas', 'user']"
+          aria-hidden="true"
+          style="color: var(--clr-primary)"
+        />
         Mi perfil
       </h1>
-      <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
-        Tus datos se guardan localmente y nunca se comparten.
-      </p>
+      <p class="text-body-sm">Tus datos se guardan localmente y nunca se comparten.</p>
     </header>
 
-    <div class="ds-page-content">
-      <!-- Form row: personal data + lifestyle side by side on desktop -->
-      <div class="form-row">
-        <!-- Datos personales -->
-        <DsCard variant="elevated" padding="md" class="form-row__card">
-          <h2 class="section-title">
-            <font-awesome-icon :icon="['fas', 'id-card']" aria-hidden="true" />
-            Datos personales
-          </h2>
-
-          <div class="section-fields">
-            <DsInput
-              :model-value="userStore.profile.name"
-              label="Nombre"
-              placeholder="Tu nombre"
-              size="sm"
-              @update:model-value="userStore.updateProfile({ name: $event as string })"
-            />
-
-            <div class="field-row">
-              <DsInput
-                :model-value="userStore.profile.age"
-                label="Edad"
-                type="number"
-                size="sm"
-                @update:model-value="onNumberInput('age', $event)"
-              />
-
-              <div class="field-group">
-                <span class="field-label">Sexo biológico</span>
-                <div class="btn-group" role="radiogroup" aria-label="Sexo biológico">
-                  <button
-                    type="button"
-                    class="btn-toggle btn-toggle--sm"
-                    :class="{ 'btn-toggle--active': userStore.profile.sex === 'female' }"
-                    role="radio"
-                    :aria-checked="userStore.profile.sex === 'female'"
-                    @click="userStore.updateProfile({ sex: 'female' as Sex })"
-                  >
-                    Mujer
-                  </button>
-                  <button
-                    type="button"
-                    class="btn-toggle btn-toggle--sm"
-                    :class="{ 'btn-toggle--active': userStore.profile.sex === 'male' }"
-                    role="radio"
-                    :aria-checked="userStore.profile.sex === 'male'"
-                    @click="userStore.updateProfile({ sex: 'male' as Sex })"
-                  >
-                    Hombre
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="field-row">
-              <DsInput
-                :model-value="userStore.profile.weight"
-                label="Peso (kg)"
-                type="number"
-                size="sm"
-                @update:model-value="onNumberInput('weight', $event)"
-              />
-              <DsInput
-                :model-value="userStore.profile.height"
-                label="Altura (cm)"
-                type="number"
-                size="sm"
-                @update:model-value="onNumberInput('height', $event)"
-              />
-              <DsInput
-                :model-value="userStore.profile.desiredWeight"
-                label="Peso deseado (kg)"
-                type="number"
-                size="sm"
-                @update:model-value="onNumberInput('desiredWeight', $event)"
-              />
-            </div>
-          </div>
-        </DsCard>
-
-        <!-- Estilo de vida -->
-        <DsCard variant="elevated" padding="md" class="form-row__card">
-          <h2 class="section-title">
-            <font-awesome-icon :icon="['fas', 'heart-pulse']" aria-hidden="true" />
-            Estilo de vida
-          </h2>
-
-          <div class="section-fields">
-            <div class="field-group">
-              <span class="field-label">Actividad física</span>
-              <div
-                class="btn-grid btn-grid--2"
-                role="radiogroup"
-                aria-label="Nivel de actividad física"
-              >
-                <button
-                  v-for="opt in ACTIVITY_OPTIONS"
-                  :key="opt.value"
-                  type="button"
-                  class="btn-toggle btn-toggle--sm"
-                  :class="{ 'btn-toggle--active': userStore.profile.activityLevel === opt.value }"
-                  role="radio"
-                  :aria-checked="userStore.profile.activityLevel === opt.value"
-                  @click="userStore.updateProfile({ activityLevel: opt.value as ActivityLevel })"
-                >
-                  <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
-                  {{ opt.label }}
-                </button>
-              </div>
-            </div>
-
-            <div class="field-group">
-              <span class="field-label">Objetivo</span>
-              <div class="btn-grid btn-grid--3" role="radiogroup" aria-label="Objetivo nutricional">
-                <button
-                  v-for="opt in GOAL_OPTIONS"
-                  :key="opt.value"
-                  type="button"
-                  class="btn-toggle btn-toggle--sm"
-                  :class="{ 'btn-toggle--active': userStore.profile.goal === opt.value }"
-                  role="radio"
-                  :aria-checked="userStore.profile.goal === opt.value"
-                  @click="userStore.updateProfile({ goal: opt.value as GoalType })"
-                >
-                  <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
-                  <span>{{ opt.label }}</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </DsCard>
-      </div>
-
-      <!-- Resultados calculados -->
-      <DsCard variant="warm" padding="md" aria-label="Resultados calculados">
-        <h2 class="section-title section-title--primary">
-            <font-awesome-icon :icon="['fas', 'chart-simple']" aria-hidden="true" />
-          Mis resultados
+    <div class="form-row">
+      <DsCard variant="elevated" padding="md" class="form-row__card">
+        <h2 class="section-title">
+          <font-awesome-icon :icon="['fas', 'id-card']" aria-hidden="true" />
+          Datos personales
         </h2>
-
-        <!-- BMI Card with linear indicator -->
-        <div class="bmi-card">
-          <div class="bmi-card__header">
-            <DsTypography variant="label-sm" color="muted">IMC</DsTypography>
-            <DsBadge :variant="bmiBadge" size="sm" dot>{{ bmiLabel }}</DsBadge>
-          </div>
-
-          <div class="bmi-gauge">
-            <div class="bmi-gauge__bar">
-              <div class="bmi-gauge__track" />
-              <div class="bmi-gauge__indicator" :style="{ left: `${bmiPercent}%` }">
-                <span class="bmi-gauge__pill">{{ bmi }}</span>
+        <div class="section-fields">
+          <DsInput :model-value="userStore.profile.name" label="Nombre" placeholder="Tu nombre" size="sm" @update:model-value="userStore.updateProfile({ name: $event as string })" />
+          <div class="field-row">
+            <DsInput :model-value="userStore.profile.age" label="Edad" type="number" size="sm" @update:model-value="onNumberInput('age', $event)" />
+            <div class="field-group">
+              <span class="field-label">Sexo biológico</span>
+              <div class="btn-group" role="radiogroup" aria-label="Sexo biológico">
+                <button type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.sex === 'female' }" role="radio" :aria-checked="userStore.profile.sex === 'female'" @click="userStore.updateProfile({ sex: 'female' as Sex })">Mujer</button>
+                <button type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.sex === 'male' }" role="radio" :aria-checked="userStore.profile.sex === 'male'" @click="userStore.updateProfile({ sex: 'male' as Sex })">Hombre</button>
               </div>
             </div>
-            <div class="bmi-gauge__labels">
-              <span>15</span>
-              <span>18.5</span>
-              <span>25</span>
-              <span>30</span>
-              <span>40</span>
-            </div>
           </div>
-
-          <div class="bmi-card__details">
-            <div class="bmi-detail">
-              <span class="bmi-detail__label">Peso actual</span>
-              <span class="bmi-detail__value">{{ userStore.profile.weight }} kg</span>
-            </div>
-            <div class="bmi-detail">
-              <span class="bmi-detail__label">Peso ideal</span>
-              <span class="bmi-detail__value">{{ idealWeight }} kg</span>
-            </div>
-            <div class="bmi-detail">
-              <span class="bmi-detail__label">Peso deseado</span>
-              <span class="bmi-detail__value">{{ userStore.profile.desiredWeight }} kg</span>
-            </div>
-            <div class="bmi-detail">
-              <span class="bmi-detail__label">Kg de sobrepeso</span>
-              <span
-                class="bmi-detail__value"
-                :class="
-                  weightDiff > 0
-                    ? 'text-accent'
-                    : weightDiff < 0
-                      ? 'text-secondary'
-                      : 'text-primary'
-                "
-              >
-                {{ weightDiff > 0 ? '+' : '' }}{{ weightDiff }} kg
-              </span>
-            </div>
-            <div v-if="timeToGoalMonths > 0" class="bmi-detail">
-              <span class="bmi-detail__label">Tiempo estimado</span>
-              <span class="bmi-detail__value">{{ timeToGoalMonths }} meses</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Calorie metrics grid -->
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <p class="metric-card__value metric-card__value--primary">{{ bmr }}</p>
-            <p class="metric-card__label">Metabolismo basal (kcal)</p>
-          </div>
-          <div class="metric-card">
-            <p class="metric-card__value metric-card__value--accent">{{ tdee }}</p>
-            <p class="metric-card__label">Gasto total (kcal)</p>
-          </div>
-          <div class="metric-card">
-            <p class="metric-card__value metric-card__value--secondary">{{ target }}</p>
-            <p class="metric-card__label">Meta diaria (kcal)</p>
+          <div class="field-row">
+            <DsInput :model-value="userStore.profile.weight" label="Peso (kg)" type="number" size="sm" @update:model-value="onNumberInput('weight', $event)" />
+            <DsInput :model-value="userStore.profile.height" label="Altura (cm)" type="number" size="sm" @update:model-value="onNumberInput('height', $event)" />
+            <DsInput :model-value="userStore.profile.desiredWeight" label="Peso deseado (kg)" type="number" size="sm" @update:model-value="onNumberInput('desiredWeight', $event)" />
           </div>
         </div>
       </DsCard>
 
-      <div class="profile-page__reset">
-        <DsButton
-          variant="danger"
-          size="sm"
-          :icon="['fas', 'rotate-left']"
-          @click="userStore.resetProfile()"
-        >
-          Restablecer valores
-        </DsButton>
+      <DsCard variant="elevated" padding="md" class="form-row__card">
+        <h2 class="section-title">
+          <font-awesome-icon :icon="['fas', 'heart-pulse']" aria-hidden="true" />
+          Estilo de vida
+        </h2>
+        <div class="section-fields">
+          <div class="field-group">
+            <span class="field-label">Actividad física</span>
+            <div class="btn-grid btn-grid--2" role="radiogroup" aria-label="Nivel de actividad física">
+              <button v-for="opt in ACTIVITY_OPTIONS" :key="opt.value" type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.activityLevel === opt.value }" role="radio" :aria-checked="userStore.profile.activityLevel === opt.value" @click="userStore.updateProfile({ activityLevel: opt.value as ActivityLevel })">
+                <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
+                {{ opt.label }}
+              </button>
+            </div>
+          </div>
+          <div class="field-group">
+            <span class="field-label">Objetivo</span>
+            <div class="btn-grid btn-grid--3" role="radiogroup" aria-label="Objetivo nutricional">
+              <button v-for="opt in GOAL_OPTIONS" :key="opt.value" type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.goal === opt.value }" role="radio" :aria-checked="userStore.profile.goal === opt.value" @click="userStore.updateProfile({ goal: opt.value as GoalType })">
+                <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
+                <span>{{ opt.label }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </DsCard>
+    </div>
+
+    <DsCard variant="warm" padding="md" aria-label="Resultados calculados">
+      <h2 class="section-title section-title--primary">
+        <font-awesome-icon :icon="['fas', 'chart-simple']" aria-hidden="true" />
+        Mis resultados
+      </h2>
+
+      <div class="bmi-card">
+        <div class="bmi-card__header">
+          <DsTypography variant="label-sm" color="muted">IMC</DsTypography>
+          <DsBadge :variant="bmiBadge" size="sm" dot>{{ bmiLabel }}</DsBadge>
+        </div>
+        <div class="bmi-gauge">
+          <div class="bmi-gauge__bar">
+            <div class="bmi-gauge__track" />
+            <div class="bmi-gauge__indicator" :style="{ left: `${bmiPercent}%` }">
+              <span class="bmi-gauge__pill">{{ bmi }}</span>
+            </div>
+          </div>
+          <div class="bmi-gauge__labels">
+            <span>15</span><span>18.5</span><span>25</span><span>30</span><span>40</span>
+          </div>
+        </div>
+        <div class="bmi-card__details">
+          <div class="bmi-detail"><span class="bmi-detail__label">Peso actual</span><span class="bmi-detail__value">{{ userStore.profile.weight }} kg</span></div>
+          <div class="bmi-detail"><span class="bmi-detail__label">Peso ideal</span><span class="bmi-detail__value">{{ idealWeight }} kg</span></div>
+          <div class="bmi-detail"><span class="bmi-detail__label">Peso deseado</span><span class="bmi-detail__value">{{ userStore.profile.desiredWeight }} kg</span></div>
+          <div class="bmi-detail">
+            <span class="bmi-detail__label">Kg de sobrepeso</span>
+            <span class="bmi-detail__value" :class="weightDiff > 0 ? 'text-accent' : weightDiff < 0 ? 'text-secondary' : 'text-primary'">
+              {{ weightDiff > 0 ? '+' : '' }}{{ weightDiff }} kg
+            </span>
+          </div>
+          <div v-if="timeToGoalMonths > 0" class="bmi-detail"><span class="bmi-detail__label">Tiempo estimado</span><span class="bmi-detail__value">{{ timeToGoalMonths }} meses</span></div>
+        </div>
       </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card"><p class="metric-card__value metric-card__value--primary">{{ bmr }}</p><p class="metric-card__label">Metabolismo basal (kcal)</p></div>
+        <div class="metric-card"><p class="metric-card__value metric-card__value--accent">{{ tdee }}</p><p class="metric-card__label">Gasto total (kcal)</p></div>
+        <div class="metric-card"><p class="metric-card__value metric-card__value--secondary">{{ target }}</p><p class="metric-card__label">Meta diaria (kcal)</p></div>
+      </div>
+    </DsCard>
+
+    <div class="profile-page__reset">
+      <DsButton variant="danger" size="sm" :icon="['fas', 'rotate-left']" @click="userStore.resetProfile()">Restablecer valores</DsButton>
     </div>
   </main>
 </template>
 
 <style scoped>
-.profile-page__reset {
+.dash {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
   display: flex;
-  justify-content: center;
-  padding-top: 0.25rem;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-/* Form row: side by side on desktop */
+.dash__header { text-align: center; margin-bottom: 0.125rem; }
+
 .form-row {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .form-row {
     flex-direction: row;
-    gap: 0.75rem;
+    align-items: flex-start;
   }
-
   .form-row__card {
     flex: 1;
-    min-width: 0;
   }
 }
 
-/* Section titles */
 .section-title {
   font-family: var(--font-display);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
-  color: var(--clr-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.75rem 0;
+  color: var(--clr-text);
+  margin: 0 0 0.75rem;
   display: flex;
   align-items: center;
   gap: 0.375rem;
-}
-
-.section-title i {
-  color: var(--clr-accent);
 }
 
 .section-title--primary {
   color: var(--clr-primary);
 }
 
-.section-title--primary i {
-  color: var(--clr-primary);
-}
-
-/* Fields */
 .section-fields {
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
+  gap: 0.75rem;
 }
 
 .field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-  .field-row {
-    grid-template-columns: 1fr 1fr;
-  }
+.field-row > * {
+  flex: 1;
+  min-width: 0;
 }
 
 .field-group {
@@ -365,19 +233,14 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   color: var(--clr-text-muted);
 }
 
-/* Button toggles */
 .btn-group {
   display: flex;
-  gap: 0.25rem;
-}
-
-.btn-group .btn-toggle {
-  flex: 1;
+  gap: 0.375rem;
 }
 
 .btn-grid {
   display: grid;
-  gap: 0.25rem;
+  gap: 0.375rem;
 }
 
 .btn-grid--2 {
@@ -388,35 +251,34 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-@media (max-width: 480px) {
-  .btn-grid--3 {
-    grid-template-columns: 1fr;
-  }
-}
-
 .btn-toggle {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.375rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-md);
+  gap: 0.25rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: var(--radius-full);
   border: 1px solid var(--clr-border);
   background: var(--clr-surface);
   color: var(--clr-text-muted);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  line-height: 1.2;
+  font-size: 0.75rem;
+  font-weight: 500;
   cursor: pointer;
-  transition:
-    background var(--duration-normal) var(--ease-default),
-    color var(--duration-normal) var(--ease-default),
-    border-color var(--duration-normal) var(--ease-default);
+  transition: background var(--duration-fast) var(--ease-default), color var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default);
 }
 
 .btn-toggle:hover {
+  border-color: var(--clr-border-strong);
   background: var(--clr-surface-alt);
+}
+
+.btn-toggle:focus-visible {
+  outline: 2px solid var(--clr-focus-ring);
+  outline-offset: 2px;
+}
+
+.btn-toggle--sm {
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
 }
 
 .btn-toggle--active {
@@ -427,139 +289,95 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
 
 .btn-toggle--active:hover {
   background: var(--clr-primary-hover);
+  border-color: var(--clr-primary-hover);
+  color: var(--clr-text-inverse);
 }
 
-.btn-toggle--sm {
-  padding: 0.375rem 0.625rem;
-  font-size: var(--text-xs);
-}
-
-.btn-toggle--col {
-  flex-direction: column;
-  padding: 0.5rem;
-}
-
-.btn-toggle__desc {
-  font-size: 0.675rem;
-  opacity: 0.7;
-}
-
-/* BMI Card */
+/* BMI card */
 .bmi-card {
-  background: var(--clr-surface);
-  border: 1px solid var(--clr-border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 0.875rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .bmi-card__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.5rem;
 }
 
-/* BMI Linear Gauge */
 .bmi-gauge {
   margin-bottom: 0.75rem;
 }
 
 .bmi-gauge__bar {
   position: relative;
-  height: 1.5rem;
-  margin-bottom: 0.375rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  overflow: visible;
 }
 
 .bmi-gauge__track {
   position: absolute;
   inset: 0;
   border-radius: var(--radius-full);
-  background: linear-gradient(
-    to right,
-    var(--clr-bmi-underweight) 0%,
-    var(--clr-bmi-underweight) 14%,
-    var(--clr-bmi-normal) 14%,
-    var(--clr-bmi-normal) 28%,
-    var(--clr-bmi-overweight) 28%,
-    var(--clr-bmi-overweight) 42%,
-    var(--clr-bmi-obese) 42%,
-    var(--clr-bmi-obese) 56%,
-    var(--clr-bmi-extreme) 56%,
-    var(--clr-bmi-extreme) 100%
-  );
+  background: linear-gradient(to right, var(--clr-bmi-underweight), var(--clr-bmi-normal), var(--clr-bmi-overweight), var(--clr-bmi-obese), var(--clr-bmi-extreme));
 }
 
 .bmi-gauge__indicator {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 1;
 }
 
 .bmi-gauge__pill {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.25rem;
-  height: 1.5rem;
-  padding: 0 0.375rem;
+  display: block;
+  padding: 0.125rem 0.375rem;
   border-radius: var(--radius-full);
-  background: var(--clr-surface);
-  color: var(--clr-text);
-  font-family: var(--font-display);
-  font-size: var(--text-xs);
+  background: var(--clr-text);
+  color: var(--clr-text-inverse);
+  font-size: 0.625rem;
   font-weight: var(--weight-bold);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.15),
-    0 0 0 2px var(--clr-surface);
   white-space: nowrap;
+  text-align: center;
 }
 
 .bmi-gauge__labels {
   display: flex;
   justify-content: space-between;
+  margin-top: 0.25rem;
   font-size: 0.5625rem;
   color: var(--clr-text-faint);
-  padding: 0 0.125rem;
 }
 
 .bmi-card__details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--clr-border-subtle);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.375rem;
 }
 
 .bmi-detail {
   display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  background: var(--clr-surface-alt);
+  border-radius: var(--radius-md);
 }
 
 .bmi-detail__label {
-  font-size: 0.675rem;
-  color: var(--clr-text-faint);
+  font-size: var(--text-xs);
+  color: var(--clr-text-muted);
 }
 
 .bmi-detail__value {
   font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--clr-text);
 }
 
-.text-primary {
-  color: var(--clr-primary);
-}
-
-.text-accent {
-  color: var(--clr-accent);
-}
-
-.text-secondary {
-  color: var(--clr-secondary);
-}
+.text-accent { color: var(--clr-accent); }
+.text-secondary { color: var(--clr-secondary); }
+.text-primary { color: var(--clr-primary); }
 
 /* Metrics grid */
 .metrics-grid {
@@ -568,43 +386,35 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   gap: 0.5rem;
 }
 
-@media (max-width: 480px) {
-  .metrics-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .metric-card {
+  text-align: center;
+  padding: 0.625rem 0.25rem;
   background: var(--clr-surface);
   border: 1px solid var(--clr-border-subtle);
   border-radius: var(--radius-lg);
-  padding: 0.75rem;
-  text-align: center;
 }
 
 .metric-card__value {
+  display: block;
   font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: var(--weight-bold);
   line-height: 1;
-  margin: 0 0 0.25rem 0;
+  margin-bottom: 0.25rem;
 }
 
-.metric-card__value--primary {
-  color: var(--clr-primary);
-}
-
-.metric-card__value--accent {
-  color: var(--clr-accent);
-}
-
-.metric-card__value--secondary {
-  color: var(--clr-secondary);
-}
+.metric-card__value--primary { color: var(--clr-primary); }
+.metric-card__value--accent { color: var(--clr-accent); }
+.metric-card__value--secondary { color: var(--clr-secondary); }
 
 .metric-card__label {
-  font-size: 0.675rem;
-  color: var(--clr-text-muted);
-  margin: 0;
+  font-size: 0.625rem;
+  color: var(--clr-text-faint);
+}
+
+.profile-page__reset {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
 }
 </style>

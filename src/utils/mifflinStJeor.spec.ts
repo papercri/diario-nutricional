@@ -54,6 +54,8 @@ describe('calculateCalorieGoals', () => {
     sex: 'male',
     activityLevel: 'moderate',
     goal: 'maintain',
+    allergens: [],
+    dietaryPreferences: [],
   }
 
   it('calculates full goals for a male maintaining weight', () => {

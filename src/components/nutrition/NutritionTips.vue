@@ -9,7 +9,11 @@ defineProps<{
 <template>
   <Card variant="warm" padding="md">
     <h3 class="ds-section-title">
-      <font-awesome-icon :icon="['fas', 'lightbulb']" class="ds-section-title--secondary" aria-hidden="true" />
+      <font-awesome-icon
+        :icon="['fas', 'lightbulb']"
+        class="ds-section-title--secondary"
+        aria-hidden="true"
+      />
       Consejos
     </h3>
 
