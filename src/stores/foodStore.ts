@@ -46,6 +46,8 @@ function saveLocal(logs: Record<string, MealEntry[]>) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(logs))
 }
 
+const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000
+
 export const useFoodStore = defineStore('food', () => {
   const dailyLogs = ref<Record<string, MealEntry[]>>({})
   const searchResults = ref<FoodItem[]>([])
@@ -53,6 +55,7 @@ export const useFoodStore = defineStore('food', () => {
   const searchError = ref<string | null>(null)
   const loaded = ref(false)
   const userId = ref('')
+  let cleanupInterval: ReturnType<typeof setInterval> | null = null
 
   function setUserId(id: string) {
     userId.value = id
@@ -61,7 +64,9 @@ export const useFoodStore = defineStore('food', () => {
   watch(userId, async (id) => {
     if (id) {
       await loadEntries()
+      startCleanupInterval()
     } else {
+      stopCleanupInterval()
       dailyLogs.value = loadLocal()
       loaded.value = true
     }
@@ -117,6 +122,7 @@ export const useFoodStore = defineStore('food', () => {
     } else {
       dailyLogs.value = loadLocal()
     }
+    await cleanExpiredEntries()
     loaded.value = true
   }
 
@@ -250,6 +256,55 @@ export const useFoodStore = defineStore('food', () => {
     await loadEntries()
   }
 
+  async function cleanExpiredEntries() {
+    const now = Date.now()
+    const cutoff = now - TWENTY_FOUR_HOURS_MS
+    const dates = Object.keys(dailyLogs.value)
+    const expiredIds: string[] = []
+
+    for (const date of dates) {
+      const entries = dailyLogs.value[date]
+      const expired = entries.filter((e) => e.timestamp < cutoff)
+      if (expired.length > 0) {
+        expiredIds.push(...expired.map((e) => e.id))
+        dailyLogs.value[date] = entries.filter((e) => e.timestamp >= cutoff)
+        if (dailyLogs.value[date].length === 0) {
+          delete dailyLogs.value[date]
+        }
+      }
+    }
+
+    if (expiredIds.length > 0 && userId.value) {
+      for (const id of expiredIds) {
+        try {
+          await supabase
+            .from('daily_meal')
+            .delete()
+            .eq('id', id)
+            .eq('user_id', userId.value)
+        } catch (err) {
+          console.error('Error deleting expired entry from Supabase:', err)
+        }
+      }
+    }
+
+    if (!userId.value && expiredIds.length > 0) {
+      saveLocal(dailyLogs.value)
+    }
+  }
+
+  function startCleanupInterval() {
+    if (cleanupInterval) return
+    cleanupInterval = setInterval(cleanExpiredEntries, 60 * 60 * 1000)
+  }
+
+  function stopCleanupInterval() {
+    if (cleanupInterval) {
+      clearInterval(cleanupInterval)
+      cleanupInterval = null
+    }
+  }
+
   return {
     dailyLogs,
     searchResults,
@@ -267,5 +322,7 @@ export const useFoodStore = defineStore('food', () => {
     clearToday,
     getEntriesForDate,
     migrateToSupabase,
+    cleanExpiredEntries,
+    stopCleanupInterval,
   }
 })

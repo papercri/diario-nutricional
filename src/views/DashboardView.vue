@@ -112,7 +112,7 @@ function entryMacros(entry: {
       v-if="!userStore.isProfileComplete"
       as="section"
       variant="surface"
-      padding="none"
+      padding="sm"
       class="p-6 text-center"
       aria-label="Completa tu perfil"
     >
@@ -188,7 +188,7 @@ function entryMacros(entry: {
         <Card
           v-if="foodStore.todayEntries.length === 0"
           variant="warm"
-          padding="none"
+          padding="sm"
           class="text-center py-6 px-4 mt-1.5"
           role="status"
         >
@@ -309,12 +309,12 @@ function entryMacros(entry: {
       <div class="dash__actions">
         <div class="dash__actions-row">
           <Button
-            to="/search"
+            to="/nueva-receta"
             variant="primary"
             class="text-[10px] py-1 px-2 whitespace-nowrap"
           >
-            <font-awesome-icon :icon="['fas', 'magnifying-glass']" aria-hidden="true" />
-            Buscar
+            <font-awesome-icon :icon="['fas', 'utensils']" aria-hidden="true" />
+            Añadir receta
           </Button>
           <Button
             to="/analizar-plato"
@@ -322,7 +322,7 @@ function entryMacros(entry: {
             class="text-[10px] py-1 px-2 whitespace-nowrap"
           >
             <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
-            Mis platos
+            Añadir plato
           </Button>
           <Button
             v-if="foodStore.todayEntries.length > 0"

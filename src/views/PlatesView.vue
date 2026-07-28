@@ -87,7 +87,7 @@ function cancelDelete() {
         </h1>
         <Button to="/analizar-plato" variant="primary" size="sm">
           <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
-          Analizar mi comida
+          Analizar mi plato
         </Button>
       </div>
       <p class="text-body-sm">Platos que has analizado y guardado</p>
@@ -108,7 +108,7 @@ function cancelDelete() {
       </p>
       <Button to="/analizar-plato" variant="primary" size="sm">
         <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
-        Analizar mi comida
+        Analizar mi plato
       </Button>
     </Card>
 

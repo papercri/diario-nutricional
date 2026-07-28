@@ -17,16 +17,16 @@ export function calcRemaining(consumed: number, target: number): number {
 }
 
 /**
- * Groups meal entries by their meal type.
+ * Groups meal entries by their meal type in display order: Desayuno, Comida, Snack, Cena.
  */
 export function groupEntriesByMealType(entries: MealEntry[]): Record<MealType, MealEntry[]> {
+  const mealOrder: MealType[] = ['breakfast', 'lunch', 'snack', 'dinner']
   const groups = {} as Record<MealType, MealEntry[]>
-  for (const entry of entries) {
-    if (!groups[entry.mealType]) {
-      groups[entry.mealType] = [] as MealEntry[]
-    }
-    groups[entry.mealType].push(entry)
+
+  for (const type of mealOrder) {
+    groups[type] = entries.filter((e) => e.mealType === type)
   }
+
   return groups
 }
 
