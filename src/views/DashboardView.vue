@@ -116,7 +116,7 @@ function entryMacros(entry: {
       class="p-6 text-center"
       aria-label="Completa tu perfil"
     >
-      <p class="text-body mb-3">
+      <p class="text-sm font-medium mb-2">
         Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
       </p>
       <Button to="/profile" variant="primary">

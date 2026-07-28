@@ -74,7 +74,7 @@ withDefaults(
 
 /* ── Padding ── */
 .ds-card--pad-none {
-  padding: 0;
+  padding: var(--space-3);
 }
 .ds-card--pad-sm {
   padding: var(--space-3);
