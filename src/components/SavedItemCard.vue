@@ -5,14 +5,14 @@ import type { AllergenType } from '@/types/nutrition'
 export interface SavedItemProps {
   id: string
   name: string
-  calories?: number
-  protein?: number
-  carbs?: number
-  fat?: number
+  calories?: number | null
+  protein?: number | null
+  carbs?: number | null
+  fat?: number | null
   allergens?: AllergenType[]
   isVegan?: boolean
   isVegetarian?: boolean
-  prepTime?: string // Specific to Recipe
+  prepTime?: string | null
 }
 
 const props = defineProps<{
