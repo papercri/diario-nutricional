@@ -4,17 +4,20 @@ withDefaults(
     variant?: 'default' | 'elevated' | 'warm' | 'surface'
     padding?: 'none' | 'sm' | 'md' | 'lg'
     interactive?: boolean
+    as?: string
   }>(),
   {
     variant: 'default',
     padding: 'md',
     interactive: false,
+    as: 'div',
   },
 )
 </script>
 
 <template>
-  <div
+  <component
+    :is="as"
     :class="[
       'ds-card',
       `ds-card--${variant}`,
@@ -23,7 +26,7 @@ withDefaults(
     ]"
   >
     <slot />
-  </div>
+  </component>
 </template>
 
 <style scoped>

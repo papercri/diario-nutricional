@@ -5,6 +5,8 @@ import { useAuth } from '@/composables/useAuth'
 import DsCard from '@/components/ui/Card.vue'
 import DsButton from '@/components/ui/Button.vue'
 import DsInput from '@/components/ui/Input.vue'
+import { isValidEmail, validatePassword } from '@/utils/validators'
+import { getErrorMessage } from '@/utils/errorHandlers'
 
 const router = useRouter()
 const { signIn, signUp } = useAuth()
@@ -22,15 +24,13 @@ const passwordTouched = ref(false)
 const emailError = computed(() => {
   if (!emailTouched.value) return ''
   if (!email.value) return 'El email es obligatorio'
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) return 'Email no válido'
+  if (!isValidEmail(email.value)) return 'Email no válido'
   return ''
 })
 
 const passwordError = computed(() => {
   if (!passwordTouched.value) return ''
-  if (!password.value) return 'La contraseña es obligatoria'
-  if (!isLogin.value && password.value.length < 6) return 'Mínimo 6 caracteres'
-  return ''
+  return validatePassword(password.value, isLogin.value)
 })
 
 const formValid = computed(() => {
@@ -46,24 +46,7 @@ function togglePassword() {
   showPassword.value = !showPassword.value
 }
 
-function getErrorMessage(e: unknown): string {
-  if (!(e instanceof Error)) return 'Error desconocido'
-  const msg = e.message.toLowerCase()
-  if (msg.includes('invalid login credentials')) return 'Email o contraseña incorrectos'
-  if (msg.includes('user already registered')) return 'Este email ya está registrado'
-  if (msg.includes('password should be at least'))
-    return 'La contraseña debe tener al menos 6 caracteres'
-  if (msg.includes('unable to validate email address')) return 'Email no válido'
-  if (msg.includes('email not confirmed'))
-    return 'Email no confirmado. Revisa tu bandeja de entrada'
-  if (msg.includes('429') || msg.includes('too many') || msg.includes('rate limit')) {
-    return 'Servidor ocupado. Espera un momento y vuelve a intentar'
-  }
-  if (msg.includes('forbidden')) return 'Acceso denegado'
-  if (msg.includes('timeout')) return 'La conexión ha caducado. Inténtalo de nuevo'
-  if (msg.includes('network')) return 'Error de conexión. Comprueba tu internet'
-  return 'Ha ocurrido un error. Inténtalo de nuevo'
-}
+// getErrorMessage moved to errorHandlers.ts
 
 async function handleSubmit() {
   emailTouched.value = true

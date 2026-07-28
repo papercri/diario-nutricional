@@ -6,6 +6,7 @@ import { useAddFood } from '@/composables/useAddFood'
 import { generateRecipe, RecipeAIError } from '@/services/recipeAI'
 import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
 import { useToast } from '@/composables/useToast'
+import { getErrorMessage } from '@/utils/errorHandlers'
 import { DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS, MEAL_TYPE_OPTIONS } from '@/utils/constants'
 import type { GeneratedRecipe } from '@/types/recipe'
 import type { DietaryPreference, Allergen } from '@/types/recipe'
@@ -80,7 +81,7 @@ async function handleGenerate() {
     if (err instanceof RecipeAIError) {
       error.value = err.message
     } else {
-      error.value = 'Ocurrió un error inesperado. Intenta de nuevo.'
+      error.value = getErrorMessage(err)
     }
   } finally {
     isLoading.value = false

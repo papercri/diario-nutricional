@@ -8,6 +8,8 @@ withDefaults(
     type?: 'button' | 'submit' | 'reset'
     icon?: string | [string, string]
     iconPosition?: 'start' | 'end'
+    to?: string | object
+    href?: string
   }>(),
   {
     variant: 'primary',
@@ -25,8 +27,11 @@ defineEmits<{
 </script>
 
 <template>
-  <button
-    :type="type"
+  <component
+    :is="to ? 'router-link' : href ? 'a' : 'button'"
+    :to="to"
+    :href="href"
+    :type="to || href ? undefined : type"
     :disabled="disabled || loading"
     :class="['ds-btn', `ds-btn--${variant}`, `ds-btn--${size}`, { 'ds-btn--loading': loading }]"
     @click="$emit('click', $event)"
@@ -39,7 +44,7 @@ defineEmits<{
     />
     <slot />
     <font-awesome-icon v-if="icon && iconPosition === 'end'" :icon="icon" aria-hidden="true" />
-  </button>
+  </component>
 </template>
 
 <style scoped>

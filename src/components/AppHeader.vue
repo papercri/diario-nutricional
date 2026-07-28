@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
 import { useUserStore } from '@/stores/userStore'
+import Button from '@/components/ui/Button.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -119,17 +120,17 @@ watch(
 
       <!-- Desktop nav -->
       <nav class="hidden sm:flex items-center gap-1" aria-label="Navegación principal">
-        <router-link
+        <Button
           v-for="link in activeLinks"
           :key="link.name"
           :to="link.path"
-          class="btn btn-ghost text-sm"
+          class="text-sm"
           :aria-current="route.name === link.name ? 'page' : undefined"
-          :class="route.name === link.name ? 'btn-primary' : ''"
+          :variant="route.name === link.name ? 'primary' : 'ghost'"
         >
           <font-awesome-icon :icon="link.icon" aria-hidden="true" />
           <span class="hidden lg:inline">{{ link.label }}</span>
-        </router-link>
+        </Button>
       </nav>
 
       <!-- Auth status -->
@@ -138,14 +139,14 @@ watch(
           <span class="text-sm font-medium" style="color: var(--clr-text)">
                 Hola, {{ capitalize(userStore.profile.name || 'usuario') }}
           </span>
-          <button class="btn btn-ghost text-sm" aria-label="Cerrar sesión" @click="handleSignOut">
+          <Button variant="ghost" class="text-sm" aria-label="Cerrar sesión" @click="handleSignOut">
             <font-awesome-icon :icon="['fas', 'right-from-bracket']" aria-hidden="true" />
-          </button>
+          </Button>
         </template>
-        <router-link v-else to="/auth" class="btn btn-ghost text-sm">
+        <Button v-else to="/auth" variant="ghost" class="text-sm">
           <font-awesome-icon :icon="['fas', 'right-to-bracket']" aria-hidden="true" />
           <span class="hidden lg:inline">Entrar</span>
-        </router-link>
+        </Button>
       </div>
 
       <!-- Hamburger -->

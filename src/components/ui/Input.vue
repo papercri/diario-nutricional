@@ -1,5 +1,7 @@
 <script setup lang="ts">
-withDefaults(
+import { computed } from 'vue'
+
+const props = withDefaults(
   defineProps<{
     modelValue?: string | number
     type?: 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url'
@@ -11,6 +13,7 @@ withDefaults(
     required?: boolean
     readonly?: boolean
     size?: 'sm' | 'md' | 'lg'
+    id?: string
   }>(),
   {
     type: 'text',
@@ -26,17 +29,21 @@ const emit = defineEmits<{
   blur: [event: FocusEvent]
   focus: [event: FocusEvent]
 }>()
+
+const generatedId = `input-${Math.random().toString(36).substring(2, 9)}`
+const inputId = computed(() => props.id || generatedId)
 </script>
 
 <template>
   <div
     :class="['ds-input-wrapper', `ds-input-wrapper--${size}`, { 'ds-input-wrapper--error': error }]"
   >
-    <label v-if="label" class="ds-input__label">
+    <label v-if="label" :for="inputId" class="ds-input__label">
       {{ label }}
       <span v-if="required" class="ds-input__required" aria-hidden="true">*</span>
     </label>
     <input
+      :id="inputId"
       :type="type"
       :value="modelValue"
       :placeholder="placeholder"

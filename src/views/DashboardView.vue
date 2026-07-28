@@ -5,6 +5,9 @@ import { useFoodStore } from '@/stores/foodStore'
 import CalorieRing from '@/components/CalorieRing.vue'
 import NutrientCard from '@/components/NutrientCard.vue'
 import Modal from '@/components/ui/Modal.vue'
+import Button from '@/components/ui/Button.vue'
+import Card from '@/components/ui/Card.vue'
+import Input from '@/components/ui/Input.vue'
 import { useToast } from '@/composables/useToast'
 import { useAddFood } from '@/composables/useAddFood'
 import { groupEntriesByMealType } from '@/utils/nutrition'
@@ -105,18 +108,21 @@ function entryMacros(entry: {
       <p class="text-body-sm capitalize">{{ todayDate }}</p>
     </header>
 
-    <section
+    <Card
       v-if="!userStore.isProfileComplete"
-      class="card-surface p-6 text-center"
+      as="section"
+      variant="surface"
+      padding="none"
+      class="p-6 text-center"
       aria-label="Completa tu perfil"
     >
       <p class="text-body mb-3">
         Cuéntanos sobre ti para calcular tus metas calóricas personalizadas.
       </p>
-      <router-link to="/profile" class="btn btn-primary" role="button">
+      <Button to="/profile" variant="primary">
         Completa tu perfil
-      </router-link>
-    </section>
+      </Button>
+    </Card>
 
     <section v-else aria-label="Resumen nutricional del día" class="dash__summary">
       <CalorieRing
@@ -179,9 +185,11 @@ function entryMacros(entry: {
       </button>
 
       <div v-if="mealsOpen">
-        <div
+        <Card
           v-if="foodStore.todayEntries.length === 0"
-          class="card-warm text-center py-6 px-4 mt-1.5"
+          variant="warm"
+          padding="none"
+          class="text-center py-6 px-4 mt-1.5"
           role="status"
         >
           <font-awesome-icon
@@ -196,13 +204,15 @@ function entryMacros(entry: {
           <p class="text-[10px] mt-0.5" style="color: var(--clr-text-faint)">
             Registra tu primera comida para comenzar
           </p>
-        </div>
+        </Card>
 
         <div v-else class="mt-1.5 flex flex-col gap-1.5">
-          <article
+          <Card
             v-for="(entries, type) in groupedEntries"
             :key="type"
-            class="card overflow-hidden"
+            as="article"
+            padding="none"
+            class="overflow-hidden"
             :aria-label="MEAL_TYPE_LABELS[type]"
           >
             <button
@@ -292,37 +302,38 @@ function entryMacros(entry: {
                 </div>
               </li>
             </ul>
-          </article>
+          </Card>
         </div>
       </div>
 
       <div class="dash__actions">
         <div class="dash__actions-row">
-          <router-link
+          <Button
             to="/search"
-            class="btn btn-primary text-[10px] py-1 px-2 whitespace-nowrap"
-            role="button"
+            variant="primary"
+            class="text-[10px] py-1 px-2 whitespace-nowrap"
           >
             <font-awesome-icon :icon="['fas', 'magnifying-glass']" aria-hidden="true" />
             Buscar
-          </router-link>
-          <router-link
+          </Button>
+          <Button
             to="/analizar-plato"
-            class="btn btn-accent text-[10px] py-1 px-2 whitespace-nowrap"
-            role="button"
+            variant="accent"
+            class="text-[10px] py-1 px-2 whitespace-nowrap"
           >
             <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
             Mis platos
-          </router-link>
-          <button
+          </Button>
+          <Button
             v-if="foodStore.todayEntries.length > 0"
-            class="btn btn-secondary py-1 px-2 text-[10px] whitespace-nowrap"
+            variant="secondary"
+            class="py-1 px-2 text-[10px] whitespace-nowrap"
             aria-label="Eliminar todas las comidas de hoy"
             @click.stop="showClearModal = true"
           >
             <font-awesome-icon :icon="['fas', 'broom']" aria-hidden="true" />
             Limpiar
-          </button>
+          </Button>
         </div>
       </div>
     </section>
@@ -339,8 +350,8 @@ function entryMacros(entry: {
         comidas de hoy?
       </p>
       <template #footer>
-        <button class="btn btn-secondary" @click="cancelDeleteEntry">Cancelar</button>
-        <button class="btn btn-primary" @click="executeDeleteEntry">Eliminar</button>
+        <Button variant="secondary" @click="cancelDeleteEntry">Cancelar</Button>
+        <Button variant="primary" @click="executeDeleteEntry">Eliminar</Button>
       </template>
     </Modal>
 
@@ -350,8 +361,8 @@ function entryMacros(entry: {
         ¿Eliminar todas las comidas registradas hoy? Esta acción no se puede deshacer.
       </p>
       <template #footer>
-        <button class="btn btn-secondary" @click="showClearModal = false">Cancelar</button>
-        <button class="btn btn-primary" @click="executeClearToday">Eliminar todo</button>
+        <Button variant="secondary" @click="showClearModal = false">Cancelar</Button>
+        <Button variant="primary" @click="executeClearToday">Eliminar todo</Button>
       </template>
     </Modal>
 
@@ -382,18 +393,17 @@ function entryMacros(entry: {
             Tipo de comida
           </legend>
           <div class="grid grid-cols-2 gap-2">
-            <button
+            <Button
               v-for="opt in MEAL_TYPE_OPTIONS"
               :key="opt.value"
-              type="button"
-              class="btn text-sm"
-              :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+              class="text-sm"
+              :variant="mealType === opt.value ? 'primary' : 'secondary'"
               :aria-pressed="mealType === opt.value"
               @click="mealType = opt.value"
             >
               <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
               {{ opt.label }}
-            </button>
+            </Button>
           </div>
         </fieldset>
 
@@ -405,14 +415,13 @@ function entryMacros(entry: {
           >
             Porciones (100g c/u)
           </label>
-          <input
+          <Input
             id="servings-input-dash"
             v-model.number="servings"
             type="number"
             min="0.25"
             max="20"
             step="0.25"
-            class="input-field"
           />
           <p style="font-size: 0.75rem; color: var(--clr-text-faint)" aria-live="polite">
             Total: ~{{ Math.round((selectedFood?.calories ?? 0) * servings) }} kcal
@@ -420,8 +429,8 @@ function entryMacros(entry: {
         </div>
 
         <div class="flex gap-3 pt-2">
-          <button class="btn btn-secondary flex-1" @click="closeModal">Cancelar</button>
-          <button class="btn btn-primary flex-1" @click="confirmAdd">Añadir</button>
+          <Button variant="secondary" class="flex-1" @click="closeModal">Cancelar</Button>
+          <Button variant="primary" class="flex-1" @click="confirmAdd">Añadir</Button>
         </div>
       </div>
     </div>

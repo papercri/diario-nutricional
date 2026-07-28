@@ -15,6 +15,8 @@ import MacroDistribution from '@/components/nutrition/MacroDistribution.vue'
 import IngredientBreakdown from '@/components/nutrition/IngredientBreakdown.vue'
 import NutritionTips from '@/components/nutrition/NutritionTips.vue'
 import AllergenInfoCard from '@/components/nutrition/AllergenInfoCard.vue'
+import Button from '@/components/ui/Button.vue'
+import { getErrorMessage } from '@/utils/errorHandlers'
 
 const foodStore = useFoodStore()
 const savedPlatesStore = useSavedPlatesStore()
@@ -42,7 +44,7 @@ async function handleAnalyze(description: string) {
     if (err instanceof NutritionAIError) {
       error.value = err.message
     } else {
-      error.value = 'Ocurrió un error inesperado. Intenta de nuevo.'
+      error.value = getErrorMessage(err)
     }
   } finally {
     isLoading.value = false
@@ -156,10 +158,10 @@ async function savePlate() {
           Añadido a tu registro diario
         </p>
 
-        <button v-if="!saved && user" class="btn btn-secondary btn-sm save-plate-btn" @click="savePlate">
+        <Button v-if="!saved && user" variant="secondary" size="sm" class="save-plate-btn" @click="savePlate">
           <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
           Guardar plato
-        </button>
+        </Button>
         <p v-else-if="saved" class="nutrition-saved" role="status">
           <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
           Guardado en favoritos
@@ -189,24 +191,23 @@ async function savePlate() {
           Tipo de comida
         </legend>
         <div class="grid grid-cols-2 gap-1.5 mt-1.5">
-          <button
+          <Button
             v-for="opt in MEAL_TYPE_OPTIONS"
             :key="opt.value"
-            type="button"
-            class="btn text-xs"
-            :class="mealType === opt.value ? 'btn-primary' : 'btn-secondary'"
+            class="text-xs"
+            :variant="mealType === opt.value ? 'primary' : 'secondary'"
             :aria-pressed="mealType === opt.value"
             @click="mealType = opt.value"
           >
             <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
             {{ opt.label }}
-          </button>
+          </Button>
         </div>
       </fieldset>
 
       <template #footer>
-        <button class="btn btn-secondary" @click="closeModal">Cancelar</button>
-        <button class="btn btn-primary" @click="confirmAdd">Añadir</button>
+        <Button variant="secondary" @click="closeModal">Cancelar</Button>
+        <Button variant="primary" @click="confirmAdd">Añadir</Button>
       </template>
     </Modal>
   </main>
