@@ -85,6 +85,16 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/privacidad',
+    name: 'privacy',
+    component: () => import('../views/PrivacyView.vue'),
+    meta: {
+      title: `Política de privacidad — ${SITE_NAME}`,
+      description:
+        'Conoce cómo Avocato protege tu privacidad. Sin rastreo, sin cookies, navegación 100% anónima.',
+    },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('../views/NotFoundView.vue'),
