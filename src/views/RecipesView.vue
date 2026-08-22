@@ -148,7 +148,7 @@ function openAddRecipeToDay(recipe: any) {
 
       <div
         v-if="filteredRecipes.length === 0"
-        class="card-warm text-center py-8 px-4"
+        class="card-warm text-center py-2 px-2"
       >
         <font-awesome-icon
           :icon="['fas', 'magnifying-glass']"
@@ -184,7 +184,7 @@ function openAddRecipeToDay(recipe: any) {
       />
     </template>
 
-    <div v-else class="card-warm text-center py-8 px-4">
+    <div v-else class="card-warm text-center py-2 px-2">
       <font-awesome-icon
         :icon="['fas', 'cookie']"
         class="text-3xl block mb-2"

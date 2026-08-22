@@ -154,7 +154,7 @@ function cancelDelete() {
         v-if="filteredPlates.length === 0"
         variant="warm"
         padding="none"
-        class="text-center py-8 px-4"
+        class="text-center py-2 px-2"
       >
         <font-awesome-icon
           :icon="['fas', 'magnifying-glass']"
@@ -194,7 +194,7 @@ function cancelDelete() {
       v-else
       variant="warm"
       padding="none"
-      class="text-center py-8 px-4"
+      class="text-center py-2 px-2"
     >
       <font-awesome-icon
         :icon="['fas', 'bowl-food']"
