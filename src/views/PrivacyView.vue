@@ -23,24 +23,30 @@ const mailto = computed(() => `mailto:${emailUser.value}@${emailDomain.value}`)
 
     <Card variant="warm" padding="md">
       <section class="privacy__section">
-        <h2 class="privacy__h2">Compromiso de Privacidad Absoluta</h2>
+        <h2 class="privacy__h2">Compromiso de Privacidad</h2>
         <p class="privacy__text">
-          Este sitio web es puramente informativo. Quiero que navegues con total tranquilidad, por
-          lo que te informo de lo siguiente:
+          Este sitio web es un proyecto personal y de carácter informativo. Tu privacidad es
+          importante. Por eso, te explico cómo manejo tus datos de forma transparente:
         </p>
         <ul class="privacy__list">
           <li>
-            <strong>Sin formularios ni registros:</strong> Esta web no solicita, no recoge, ni
-            almacena ningún tipo de dato personal (como tu nombre, teléfono o correo electrónico).
+            <strong>Registro mínimo:</strong> Solo solicito tu correo electrónico cuando creas una
+            cuenta o inicias sesión mediante Supabase Auth. Este dato se usa únicamente para
+            permitir tu acceso a la plataforma.
           </li>
           <li>
-            <strong>Sin cookies de rastreo:</strong> No utilizo herramientas de seguimiento,
-            publicidad ni analíticas web (como Google Analytics) que puedan identificarte o rastrear
-            tu comportamiento en internet.
+            <strong>Sin fines comerciales:</strong> No vendo, alquilo ni comparto tu correo
+            electrónico ni ningún otro dato con empresas, marcas ni terceros con fines publicitarios
+            o comerciales.
           </li>
           <li>
-            <strong>Navegación 100% anónima:</strong> Puedes revisar todo el contenido del sitio web
-            de forma completamente privada.
+            <strong>Sin cookies de rastreo:</strong> No utilizo herramientas de seguimiento externo,
+            publicidad intrusiva ni analíticas que rastreen tu comportamiento por la web.
+          </li>
+          <li>
+            <strong>Seguridad de los datos:</strong> Tu información de acceso se almacena de forma
+            segura en la infraestructura de Supabase y solo se emplea para mantener tu sesión
+            activa.
           </li>
         </ul>
       </section>
@@ -50,8 +56,9 @@ const mailto = computed(() => `mailto:${emailUser.value}@${emailDomain.value}`)
       <section class="privacy__section">
         <h2 class="privacy__h2">Contacto</h2>
         <p class="privacy__text">
-          Si tienes cualquier duda sobre este sitio web, puedes ponerte en contacto conmigo a través
-          de la siguiente dirección de correo electrónico:
+          Si tienes cualquier duda sobre tu cuenta, el funcionamiento de la web o el manejo de tus
+          datos, puedes ponerte en contacto conmigo a través de la siguiente dirección de correo
+          electrónico:
         </p>
         <a :href="mailto" class="privacy__email">{{ emailUser }}<wbr />@{{ emailDomain }}</a>
       </section>
