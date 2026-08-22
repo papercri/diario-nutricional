@@ -23,7 +23,6 @@ const mailto = computed(() => `mailto:${emailUser.value}@${emailDomain.value}`)
 
     <Card variant="warm" padding="md">
       <section class="privacy__section">
-<<<<<<< HEAD
         <h2 class="privacy__h2">Compromiso de Privacidad</h2>
         <p class="privacy__text">
           Este sitio web es un proyecto personal y de carácter informativo. Tu privacidad es
@@ -48,26 +47,6 @@ const mailto = computed(() => `mailto:${emailUser.value}@${emailDomain.value}`)
             <strong>Seguridad de los datos:</strong> Tu información de acceso se almacena de forma
             segura en la infraestructura de Supabase y solo se emplea para mantener tu sesión
             activa.
-=======
-        <h2 class="privacy__h2">Compromiso de Privacidad Absoluta</h2>
-        <p class="privacy__text">
-          Este sitio web es puramente informativo. Quiero que navegues con total tranquilidad, por
-          lo que te informo de lo siguiente:
-        </p>
-        <ul class="privacy__list">
-          <li>
-            <strong>Sin formularios ni registros:</strong> Esta web no solicita, no recoge, ni
-            almacena ningún tipo de dato personal (como tu nombre, teléfono o correo electrónico).
-          </li>
-          <li>
-            <strong>Sin cookies de rastreo:</strong> No utilizo herramientas de seguimiento,
-            publicidad ni analíticas web (como Google Analytics) que puedan identificarte o rastrear
-            tu comportamiento en internet.
-          </li>
-          <li>
-            <strong>Navegación 100% anónima:</strong> Puedes revisar todo el contenido del sitio web
-            de forma completamente privada.
->>>>>>> 7262349d519ffb7a014cb0384b5a67348dd67b52
           </li>
         </ul>
       </section>
@@ -77,14 +56,9 @@ const mailto = computed(() => `mailto:${emailUser.value}@${emailDomain.value}`)
       <section class="privacy__section">
         <h2 class="privacy__h2">Contacto</h2>
         <p class="privacy__text">
-<<<<<<< HEAD
           Si tienes cualquier duda sobre tu cuenta, el funcionamiento de la web o el manejo de tus
           datos, puedes ponerte en contacto conmigo a través de la siguiente dirección de correo
           electrónico:
-=======
-          Si tienes cualquier duda sobre este sitio web, puedes ponerte en contacto conmigo a través
-          de la siguiente dirección de correo electrónico:
->>>>>>> 7262349d519ffb7a014cb0384b5a67348dd67b52
         </p>
         <a :href="mailto" class="privacy__email">{{ emailUser }}<wbr />@{{ emailDomain }}</a>
       </section>
