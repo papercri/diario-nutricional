@@ -143,6 +143,7 @@ const accentClass = computed(() => {
   margin-bottom: 8px;
 }
 
+<<<<<<< HEAD
 .saved-card:hover {
   box-shadow: var(--shadow-lg);
   cursor: pointer;
@@ -151,6 +152,10 @@ const accentClass = computed(() => {
   outline: 2px solid var(--clr-primary);
   outline-offset: 2px;
 }
+=======
+.saved-card:hover { box-shadow: var(--shadow-lg); cursor: pointer; }
+.saved-card:focus-visible { outline: 2px solid var(--clr-primary); outline-offset: 2px; }
+>>>>>>> 7262349d519ffb7a014cb0384b5a67348dd67b52
 
 .saved-card__accent {
   width: 4px;

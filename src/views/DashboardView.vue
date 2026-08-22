@@ -394,6 +394,7 @@ function entryMacros(entry: {
                       <span class="dash__macro-kcal">{{ entryMacros(entry).cal }}</span>
                       <span class="dash__macro-unit">kcal</span>
                       <span class="dash__macro-sep">·</span>
+<<<<<<< HEAD
                       <span class="dash__macro-value dash__macro-value--protein"
                         >{{ entryMacros(entry).p }}g</span
                       >
@@ -407,6 +408,15 @@ function entryMacros(entry: {
                       <span class="dash__macro-value dash__macro-value--fat"
                         >{{ entryMacros(entry).f }}g</span
                       >
+=======
+                      <span class="dash__macro-value dash__macro-value--protein">{{ entryMacros(entry).p }}g</span>
+                      <span class="dash__macro-label">P</span>
+                      <span class="dash__macro-sep">·</span>
+                      <span class="dash__macro-value dash__macro-value--carbs">{{ entryMacros(entry).c }}g</span>
+                      <span class="dash__macro-label">C</span>
+                      <span class="dash__macro-sep">·</span>
+                      <span class="dash__macro-value dash__macro-value--fat">{{ entryMacros(entry).f }}g</span>
+>>>>>>> 7262349d519ffb7a014cb0384b5a67348dd67b52
                       <span class="dash__macro-label">G</span>
                     </div>
                     <button

@@ -28,10 +28,13 @@ const recipeToDelete = ref<SavedItemProps | null>(null)
 
 const addFoodModalRef = ref<InstanceType<typeof AddFoodModal> | null>(null)
 
+<<<<<<< HEAD
 const disableDelete = computed(() => {
   return user.value?.email === 'test@test.com' && savedRecipesStore.recipes.length < 12
 })
 
+=======
+>>>>>>> 7262349d519ffb7a014cb0384b5a67348dd67b52
 const currentPage = ref(1)
 const searchQuery = ref('')
 const sortBy = ref<SortOption>('name-asc')
@@ -144,9 +147,22 @@ function openAddRecipeToDay(recipe: any) {
     </header>
 
     <template v-if="savedRecipesStore.recipes.length > 0">
+<<<<<<< HEAD
       <ListFilters :sort="sortBy" @update:search="onSearchUpdate" @update:sort="onSortUpdate" />
 
       <div v-if="filteredRecipes.length === 0" class="card-warm text-center py-2 px-2">
+=======
+      <ListFilters
+        :sort="sortBy"
+        @update:search="onSearchUpdate"
+        @update:sort="onSortUpdate"
+      />
+
+      <div
+        v-if="filteredRecipes.length === 0"
+        class="card-warm text-center py-2 px-2"
+      >
+>>>>>>> 7262349d519ffb7a014cb0384b5a67348dd67b52
         <font-awesome-icon
           :icon="['fas', 'magnifying-glass']"
           class="text-2xl block mb-2"
@@ -166,7 +182,10 @@ function openAddRecipeToDay(recipe: any) {
           v-for="recipe in paginatedRecipes"
           :key="recipe.id"
           :item="recipe"
+<<<<<<< HEAD
           :disable-delete="disableDelete"
+=======
+>>>>>>> 7262349d519ffb7a014cb0384b5a67348dd67b52
           @view="openRecipeModal"
           @add="openAddRecipeToDay"
           @delete="confirmDeleteRecipe"
