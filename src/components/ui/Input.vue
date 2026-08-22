@@ -32,6 +32,7 @@ const emit = defineEmits<{
 
 const generatedId = `input-${Math.random().toString(36).substring(2, 9)}`
 const inputId = computed(() => props.id || generatedId)
+const errorId = computed(() => `${inputId.value}-error`)
 </script>
 
 <template>
@@ -50,12 +51,15 @@ const inputId = computed(() => props.id || generatedId)
       :disabled="disabled"
       :required="required"
       :readonly="readonly"
+      :aria-required="required || undefined"
+      :aria-invalid="error ? 'true' : undefined"
+      :aria-describedby="error ? errorId : undefined"
       class="ds-input"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       @blur="emit('blur', $event)"
       @focus="emit('focus', $event)"
     />
-    <p v-if="error" class="ds-input__error">{{ error }}</p>
+    <p v-if="error" :id="errorId" class="ds-input__error" role="alert">{{ error }}</p>
     <p v-else-if="helper" class="ds-input__helper">{{ helper }}</p>
   </div>
 </template>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-withDefaults(
+import { ref, watch, nextTick, onUnmounted } from 'vue'
+
+const props = withDefaults(
   defineProps<{
     open: boolean
     size?: 'sm' | 'md' | 'lg' | 'xl'
@@ -16,6 +18,40 @@ const emit = defineEmits<{
   close: []
 }>()
 
+const modalRef = ref<HTMLElement | null>(null)
+const previousFocus = ref<HTMLElement | null>(null)
+
+function getFocusableElements(): HTMLElement[] {
+  if (!modalRef.value) return []
+  return Array.from(
+    modalRef.value.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  )
+}
+
+function trapFocus(e: KeyboardEvent) {
+  if (e.key !== 'Tab') return
+
+  const focusable = getFocusableElements()
+  if (focusable.length === 0) return
+
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+
+  if (e.shiftKey) {
+    if (document.activeElement === first) {
+      e.preventDefault()
+      last.focus()
+    }
+  } else {
+    if (document.activeElement === last) {
+      e.preventDefault()
+      first.focus()
+    }
+  }
+}
+
 function onBackdropClick(e: MouseEvent) {
   if (e.target === e.currentTarget) {
     emit('close')
@@ -25,8 +61,34 @@ function onBackdropClick(e: MouseEvent) {
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') {
     emit('close')
+    return
   }
+  trapFocus(e)
 }
+
+watch(
+  () => props.open,
+  async isOpen => {
+    if (isOpen) {
+      previousFocus.value = document.activeElement as HTMLElement
+      document.body.style.overflow = 'hidden'
+      await nextTick()
+      const focusable = getFocusableElements()
+      if (focusable.length > 0) {
+        focusable[0].focus()
+      }
+    } else {
+      document.body.style.overflow = ''
+      previousFocus.value?.focus()
+      previousFocus.value = null
+    }
+  },
+)
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+  previousFocus.value?.focus()
+})
 </script>
 
 <template>
@@ -34,6 +96,7 @@ function onKeydown(e: KeyboardEvent) {
     <Transition name="ds-modal">
       <div
         v-if="open"
+        ref="modalRef"
         class="ds-modal-overlay"
         role="dialog"
         aria-modal="true"
@@ -43,7 +106,13 @@ function onKeydown(e: KeyboardEvent) {
       >
         <div :class="['ds-modal', `ds-modal--${size}`]">
           <header v-if="title || closable" class="ds-modal__header">
-            <h2 v-if="title" class="ds-modal__title">{{ title }}</h2>
+            <h2
+              v-if="title"
+              :id="`modal-title-${title?.replace(/\s+/g, '-').toLowerCase()}`"
+              class="ds-modal__title"
+            >
+              {{ title }}
+            </h2>
             <button
               v-if="closable"
               class="ds-modal__close"
@@ -134,12 +203,17 @@ function onKeydown(e: KeyboardEvent) {
   margin-left: auto;
   margin-top: -0.25rem;
   margin-right: -0.25rem;
-  transition: background var(--duration-normal) var(--ease-default),
+  transition:
+    background var(--duration-normal) var(--ease-default),
     color var(--duration-normal) var(--ease-default);
 }
 .ds-modal__close:hover {
   background: var(--clr-border);
   color: var(--clr-text);
+}
+.ds-modal__close:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 2px;
 }
 
 /* ── Body ── */

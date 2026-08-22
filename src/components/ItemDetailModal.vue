@@ -41,11 +41,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <Modal
-    :open="open"
-    size="lg"
-    @close="emit('close')"
-  >
+  <Modal :open="open" size="lg" :title="item?.name" @close="emit('close')">
     <template v-if="item">
       <div class="modal-detail">
         <div v-if="item.imageUrl" class="modal-detail__img">
@@ -68,14 +64,30 @@ const emit = defineEmits<{
         <div class="modal-detail__score" v-if="item.nutritionScore">
           <div class="score-ring">
             <svg viewBox="0 0 80 80" class="score-ring__svg">
-              <circle cx="40" cy="40" r="34" fill="none" stroke="var(--clr-surface-alt)" stroke-width="6" />
               <circle
-                cx="40" cy="40" r="34" fill="none"
-                :stroke="item.nutritionScore.value >= 70 ? 'var(--clr-success)' : item.nutritionScore.value >= 40 ? 'var(--clr-accent)' : 'var(--clr-danger)'"
+                cx="40"
+                cy="40"
+                r="34"
+                fill="none"
+                stroke="var(--clr-surface-alt)"
+                stroke-width="6"
+              />
+              <circle
+                cx="40"
+                cy="40"
+                r="34"
+                fill="none"
+                :stroke="
+                  item.nutritionScore.value >= 70
+                    ? 'var(--clr-success)'
+                    : item.nutritionScore.value >= 40
+                      ? 'var(--clr-accent)'
+                      : 'var(--clr-danger)'
+                "
                 stroke-width="6"
                 stroke-linecap="round"
                 :stroke-dasharray="213.6"
-                :stroke-dashoffset="213.6 - (213.6 * item.nutritionScore.value / 100)"
+                :stroke-dashoffset="213.6 - (213.6 * item.nutritionScore.value) / 100"
                 transform="rotate(-90 40 40)"
                 class="score-ring__fill"
               />
@@ -84,7 +96,9 @@ const emit = defineEmits<{
           </div>
           <div class="score-ring__info">
             <span class="score-ring__label">Score nutricional</span>
-            <span v-if="item.nutritionScore.reason" class="score-ring__reason">{{ item.nutritionScore.reason }}</span>
+            <span v-if="item.nutritionScore.reason" class="score-ring__reason">{{
+              item.nutritionScore.reason
+            }}</span>
           </div>
         </div>
 
@@ -141,7 +155,10 @@ const emit = defineEmits<{
             <font-awesome-icon :icon="['fas', 'leaf']" aria-hidden="true" />
             Vegano
           </span>
-          <span v-else-if="item.isVegetarian" class="modal-detail__badge modal-detail__badge--vegetarian">
+          <span
+            v-else-if="item.isVegetarian"
+            class="modal-detail__badge modal-detail__badge--vegetarian"
+          >
             <font-awesome-icon :icon="['fas', 'carrot']" aria-hidden="true" />
             Vegetariano
           </span>
@@ -153,7 +170,11 @@ const emit = defineEmits<{
             Alérgenos
           </h4>
           <div class="modal-detail__tags">
-            <span v-for="a in item.allergens" :key="a" class="modal-detail__tag modal-detail__tag--allergen">
+            <span
+              v-for="a in item.allergens"
+              :key="a"
+              class="modal-detail__tag modal-detail__tag--allergen"
+            >
               {{ a }}
             </span>
           </div>
@@ -169,7 +190,9 @@ const emit = defineEmits<{
               <span class="modal-detail__ing-name">{{ ing.name }}</span>
               <span class="modal-detail__ing-right">
                 <span v-if="ing.quantity" class="modal-detail__ing-qty">{{ ing.quantity }}</span>
-                <span v-if="ing.calories" class="modal-detail__ing-cal">{{ ing.calories }} kcal</span>
+                <span v-if="ing.calories" class="modal-detail__ing-cal"
+                  >{{ ing.calories }} kcal</span
+                >
               </span>
             </li>
           </ul>
@@ -290,9 +313,15 @@ const emit = defineEmits<{
   color: var(--clr-text-faint);
 }
 
-.modal-macro--protein .modal-macro__value { color: var(--clr-primary); }
-.modal-macro--carbs .modal-macro__value { color: var(--clr-accent); }
-.modal-macro--fat .modal-macro__value { color: var(--clr-secondary); }
+.modal-macro--protein .modal-macro__value {
+  color: var(--clr-primary);
+}
+.modal-macro--carbs .modal-macro__value {
+  color: var(--clr-accent);
+}
+.modal-macro--fat .modal-macro__value {
+  color: var(--clr-secondary);
+}
 
 .modal-detail__macro-bar {
   display: flex;
@@ -307,9 +336,15 @@ const emit = defineEmits<{
   transition: flex 0.6s var(--ease-default);
 }
 
-.modal-detail__macro-bar-seg--protein { background: var(--clr-primary); }
-.modal-detail__macro-bar-seg--carbs { background: var(--clr-accent); }
-.modal-detail__macro-bar-seg--fat { background: var(--clr-secondary); }
+.modal-detail__macro-bar-seg--protein {
+  background: var(--clr-primary);
+}
+.modal-detail__macro-bar-seg--carbs {
+  background: var(--clr-accent);
+}
+.modal-detail__macro-bar-seg--fat {
+  background: var(--clr-secondary);
+}
 
 .modal-detail__macro-legend {
   display: flex;
@@ -333,9 +368,15 @@ const emit = defineEmits<{
   flex-shrink: 0;
 }
 
-.modal-detail__legend-dot--protein { background: var(--clr-primary); }
-.modal-detail__legend-dot--carbs { background: var(--clr-accent); }
-.modal-detail__legend-dot--fat { background: var(--clr-secondary); }
+.modal-detail__legend-dot--protein {
+  background: var(--clr-primary);
+}
+.modal-detail__legend-dot--carbs {
+  background: var(--clr-accent);
+}
+.modal-detail__legend-dot--fat {
+  background: var(--clr-secondary);
+}
 
 .modal-detail__score {
   display: flex;

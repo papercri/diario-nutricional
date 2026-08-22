@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, nextTick, onUnmounted } from 'vue'
 import { useFoodSearch } from '@/composables/useFoodSearch'
 import { useAddFood } from '@/composables/useAddFood'
 import FoodCard from '@/components/FoodCard.vue'
@@ -26,6 +26,59 @@ function addFromDetail(food: FoodItem) {
   detailFood.value = null
   openAddModal(food)
 }
+
+const addModalRef = ref<HTMLElement | null>(null)
+const addModalPreviousFocus = ref<HTMLElement | null>(null)
+
+function getAddModalFocusable(): HTMLElement[] {
+  if (!addModalRef.value) return []
+  return Array.from(
+    addModalRef.value.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  )
+}
+
+function onAddModalKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    closeModal()
+    return
+  }
+  if (e.key !== 'Tab') return
+  const focusable = getAddModalFocusable()
+  if (focusable.length === 0) return
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+  if (e.shiftKey) {
+    if (document.activeElement === first) {
+      e.preventDefault()
+      last.focus()
+    }
+  } else {
+    if (document.activeElement === last) {
+      e.preventDefault()
+      first.focus()
+    }
+  }
+}
+
+watch(showAddModal, async isOpen => {
+  if (isOpen) {
+    addModalPreviousFocus.value = document.activeElement as HTMLElement
+    document.body.style.overflow = 'hidden'
+    await nextTick()
+    const focusable = getAddModalFocusable()
+    if (focusable.length > 0) focusable[0].focus()
+  } else {
+    document.body.style.overflow = ''
+    addModalPreviousFocus.value?.focus()
+    addModalPreviousFocus.value = null
+  }
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
 </script>
 
 <template>
@@ -127,12 +180,13 @@ function addFromDetail(food: FoodItem) {
     <!-- Add food modal -->
     <div
       v-if="showAddModal"
+      ref="addModalRef"
       class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       :aria-label="`Añadir ${selectedFood?.name}`"
       @click.self="closeModal"
-      @keydown.escape="closeModal"
+      @keydown="onAddModalKeydown"
     >
       <div
         class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
