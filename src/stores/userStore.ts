@@ -80,7 +80,7 @@ export const useUserStore = defineStore('user', () => {
     userId.value = id
   }
 
-  watch(userId, async (id) => {
+  watch(userId, async id => {
     if (id) {
       await loadProfile()
     } else {

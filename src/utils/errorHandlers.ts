@@ -1,7 +1,7 @@
 export function getErrorMessage(e: unknown): string {
   if (!(e instanceof Error)) return 'Error desconocido'
   const msg = e.message.toLowerCase()
-  
+
   // Auth Errors (Supabase)
   if (msg.includes('invalid login credentials')) return 'Email o contraseña incorrectos'
   if (msg.includes('user already registered')) return 'Este email ya está registrado'
@@ -16,7 +16,8 @@ export function getErrorMessage(e: unknown): string {
     return 'Servidor ocupado. Espera un momento y vuelve a intentar'
   }
   if (msg.includes('timeout')) return 'La conexión ha caducado. Inténtalo de nuevo'
-  if (msg.includes('network') || msg.includes('failed to fetch')) return 'Error de conexión. Comprueba tu internet'
+  if (msg.includes('network') || msg.includes('failed to fetch'))
+    return 'Error de conexión. Comprueba tu internet'
   if (msg.includes('forbidden')) return 'Acceso denegado'
 
   // AI & Parsing Errors (OpenAI)

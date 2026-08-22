@@ -32,7 +32,10 @@ const bmiPercent = computed(() => {
   return ((clamped - BMI_MIN) / (BMI_MAX - BMI_MIN)) * 100
 })
 
-function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', value: string | number) {
+function onNumberInput(
+  field: 'age' | 'weight' | 'height' | 'desiredWeight',
+  value: string | number,
+) {
   const num = Number(value)
   if (!isNaN(num)) {
     userStore.updateProfile({ [field]: num })
@@ -67,21 +70,69 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
           Datos personales
         </h2>
         <div class="section-fields">
-          <DsInput :model-value="userStore.profile.name" label="Nombre" placeholder="Tu nombre" size="sm" @update:model-value="userStore.updateProfile({ name: $event as string })" />
+          <DsInput
+            :model-value="userStore.profile.name"
+            label="Nombre"
+            placeholder="Tu nombre"
+            size="sm"
+            @update:model-value="userStore.updateProfile({ name: $event as string })"
+          />
           <div class="field-row">
-            <DsInput :model-value="userStore.profile.age" label="Edad" type="number" size="sm" @update:model-value="onNumberInput('age', $event)" />
+            <DsInput
+              :model-value="userStore.profile.age"
+              label="Edad"
+              type="number"
+              size="sm"
+              @update:model-value="onNumberInput('age', $event)"
+            />
             <div class="field-group">
               <span class="field-label">Sexo biológico</span>
               <div class="btn-group" role="radiogroup" aria-label="Sexo biológico">
-                <button type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.sex === 'female' }" role="radio" :aria-checked="userStore.profile.sex === 'female'" @click="userStore.updateProfile({ sex: 'female' as Sex })">Mujer</button>
-                <button type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.sex === 'male' }" role="radio" :aria-checked="userStore.profile.sex === 'male'" @click="userStore.updateProfile({ sex: 'male' as Sex })">Hombre</button>
+                <button
+                  type="button"
+                  class="btn-toggle btn-toggle--sm"
+                  :class="{ 'btn-toggle--active': userStore.profile.sex === 'female' }"
+                  role="radio"
+                  :aria-checked="userStore.profile.sex === 'female'"
+                  @click="userStore.updateProfile({ sex: 'female' as Sex })"
+                >
+                  Mujer
+                </button>
+                <button
+                  type="button"
+                  class="btn-toggle btn-toggle--sm"
+                  :class="{ 'btn-toggle--active': userStore.profile.sex === 'male' }"
+                  role="radio"
+                  :aria-checked="userStore.profile.sex === 'male'"
+                  @click="userStore.updateProfile({ sex: 'male' as Sex })"
+                >
+                  Hombre
+                </button>
               </div>
             </div>
           </div>
           <div class="field-row">
-            <DsInput :model-value="userStore.profile.weight" label="Peso (kg)" type="number" size="sm" @update:model-value="onNumberInput('weight', $event)" />
-            <DsInput :model-value="userStore.profile.height" label="Altura (cm)" type="number" size="sm" @update:model-value="onNumberInput('height', $event)" />
-            <DsInput :model-value="userStore.profile.desiredWeight" label="Peso deseado (kg)" type="number" size="sm" @update:model-value="onNumberInput('desiredWeight', $event)" />
+            <DsInput
+              :model-value="userStore.profile.weight"
+              label="Peso (kg)"
+              type="number"
+              size="sm"
+              @update:model-value="onNumberInput('weight', $event)"
+            />
+            <DsInput
+              :model-value="userStore.profile.height"
+              label="Altura (cm)"
+              type="number"
+              size="sm"
+              @update:model-value="onNumberInput('height', $event)"
+            />
+            <DsInput
+              :model-value="userStore.profile.desiredWeight"
+              label="Peso deseado (kg)"
+              type="number"
+              size="sm"
+              @update:model-value="onNumberInput('desiredWeight', $event)"
+            />
           </div>
         </div>
       </DsCard>
@@ -94,8 +145,21 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
         <div class="section-fields">
           <div class="field-group">
             <span class="field-label">Actividad física</span>
-            <div class="btn-grid btn-grid--2" role="radiogroup" aria-label="Nivel de actividad física">
-              <button v-for="opt in ACTIVITY_OPTIONS" :key="opt.value" type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.activityLevel === opt.value }" role="radio" :aria-checked="userStore.profile.activityLevel === opt.value" @click="userStore.updateProfile({ activityLevel: opt.value as ActivityLevel })">
+            <div
+              class="btn-grid btn-grid--2"
+              role="radiogroup"
+              aria-label="Nivel de actividad física"
+            >
+              <button
+                v-for="opt in ACTIVITY_OPTIONS"
+                :key="opt.value"
+                type="button"
+                class="btn-toggle btn-toggle--sm"
+                :class="{ 'btn-toggle--active': userStore.profile.activityLevel === opt.value }"
+                role="radio"
+                :aria-checked="userStore.profile.activityLevel === opt.value"
+                @click="userStore.updateProfile({ activityLevel: opt.value as ActivityLevel })"
+              >
                 <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
                 {{ opt.label }}
               </button>
@@ -104,7 +168,16 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
           <div class="field-group">
             <span class="field-label">Objetivo</span>
             <div class="btn-grid btn-grid--3" role="radiogroup" aria-label="Objetivo nutricional">
-              <button v-for="opt in GOAL_OPTIONS" :key="opt.value" type="button" class="btn-toggle btn-toggle--sm" :class="{ 'btn-toggle--active': userStore.profile.goal === opt.value }" role="radio" :aria-checked="userStore.profile.goal === opt.value" @click="userStore.updateProfile({ goal: opt.value as GoalType })">
+              <button
+                v-for="opt in GOAL_OPTIONS"
+                :key="opt.value"
+                type="button"
+                class="btn-toggle btn-toggle--sm"
+                :class="{ 'btn-toggle--active': userStore.profile.goal === opt.value }"
+                role="radio"
+                :aria-checked="userStore.profile.goal === opt.value"
+                @click="userStore.updateProfile({ goal: opt.value as GoalType })"
+              >
                 <font-awesome-icon :icon="opt.icon" aria-hidden="true" />
                 <span>{{ opt.label }}</span>
               </button>
@@ -121,9 +194,18 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
       </h2>
 
       <div class="metrics-grid">
-        <div class="metric-card"><p class="metric-card__value metric-card__value--primary">{{ bmr }}</p><p class="metric-card__label">Metabolismo basal (kcal)</p></div>
-        <div class="metric-card"><p class="metric-card__value metric-card__value--accent">{{ tdee }}</p><p class="metric-card__label">Gasto total (kcal)</p></div>
-        <div class="metric-card"><p class="metric-card__value metric-card__value--secondary">{{ target }}</p><p class="metric-card__label">Meta diaria (kcal)</p></div>
+        <div class="metric-card">
+          <p class="metric-card__value metric-card__value--primary">{{ bmr }}</p>
+          <p class="metric-card__label">Metabolismo basal (kcal)</p>
+        </div>
+        <div class="metric-card">
+          <p class="metric-card__value metric-card__value--accent">{{ tdee }}</p>
+          <p class="metric-card__label">Gasto total (kcal)</p>
+        </div>
+        <div class="metric-card">
+          <p class="metric-card__value metric-card__value--secondary">{{ target }}</p>
+          <p class="metric-card__label">Meta diaria (kcal)</p>
+        </div>
       </div>
 
       <div class="bmi-card">
@@ -143,51 +225,50 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
           </div>
         </div>
         <div class="bmi-card__details">
-          <div class="bmi-detail"><span class="bmi-detail__label">Peso actual</span><span class="bmi-detail__value">{{ userStore.profile.weight }} kg</span></div>
-          <div class="bmi-detail"><span class="bmi-detail__label">Peso ideal</span><span class="bmi-detail__value">{{ idealWeight }} kg</span></div>
-          <div class="bmi-detail"><span class="bmi-detail__label">Peso deseado</span><span class="bmi-detail__value">{{ userStore.profile.desiredWeight }} kg</span></div>
+          <div class="bmi-detail">
+            <span class="bmi-detail__label">Peso actual</span
+            ><span class="bmi-detail__value">{{ userStore.profile.weight }} kg</span>
+          </div>
+          <div class="bmi-detail">
+            <span class="bmi-detail__label">Peso ideal</span
+            ><span class="bmi-detail__value">{{ idealWeight }} kg</span>
+          </div>
+          <div class="bmi-detail">
+            <span class="bmi-detail__label">Peso deseado</span
+            ><span class="bmi-detail__value">{{ userStore.profile.desiredWeight }} kg</span>
+          </div>
           <div class="bmi-detail">
             <span class="bmi-detail__label">Kg de sobrepeso</span>
-            <span class="bmi-detail__value" :class="weightDiff > 0 ? 'text-accent' : weightDiff < 0 ? 'text-secondary' : 'text-primary'">
+            <span
+              class="bmi-detail__value"
+              :class="
+                weightDiff > 0 ? 'text-accent' : weightDiff < 0 ? 'text-secondary' : 'text-primary'
+              "
+            >
               {{ weightDiff > 0 ? '+' : '' }}{{ weightDiff }} kg
             </span>
           </div>
-          <div v-if="timeToGoalMonths > 0" class="bmi-detail"><span class="bmi-detail__label">Tiempo estimado</span><span class="bmi-detail__value">{{ timeToGoalMonths }} meses</span></div>
+          <div v-if="timeToGoalMonths > 0" class="bmi-detail">
+            <span class="bmi-detail__label">Tiempo estimado</span
+            ><span class="bmi-detail__value">{{ timeToGoalMonths }} meses</span>
+          </div>
         </div>
       </div>
     </DsCard>
 
     <div class="profile-page__reset">
-      <DsButton variant="danger" size="sm" :icon="['fas', 'rotate-left']" @click="userStore.resetProfile()">Restablecer valores</DsButton>
+      <DsButton
+        variant="danger"
+        size="sm"
+        :icon="['fas', 'rotate-left']"
+        @click="userStore.resetProfile()"
+        >Restablecer valores</DsButton
+      >
     </div>
   </main>
 </template>
 
 <style scoped>
-.dash {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.dash__header { text-align: center; margin-bottom: 0.125rem; }
-
-.dash__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
 .form-row {
   display: flex;
   flex-direction: column;
@@ -279,7 +360,10 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   font-weight: 500;
   line-height: 11.5px;
   cursor: pointer;
-  transition: background var(--duration-fast) var(--ease-default), color var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default);
+  transition:
+    background var(--duration-fast) var(--ease-default),
+    color var(--duration-fast) var(--ease-default),
+    border-color var(--duration-fast) var(--ease-default);
 }
 
 .btn-toggle:hover {
@@ -337,7 +421,14 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   position: absolute;
   inset: 0;
   border-radius: var(--radius-full);
-  background: linear-gradient(to right, var(--clr-bmi-underweight), var(--clr-bmi-normal), var(--clr-bmi-overweight), var(--clr-bmi-obese), var(--clr-bmi-extreme));
+  background: linear-gradient(
+    to right,
+    var(--clr-bmi-underweight),
+    var(--clr-bmi-normal),
+    var(--clr-bmi-overweight),
+    var(--clr-bmi-obese),
+    var(--clr-bmi-extreme)
+  );
 }
 
 .bmi-gauge__indicator {
@@ -392,9 +483,15 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   color: var(--clr-text);
 }
 
-.text-accent { color: var(--clr-accent); }
-.text-secondary { color: var(--clr-secondary); }
-.text-primary { color: var(--clr-primary); }
+.text-accent {
+  color: var(--clr-accent);
+}
+.text-secondary {
+  color: var(--clr-secondary);
+}
+.text-primary {
+  color: var(--clr-primary);
+}
 
 /* Metrics grid */
 .metrics-grid {
@@ -420,9 +517,15 @@ function onNumberInput(field: 'age' | 'weight' | 'height' | 'desiredWeight', val
   margin-bottom: 0.25rem;
 }
 
-.metric-card__value--primary { color: var(--clr-primary); }
-.metric-card__value--accent { color: var(--clr-accent); }
-.metric-card__value--secondary { color: var(--clr-secondary); }
+.metric-card__value--primary {
+  color: var(--clr-primary);
+}
+.metric-card__value--accent {
+  color: var(--clr-accent);
+}
+.metric-card__value--secondary {
+  color: var(--clr-secondary);
+}
 
 .metric-card__label {
   font-size: 0.625rem;

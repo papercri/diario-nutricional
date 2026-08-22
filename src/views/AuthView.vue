@@ -46,6 +46,11 @@ function togglePassword() {
   showPassword.value = !showPassword.value
 }
 
+function toggleAuthMode() {
+  isLogin.value = !isLogin.value
+  error.value = ''
+}
+
 // getErrorMessage moved to errorHandlers.ts
 
 async function handleSubmit() {
@@ -118,7 +123,7 @@ async function handleSubmit() {
         <button
           type="button"
           class="auth-toggle-btn"
-          @click="isLogin = !isLogin; error = ''"
+          @click="toggleAuthMode"
         >
           {{ isLogin ? 'Crear cuenta' : 'Iniciar sesión' }}
         </button>

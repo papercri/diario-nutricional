@@ -6,10 +6,11 @@ import Button from '@/components/ui/Button.vue'
 import Input from '@/components/ui/Input.vue'
 import type { FoodItem } from '@/types/food'
 
-const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } = useAddFood()
+const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } =
+  useAddFood()
 
 defineExpose({
-  open: (food: FoodItem) => openAddModal(food)
+  open: (food: FoodItem) => openAddModal(food),
 })
 </script>
 

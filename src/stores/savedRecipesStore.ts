@@ -49,7 +49,7 @@ export const useSavedRecipesStore = defineStore('savedRecipes', () => {
     userId.value = id
   }
 
-  watch(userId, async (id) => {
+  watch(userId, async id => {
     if (id) {
       await loadRecipes()
     } else {

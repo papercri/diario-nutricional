@@ -8,6 +8,7 @@ import Modal from '@/components/ui/Modal.vue'
 import Button from '@/components/ui/Button.vue'
 import Card from '@/components/ui/Card.vue'
 import Input from '@/components/ui/Input.vue'
+import FoodDetailModal from '@/components/FoodDetailModal.vue'
 import { useToast } from '@/composables/useToast'
 import { useAddFood } from '@/composables/useAddFood'
 import { groupEntriesByMealType } from '@/utils/nutrition'
@@ -28,6 +29,62 @@ const openMealTypes = ref<Set<MealType>>(new Set(['breakfast', 'lunch', 'dinner'
 
 const deleteEntryId = ref<string | null>(null)
 const deleteEntryName = ref('')
+
+const detailFood = ref<import('@/types/food').FoodItem | null>(null)
+const detailServings = ref<number | undefined>(undefined)
+const detailMealType = ref<import('@/types/food').MealType | undefined>(undefined)
+
+function openDetail(
+  food: import('@/types/food').FoodItem,
+  servings: number,
+  mealType: import('@/types/food').MealType,
+) {
+  detailFood.value = food
+  detailServings.value = servings
+  detailMealType.value = mealType
+}
+
+function closeDetail() {
+  detailFood.value = null
+}
+
+const draggedEntryId = ref<string | null>(null)
+const dragOverType = ref<MealType | null>(null)
+
+function onDragStart(entryId: string, e: DragEvent) {
+  draggedEntryId.value = entryId
+  if (e.dataTransfer) {
+    e.dataTransfer.effectAllowed = 'move'
+    e.dataTransfer.setData('text/plain', entryId)
+  }
+}
+
+function onDragOver(type: MealType, e: DragEvent) {
+  e.preventDefault()
+  if (e.dataTransfer) {
+    e.dataTransfer.dropEffect = 'move'
+  }
+  dragOverType.value = type
+}
+
+function onDragLeave() {
+  dragOverType.value = null
+}
+
+function onDrop(type: MealType) {
+  if (draggedEntryId.value) {
+    foodStore.moveEntry(draggedEntryId.value, type)
+    toast.show(`Movido a ${MEAL_TYPE_LABELS[type]}`)
+  }
+  draggedEntryId.value = null
+  dragOverType.value = null
+}
+
+function onDragEnd() {
+  draggedEntryId.value = null
+  dragOverType.value = null
+}
+
 const showClearModal = ref(false)
 
 function confirmDeleteEntry(id: string, name: string) {
@@ -264,7 +321,11 @@ function entryMacros(entry: {
               as="article"
               padding="none"
               class="overflow-hidden"
+              :class="{ 'dash__meal--drag-over': dragOverType === type }"
               :aria-label="MEAL_TYPE_LABELS[type]"
+              @dragover="onDragOver(type as MealType, $event)"
+              @dragleave="onDragLeave"
+              @drop="onDrop(type as MealType)"
             >
               <button
                 class="dash__meal-header"
@@ -295,7 +356,15 @@ function entryMacros(entry: {
               </button>
 
               <ul v-if="openMealTypes.has(type as MealType)" class="dash__food-list">
-                <li v-for="entry in entries" :key="entry.id" class="dash__food-item">
+                <li
+                  v-for="entry in entries"
+                  :key="entry.id"
+                  class="dash__food-item"
+                  :class="{ 'dash__food-item--dragging': draggedEntryId === entry.id }"
+                  draggable="true"
+                  @dragstart="onDragStart(entry.id, $event)"
+                  @dragend="onDragEnd"
+                >
                   <div class="flex items-center gap-1.5 min-w-0 flex-1">
                     <img
                       v-if="entry.food.imageUrl"
@@ -306,47 +375,59 @@ function entryMacros(entry: {
                     />
                     <div
                       v-else
-                      class="w-7 h-7 rounded flex items-center justify-center shrink-0"
+                      class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
                       style="background: var(--clr-primary-light)"
                     >
                       <font-awesome-icon
                         :icon="['fas', 'utensils']"
                         class="text-[10px]"
                         aria-hidden="true"
-                        style="color: var(--clr-primary); opacity: 0.5"
+                        style="color: var(--clr-primary)"
                       />
                     </div>
                     <p class="text-[14px] font-medium truncate" style="color: var(--clr-text)">
                       {{ entry.food.name }}
                     </p>
                   </div>
-                  <div class="flex items-center gap-1.5 shrink-0">
+                  <div class="flex items-center gap-2 shrink-0 ml-2">
                     <div class="dash__macros">
-                      <span class="dash__macro-value">{{ entryMacros(entry).cal }}</span>
-                      <span class="dash__macro-label">kcal</span>
+                      <span class="dash__macro-kcal">{{ entryMacros(entry).cal }}</span>
+                      <span class="dash__macro-unit">kcal</span>
                       <span class="dash__macro-sep">·</span>
-                      <span class="dash__macro-value">{{ entryMacros(entry).p }}g</span>
+                      <span class="dash__macro-value dash__macro-value--protein"
+                        >{{ entryMacros(entry).p }}g</span
+                      >
                       <span class="dash__macro-label">P</span>
                       <span class="dash__macro-sep">·</span>
-                      <span class="dash__macro-value">{{ entryMacros(entry).c }}g</span>
+                      <span class="dash__macro-value dash__macro-value--carbs"
+                        >{{ entryMacros(entry).c }}g</span
+                      >
                       <span class="dash__macro-label">C</span>
                       <span class="dash__macro-sep">·</span>
-                      <span class="dash__macro-value">{{ entryMacros(entry).f }}g</span>
+                      <span class="dash__macro-value dash__macro-value--fat"
+                        >{{ entryMacros(entry).f }}g</span
+                      >
                       <span class="dash__macro-label">G</span>
                     </div>
                     <button
-                      class="w-5 h-5 flex items-center justify-center rounded shrink-0 transition-colors"
-                      style="color: var(--clr-text-faint)"
+                      class="dash__action-btn dash__action-btn--view"
+                      :aria-label="`Ver detalles de ${entry.food.name}`"
+                      @click.stop="openDetail(entry.food, entry.servings, entry.mealType)"
+                    >
+                      <font-awesome-icon
+                        :icon="['fas', 'eye']"
+                        class="text-[11px]"
+                        aria-hidden="true"
+                      />
+                    </button>
+                    <button
+                      class="dash__action-btn dash__action-btn--delete"
                       :aria-label="`Eliminar ${entry.food.name}`"
                       @click="confirmDeleteEntry(entry.id, entry.food.name)"
-                      @mouseenter="($event.target as HTMLElement).style.color = 'var(--clr-accent)'"
-                      @mouseleave="
-                        ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
-                      "
                     >
                       <font-awesome-icon
                         :icon="['fas', 'xmark']"
-                        class="text-[13px]"
+                        class="text-[11px]"
                         aria-hidden="true"
                       />
                     </button>
@@ -417,11 +498,20 @@ function entryMacros(entry: {
         </template>
       </Modal>
 
+      <!-- Food detail modal -->
+      <FoodDetailModal
+        v-if="detailFood"
+        :food="detailFood"
+        :servings="detailServings"
+        :meal-type="detailMealType"
+        @close="closeDetail"
+      />
+
       <!-- Add food modal -->
       <div
         v-if="showAddModal"
         ref="addModalRef"
-        class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
         role="dialog"
         aria-modal="true"
         :aria-label="`Añadir ${selectedFood?.name}`"
@@ -429,7 +519,7 @@ function entryMacros(entry: {
         @keydown="onAddModalKeydown"
       >
         <div
-          class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
+          class="w-full sm:max-w-md rounded-xl p-6 shadow-xl space-y-5 animate-slide-up"
           style="background: var(--clr-surface)"
         >
           <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
@@ -491,19 +581,6 @@ function entryMacros(entry: {
 </template>
 
 <style scoped>
-.dash {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .dash__loading {
   display: flex;
   flex-direction: column;
@@ -511,11 +588,6 @@ function entryMacros(entry: {
   justify-content: center;
   gap: 0.5rem;
   padding: 3rem 0;
-}
-
-.dash__header {
-  text-align: center;
-  margin-bottom: 0.125rem;
 }
 
 .dash__summary {
@@ -587,9 +659,9 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.3rem 0.5rem;
+  padding: 0.45rem 0.5rem;
   gap: 0.25rem;
-  transition: background 0.1s ease;
+  transition: background 0.15s ease;
 }
 
 .dash__food-item:not(:last-child) {
@@ -598,6 +670,21 @@ function entryMacros(entry: {
 
 .dash__food-item:hover {
   background: var(--clr-surface-alt);
+  border-radius: var(--radius-sm);
+}
+
+.dash__food-item--dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+
+.dash__food-item[draggable='true'] {
+  cursor: grab;
+}
+
+.dash__meal--drag-over {
+  box-shadow: inset 0 0 0 2px var(--clr-primary);
+  background: var(--clr-primary-faint);
 }
 
 .dash__macros {
@@ -606,14 +693,39 @@ function entryMacros(entry: {
   gap: 0.2rem;
   font-size: 0.8rem;
   white-space: nowrap;
+  margin-right: 1rem;
+}
+
+.dash__macro-kcal {
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.dash__macro-unit {
+  font-size: 0.7rem;
+  color: var(--clr-text-faint);
 }
 
 .dash__macro-value {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--clr-text-muted);
 }
 
+.dash__macro-value--protein {
+  color: var(--clr-primary);
+}
+
+.dash__macro-value--carbs {
+  color: var(--clr-nutrient-brown-text);
+}
+
+.dash__macro-value--fat {
+  color: var(--clr-secondary);
+}
+
 .dash__macro-label {
+  font-size: 0.65rem;
+  font-weight: 600;
   color: var(--clr-text-faint);
 }
 
@@ -622,7 +734,7 @@ function entryMacros(entry: {
   margin: 0 0.07rem;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .dash__macros {
     display: none;
   }
@@ -648,5 +760,35 @@ function entryMacros(entry: {
   .dash__actions-row {
     gap: 0.375rem;
   }
+}
+
+.dash__action-btn {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dash__action-btn--view {
+  color: var(--clr-primary);
+  background: var(--clr-primary-light);
+}
+
+.dash__action-btn--view:hover {
+  background: var(--clr-primary-faint);
+}
+
+.dash__action-btn--delete {
+  color: var(--clr-accent);
+  background: var(--clr-accent-light);
+}
+
+.dash__action-btn--delete:hover {
+  background: #edd5ca;
 }
 </style>

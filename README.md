@@ -5,17 +5,25 @@
 Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular el IMC, el peso ideal y el gasto calórico diario, analizar comidas con IA y recibir recomendaciones nutricionales personalizadas a través de una experiencia visual inspirada en la alimentación mediterránea.
 
 > **Proyecto piloto** creado para testear agentes de IA y skills con [OpenCode](https://opencode.ai). El objetivo es evaluar cómo un agente puede comprender, mantener y mejorar un proyecto real de front-end moderno.
+>
+> **Credenciales de prueba:**
+> email: `test@test.com`
+> pw: `test1234`
 
-## Screenshots
+## Views
 
-La app incluye 6 vistas principales:
+La app incluye 8 vistas principales:
 
-- **Dashboard** — Anillo de calorías con progreso visual, macro nutrientes, registro de comidas del día
+- **Dashboard** — Anillo de calorías con progreso visual, macro nutrientes con colores por tipo (proteínas verde, carbos marrón, grasas ámbar), registro de comidas del día con drag & drop entre sesiones, botones de acción redondos con color
 - **Perfil** — Pestañas: Mi día, Mis platos, Mis recetas, Datos. Formulario de datos personales, calculadora de IMC con gauge lineal, metas calóricas (Mifflin-St Jeor), tiempo estimado para alcanzar el objetivo
 - **Buscar** — Búsqueda de alimentos contra la API pública de Open Food Facts
 - **Analizar** — Analizador de comidas potenciado por IA, envía con Enter o botón. Botón de guardar en favoritos
 - **Recetas** — Generador de recetas personalizadas con IA según preferencias dietéticas, alérgenos e ingredientes. Botón de guardar en favoritos
+- **Mis platos** — Listado de platos guardados con búsqueda reactiva, ordenamiento (A-Z, Z-A, calorías) y paginación
+- **Mis recetas** — Listado de recetas guardadas con búsqueda reactiva, ordenamiento y paginación
+- **Privacidad** — Política de privacidad con email ofuscado via JS
 - **Auth** — Login/registro con email y contraseña via Supabase Auth
+- **404** — Página de error personalizada
 
 ## Stack
 
@@ -161,7 +169,9 @@ src/
 │   │   ├── Card.vue           # Variantes: default/elevated/warm/surface
 │   │   ├── Badge.vue          # Variantes: primary/accent/success/warning/danger/info
 │   │   ├── Modal.vue          # Teleport, tamaños sm/md/lg/xl, backdrop blur
-│   │   └── Typography.vue     # Variantes: display/h1-h4/body/label/caption
+│   │   ├── Typography.vue     # Variantes: display/h1-h4/body/label/caption
+│   │   ├── Paginator.vue      # Paginador reutilizable con flechas, elipsis y página activa
+│   │   └── ListFilters.vue    # Búsqueda reactiva + ordenamiento (A-Z, calorías) con dropdown
 │   ├── layout/                # Componentes de layout
 │   │   ├── Container.vue      # Max-width responsive + padding
 │   │   ├── Stack.vue          # Flex direction + gap + align + justify
@@ -194,11 +204,15 @@ src/
 ├── lib/                       # Configuración de servicios
 │   └── supabase.ts            # Cliente Supabase singleton
 ├── views/                     # Vistas principales (todas lazy-loaded)
-│   ├── DashboardView.vue      # Pestañas: Mi día, Mis platos, Mis recetas, Perfil
-│   ├── ProfileView.vue        # Pestañas: Mi día, Mis platos, Mis recetas, Datos
-│   ├── SearchView.vue
-│   ├── NutritionAnalyzerView.vue  # Botón guardar plato en favoritos
-│   ├── RecipeGeneratorView.vue    # Botón guardar receta en favoritos
+│   ├── DashboardView.vue      # Registro diario con drag & drop, macros coloreados
+│   ├── ProfileView.vue        # Perfil con BMI, metas calóricas
+│   ├── SearchView.vue         # Búsqueda de alimentos Open Food Facts
+│   ├── NutritionAnalyzerView.vue  # Analizador IA con guardado en favoritos
+│   ├── RecipeGeneratorView.vue    # Generador de recetas IA con guardado
+│   ├── PlatesView.vue         # Listado de platos guardados con filtros y paginación
+│   ├── RecipesView.vue        # Listado de recetas guardadas con filtros y paginación
+│   ├── PrivacyView.vue        # Política de privacidad
+│   ├── NotFoundView.vue       # Página 404 personalizada
 │   └── AuthView.vue           # Login/registro con Supabase Auth
 ├── stores/                    # Almacenes Pinia con persistencia dual
 │   ├── userStore.ts           # Perfil de usuario + metas calóricas (localStorage/Supabase)
@@ -223,7 +237,7 @@ src/
 │   ├── nutrition.ts           # calcPercentage, groupEntriesByMealType, sumServings
 │   ├── formatting.ts          # formatDateEs, formatCalorieEntry
 │   └── constants.ts           # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS, DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS
-├── fontawesome.ts             # Tree-shaking: solo 40 iconos FA registrados
+├── fontawesome.ts             # Tree-shaking: ~60 iconos FA registrados
 ├── router/index.ts            # Vue Router
 ├── style.css                  # Tailwind v4 + design tokens + shared DS classes
 └── main.ts                    # Entry point (registra FontAwesomeIcon globally)
@@ -248,7 +262,7 @@ El código está organizado en capas claras:
 - **Composables** (`src/composables/`) — Lógica reactiva extraída de componentes. Manejan estado, efectos secundarios y orquestación.
 - **Stores** (`src/stores/`) — Estado global persistido. Solo manejan datos del usuario y registros de comida.
 - **Services** (`src/services/`) — Clientes HTTP puros. Solo hacen fetch y transforman la respuesta de APIs externas (Open Food Facts y el endpoint de análisis IA).
-- **UI Components** (`src/components/ui/`) — Primitivos del design system: Button, Input, Card, Badge, Modal, Typography.
+- **UI Components** (`src/components/ui/`) — Primitivos del design system: Button, Input, Card, Badge, Modal, Typography, Paginator, ListFilters.
 - **Layout** (`src/components/layout/`) — Container, Stack, Grid para layouts reutilizables.
 - **Forms** (`src/components/forms/`) — Field wrapper para formularios.
 - **State** (`src/components/state/`) — EmptyState, Loading, ErrorState.
@@ -302,11 +316,24 @@ Los componentes UI (`Button`, `Input`, `Card`, `Badge`, `Modal`, `Typography`) e
   - `GROQ_API_KEY` — Proveedor primario (Groq)
   - `CEREBRAS_API_KEY` — Proveedor de respaldo (Cerebras)
 
+## SEO y Accesibilidad
+
+- **Meta tags** — Título y descripción por página via Vue Router meta + `afterEach` guard
+- **Open Graph / Twitter Cards** — Etiquetas OG y Twitter en `index.html`
+- **Sitemap** — `sitemap.xml` estático para crawlers
+- **Robots** — `robots.txt` con allow de todas las rutas
+- **WCAG 2.2 AA** — Skip-to-content link, focus trap en modales, `aria-label`/`aria-required`/`aria-invalid` en formularios, retorno de foco al cerrar modales, scroll lock del body
+
 ## Diseño visual
 
 - **Paleta**: olive green (`#5b7a3d`), terracotta (`#c4704b`), mustard (`#d4a843`), cream (`#faf5eb`)
 - **Tipografía**: DM Sans (display/headings) + Source Sans 3 (body) vía Google Fonts
 - **Elemento signature**: CalorieRing con efecto de glow SVG
+- **Macros coloreados**: Proteínas (verde oliva), carbos (marrón), grasas (ámbar) — consistentes en dashboard y detalle
+- **Modales**: Centrados en todas las pantallas, esquinas `rounded-xl`, botón cerrar con ancho auto
+- **Drag & drop**: Mover alimentos entre sesiones de comida en el dashboard
+- **Filtros reutilizables**: Búsqueda reactiva + ordenamiento con dropdown estilizado
+- **Paginación**: Componente reutilizable con iconos `angles-left`/`angles-right`
 - **Transiciones**: page transitions entre rutas, hover micro-interactions
 - **Responsive**: mobile-first, funciona desde 320px, hamburger menu en mobile
 

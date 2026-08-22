@@ -46,7 +46,7 @@ export const useSavedPlatesStore = defineStore('savedPlates', () => {
     userId.value = id
   }
 
-  watch(userId, async (id) => {
+  watch(userId, async id => {
     if (id) {
       await loadPlates()
     } else {
