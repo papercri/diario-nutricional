@@ -404,8 +404,7 @@ function entryMacros(entry: {
                       <span class="dash__macro-label">G</span>
                     </div>
                     <button
-                      class="w-7 h-7 flex items-center justify-center rounded-full shrink-0 transition-all duration-150 hover:scale-110"
-                      style="color: var(--clr-primary); background: var(--clr-primary-light)"
+                      class="dash__action-btn dash__action-btn--view"
                       :aria-label="`Ver detalles de ${entry.food.name}`"
                       @click.stop="openDetail(entry.food, entry.servings, entry.mealType)"
                     >
@@ -416,8 +415,7 @@ function entryMacros(entry: {
                       />
                     </button>
                     <button
-                      class="w-7 h-7 flex items-center justify-center rounded-full shrink-0 transition-all duration-150 hover:scale-110"
-                      style="color: var(--clr-accent); background: var(--clr-accent-light)"
+                      class="dash__action-btn dash__action-btn--delete"
                       :aria-label="`Eliminar ${entry.food.name}`"
                       @click="confirmDeleteEntry(entry.id, entry.food.name)"
                     >
@@ -756,5 +754,35 @@ function entryMacros(entry: {
   .dash__actions-row {
     gap: 0.375rem;
   }
+}
+
+.dash__action-btn {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dash__action-btn--view {
+  color: var(--clr-primary);
+  background: var(--clr-primary-light);
+}
+
+.dash__action-btn--view:hover {
+  background: var(--clr-primary-faint);
+}
+
+.dash__action-btn--delete {
+  color: var(--clr-accent);
+  background: var(--clr-accent-light);
+}
+
+.dash__action-btn--delete:hover {
+  background: #edd5ca;
 }
 </style>
