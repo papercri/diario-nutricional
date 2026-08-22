@@ -110,7 +110,7 @@ onUnmounted(() => {
 <template>
   <div
     ref="modalRef"
-    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
     role="dialog"
     aria-modal="true"
     :aria-label="`Detalles de ${food.name}`"
@@ -118,7 +118,7 @@ onUnmounted(() => {
     @keydown="handleKeydown"
   >
     <div
-      class="w-full sm:max-w-xl max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-xl animate-slide-up"
+      class="w-full sm:max-w-xl max-h-[85vh] overflow-y-auto rounded-xl shadow-xl animate-slide-up"
       style="background: var(--clr-surface)"
     >
       <!-- Close button -->
@@ -242,7 +242,9 @@ onUnmounted(() => {
         </div>
 
         <!-- Close button -->
-        <button class="btn btn-secondary w-full" @click="emit('close')">Cerrar</button>
+        <div class="flex justify-center pt-2">
+          <button class="btn btn-secondary px-6" @click="emit('close')">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>

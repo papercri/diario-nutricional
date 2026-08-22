@@ -183,7 +183,7 @@ onUnmounted(() => {
     <div
       v-if="showAddModal"
       ref="addModalRef"
-      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       :aria-label="`Añadir ${selectedFood?.name}`"
@@ -191,7 +191,7 @@ onUnmounted(() => {
       @keydown="onAddModalKeydown"
     >
       <div
-        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
+        class="w-full sm:max-w-md rounded-xl p-6 shadow-xl space-y-5 animate-slide-up"
         style="background: var(--clr-surface)"
       >
         <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">

@@ -375,65 +375,55 @@ function entryMacros(entry: {
                     />
                     <div
                       v-else
-                      class="w-7 h-7 rounded flex items-center justify-center shrink-0"
+                      class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
                       style="background: var(--clr-primary-light)"
                     >
                       <font-awesome-icon
                         :icon="['fas', 'utensils']"
                         class="text-[10px]"
                         aria-hidden="true"
-                        style="color: var(--clr-primary); opacity: 0.5"
+                        style="color: var(--clr-primary)"
                       />
                     </div>
                     <p class="text-[14px] font-medium truncate" style="color: var(--clr-text)">
                       {{ entry.food.name }}
                     </p>
                   </div>
-                  <div class="flex items-center gap-1.5 shrink-0">
+                  <div class="flex items-center gap-2 shrink-0 ml-2">
                     <div class="dash__macros">
-                      <span class="dash__macro-value">{{ entryMacros(entry).cal }}</span>
-                      <span class="dash__macro-label">kcal</span>
+                      <span class="dash__macro-kcal">{{ entryMacros(entry).cal }}</span>
+                      <span class="dash__macro-unit">kcal</span>
                       <span class="dash__macro-sep">·</span>
-                      <span class="dash__macro-value">{{ entryMacros(entry).p }}g</span>
+                      <span class="dash__macro-value dash__macro-value--protein">{{ entryMacros(entry).p }}g</span>
                       <span class="dash__macro-label">P</span>
                       <span class="dash__macro-sep">·</span>
-                      <span class="dash__macro-value">{{ entryMacros(entry).c }}g</span>
+                      <span class="dash__macro-value dash__macro-value--carbs">{{ entryMacros(entry).c }}g</span>
                       <span class="dash__macro-label">C</span>
                       <span class="dash__macro-sep">·</span>
-                      <span class="dash__macro-value">{{ entryMacros(entry).f }}g</span>
+                      <span class="dash__macro-value dash__macro-value--fat">{{ entryMacros(entry).f }}g</span>
                       <span class="dash__macro-label">G</span>
                     </div>
                     <button
-                      class="w-5 h-5 flex items-center justify-center rounded shrink-0 transition-colors"
-                      style="color: var(--clr-text-faint)"
+                      class="w-7 h-7 flex items-center justify-center rounded-full shrink-0 transition-all duration-150 hover:scale-110"
+                      style="color: var(--clr-primary); background: var(--clr-primary-light)"
                       :aria-label="`Ver detalles de ${entry.food.name}`"
                       @click.stop="openDetail(entry.food, entry.servings, entry.mealType)"
-                      @mouseenter="
-                        ($event.target as HTMLElement).style.color = 'var(--clr-primary)'
-                      "
-                      @mouseleave="
-                        ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
-                      "
                     >
                       <font-awesome-icon
                         :icon="['fas', 'eye']"
-                        class="text-[13px]"
+                        class="text-[11px]"
                         aria-hidden="true"
                       />
                     </button>
                     <button
-                      class="w-5 h-5 flex items-center justify-center rounded shrink-0 transition-colors"
-                      style="color: var(--clr-text-faint)"
+                      class="w-7 h-7 flex items-center justify-center rounded-full shrink-0 transition-all duration-150 hover:scale-110"
+                      style="color: var(--clr-accent); background: var(--clr-accent-light)"
                       :aria-label="`Eliminar ${entry.food.name}`"
                       @click="confirmDeleteEntry(entry.id, entry.food.name)"
-                      @mouseenter="($event.target as HTMLElement).style.color = 'var(--clr-accent)'"
-                      @mouseleave="
-                        ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
-                      "
                     >
                       <font-awesome-icon
                         :icon="['fas', 'xmark']"
-                        class="text-[13px]"
+                        class="text-[11px]"
                         aria-hidden="true"
                       />
                     </button>
@@ -517,7 +507,7 @@ function entryMacros(entry: {
       <div
         v-if="showAddModal"
         ref="addModalRef"
-        class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
         role="dialog"
         aria-modal="true"
         :aria-label="`Añadir ${selectedFood?.name}`"
@@ -525,7 +515,7 @@ function entryMacros(entry: {
         @keydown="onAddModalKeydown"
       >
         <div
-          class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
+          class="w-full sm:max-w-md rounded-xl p-6 shadow-xl space-y-5 animate-slide-up"
           style="background: var(--clr-surface)"
         >
           <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">
@@ -665,9 +655,9 @@ function entryMacros(entry: {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.3rem 0.5rem;
+  padding: 0.45rem 0.5rem;
   gap: 0.25rem;
-  transition: background 0.1s ease;
+  transition: background 0.15s ease;
 }
 
 .dash__food-item:not(:last-child) {
@@ -676,6 +666,7 @@ function entryMacros(entry: {
 
 .dash__food-item:hover {
   background: var(--clr-surface-alt);
+  border-radius: var(--radius-sm);
 }
 
 .dash__food-item--dragging {
@@ -698,14 +689,39 @@ function entryMacros(entry: {
   gap: 0.2rem;
   font-size: 0.8rem;
   white-space: nowrap;
+  margin-right: 1rem;
+}
+
+.dash__macro-kcal {
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.dash__macro-unit {
+  font-size: 0.7rem;
+  color: var(--clr-text-faint);
 }
 
 .dash__macro-value {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--clr-text-muted);
 }
 
+.dash__macro-value--protein {
+  color: var(--clr-primary);
+}
+
+.dash__macro-value--carbs {
+  color: var(--clr-nutrient-brown-text);
+}
+
+.dash__macro-value--fat {
+  color: var(--clr-secondary);
+}
+
 .dash__macro-label {
+  font-size: 0.65rem;
+  font-weight: 600;
   color: var(--clr-text-faint);
 }
 
@@ -714,7 +730,7 @@ function entryMacros(entry: {
   margin: 0 0.07rem;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .dash__macros {
     display: none;
   }
