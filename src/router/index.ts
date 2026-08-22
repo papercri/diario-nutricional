@@ -59,7 +59,7 @@ const routes: RouteRecordRaw[] = [
     name: 'nutrition-ai',
     component: () => import('../views/NutritionAnalyzerView.vue'),
     meta: {
-      title: `Analizar plato — ${SITE_NAME}`,
+      title: `Analizar mi plato — ${SITE_NAME}`,
       description:
         'Describe tu comida y obtén un análisis nutricional detallado con inteligencia artificial.',
     },
@@ -69,7 +69,7 @@ const routes: RouteRecordRaw[] = [
     name: 'recipes',
     component: () => import('../views/RecipeGeneratorView.vue'),
     meta: {
-      title: `Generar receta — ${SITE_NAME}`,
+      title: `Nueva receta — ${SITE_NAME}`,
       description:
         'Genera recetas personalizadas según tus preferencias, alergias y objetivos nutricionales.',
     },

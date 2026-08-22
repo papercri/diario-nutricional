@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useSavedPlatesStore } from '@/stores/savedPlatesStore'
 import { useAuth } from '@/composables/useAuth'
 import { useToast } from '@/composables/useToast'
 
 import Button from '@/components/ui/Button.vue'
 import Card from '@/components/ui/Card.vue'
+import Paginator from '@/components/ui/Paginator.vue'
+import ListFilters from '@/components/ui/ListFilters.vue'
+import type { SortOption } from '@/components/ui/ListFilters.vue'
 
 import SavedItemCard from '@/components/SavedItemCard.vue'
 import AddFoodModal from '@/components/AddFoodModal.vue'
@@ -13,6 +16,8 @@ import ConfirmDeleteModal from '@/components/ConfirmDeleteModal.vue'
 import ItemDetailModal from '@/components/ItemDetailModal.vue'
 import type { SavedItemProps } from '@/components/SavedItemCard.vue'
 import type { DetailItem } from '@/components/ItemDetailModal.vue'
+
+const ITEMS_PER_PAGE = 10
 
 const savedPlatesStore = useSavedPlatesStore()
 const { user } = useAuth()
@@ -25,6 +30,51 @@ const showDeleteConfirm = ref(false)
 const plateToDelete = ref<SavedItemProps | null>(null)
 
 const addFoodModalRef = ref<InstanceType<typeof AddFoodModal> | null>(null)
+
+const currentPage = ref(1)
+const searchQuery = ref('')
+const sortBy = ref<SortOption>('name-asc')
+
+const filteredPlates = computed(() => {
+  let items = [...savedPlatesStore.plates]
+
+  if (searchQuery.value) {
+    const q = searchQuery.value.toLowerCase()
+    items = items.filter(p => p.name.toLowerCase().includes(q))
+  }
+
+  items.sort((a, b) => {
+    switch (sortBy.value) {
+      case 'name-asc':
+        return a.name.localeCompare(b.name)
+      case 'name-desc':
+        return b.name.localeCompare(a.name)
+      case 'calories-asc':
+        return (a.calories ?? 0) - (b.calories ?? 0)
+      case 'calories-desc':
+        return (b.calories ?? 0) - (a.calories ?? 0)
+      default:
+        return 0
+    }
+  })
+
+  return items
+})
+
+const paginatedPlates = computed(() => {
+  const start = (currentPage.value - 1) * ITEMS_PER_PAGE
+  return filteredPlates.value.slice(start, start + ITEMS_PER_PAGE)
+})
+
+function onSearchUpdate(value: string) {
+  searchQuery.value = value
+  currentPage.value = 1
+}
+
+function onSortUpdate(value: SortOption) {
+  sortBy.value = value
+  currentPage.value = 1
+}
 
 onMounted(async () => {
   if (user.value) {
@@ -93,7 +143,57 @@ function cancelDelete() {
       <p class="text-body-sm">Platos que has analizado y guardado</p>
     </header>
 
-    <Card v-if="savedPlatesStore.plates.length === 0" variant="warm" padding="none" class="text-center py-8 px-4">
+    <template v-if="savedPlatesStore.plates.length > 0">
+      <ListFilters
+        :sort="sortBy"
+        @update:search="onSearchUpdate"
+        @update:sort="onSortUpdate"
+      />
+
+      <Card
+        v-if="filteredPlates.length === 0"
+        variant="warm"
+        class="text-center py-2 px-2"
+      >
+        <font-awesome-icon
+          :icon="['fas', 'magnifying-glass']"
+          class="text-2xl block mb-2"
+          aria-hidden="true"
+          style="color: var(--clr-text-faint); opacity: 0.5"
+        />
+        <p class="text-sm font-medium" style="color: var(--clr-text-muted)">
+          No se encontraron resultados
+        </p>
+        <p class="text-xs mt-1" style="color: var(--clr-text-faint)">
+          Prueba con otro término de búsqueda
+        </p>
+      </Card>
+
+      <div v-else class="saved-list">
+        <SavedItemCard
+          v-for="plate in paginatedPlates"
+          :key="plate.id"
+          :item="plate"
+          @view="openPlateModal"
+          @add="openAddPlateToDay"
+          @delete="confirmDeletePlate"
+        />
+      </div>
+
+      <Paginator
+        v-if="filteredPlates.length > ITEMS_PER_PAGE"
+        :total-items="filteredPlates.length"
+        :items-per-page="ITEMS_PER_PAGE"
+        :current-page="currentPage"
+        @update:current-page="currentPage = $event"
+      />
+    </template>
+
+    <Card
+      v-else
+      variant="warm"
+      class="text-center py-2 px-2"
+    >
       <font-awesome-icon
         :icon="['fas', 'bowl-food']"
         class="text-3xl block mb-2"
@@ -111,17 +211,6 @@ function cancelDelete() {
         Analizar mi plato
       </Button>
     </Card>
-
-    <div v-else class="saved-list">
-      <SavedItemCard
-        v-for="plate in savedPlatesStore.plates"
-        :key="plate.id"
-        :item="plate"
-        @view="openPlateModal"
-        @add="openAddPlateToDay"
-        @delete="confirmDeletePlate"
-      />
-    </div>
 
     <!-- Plate detail modal -->
     <ItemDetailModal
@@ -147,30 +236,6 @@ function cancelDelete() {
 </template>
 
 <style scoped>
-.dash {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.dash__header { text-align: center; margin-bottom: 0.125rem; }
-
-.dash__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
 .saved-list {
   display: flex;
   flex-direction: column;

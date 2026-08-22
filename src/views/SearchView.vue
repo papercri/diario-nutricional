@@ -82,17 +82,19 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <main class="max-w-2xl mx-auto px-4 py-8 space-y-6">
-    <header class="text-center">
-      <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">
-        <font-awesome-icon
-          :icon="['fas', 'magnifying-glass']"
-          aria-hidden="true"
-          style="color: var(--clr-primary)"
-        />
-        Buscar alimentos
-      </h1>
-      <p style="font-size: 0.875rem; color: var(--clr-text-muted); margin-top: 4px">
+  <main class="dash">
+    <header class="dash__header">
+      <div class="dash__title-row">
+        <h1 class="text-display-lg">
+          <font-awesome-icon
+            :icon="['fas', 'magnifying-glass']"
+            aria-hidden="true"
+            style="color: var(--clr-primary)"
+          />
+          Buscar alimentos
+        </h1>
+      </div>
+      <p class="text-body-sm">
         Busca entre miles de productos alimentarios gracias a la base de datos colaborativa de
         <strong>Open Food Facts</strong>.
       </p>
@@ -181,7 +183,7 @@ onUnmounted(() => {
     <div
       v-if="showAddModal"
       ref="addModalRef"
-      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/30 backdrop-blur-sm"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       :aria-label="`Añadir ${selectedFood?.name}`"
@@ -189,7 +191,7 @@ onUnmounted(() => {
       @keydown="onAddModalKeydown"
     >
       <div
-        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl p-6 shadow-xl space-y-5 animate-slide-up"
+        class="w-full sm:max-w-md rounded-xl p-6 shadow-xl space-y-5 animate-slide-up"
         style="background: var(--clr-surface)"
       >
         <h2 class="font-display" style="font-size: 1.25rem; color: var(--clr-text)">

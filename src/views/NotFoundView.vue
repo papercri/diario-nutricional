@@ -19,19 +19,6 @@ import Button from '@/components/ui/Button.vue'
 </template>
 
 <style scoped>
-.dash {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .not-found {
   display: flex;
   flex-direction: column;

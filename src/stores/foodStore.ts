@@ -61,7 +61,7 @@ export const useFoodStore = defineStore('food', () => {
     userId.value = id
   }
 
-  watch(userId, async (id) => {
+  watch(userId, async id => {
     if (id) {
       await loadEntries()
       startCleanupInterval()
@@ -204,6 +204,33 @@ export const useFoodStore = defineStore('food', () => {
     if (!userId.value) saveLocal(dailyLogs.value)
   }
 
+  async function moveEntry(entryId: string, newMealType: MealType) {
+    for (const date of Object.keys(dailyLogs.value)) {
+      const entry = dailyLogs.value[date].find(e => e.id === entryId)
+      if (entry) {
+        entry.mealType = newMealType
+        break
+      }
+    }
+
+    if (userId.value) {
+      try {
+        const { error } = await supabase
+          .from('daily_meal')
+          .update({ meal_type: newMealType })
+          .eq('id', entryId)
+          .eq('user_id', userId.value)
+
+        if (error) throw error
+      } catch (err) {
+        console.error('Error moving entry in Supabase:', err)
+        throw err
+      }
+    } else {
+      saveLocal(dailyLogs.value)
+    }
+  }
+
   async function clearToday() {
     const today = getToday()
     if (userId.value) {
@@ -264,10 +291,10 @@ export const useFoodStore = defineStore('food', () => {
 
     for (const date of dates) {
       const entries = dailyLogs.value[date]
-      const expired = entries.filter((e) => e.timestamp < cutoff)
+      const expired = entries.filter(e => e.timestamp < cutoff)
       if (expired.length > 0) {
-        expiredIds.push(...expired.map((e) => e.id))
-        dailyLogs.value[date] = entries.filter((e) => e.timestamp >= cutoff)
+        expiredIds.push(...expired.map(e => e.id))
+        dailyLogs.value[date] = entries.filter(e => e.timestamp >= cutoff)
         if (dailyLogs.value[date].length === 0) {
           delete dailyLogs.value[date]
         }
@@ -277,11 +304,7 @@ export const useFoodStore = defineStore('food', () => {
     if (expiredIds.length > 0 && userId.value) {
       for (const id of expiredIds) {
         try {
-          await supabase
-            .from('daily_meal')
-            .delete()
-            .eq('id', id)
-            .eq('user_id', userId.value)
+          await supabase.from('daily_meal').delete().eq('id', id).eq('user_id', userId.value)
         } catch (err) {
           console.error('Error deleting expired entry from Supabase:', err)
         }
@@ -319,6 +342,7 @@ export const useFoodStore = defineStore('food', () => {
     loadEntries,
     addEntry,
     removeEntry,
+    moveEntry,
     clearToday,
     getEntriesForDate,
     migrateToSupabase,
