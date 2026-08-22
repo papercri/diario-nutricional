@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useSavedRecipesStore } from '@/stores/savedRecipesStore'
 import { useAuth } from '@/composables/useAuth'
 import { useToast } from '@/composables/useToast'
@@ -8,8 +8,11 @@ import SavedItemCard from '@/components/SavedItemCard.vue'
 import AddFoodModal from '@/components/AddFoodModal.vue'
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal.vue'
 import ItemDetailModal from '@/components/ItemDetailModal.vue'
+import Paginator from '@/components/ui/Paginator.vue'
 import type { SavedItemProps } from '@/components/SavedItemCard.vue'
 import type { DetailItem } from '@/components/ItemDetailModal.vue'
+
+const ITEMS_PER_PAGE = 10
 
 const savedRecipesStore = useSavedRecipesStore()
 const { user } = useAuth()
@@ -22,6 +25,13 @@ const showDeleteConfirm = ref(false)
 const recipeToDelete = ref<SavedItemProps | null>(null)
 
 const addFoodModalRef = ref<InstanceType<typeof AddFoodModal> | null>(null)
+
+const currentPage = ref(1)
+
+const paginatedRecipes = computed(() => {
+  const start = (currentPage.value - 1) * ITEMS_PER_PAGE
+  return savedRecipesStore.recipes.slice(start, start + ITEMS_PER_PAGE)
+})
 
 onMounted(async () => {
   if (user.value) {
@@ -110,7 +120,7 @@ function openAddRecipeToDay(recipe: any) {
 
     <div v-else class="saved-list">
       <SavedItemCard
-        v-for="recipe in savedRecipesStore.recipes"
+        v-for="recipe in paginatedRecipes"
         :key="recipe.id"
         :item="recipe"
         @view="openRecipeModal"
@@ -118,6 +128,14 @@ function openAddRecipeToDay(recipe: any) {
         @delete="confirmDeleteRecipe"
       />
     </div>
+
+    <Paginator
+      v-if="savedRecipesStore.recipes.length > ITEMS_PER_PAGE"
+      :total-items="savedRecipesStore.recipes.length"
+      :items-per-page="ITEMS_PER_PAGE"
+      :current-page="currentPage"
+      @update:current-page="currentPage = $event"
+    />
 
     <!-- Recipe detail modal -->
     <ItemDetailModal

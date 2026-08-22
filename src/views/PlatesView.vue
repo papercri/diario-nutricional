@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useSavedPlatesStore } from '@/stores/savedPlatesStore'
 import { useAuth } from '@/composables/useAuth'
 import { useToast } from '@/composables/useToast'
 
 import Button from '@/components/ui/Button.vue'
 import Card from '@/components/ui/Card.vue'
+import Paginator from '@/components/ui/Paginator.vue'
 
 import SavedItemCard from '@/components/SavedItemCard.vue'
 import AddFoodModal from '@/components/AddFoodModal.vue'
@@ -13,6 +14,8 @@ import ConfirmDeleteModal from '@/components/ConfirmDeleteModal.vue'
 import ItemDetailModal from '@/components/ItemDetailModal.vue'
 import type { SavedItemProps } from '@/components/SavedItemCard.vue'
 import type { DetailItem } from '@/components/ItemDetailModal.vue'
+
+const ITEMS_PER_PAGE = 10
 
 const savedPlatesStore = useSavedPlatesStore()
 const { user } = useAuth()
@@ -25,6 +28,13 @@ const showDeleteConfirm = ref(false)
 const plateToDelete = ref<SavedItemProps | null>(null)
 
 const addFoodModalRef = ref<InstanceType<typeof AddFoodModal> | null>(null)
+
+const currentPage = ref(1)
+
+const paginatedPlates = computed(() => {
+  const start = (currentPage.value - 1) * ITEMS_PER_PAGE
+  return savedPlatesStore.plates.slice(start, start + ITEMS_PER_PAGE)
+})
 
 onMounted(async () => {
   if (user.value) {
@@ -119,7 +129,7 @@ function cancelDelete() {
 
     <div v-else class="saved-list">
       <SavedItemCard
-        v-for="plate in savedPlatesStore.plates"
+        v-for="plate in paginatedPlates"
         :key="plate.id"
         :item="plate"
         @view="openPlateModal"
@@ -127,6 +137,14 @@ function cancelDelete() {
         @delete="confirmDeletePlate"
       />
     </div>
+
+    <Paginator
+      v-if="savedPlatesStore.plates.length > ITEMS_PER_PAGE"
+      :total-items="savedPlatesStore.plates.length"
+      :items-per-page="ITEMS_PER_PAGE"
+      :current-page="currentPage"
+      @update:current-page="currentPage = $event"
+    />
 
     <!-- Plate detail modal -->
     <ItemDetailModal
