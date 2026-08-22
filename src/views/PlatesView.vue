@@ -7,6 +7,8 @@ import { useToast } from '@/composables/useToast'
 import Button from '@/components/ui/Button.vue'
 import Card from '@/components/ui/Card.vue'
 import Paginator from '@/components/ui/Paginator.vue'
+import ListFilters from '@/components/ui/ListFilters.vue'
+import type { SortOption } from '@/components/ui/ListFilters.vue'
 
 import SavedItemCard from '@/components/SavedItemCard.vue'
 import AddFoodModal from '@/components/AddFoodModal.vue'
@@ -30,11 +32,49 @@ const plateToDelete = ref<SavedItemProps | null>(null)
 const addFoodModalRef = ref<InstanceType<typeof AddFoodModal> | null>(null)
 
 const currentPage = ref(1)
+const searchQuery = ref('')
+const sortBy = ref<SortOption>('name-asc')
+
+const filteredPlates = computed(() => {
+  let items = [...savedPlatesStore.plates]
+
+  if (searchQuery.value) {
+    const q = searchQuery.value.toLowerCase()
+    items = items.filter(p => p.name.toLowerCase().includes(q))
+  }
+
+  items.sort((a, b) => {
+    switch (sortBy.value) {
+      case 'name-asc':
+        return a.name.localeCompare(b.name)
+      case 'name-desc':
+        return b.name.localeCompare(a.name)
+      case 'calories-asc':
+        return (a.calories ?? 0) - (b.calories ?? 0)
+      case 'calories-desc':
+        return (b.calories ?? 0) - (a.calories ?? 0)
+      default:
+        return 0
+    }
+  })
+
+  return items
+})
 
 const paginatedPlates = computed(() => {
   const start = (currentPage.value - 1) * ITEMS_PER_PAGE
-  return savedPlatesStore.plates.slice(start, start + ITEMS_PER_PAGE)
+  return filteredPlates.value.slice(start, start + ITEMS_PER_PAGE)
 })
+
+function onSearchUpdate(value: string) {
+  searchQuery.value = value
+  currentPage.value = 1
+}
+
+function onSortUpdate(value: SortOption) {
+  sortBy.value = value
+  currentPage.value = 1
+}
 
 onMounted(async () => {
   if (user.value) {
@@ -103,8 +143,55 @@ function cancelDelete() {
       <p class="text-body-sm">Platos que has analizado y guardado</p>
     </header>
 
+    <template v-if="savedPlatesStore.plates.length > 0">
+      <ListFilters
+        :sort="sortBy"
+        @update:search="onSearchUpdate"
+        @update:sort="onSortUpdate"
+      />
+
+      <Card
+        v-if="filteredPlates.length === 0"
+        variant="warm"
+        padding="none"
+        class="text-center py-8 px-4"
+      >
+        <font-awesome-icon
+          :icon="['fas', 'magnifying-glass']"
+          class="text-2xl block mb-2"
+          aria-hidden="true"
+          style="color: var(--clr-text-faint); opacity: 0.5"
+        />
+        <p class="text-sm font-medium" style="color: var(--clr-text-muted)">
+          No se encontraron resultados
+        </p>
+        <p class="text-xs mt-1" style="color: var(--clr-text-faint)">
+          Prueba con otro término de búsqueda
+        </p>
+      </Card>
+
+      <div v-else class="saved-list">
+        <SavedItemCard
+          v-for="plate in paginatedPlates"
+          :key="plate.id"
+          :item="plate"
+          @view="openPlateModal"
+          @add="openAddPlateToDay"
+          @delete="confirmDeletePlate"
+        />
+      </div>
+
+      <Paginator
+        v-if="filteredPlates.length > ITEMS_PER_PAGE"
+        :total-items="filteredPlates.length"
+        :items-per-page="ITEMS_PER_PAGE"
+        :current-page="currentPage"
+        @update:current-page="currentPage = $event"
+      />
+    </template>
+
     <Card
-      v-if="savedPlatesStore.plates.length === 0"
+      v-else
       variant="warm"
       padding="none"
       class="text-center py-8 px-4"
@@ -126,25 +213,6 @@ function cancelDelete() {
         Analizar mi plato
       </Button>
     </Card>
-
-    <div v-else class="saved-list">
-      <SavedItemCard
-        v-for="plate in paginatedPlates"
-        :key="plate.id"
-        :item="plate"
-        @view="openPlateModal"
-        @add="openAddPlateToDay"
-        @delete="confirmDeletePlate"
-      />
-    </div>
-
-    <Paginator
-      v-if="savedPlatesStore.plates.length > ITEMS_PER_PAGE"
-      :total-items="savedPlatesStore.plates.length"
-      :items-per-page="ITEMS_PER_PAGE"
-      :current-page="currentPage"
-      @update:current-page="currentPage = $event"
-    />
 
     <!-- Plate detail modal -->
     <ItemDetailModal
