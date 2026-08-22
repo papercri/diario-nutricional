@@ -57,7 +57,7 @@ function goTo(page: number) {
       aria-label="Página anterior"
       @click="goTo(currentPage - 1)"
     >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="text-xs" aria-hidden="true" />
+      <font-awesome-icon :icon="['fas', 'angles-left']" class="text-xs" aria-hidden="true" />
     </button>
 
     <template v-for="(page, i) in pages" :key="i">
@@ -79,7 +79,7 @@ function goTo(page: number) {
       aria-label="Página siguiente"
       @click="goTo(currentPage + 1)"
     >
-      <font-awesome-icon :icon="['fas', 'chevron-right']" class="text-xs" aria-hidden="true" />
+      <font-awesome-icon :icon="['fas', 'angles-right']" class="text-xs" aria-hidden="true" />
     </button>
   </nav>
 </template>

@@ -1,5 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
+  faAnglesLeft,
+  faAnglesRight,
   faArrowDown,
   faArrowUp,
   faBowlFood,
@@ -64,6 +66,8 @@ import {
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 library.add(
+  faAnglesLeft,
+  faAnglesRight,
   faArrowDown,
   faArrowUp,
   faBowlFood,
