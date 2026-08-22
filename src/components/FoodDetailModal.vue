@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import type { FoodItem } from '@/types/food'
+import type { MealType } from '@/types/food'
+import { MEAL_TYPE_LABELS, MEAL_TYPE_ICONS } from '@/utils/constants'
 
-defineProps<{
+const props = defineProps<{
   food: FoodItem
+  servings?: number
+  mealType?: MealType
 }>()
 
 const emit = defineEmits<{
   close: []
-  add: [food: FoodItem]
 }>()
 
 const modalRef = ref<HTMLElement | null>(null)
@@ -40,7 +43,7 @@ function getFocusableElements(): HTMLElement[] {
   if (!modalRef.value) return []
   return Array.from(
     modalRef.value.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     ),
   )
 }
@@ -71,6 +74,22 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
 }
+
+const totalCalories = props.servings
+  ? Math.round(props.food.calories * props.servings)
+  : Math.round(props.food.calories)
+
+const totalProtein = props.servings
+  ? (props.food.protein * props.servings).toFixed(1)
+  : props.food.protein.toFixed(1)
+
+const totalCarbs = props.servings
+  ? (props.food.carbs * props.servings).toFixed(1)
+  : props.food.carbs.toFixed(1)
+
+const totalFat = props.servings
+  ? (props.food.fat * props.servings).toFixed(1)
+  : props.food.fat.toFixed(1)
 
 onMounted(async () => {
   previousFocus.value = document.activeElement as HTMLElement
@@ -115,19 +134,24 @@ onUnmounted(() => {
       </div>
 
       <div class="px-5 pb-5 space-y-4">
-        <!-- Header: image right + text left -->
+        <!-- Header -->
         <div class="flex gap-4">
           <div class="flex-1 min-w-0">
             <h2 class="text-display-lg">{{ food.name }}</h2>
             <p v-if="food.brand" class="text-body mt-1">{{ food.brand }}</p>
-            <p v-if="food.servingSize" class="text-body-sm mt-1">
-              <font-awesome-icon
-                :icon="['fas', 'scale-balanced']"
-                class="mr-1"
-                aria-hidden="true"
-              />
-              Porción: {{ food.servingSize }}
-            </p>
+            <div class="flex flex-wrap items-center gap-2 mt-2">
+              <span v-if="mealType" class="detail-badge detail-badge--meal">
+                <font-awesome-icon :icon="MEAL_TYPE_ICONS[mealType]" aria-hidden="true" />
+                {{ MEAL_TYPE_LABELS[mealType] }}
+              </span>
+              <span v-if="servings" class="detail-badge detail-badge--servings">
+                <font-awesome-icon :icon="['fas', 'scale-balanced']" aria-hidden="true" />
+                {{ servings }}x · {{ food.servingSize ?? '100g' }}
+              </span>
+              <span v-if="food.barcode" class="detail-badge detail-badge--barcode">
+                {{ food.barcode }}
+              </span>
+            </div>
             <img
               v-if="food.nutriScore"
               :src="`/nutri-${food.nutriScore}.png`"
@@ -141,43 +165,31 @@ onUnmounted(() => {
             :alt="food.name"
             class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0"
           />
-          <div
-            v-else
-            class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl flex items-center justify-center shrink-0"
-            style="background: var(--clr-primary-light)"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'utensils']"
-              class="text-3xl"
-              aria-hidden="true"
-              style="color: var(--clr-primary); opacity: 0.3"
-            />
-          </div>
         </div>
 
         <!-- Nutrition facts -->
         <div class="grid grid-cols-4 gap-2">
           <div class="text-center p-2 rounded-xl" style="background: var(--clr-primary-light)">
             <p class="text-lg font-bold" style="color: var(--clr-primary)">
-              {{ Math.round(food.calories) }}
+              {{ totalCalories }}
             </p>
             <p class="text-body-sm">kcal</p>
           </div>
           <div class="text-center p-2 rounded-xl" style="background: var(--clr-primary-faint)">
             <p class="text-lg font-bold" style="color: var(--clr-text)">
-              {{ food.protein.toFixed(1) }}
+              {{ totalProtein }}
             </p>
             <p class="text-body-sm">proteínas</p>
           </div>
           <div class="text-center p-2 rounded-xl" style="background: var(--clr-secondary-light)">
             <p class="text-lg font-bold" style="color: var(--clr-secondary)">
-              {{ food.carbs.toFixed(1) }}
+              {{ totalCarbs }}
             </p>
             <p class="text-body-sm">carbos</p>
           </div>
           <div class="text-center p-2 rounded-xl" style="background: var(--clr-accent-light)">
             <p class="text-lg font-bold" style="color: var(--clr-accent)">
-              {{ food.fat.toFixed(1) }}
+              {{ totalFat }}
             </p>
             <p class="text-body-sm">grasas</p>
           </div>
@@ -203,15 +215,64 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- Actions -->
-        <div class="flex gap-3">
-          <button class="btn btn-secondary flex-1" @click="emit('close')">Cerrar</button>
-          <button class="btn btn-primary flex-1" @click="emit('add', food)">
-            <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
-            Añadir
-          </button>
+        <!-- Macro bar -->
+        <div class="space-y-1">
+          <div class="flex h-2 rounded-full overflow-hidden gap-0.5">
+            <div
+              class="rounded-full"
+              style="background: var(--clr-primary)"
+              :style="{ flex: food.protein || 0.1 }"
+            />
+            <div
+              class="rounded-full"
+              style="background: var(--clr-accent)"
+              :style="{ flex: food.carbs || 0.1 }"
+            />
+            <div
+              class="rounded-full"
+              style="background: var(--clr-secondary)"
+              :style="{ flex: food.fat || 0.1 }"
+            />
+          </div>
+          <div class="flex justify-between text-[10px]" style="color: var(--clr-text-faint)">
+            <span>Pro {{ Math.round((food.protein ?? 0) * 4) }} kcal</span>
+            <span>Carb {{ Math.round((food.carbs ?? 0) * 4) }} kcal</span>
+            <span>Grasa {{ Math.round((food.fat ?? 0) * 9) }} kcal</span>
+          </div>
         </div>
+
+        <!-- Close button -->
+        <button class="btn btn-secondary w-full" @click="emit('close')">Cerrar</button>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.detail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.675rem;
+  font-weight: var(--weight-medium);
+}
+
+.detail-badge--meal {
+  background: var(--clr-primary-light);
+  color: var(--clr-primary);
+}
+
+.detail-badge--servings {
+  background: var(--clr-surface-alt);
+  color: var(--clr-text-muted);
+}
+
+.detail-badge--barcode {
+  background: var(--clr-surface-alt);
+  color: var(--clr-text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+}
+</style>

@@ -8,6 +8,7 @@ import Modal from '@/components/ui/Modal.vue'
 import Button from '@/components/ui/Button.vue'
 import Card from '@/components/ui/Card.vue'
 import Input from '@/components/ui/Input.vue'
+import FoodDetailModal from '@/components/FoodDetailModal.vue'
 import { useToast } from '@/composables/useToast'
 import { useAddFood } from '@/composables/useAddFood'
 import { groupEntriesByMealType } from '@/utils/nutrition'
@@ -28,6 +29,62 @@ const openMealTypes = ref<Set<MealType>>(new Set(['breakfast', 'lunch', 'dinner'
 
 const deleteEntryId = ref<string | null>(null)
 const deleteEntryName = ref('')
+
+const detailFood = ref<import('@/types/food').FoodItem | null>(null)
+const detailServings = ref<number | undefined>(undefined)
+const detailMealType = ref<import('@/types/food').MealType | undefined>(undefined)
+
+function openDetail(
+  food: import('@/types/food').FoodItem,
+  servings: number,
+  mealType: import('@/types/food').MealType,
+) {
+  detailFood.value = food
+  detailServings.value = servings
+  detailMealType.value = mealType
+}
+
+function closeDetail() {
+  detailFood.value = null
+}
+
+const draggedEntryId = ref<string | null>(null)
+const dragOverType = ref<MealType | null>(null)
+
+function onDragStart(entryId: string, e: DragEvent) {
+  draggedEntryId.value = entryId
+  if (e.dataTransfer) {
+    e.dataTransfer.effectAllowed = 'move'
+    e.dataTransfer.setData('text/plain', entryId)
+  }
+}
+
+function onDragOver(type: MealType, e: DragEvent) {
+  e.preventDefault()
+  if (e.dataTransfer) {
+    e.dataTransfer.dropEffect = 'move'
+  }
+  dragOverType.value = type
+}
+
+function onDragLeave() {
+  dragOverType.value = null
+}
+
+function onDrop(type: MealType) {
+  if (draggedEntryId.value) {
+    foodStore.moveEntry(draggedEntryId.value, type)
+    toast.show(`Movido a ${MEAL_TYPE_LABELS[type]}`)
+  }
+  draggedEntryId.value = null
+  dragOverType.value = null
+}
+
+function onDragEnd() {
+  draggedEntryId.value = null
+  dragOverType.value = null
+}
+
 const showClearModal = ref(false)
 
 function confirmDeleteEntry(id: string, name: string) {
@@ -264,7 +321,11 @@ function entryMacros(entry: {
               as="article"
               padding="none"
               class="overflow-hidden"
+              :class="{ 'dash__meal--drag-over': dragOverType === type }"
               :aria-label="MEAL_TYPE_LABELS[type]"
+              @dragover="onDragOver(type as MealType, $event)"
+              @dragleave="onDragLeave"
+              @drop="onDrop(type as MealType)"
             >
               <button
                 class="dash__meal-header"
@@ -295,7 +356,15 @@ function entryMacros(entry: {
               </button>
 
               <ul v-if="openMealTypes.has(type as MealType)" class="dash__food-list">
-                <li v-for="entry in entries" :key="entry.id" class="dash__food-item">
+                <li
+                  v-for="entry in entries"
+                  :key="entry.id"
+                  class="dash__food-item"
+                  :class="{ 'dash__food-item--dragging': draggedEntryId === entry.id }"
+                  draggable="true"
+                  @dragstart="onDragStart(entry.id, $event)"
+                  @dragend="onDragEnd"
+                >
                   <div class="flex items-center gap-1.5 min-w-0 flex-1">
                     <img
                       v-if="entry.food.imageUrl"
@@ -334,6 +403,24 @@ function entryMacros(entry: {
                       <span class="dash__macro-value">{{ entryMacros(entry).f }}g</span>
                       <span class="dash__macro-label">G</span>
                     </div>
+                    <button
+                      class="w-5 h-5 flex items-center justify-center rounded shrink-0 transition-colors"
+                      style="color: var(--clr-text-faint)"
+                      :aria-label="`Ver detalles de ${entry.food.name}`"
+                      @click.stop="openDetail(entry.food, entry.servings, entry.mealType)"
+                      @mouseenter="
+                        ($event.target as HTMLElement).style.color = 'var(--clr-primary)'
+                      "
+                      @mouseleave="
+                        ($event.target as HTMLElement).style.color = 'var(--clr-text-faint)'
+                      "
+                    >
+                      <font-awesome-icon
+                        :icon="['fas', 'eye']"
+                        class="text-[13px]"
+                        aria-hidden="true"
+                      />
+                    </button>
                     <button
                       class="w-5 h-5 flex items-center justify-center rounded shrink-0 transition-colors"
                       style="color: var(--clr-text-faint)"
@@ -416,6 +503,15 @@ function entryMacros(entry: {
           <Button variant="primary" @click="executeClearToday">Eliminar todo</Button>
         </template>
       </Modal>
+
+      <!-- Food detail modal -->
+      <FoodDetailModal
+        v-if="detailFood"
+        :food="detailFood"
+        :servings="detailServings"
+        :meal-type="detailMealType"
+        @close="closeDetail"
+      />
 
       <!-- Add food modal -->
       <div
@@ -580,6 +676,20 @@ function entryMacros(entry: {
 
 .dash__food-item:hover {
   background: var(--clr-surface-alt);
+}
+
+.dash__food-item--dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+
+.dash__food-item[draggable='true'] {
+  cursor: grab;
+}
+
+.dash__meal--drag-over {
+  box-shadow: inset 0 0 0 2px var(--clr-primary);
+  background: var(--clr-primary-faint);
 }
 
 .dash__macros {
