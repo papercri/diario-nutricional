@@ -160,7 +160,7 @@ function cancelDelete() {
   gap: 0.75rem;
 }
 
-.dash__header { text-align: center; margin-bottom: 0.125rem; }
+.dash__header { text-align: center; margin-bottom: 0.5rem; }
 
 .dash__title-row {
   display: flex;

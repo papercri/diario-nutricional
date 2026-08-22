@@ -105,18 +105,22 @@ async function savePlate() {
 
 <template>
   <main class="ds-page">
-    <header class="ds-page-header">
-      <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
-        <font-awesome-icon
-          :icon="['fas', 'wand-magic-sparkles']"
-          aria-hidden="true"
-          style="color: var(--clr-accent)"
-        />
-        Mis platos
-      </h1>
-      <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
-        Describe tu comida y obtén un análisis nutricional estimado
-      </p>
+    <header class="dash__header">
+      <div class="dash__title-row">
+        <h1 class="text-display-lg">
+          <font-awesome-icon
+            :icon="['fas', 'wand-magic-sparkles']"
+            aria-hidden="true"
+            style="color: var(--clr-accent)"
+          />
+          Analizar mi plato
+        </h1>
+        <Button v-if="user" to="/platos" variant="primary" size="sm">
+          <font-awesome-icon :icon="['fas', 'bowl-food']" aria-hidden="true" />
+          Mis platos
+        </Button>
+      </div>
+      <p class="text-body-sm">Describe tu comida y obtén un análisis nutricional estimado</p>
     </header>
 
     <div class="ds-page-content">
@@ -158,7 +162,13 @@ async function savePlate() {
           Añadido a tu registro diario
         </p>
 
-        <Button v-if="!saved && user" variant="secondary" size="sm" class="save-plate-btn" @click="savePlate">
+        <Button
+          v-if="!saved && user"
+          variant="secondary"
+          size="sm"
+          class="save-plate-btn"
+          @click="savePlate"
+        >
           <font-awesome-icon :icon="['fas', 'star']" aria-hidden="true" />
           Guardar plato
         </Button>
@@ -214,6 +224,20 @@ async function savePlate() {
 </template>
 
 <style scoped>
+.dash__header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.dash__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
 .nutrition-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

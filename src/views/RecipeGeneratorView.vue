@@ -12,14 +12,15 @@ import type { GeneratedRecipe } from '@/types/recipe'
 import type { DietaryPreference, Allergen } from '@/types/recipe'
 import type { FoodItem } from '@/types/food'
 import DsCard from '@/components/ui/Card.vue'
-import DsButton from '@/components/ui/Button.vue'
+import Button from '@/components/ui/Button.vue'
 import Modal from '@/components/ui/Modal.vue'
 
 const userStore = useUserStore()
 const savedRecipesStore = useSavedRecipesStore()
 const toast = useToast()
 const { user } = useAuth()
-const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } = useAddFood()
+const { showAddModal, selectedFood, servings, mealType, openAddModal, confirmAdd, closeModal } =
+  useAddFood()
 
 const isLoading = ref(false)
 const error = ref('')
@@ -135,18 +136,22 @@ function handleAddToDay() {
 
 <template>
   <main class="ds-page">
-    <header class="ds-page-header">
-      <h1 class="font-display" style="font-size: 1.5rem; color: var(--clr-text)">
-        <font-awesome-icon
-          :icon="['fas', 'utensils']"
-          aria-hidden="true"
-          style="color: var(--clr-accent)"
-        />
-        Generador de recetas
-      </h1>
-      <p style="font-size: 0.8125rem; color: var(--clr-text-muted)">
-        Crea recetas personalizadas adaptadas a tu dieta
-      </p>
+    <header class="dash__header">
+      <div class="dash__title-row">
+        <h1 class="text-display-lg">
+          <font-awesome-icon
+            :icon="['fas', 'utensils']"
+            aria-hidden="true"
+            style="color: var(--clr-accent)"
+          />
+          Nueva receta
+        </h1>
+        <Button v-if="user" to="/recetas" variant="primary" size="sm">
+          <font-awesome-icon :icon="['fas', 'cookie']" aria-hidden="true" />
+          Mis recetas
+        </Button>
+      </div>
+      <p class="text-body-sm">Crea recetas personalizadas adaptadas a tu dieta</p>
     </header>
 
     <div class="ds-page-content">
@@ -247,7 +252,7 @@ function handleAddToDay() {
             />
           </DsCard>
 
-          <DsButton
+          <Button
             variant="primary"
             size="md"
             :loading="isLoading"
@@ -257,7 +262,7 @@ function handleAddToDay() {
           >
             <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" aria-hidden="true" />
             Generar receta
-          </DsButton>
+          </Button>
         </div>
       </div>
 
@@ -281,10 +286,10 @@ function handleAddToDay() {
             style="color: var(--clr-danger)"
           />
           <p style="font-size: 0.8125rem; color: var(--clr-text)">{{ error }}</p>
-          <DsButton variant="secondary" size="xs" @click="handleGenerate">
+          <Button variant="secondary" size="xs" @click="handleGenerate">
             <font-awesome-icon :icon="['fas', 'rotate-left']" aria-hidden="true" />
             Reintentar
-          </DsButton>
+          </Button>
         </div>
 
         <div v-else-if="!result" class="recipe-empty">
@@ -401,7 +406,7 @@ function handleAddToDay() {
               </ul>
             </div>
 
-            <div class="recipe-save">
+            <div class="recipe-save gap-2">
               <button class="btn btn-primary" @click="handleAddToDay">
                 <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
                 Añadir
@@ -482,6 +487,20 @@ function handleAddToDay() {
 </template>
 
 <style scoped>
+.dash__header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.dash__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
 /* Config: two equal-height columns */
 .recipe-config {
   display: grid;

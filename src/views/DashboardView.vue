@@ -515,7 +515,7 @@ function entryMacros(entry: {
 
 .dash__header {
   text-align: center;
-  margin-bottom: 0.125rem;
+  margin-bottom: 0.5rem;
 }
 
 .dash__summary {

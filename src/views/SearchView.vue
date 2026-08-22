@@ -82,17 +82,19 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <main class="max-w-2xl mx-auto px-4 py-8 space-y-6">
-    <header class="text-center">
-      <h1 class="font-display" style="font-size: 1.75rem; color: var(--clr-text)">
-        <font-awesome-icon
-          :icon="['fas', 'magnifying-glass']"
-          aria-hidden="true"
-          style="color: var(--clr-primary)"
-        />
-        Buscar alimentos
-      </h1>
-      <p style="font-size: 0.875rem; color: var(--clr-text-muted); margin-top: 4px">
+  <main class="dash">
+    <header class="dash__header">
+      <div class="dash__title-row">
+        <h1 class="text-display-lg">
+          <font-awesome-icon
+            :icon="['fas', 'magnifying-glass']"
+            aria-hidden="true"
+            style="color: var(--clr-primary)"
+          />
+          Buscar alimentos
+        </h1>
+      </div>
+      <p class="text-body-sm">
         Busca entre miles de productos alimentarios gracias a la base de datos colaborativa de
         <strong>Open Food Facts</strong>.
       </p>
@@ -250,3 +252,32 @@ onUnmounted(() => {
     </div>
   </main>
 </template>
+
+<style scoped>
+.dash {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dash__header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.dash__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+</style>
