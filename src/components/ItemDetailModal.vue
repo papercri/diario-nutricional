@@ -31,6 +31,7 @@ export interface DetailItem {
 defineProps<{
   open: boolean
   item: DetailItem | null
+  disableDelete?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -205,7 +206,7 @@ const emit = defineEmits<{
         <font-awesome-icon :icon="['fas', 'plus']" aria-hidden="true" />
         Añadir
       </Button>
-      <Button variant="danger" @click="item && emit('delete', item)">
+      <Button :disabled="disableDelete" variant="danger" @click="item && emit('delete', item)">
         <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
         Eliminar
       </Button>

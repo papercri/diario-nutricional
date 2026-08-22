@@ -15,9 +15,15 @@ export interface SavedItemProps {
   prepTime?: string | null
 }
 
-const props = defineProps<{
-  item: SavedItemProps
-}>()
+const props = withDefaults(
+  defineProps<{
+    item: SavedItemProps
+    disableDelete?: boolean
+  }>(),
+  {
+    disableDelete: false,
+  },
+)
 
 const emit = defineEmits<{
   view: [item: SavedItemProps]
@@ -63,19 +69,19 @@ const accentClass = computed(() => {
 </script>
 
 <template>
-  <article
-    class="saved-card"
-    tabindex="0"
-    :aria-label="`Ver detalles de ${item.name}`"
-  >
+  <article class="saved-card" tabindex="0" :aria-label="`Ver detalles de ${item.name}`">
+    <div class="saved-card__accent" :class="accentClass" />
     <div
-      class="saved-card__accent"
-      :class="accentClass"
-    />
-    <div class="saved-card__body" role="button" @click="emit('view', item)" @keydown.enter="emit('view', item)">
+      class="saved-card__body"
+      role="button"
+      @click="emit('view', item)"
+      @keydown.enter="emit('view', item)"
+    >
       <h3 class="saved-card__title">{{ item.name }}</h3>
       <div class="saved-card__macros">
-        <span v-if="item.calories" class="saved-card__macro"><strong>{{ item.calories }}</strong> kcal</span>
+        <span v-if="item.calories" class="saved-card__macro"
+          ><strong>{{ item.calories }}</strong> kcal</span
+        >
         <span v-if="item.protein" class="saved-card__macro">P {{ item.protein }}g</span>
         <span v-if="item.carbs" class="saved-card__macro">C {{ item.carbs }}g</span>
         <span v-if="item.fat" class="saved-card__macro">G {{ item.fat }}g</span>
@@ -84,7 +90,10 @@ const accentClass = computed(() => {
           {{ item.prepTime }}
         </span>
       </div>
-      <div v-if="item.allergens?.length || item.isVegan || item.isVegetarian" class="saved-card__tags">
+      <div
+        v-if="item.allergens?.length || item.isVegan || item.isVegetarian"
+        class="saved-card__tags"
+      >
         <span v-for="a in item.allergens?.slice(0, 3)" :key="a" class="saved-card__tag">
           <font-awesome-icon :icon="ALLERGEN_ICONS[a]" aria-hidden="true" />
           {{ ALLERGEN_LABELS[a] }}
@@ -100,11 +109,20 @@ const accentClass = computed(() => {
       </div>
     </div>
     <div class="saved-card__actions">
-      <button class="btn-slide btn-slide--primary" :aria-label="`Añadir ${item.name} al día`" @click.stop="emit('add', item)">
+      <button
+        class="btn-slide btn-slide--primary"
+        :aria-label="`Añadir ${item.name} al día`"
+        @click.stop="emit('add', item)"
+      >
         <span class="btn-slide__label">Añadir</span>
         <font-awesome-icon :icon="['fas', 'plus']" class="btn-slide__icon" aria-hidden="true" />
       </button>
-      <button class="btn-slide btn-slide--danger" :aria-label="`Eliminar ${item.name}`" @click.stop="emit('delete', item)">
+      <button
+        :disabled="disableDelete"
+        class="btn-slide btn-slide--danger"
+        :aria-label="`Eliminar ${item.name}`"
+        @click.stop="emit('delete', item)"
+      >
         <span class="btn-slide__label">Eliminar</span>
         <font-awesome-icon :icon="['fas', 'xmark']" class="btn-slide__icon" aria-hidden="true" />
       </button>
@@ -125,8 +143,14 @@ const accentClass = computed(() => {
   margin-bottom: 8px;
 }
 
-.saved-card:hover { box-shadow: var(--shadow-lg); cursor: pointer; }
-.saved-card:focus-visible { outline: 2px solid var(--clr-primary); outline-offset: 2px; }
+.saved-card:hover {
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+}
+.saved-card:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 2px;
+}
 
 .saved-card__accent {
   width: 4px;
@@ -134,9 +158,15 @@ const accentClass = computed(() => {
   background: var(--clr-primary);
 }
 .saved-card__accent--vegan,
-.saved-card__accent--vegetarian { background: var(--clr-success); }
-.saved-card__accent--gluten-free { background: var(--clr-warning); }
-.saved-card__accent--other { background: var(--clr-accent); }
+.saved-card__accent--vegetarian {
+  background: var(--clr-success);
+}
+.saved-card__accent--gluten-free {
+  background: var(--clr-warning);
+}
+.saved-card__accent--other {
+  background: var(--clr-accent);
+}
 
 .saved-card__body {
   flex: 1;
@@ -162,7 +192,9 @@ const accentClass = computed(() => {
   font-size: 0.675rem;
   color: var(--clr-text-muted);
 }
-.saved-card__macro { white-space: nowrap; }
+.saved-card__macro {
+  white-space: nowrap;
+}
 
 .saved-card__tags {
   display: flex;
@@ -253,7 +285,9 @@ const accentClass = computed(() => {
   color: #fff;
   opacity: 0;
   transform: translateX(6px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
   pointer-events: none;
 }
 .btn-slide:hover .btn-slide__label {
@@ -261,17 +295,35 @@ const accentClass = computed(() => {
   transform: translateX(0);
 }
 
-.btn-slide--primary { background: var(--clr-primary); }
-.btn-slide--primary::before { background: var(--clr-primary); }
-.btn-slide--primary:hover::before { left: -3.5rem; }
-.btn-slide--primary:hover { background: var(--clr-primary-hover); }
+.btn-slide--primary {
+  background: var(--clr-primary);
+}
+.btn-slide--primary::before {
+  background: var(--clr-primary);
+}
+.btn-slide--primary:hover::before {
+  left: -3.5rem;
+}
+.btn-slide--primary:hover {
+  background: var(--clr-primary-hover);
+}
 
-.btn-slide--danger { background: var(--clr-danger); }
-.btn-slide--danger::before { background: var(--clr-danger); }
-.btn-slide--danger:hover::before { left: -3.5rem; }
-.btn-slide--danger:hover { background: var(--clr-danger); }
+.btn-slide--danger {
+  background: var(--clr-danger);
+}
+.btn-slide--danger::before {
+  background: var(--clr-danger);
+}
+.btn-slide--danger:hover::before {
+  left: -3.5rem;
+}
+.btn-slide--danger:hover {
+  background: var(--clr-danger);
+}
 
 @media (hover: none) {
-  .btn-slide__label { display: none; }
+  .btn-slide__label {
+    display: none;
+  }
 }
 </style>

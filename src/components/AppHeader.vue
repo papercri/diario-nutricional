@@ -13,7 +13,7 @@ const isMenuOpen = ref(false)
 
 const links = [
   { name: 'dashboard', path: '/', label: 'Mi Día', icon: ['fas', 'house'] as [string, string] },
-  
+
   {
     name: 'nutrition-ai',
     path: '/analizar-plato',
@@ -42,7 +42,7 @@ const links = [
 
 const loggedLinks = [
   { name: 'dashboard', path: '/', label: 'Mi Día', icon: ['fas', 'house'] as [string, string] },
- 
+
   {
     name: 'plates',
     path: '/platos',
@@ -55,7 +55,7 @@ const loggedLinks = [
     label: 'Mis recetas',
     icon: ['fas', 'cookie'] as [string, string],
   },
-   {
+  {
     name: 'search',
     path: '/search',
     label: 'Buscar',

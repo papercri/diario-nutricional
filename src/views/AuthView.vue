@@ -118,7 +118,10 @@ async function handleSubmit() {
         <button
           type="button"
           class="auth-toggle-btn"
-          @click="isLogin = !isLogin; error = ''"
+          @click="
+            isLogin = !isLogin
+            error = ''
+          "
         >
           {{ isLogin ? 'Crear cuenta' : 'Iniciar sesión' }}
         </button>

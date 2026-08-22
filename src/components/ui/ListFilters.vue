@@ -41,6 +41,11 @@ function toggleSortMenu() {
 function closeSortMenu() {
   showSortMenu.value = false
 }
+
+function clearSearch() {
+  search.value = ''
+  onSearchInput()
+}
 </script>
 
 <template>
@@ -64,7 +69,7 @@ function closeSortMenu() {
         v-if="search"
         class="filters__search-clear"
         aria-label="Limpiar búsqueda"
-        @click="search = ''; onSearchInput()"
+        @click="clearSearch"
       >
         <font-awesome-icon :icon="['fas', 'xmark']" aria-hidden="true" />
       </button>
@@ -87,14 +92,14 @@ function closeSortMenu() {
           aria-hidden="true"
         />
       </button>
-      <ul
-        v-if="showSortMenu"
-        class="filters__sort-menu"
-        role="listbox"
-        aria-label="Ordenar por"
-      >
+      <ul v-if="showSortMenu" class="filters__sort-menu" role="listbox" aria-label="Ordenar por">
         <li
-          v-for="option in (['name-asc', 'name-desc', 'calories-asc', 'calories-desc'] as SortOption[])"
+          v-for="option in [
+            'name-asc',
+            'name-desc',
+            'calories-asc',
+            'calories-desc',
+          ] as SortOption[]"
           :key="option"
           class="filters__sort-option"
           :class="{ 'filters__sort-option--active': option === sort }"
@@ -117,16 +122,15 @@ function closeSortMenu() {
             :icon="['fas', 'fire']"
             aria-hidden="true"
           />
-          <font-awesome-icon
-            v-else
-            :icon="['fas', 'fire-flame-curved']"
-            aria-hidden="true"
-          />
+          <font-awesome-icon v-else :icon="['fas', 'fire-flame-curved']" aria-hidden="true" />
           {{
-            option === 'name-asc' ? 'A → Z' :
-            option === 'name-desc' ? 'Z → A' :
-            option === 'calories-asc' ? 'Menos calorías' :
-            'Más calorías'
+            option === 'name-asc'
+              ? 'A → Z'
+              : option === 'name-desc'
+                ? 'Z → A'
+                : option === 'calories-asc'
+                  ? 'Menos calorías'
+                  : 'Más calorías'
           }}
         </li>
       </ul>
@@ -170,7 +174,9 @@ function closeSortMenu() {
   font-size: 0.875rem;
   font-family: var(--font-body);
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .filters__search-input::placeholder {
@@ -212,6 +218,9 @@ function closeSortMenu() {
   align-items: center;
   gap: 0.375rem;
   padding: 0.5rem 0.75rem;
+  @media (max-width: 380px) {
+    padding: 0.8rem 1rem;
+  }
   border-radius: var(--radius-md);
   border: 1px solid var(--clr-border-subtle);
   background: var(--clr-surface);

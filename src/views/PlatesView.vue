@@ -31,6 +31,10 @@ const plateToDelete = ref<SavedItemProps | null>(null)
 
 const addFoodModalRef = ref<InstanceType<typeof AddFoodModal> | null>(null)
 
+const disableDelete = computed(() => {
+  return user.value?.email === 'test@test.com' && savedPlatesStore.plates.length < 12
+})
+
 const currentPage = ref(1)
 const searchQuery = ref('')
 const sortBy = ref<SortOption>('name-asc')
@@ -144,17 +148,9 @@ function cancelDelete() {
     </header>
 
     <template v-if="savedPlatesStore.plates.length > 0">
-      <ListFilters
-        :sort="sortBy"
-        @update:search="onSearchUpdate"
-        @update:sort="onSortUpdate"
-      />
+      <ListFilters :sort="sortBy" @update:search="onSearchUpdate" @update:sort="onSortUpdate" />
 
-      <Card
-        v-if="filteredPlates.length === 0"
-        variant="warm"
-        class="text-center py-2 px-2"
-      >
+      <Card v-if="filteredPlates.length === 0" variant="warm" class="text-center py-2 px-2">
         <font-awesome-icon
           :icon="['fas', 'magnifying-glass']"
           class="text-2xl block mb-2"
@@ -174,6 +170,7 @@ function cancelDelete() {
           v-for="plate in paginatedPlates"
           :key="plate.id"
           :item="plate"
+          :disable-delete="disableDelete"
           @view="openPlateModal"
           @add="openAddPlateToDay"
           @delete="confirmDeletePlate"
@@ -189,11 +186,7 @@ function cancelDelete() {
       />
     </template>
 
-    <Card
-      v-else
-      variant="warm"
-      class="text-center py-2 px-2"
-    >
+    <Card v-else variant="warm" class="text-center py-2 px-2">
       <font-awesome-icon
         :icon="['fas', 'bowl-food']"
         class="text-3xl block mb-2"
@@ -216,6 +209,7 @@ function cancelDelete() {
     <ItemDetailModal
       :open="showPlateModal"
       :item="selectedPlate"
+      :disable-delete="disableDelete"
       @close="showPlateModal = false"
       @add="openAddPlateToDay"
       @delete="confirmDeletePlate"

@@ -24,7 +24,7 @@ export function groupEntriesByMealType(entries: MealEntry[]): Record<MealType, M
   const groups = {} as Record<MealType, MealEntry[]>
 
   for (const type of mealOrder) {
-    groups[type] = entries.filter((e) => e.mealType === type)
+    groups[type] = entries.filter(e => e.mealType === type)
   }
 
   return groups

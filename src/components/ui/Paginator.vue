@@ -46,11 +46,7 @@ function goTo(page: number) {
 </script>
 
 <template>
-  <nav
-    v-if="totalPages > 1"
-    class="paginator"
-    aria-label="Paginación"
-  >
+  <nav v-if="totalPages > 1" class="paginator" aria-label="Paginación">
     <button
       class="paginator__btn"
       :disabled="currentPage === 1"
