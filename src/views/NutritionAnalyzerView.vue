@@ -224,20 +224,6 @@ async function savePlate() {
 </template>
 
 <style scoped>
-.dash__header {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.dash__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
 .nutrition-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

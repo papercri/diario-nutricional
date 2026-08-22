@@ -487,20 +487,6 @@ function handleAddToDay() {
 </template>
 
 <style scoped>
-.dash__header {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.dash__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
 /* Config: two equal-height columns */
 .recipe-config {
   display: grid;

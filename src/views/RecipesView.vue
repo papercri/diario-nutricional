@@ -143,30 +143,6 @@ function openAddRecipeToDay(recipe: any) {
 </template>
 
 <style scoped>
-.dash {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.dash__header { text-align: center; margin-bottom: 0.5rem; }
-
-.dash__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
 .saved-list {
   display: flex;
   flex-direction: column;

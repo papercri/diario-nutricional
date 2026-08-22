@@ -491,19 +491,6 @@ function entryMacros(entry: {
 </template>
 
 <style scoped>
-.dash {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .dash__loading {
   display: flex;
   flex-direction: column;
@@ -511,11 +498,6 @@ function entryMacros(entry: {
   justify-content: center;
   gap: 0.5rem;
   padding: 3rem 0;
-}
-
-.dash__header {
-  text-align: center;
-  margin-bottom: 0.5rem;
 }
 
 .dash__summary {

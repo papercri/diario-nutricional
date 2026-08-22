@@ -93,7 +93,12 @@ function cancelDelete() {
       <p class="text-body-sm">Platos que has analizado y guardado</p>
     </header>
 
-    <Card v-if="savedPlatesStore.plates.length === 0" variant="warm" padding="none" class="text-center py-8 px-4">
+    <Card
+      v-if="savedPlatesStore.plates.length === 0"
+      variant="warm"
+      padding="none"
+      class="text-center py-8 px-4"
+    >
       <font-awesome-icon
         :icon="['fas', 'bowl-food']"
         class="text-3xl block mb-2"
@@ -147,30 +152,6 @@ function cancelDelete() {
 </template>
 
 <style scoped>
-.dash {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.dash__header { text-align: center; margin-bottom: 0.5rem; }
-
-.dash__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
 .saved-list {
   display: flex;
   flex-direction: column;

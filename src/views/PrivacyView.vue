@@ -70,11 +70,6 @@ const mailto = computed(() => `mailto:${emailUser.value}@${emailDomain.value}`)
   gap: 0.75rem;
 }
 
-.dash__header {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
 .privacy__section {
   display: flex;
   flex-direction: column;
