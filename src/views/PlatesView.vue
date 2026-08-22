@@ -153,7 +153,6 @@ function cancelDelete() {
       <Card
         v-if="filteredPlates.length === 0"
         variant="warm"
-        padding="none"
         class="text-center py-2 px-2"
       >
         <font-awesome-icon
@@ -193,7 +192,6 @@ function cancelDelete() {
     <Card
       v-else
       variant="warm"
-      padding="none"
       class="text-center py-2 px-2"
     >
       <font-awesome-icon
