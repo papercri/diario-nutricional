@@ -38,7 +38,7 @@ La app incluye 8 vistas principales:
 | Datos | Fetch Nativo → Open Food Facts API |
 | Backend | Supabase (Auth + PostgreSQL + RLS) |
 | IA Backend | Vercel Serverless Functions (Node.js) |
-| IA Providers | Groq (gpt-oss-120b) + Cerebras (gpt-oss-120b) con fallback automático |
+| IA Provider | Groq (gpt-oss-120b) |
 | Tests | Vitest + @vue/test-utils |
 | Linting | ESLint 9 (flat config) + Prettier |
 | Iconos | Font Awesome (SVG tree-shaking, ~55 iconos) |
@@ -55,24 +55,8 @@ El proyecto incluye un archivo `AGENTS.md` con instrucciones específicas para a
 
 ## Agentes de IA — Análisis Nutricional y Generación de Recetas
 
-La app integra **dos agentes de IA** con fallback automático para analizar comidas y generar recetas personalizadas. El sistema intenta el proveedor primario y, si falla, recurre al secundario sin intervención del usuario.
-
-### Arquitectura del sistema de IA
-
+La app integra **un agente de IA**  para analizar comidas y generar recetas personalizadas.
 ```
-Frontend (Vue)  →  /api/analyze-meal   →  Groq (primario)  →  Respuesta JSON
-                          ↓ (si falla)
-                     Cerebras (fallback)  →  Respuesta JSON
-
-Frontend (Vue)  →  /api/generate-recipe →  Groq (primario)  →  Respuesta JSON
-                          ↓ (si falla)
-                     Cerebras (fallback)  →  Respuesta JSON
-```
-
-| Proveedor | Modelo | Rol |
-|-----------|--------|-----|
-| **Groq** | `gpt-oss-120b` | Proveedor primario — respuesta rápida y de alta calidad |
-| **Cerebras** | `gpt-oss-120b` | Proveedor de respaldo — fallback automático si Groq falla |
 
 ### Analizador de comidas (`/api/analyze-meal`)
 
@@ -243,11 +227,10 @@ src/
 └── main.ts                    # Entry point (registra FontAwesomeIcon globally)
 
 api/                           # Vercel Serverless Functions (backend IA)
-├── analyze-meal.ts            # Endpoint POST /api/analyze-meal con fallback
-├── generate-recipe.ts         # Endpoint POST /api/generate-recipe con fallback
-└── providers/
-    ├── groq.ts                # Cliente Groq API (gpt-oss-120b)
-    └── cerebras.ts            # Cliente Cerebras API (gpt-oss-120b)
+├── analyze-meal.ts            # Endpoint POST /api/analyze-meal con 
+├── generate-recipe.ts         # Endpoint POST /api/generate-recipe con 
+└── provider/
+    └── groq.ts                # Cliente Groq API (gpt-oss-120b)
 ```
 
 ## Arquitectura interna
@@ -314,7 +297,6 @@ Los componentes UI (`Button`, `Input`, `Card`, `Badge`, `Modal`, `Typography`) e
   - `VITE_SUPABASE_URL` — URL de tu proyecto Supabase
   - `VITE_SUPABASE_ANON_KEY` — Anon key de Supabase
   - `GROQ_API_KEY` — Proveedor primario (Groq)
-  - `CEREBRAS_API_KEY` — Proveedor de respaldo (Cerebras)
 
 ## SEO y Accesibilidad
 
@@ -380,8 +362,8 @@ Este proyecto tiene las siguientes skills de OpenCode configuradas en `skills-lo
 - **Tests**: Unit tests en `src/utils/`, `src/stores/`, `src/services/`, `src/composables/` (107 tests con Vitest).
 - **Prettier**: Sin punto y coma, comillas simples, 100 caracteres de ancho.
 - **Composables**: La lógica reactiva va en `src/composables/`, no en los componentes directamente.
-- **Backend IA**: Las serverless functions en `/api/` usan Groq y Cerebras con fallback automático. No requieren configuración local — corren en Vercel.
-- **Variables de entorno**: `GROQ_API_KEY` y `CEREBRAS_API_KEY` se configuran en el dashboard de Vercel, nunca se commitean.
+- **Backend IA**: Las serverless functions en `/api/` usan Groq. No requieren configuración local — corren en Vercel.
+- **Variables de entorno**: `GROQ_API_KEY` se configura en el dashboard de Vercel, nunca se commitean.
 
 ## Licencia
 

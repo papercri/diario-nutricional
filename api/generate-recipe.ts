@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { callGroq } from './providers/groq.js'
-import { callCerebras } from './providers/cerebras.js'
+/* import { callCerebras } from './providers/cerebras.js' */
 
 function buildSystemPrompt(userContext: string): string {
   return `Eres un chef profesional experto en nutrición. Genera recetas personalizadas basadas en las preferencias del usuario.
@@ -222,20 +222,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const outcome = parseProviderResponse(await callGroq(userMessage, systemPrompt))
       return respondWithOutcome(res, outcome)
     } catch (groqError) {
-      console.error('Groq falló, intentando Cerebras:', groqError)
-
+      console.error('Groq falló', groqError)
+ /*
       try {
         const outcome = parseProviderResponse(await callCerebras(userMessage, systemPrompt))
         return respondWithOutcome(res, outcome)
       } catch (cerebrasError) {
-        console.error('Cerebras también falló:', cerebrasError)
+        console.error('Cerebras también falló:', cerebrasError) */
 
         return res.status(502).json({
           success: false,
           error: 'No se pudo generar la receta en este momento. Intenta de nuevo.',
         })
       }
-    }
+    
   } catch (fatalError) {
     console.error('Fallo inesperado en generate-recipe:', fatalError)
     return res.status(500).json({

@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { callGroq } from './providers/groq.js'
-import { callCerebras } from './providers/cerebras.js'
+/* import { callCerebras } from './providers/cerebras.js' */
 
 const SYSTEM_PROMPT = `Eres un asistente experto en nutrición y alérgenos alimentarios.
 
@@ -388,19 +388,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const outcome = parseProviderResponse(await callGroq(description, SYSTEM_PROMPT))
       return respondWithOutcome(res, outcome)
     } catch (groqError) {
-      console.error('Groq falló, intentando Cerebras:', groqError)
-
+      console.error('Groq falló', groqError)
+ /*
       try {
         const outcome = parseProviderResponse(await callCerebras(description, SYSTEM_PROMPT))
         return respondWithOutcome(res, outcome)
       } catch (cerebrasError) {
-        console.error('Cerebras también falló:', cerebrasError)
+        console.error('Cerebras también falló:', cerebrasError) */
 
         return res.status(502).json({
           success: false,
           error: 'No se pudo analizar la comida en este momento. Intenta de nuevo.',
         })
-      }
+      
     }
   } catch (fatalError) {
     console.error('Fallo inesperado en analyze-meal, antes de llegar a los providers:', fatalError)
