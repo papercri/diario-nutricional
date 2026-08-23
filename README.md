@@ -3,7 +3,9 @@
 > **Live deploy:** [avocato-ia.vercel.app](https://avocato-ia.vercel.app)
 >
 > **Credenciales de prueba:**
+>
 > email: `test@test.com`
+>
 > pw: `test1234`
 
 Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular el IMC, el peso ideal y el gasto calórico diario, analizar comidas con IA y recibir recomendaciones nutricionales personalizadas a través de una experiencia visual inspirada en la alimentación mediterránea.
@@ -55,8 +57,7 @@ El proyecto incluye un archivo `AGENTS.md` con instrucciones específicas para a
 
 ## Agentes de IA — Análisis Nutricional y Generación de Recetas
 
-La app integra **un agente de IA**  para analizar comidas y generar recetas personalizadas.
-```
+La app integra **un agente de IA** para analizar comidas y generar recetas personalizadas.
 
 ### Analizador de comidas (`/api/analyze-meal`)
 
@@ -221,7 +222,7 @@ src/
 │   ├── nutrition.ts           # calcPercentage, groupEntriesByMealType, sumServings
 │   ├── formatting.ts          # formatDateEs, formatCalorieEntry
 │   └── constants.ts           # MEAL_TYPE_OPTIONS, ACTIVITY_OPTIONS, GOAL_OPTIONS, DIETARY_PREFERENCE_OPTIONS, ALLERGEN_OPTIONS
-├── fontawesome.ts             # Tree-shaking: ~60 iconos FA registrados
+├── fontawesome.ts              # Tree-shaking: ~60 iconos FA registrados
 ├── router/index.ts            # Vue Router
 ├── style.css                  # Tailwind v4 + design tokens + shared DS classes
 └── main.ts                    # Entry point (registra FontAwesomeIcon globally)
@@ -330,8 +331,7 @@ npm run dev:full
 
 # Build de producción
 npm run build
-
-
+```
 
 ## Skills instaladas
 
@@ -354,7 +354,6 @@ Este proyecto tiene las siguientes skills de OpenCode configuradas en `skills-lo
 | `vue-debug-guides` | hyf0/vue-skills | Debugging Vue |
 
 ## Notas para agentes de IA
-
 
 - **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`, los tokens en `src/design-system/tokens/index.css`.
 - **Alias `@`**: Mapea a `./src`. Usa `@/components/...` en imports.
