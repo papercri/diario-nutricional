@@ -1,14 +1,14 @@
 # Avocato
 
 > **Live deploy:** [avocato-ia.vercel.app](https://avocato-ia.vercel.app)
-
-Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular el IMC, el peso ideal y el gasto calórico diario, analizar comidas con IA y recibir recomendaciones nutricionales personalizadas a través de una experiencia visual inspirada en la alimentación mediterránea.
-
-> **Proyecto piloto** creado para testear agentes de IA y skills con [OpenCode](https://opencode.ai). El objetivo es evaluar cómo un agente puede comprender, mantener y mejorar un proyecto real de front-end moderno.
 >
 > **Credenciales de prueba:**
 > email: `test@test.com`
 > pw: `test1234`
+
+Plataforma web para gestionar hábitos alimenticios saludables. Permite calcular el IMC, el peso ideal y el gasto calórico diario, analizar comidas con IA y recibir recomendaciones nutricionales personalizadas a través de una experiencia visual inspirada en la alimentación mediterránea.
+
+> **Proyecto piloto** creado para testear agentes de IA y skills con [OpenCode](https://opencode.ai). El objetivo es evaluar cómo un agente puede comprender, mantener y mejorar un proyecto real de front-end moderno.
 
 ## Views
 
@@ -51,7 +51,7 @@ Avocato es un **proyecto piloto** para experimentar con:
 2. **Skills de OpenCode** — Probar skills como `frontend-design`, `vue`, `tailwind-css-patterns`, `vitest`, entre otros, en un contexto práctico.
 3. **Convenciones de proyecto** — Verificar si un agente respeta paletas de color, arquitectura de componentes, y reglas de negocio preexistentes.
 
-El repositorio incluye un archivo `AGENTS.md` con instrucciones específicas para agentes de IA que trabajen en el proyecto.
+El proyecto incluye un archivo `AGENTS.md` con instrucciones específicas para agentes de IA que trabajen en el proyecto.
 
 ## Agentes de IA — Análisis Nutricional y Generación de Recetas
 
@@ -344,26 +344,12 @@ Los componentes UI (`Button`, `Input`, `Card`, `Badge`, `Modal`, `Typography`) e
 npm install
 
 # Servidor de desarrollo
-npm run dev
+npm run dev:full
 
 # Build de producción
 npm run build
 
-# Preview del build
-npm run preview
-```
 
-## Comandos
-
-| Comando | Descripción |
-|---------|-------------|
-| `npm run dev` | Servidor de desarrollo con Vite |
-| `npm run build` | Type-check (`vue-tsc -b`) + build de producción |
-| `npm run preview` | Preview del build de producción |
-| `npm run test:unit` | Ejecutar tests unitarios (Vitest) |
-| `npm run test:watch` | Tests en watch mode |
-| `npm run lint` | ESLint + Prettier auto-fix |
-| `npm run format` | Solo Prettier (sin ESLint) |
 
 ## Skills instaladas
 
@@ -387,7 +373,6 @@ Este proyecto tiene las siguientes skills de OpenCode configuradas en `skills-lo
 
 ## Notas para agentes de IA
 
-Si estás trabajando en este proyecto como agente, lee `AGENTS.md` para instrucciones específicas. Puntos clave:
 
 - **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`, los tokens en `src/design-system/tokens/index.css`.
 - **Alias `@`**: Mapea a `./src`. Usa `@/components/...` en imports.
