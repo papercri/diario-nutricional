@@ -20,9 +20,20 @@ const idealWeight = computed(() => calculateIdealWeight(userStore.profile.height
 const weightDiff = computed(
   () => Math.round((userStore.profile.weight - userStore.profile.desiredWeight) * 10) / 10,
 )
-const bmr = computed(() => userStore.goals.bmr)
-const tdee = computed(() => userStore.goals.tdee)
-const target = computed(() => userStore.goals.targetCalories)
+const bmr = computed(() => {
+  const value = userStore.goals?.bmr
+  return value ? Math.round(value) : 0
+})
+
+const tdee = computed(() => {
+  const value = userStore.goals?.tdee
+  return value ? Math.round(value) : 0
+})
+
+const target = computed(() => {
+  const value = userStore.goals?.targetCalories
+  return value ? Math.round(value) : 0
+})
 const timeToGoalMonths = computed(() => userStore.goals.timeToGoalMonths)
 
 const BMI_MIN = 15
