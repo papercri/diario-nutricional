@@ -34,7 +34,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # mix
 OLD*
@@ -42,6 +41,8 @@ PLANTILLA*
 /.agents
 /.opencode
 /.config
+/.impeccable
+/.codex
 .prettierrc
 AGENTS.md
 skills-lock.json
@@ -52,3 +53,8 @@ docs/
 /studio
 .graphify/
 .graphify
+
+# AI tooling (local only)
+.github/agents/
+.github/hooks/
+.github/skills/

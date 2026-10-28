@@ -120,11 +120,7 @@ async function handleSubmit() {
 
       <p class="auth-toggle">
         {{ isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?' }}
-        <button
-          type="button"
-          class="auth-toggle-btn"
-          @click="toggleAuthMode"
-        >
+        <button type="button" class="auth-toggle-btn" @click="toggleAuthMode">
           {{ isLogin ? 'Crear cuenta' : 'Iniciar sesión' }}
         </button>
       </p>

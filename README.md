@@ -333,27 +333,7 @@ npm run dev:full
 npm run build
 ```
 
-## Skills instaladas
-
-Este proyecto tiene las siguientes skills de OpenCode configuradas en `skills-lock.json`:
-
-| Skill | Fuente | Uso |
-|-------|--------|-----|
-| `frontend-design` | anthropics/skills | Guía de diseño visual distintivo |
-| `vue` | antfu/skills | Mejores prácticas Vue 3 |
-| `vue-best-practices` | antfu/skills | Patrones de código Vue |
-| `vue-pinia-best-practices` | vuejs-ai/skills | Uso correcto de Pinia |
-| `tailwind-css-patterns` | giuseppe-trisciuoglio/developer-kit | Patrones Tailwind |
-| `vite` | antfu/skills | Configuración y optimización Vite |
-| `vitest` | antfu/skills | Testing con Vitest |
-| `typescript-advanced-types` | wshobson/agents | Tipos avanzados TypeScript |
-| `seo` | addyosmani/web-quality-skills | Optimización SEO |
-| `accessibility` | addyosmani/web-quality-skills | Accesibilidad web |
-| `nodejs-backend-patterns` | wshobson/agents | Patrones backend Node.js |
-| `nodejs-best-practices` | sickn33/antigravity-awesome-skills | Mejores prácticas Node.js |
-| `vue-debug-guides` | hyf0/vue-skills | Debugging Vue |
-
-## Notas para agentes de IA
+## Notas técnicas
 
 - **Tailwind v4**: No existe `tailwind.config.js`. La configuración está en `src/style.css` con `@theme`, los tokens en `src/design-system/tokens/index.css`.
 - **Alias `@`**: Mapea a `./src`. Usa `@/components/...` en imports.
@@ -366,4 +346,4 @@ Este proyecto tiene las siguientes skills de OpenCode configuradas en `skills-lo
 
 ## Licencia
 
-Proyecto privado — creado para fines de experimentación con agentes de IA.
+Proyecto privado.

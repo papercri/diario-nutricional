@@ -65,13 +65,17 @@ describe('groupEntriesByMealType', () => {
     const groups = groupEntriesByMealType(entries)
     expect(groups.breakfast).toHaveLength(2)
     expect(groups.lunch).toHaveLength(1)
-    expect(groups.dinner).toBeUndefined()
-    expect(groups.snack).toBeUndefined()
+    expect(groups.dinner).toHaveLength(0)
+    expect(groups.snack).toHaveLength(0)
   })
 
-  it('returns empty object for empty array', () => {
+  it('returns all meal types with empty arrays for empty input', () => {
     const groups = groupEntriesByMealType([])
-    expect(Object.keys(groups)).toHaveLength(0)
+    expect(Object.keys(groups)).toEqual(['breakfast', 'lunch', 'snack', 'dinner'])
+    expect(groups.breakfast).toHaveLength(0)
+    expect(groups.lunch).toHaveLength(0)
+    expect(groups.snack).toHaveLength(0)
+    expect(groups.dinner).toHaveLength(0)
   })
 })
 

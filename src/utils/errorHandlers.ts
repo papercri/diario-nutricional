@@ -20,7 +20,7 @@ export function getErrorMessage(e: unknown): string {
     return 'Error de conexión. Comprueba tu internet'
   if (msg.includes('forbidden')) return 'Acceso denegado'
 
-  // AI & Parsing Errors (OpenAI)
+  // Parsing errors (AI responses)
   if (msg.includes('parse') || msg.includes('invalid json')) {
     return 'Error al procesar los datos. Inténtalo de nuevo'
   }

@@ -27,7 +27,7 @@ export async function analyzeMeal(mealDescription: string): Promise<NutritionAna
   let result: NutritionAIResponse
   try {
     result = await response.json()
-  } catch (err) {
+  } catch {
     throw new NutritionAIError(`Error del servidor (${response.status}). Intenta de nuevo.`)
   }
 
