@@ -165,6 +165,7 @@ describe('useFoodStore', () => {
       }
       localStorage.setItem('avocato-food-log', JSON.stringify(existingData))
       const store = useFoodStore()
+      store.init()
       expect(store.todayEntries).toHaveLength(1)
       expect(store.todayEntries[0].food.id).toBe('10')
     })

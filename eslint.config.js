@@ -35,6 +35,7 @@ export default tseslint.config(
         fetch: 'readonly',
         localStorage: 'readonly',
         MouseEvent: 'readonly',
+        DragEvent: 'readonly',
         Event: 'readonly',
         FocusEvent: 'readonly',
         KeyboardEvent: 'readonly',
@@ -42,7 +43,7 @@ export default tseslint.config(
       },
     },
     rules: {
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'warn',
       'vue/multi-word-component-names': 'off',
     },
@@ -52,6 +53,17 @@ export default tseslint.config(
   },
   prettierConfig,
   {
-    ignores: ['dist/', 'node_modules/', '*.config.*', '.agents/'],
+    ignores: [
+      'dist/',
+      'node_modules/',
+      '*.config.*',
+      '.agents/',
+      '.codex/',
+      '.github/',
+      '.opencode/',
+      '.graphify/',
+      'studio/',
+      'coverage/',
+    ],
   },
 )

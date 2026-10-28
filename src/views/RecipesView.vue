@@ -28,11 +28,9 @@ const recipeToDelete = ref<SavedItemProps | null>(null)
 
 const addFoodModalRef = ref<InstanceType<typeof AddFoodModal> | null>(null)
 
-
 const disableDelete = computed(() => {
   return user.value?.email === 'test@test.com' && savedRecipesStore.recipes.length < 12
 })
-
 
 const currentPage = ref(1)
 const searchQuery = ref('')
@@ -85,12 +83,12 @@ onMounted(async () => {
   }
 })
 
-function openRecipeModal(recipe: any) {
+function openRecipeModal(recipe: SavedItemProps) {
   selectedRecipe.value = recipe as DetailItem
   showRecipeModal.value = true
 }
 
-function confirmDeleteRecipe(recipe: any) {
+function confirmDeleteRecipe(recipe: SavedItemProps) {
   recipeToDelete.value = recipe
   showDeleteConfirm.value = true
 }
@@ -110,7 +108,7 @@ function cancelDelete() {
   recipeToDelete.value = null
 }
 
-function openAddRecipeToDay(recipe: any) {
+function openAddRecipeToDay(recipe: SavedItemProps | DetailItem) {
   showRecipeModal.value = false
   if (addFoodModalRef.value) {
     addFoodModalRef.value.open({
@@ -146,18 +144,9 @@ function openAddRecipeToDay(recipe: any) {
     </header>
 
     <template v-if="savedRecipesStore.recipes.length > 0">
+      <ListFilters :sort="sortBy" @update:search="onSearchUpdate" @update:sort="onSortUpdate" />
 
-      <ListFilters
-        :sort="sortBy"
-        @update:search="onSearchUpdate"
-        @update:sort="onSortUpdate"
-      />
-
-      <div
-        v-if="filteredRecipes.length === 0"
-        class="card-warm text-center py-2 px-2"
-      >
-
+      <div v-if="filteredRecipes.length === 0" class="card-warm text-center py-2 px-2">
         <font-awesome-icon
           :icon="['fas', 'magnifying-glass']"
           class="text-2xl block mb-2"
@@ -177,10 +166,7 @@ function openAddRecipeToDay(recipe: any) {
           v-for="recipe in paginatedRecipes"
           :key="recipe.id"
           :item="recipe"
-
           :disable-delete="disableDelete"
-
-
           @view="openRecipeModal"
           @add="openAddRecipeToDay"
           @delete="confirmDeleteRecipe"
