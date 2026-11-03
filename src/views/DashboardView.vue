@@ -405,10 +405,8 @@ function entryMacros(entry: {
                       >
                       <span class="dash__macro-label">C</span>
                       <span class="dash__macro-sep">·</span>
-                      <span class="dash__macro-value dash__macro-value--fat"
-                        >{{ entryMacros(entry).f }}g</span
-                      >
-                      =======
+                     
+                      
                       <span class="dash__macro-value dash__macro-value--protein"
                         >{{ entryMacros(entry).p }}g</span
                       >
